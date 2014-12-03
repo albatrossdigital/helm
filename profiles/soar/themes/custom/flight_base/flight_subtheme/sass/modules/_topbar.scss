@@ -1,0 +1,29 @@
+
+/* Wrapped around .top-bar to contain to grid width */
+.contain-to-grid {
+  width: 100%;
+  background: $topbar-bg;
+
+  .top-bar { margin-bottom: $topbar-margin-bottom; }
+}
+
+.top-bar {
+  min-height: $topbar-height;
+  line-height: $topbar-height;
+  position: relative;
+  background: $topbar-bg;
+  margin-bottom: $topbar-margin-bottom;
+
+  // Topbar Global list Styles
+  ul {
+    margin-bottom: 0;
+    list-style: none;
+  }
+}
+
+
+@include respond($past-menu) { 
+  .top-bar {
+    overflow: hidden;
+  }
+}

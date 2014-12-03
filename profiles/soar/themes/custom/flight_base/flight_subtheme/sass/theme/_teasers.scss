@@ -1,0 +1,13 @@
+// Teaser borders
+
+.node-story.node-teaser {
+  @include nice-row-border(0, rem-calc(30), 1px solid $gray, bottom, hidden);
+}
+
+.node-story.node-teaser {
+  .views-row-last & {
+    &:after {
+      border: 0;
+    }
+  }
+}

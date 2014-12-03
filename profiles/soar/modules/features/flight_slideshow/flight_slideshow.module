@@ -1,0 +1,11 @@
+<?php
+
+/**
+ * @file
+ * Code for the flight_slideshow feature.
+ */
+
+include_once 'flight_slideshow.features.inc';
+
+define('FLIGHT_SLIDESHOW_VIEW', 'flight_slideshow');
+define('FLIGHT_SLIDESHOW_VIEW_DISPLAY', 'default');

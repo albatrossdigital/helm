@@ -1,0 +1,70 @@
+.two-col,
+.two-col-left,
+.two-col-right,
+.three-col,
+.accordion {
+	padding: 8px;
+	margin: 10px auto;
+	background: #eee;
+	border-radius: 8px;
+	border: 1px solid #ddd;
+	box-shadow: 0 1px 1px #fff inset, 0 -1px 0px #ccc inset;
+}
+.two-col .columns,
+.two-col-left .columns,
+.two-col-right .columns,
+.three-col .columns,
+.accordion dd .content,
+.accordion dd.accordion-navigation>a {
+	box-shadow: 0 1px 1px #ddd inset;
+	border: 1px solid #cccccc;
+	border-radius: 5px;
+	background: #fff;
+	min-height: 5em;
+}
+.two-col .columns,
+.two-col-right .columns,
+.two-col-left .columns {
+	margin: -2px;
+}
+.two-col-right .col-sidebar,
+.two-col-left .col-sidebar {
+	padding: 0;
+}
+.three-col .col-1 {
+	margin-left: -3px;
+}
+.three-col .col-2 {
+	margin-left: 3px;
+}
+.three-col .col-3 {
+	margin-right: -3px;
+}
+
+
+.accordion {
+	padding-top: 2px;
+}
+.accordion:before {
+	content: 'Accordion';
+	text-transform: uppercase;
+	padding-bottom: 4px;
+	font-size: 10px;
+	color: #888;
+}
+.accordion dd.accordion-navigation > .content,
+.accordion dd > .content {
+	display: block !important;
+}
+.accordion dd.accordion-navigation {
+	margin-bottom: .7em !important;
+}
+.accordion dd.accordion-navigation>a {
+	padding: 5px;
+	background: #ddd;
+	min-height: 0;
+	margin-bottom: 1px;
+}
+.accordion dd.accordion-navigation>a p {
+	margin: 0;
+}

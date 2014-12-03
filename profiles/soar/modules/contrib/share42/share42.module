@@ -1,0 +1,175 @@
+<?php
+
+/**
+ * @file
+ * Main file for the Share42 module.
+ */
+
+/**
+ * Implements hook_help().
+ */
+function share42_help($path, $arg) {
+  switch ($path) {
+    case 'admin/help#share42':
+      $output = '';
+      $output .= '<h3>' . t('Introduction') . '</h3>';
+      $output .= '<p>' . t('Integration of social sharing buttons script from http://share42.com.') . '</p>';
+      $output .= '<h3>' . t('Installation') . '</h3>';
+      $output .= '<p>' . t('Configure required services at <a href="!site">http://share42.com</a> and then download and unpack into "sites/all/libraries/share42" folder.' ,array('!site' => 'http://share42.com')) . '</p>';
+      return $output;
+  }
+}
+
+/*
+ * Implements hook_block_info().
+ */
+function share42_block_info() {
+  $blocks['share42'] = array(
+    'info' => t('Share42 - social sharing buttons block'),
+    'cache' => DRUPAL_CACHE_GLOBAL,
+  );
+
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_configure().
+ */
+function share42_block_configure($delta = '') {
+  if ($delta == 'share42') {
+    $form = array();
+    
+    $form['share42_top1'] = array(
+      '#title' => t('Offset without scroll'),
+      '#description' => t('Distance from the top of the page to the "sticky" panel (in pixels).'),
+      '#default_value' => variable_get('share42_top1', 200),
+    );
+    $form['share42_top2'] = array(
+      '#title' => t('Offset with scroll'),
+      '#description' => t('Distance from the top of the visible area of ​​the page to the floating panel (in pixels).'),
+      '#default_value' => variable_get('share42_top2', 50),
+    );
+    $form['share42_margin'] = array(
+      '#title' => t('Horizontal margin'),
+      '#description' => t('Horizontal displacement of the panel. If you want to move it to the left, for example, by 70 pixels, set the value to "-70", but if you want to move it to the right, for example, by 50 pixels, set this value to "50".'),
+      '#default_value' => variable_get('share42_margin', -70),
+    );
+    foreach ($form as $key => $value) {
+      $form[$key]['#type'] = 'textfield';
+      $form[$key]['#size'] = 3;
+      $form[$key]['#maxlength'] = 4;
+      $form[$key]['#element_validate'] = array('element_validate_number');
+    }
+    
+    return $form;
+  }
+}
+
+/**
+ * Implements hook_block_save().
+ */
+function share42_block_save($delta = '', $edit = array()) {
+  if ($delta == 'share42') {
+    variable_set('share42_top1', $edit['share42_top1']);
+    variable_set('share42_top2', $edit['share42_top2']);
+    variable_set('share42_margin', $edit['share42_margin']);
+  }
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function share42_block_view($delta = '') {
+  if ($delta == 'share42') {
+    $block = array();
+    $block['subject'] = '';
+    $block['content'] = array(
+      '#theme' => 'html_tag',
+      '#tag' => 'div',
+      '#attributes' => array(
+        'class' => 'share42init',
+        'data-path' => base_path() . _share42_library_path() . '/',
+        'data-top1' => variable_get('share42_top1', 200),
+        'data-top2' => variable_get('share42_top2', 50),
+        'data-margin' => variable_get('share42_margin', -70),
+      ),
+      '#value' => '', //so it renders the div correctly
+      '#attached' => array(
+        'js' => array(
+          _share42_library_path() . '/share42.js' => array('scope' => 'footer'),
+        ),
+        'css' => array(
+          drupal_get_path('module', 'share42') . '/css/share42.css',
+        ),
+      ),
+    );
+    return $block;
+  }
+}
+
+
+/**
+ *  Implementation of hook_ds_fields_info().
+ */
+function share42_ds_fields_info($entity_type) {
+  $fields = array();
+
+  $fields['node'] = array(
+    'share42' => array(
+      'title' => t('Share 42 sharing tools'),
+      'field_type' => DS_FIELD_TYPE_FUNCTION,
+      'function' => '_share42_ds_view',
+    ),
+  );
+
+  return $fields;
+}
+
+/**
+ * Display the share42 buttons for a node
+ */
+function _share42_ds_view(array &$field) {
+  $entity = $field['entity'];
+  $block = share42_block_view('share42');
+  $block['content']['#attributes']['data-url'] = url('node/' . $entity->nid, array('absolute' => TRUE));
+  $block['content']['#attributes']['data-title'] = $entity->title;
+  return drupal_render($block['content']);
+}
+
+
+/**
+ * Returns the path to the Share42 library.
+ */
+function _share42_library_path() {
+  $library_path = &drupal_static(__FUNCTION__, NULL);
+
+  if (is_null($library_path)) {
+    $library_path = variable_get('share42_library_path', module_exists('libraries') ? libraries_get_path('share42') : 'sites/all/libraries/share42');
+    if (!file_exists($library_path . '/share42.js')) {
+      watchdog('share42', 'Share42 library is missing.', array(), WATCHDOG_ERROR);
+      $library_path = FALSE;
+    }
+  }
+
+  return $library_path;
+}
+
+/**
+ * Returns version of the Share42 library.
+ */
+function _share42_library_version() {
+  $version = &drupal_static(__FUNCTION__, NULL);
+
+  if (is_null($version) && $library_path = _share42_library_path()) {
+    $pattern = '/share42.com \| ([0-9\.]+)/';
+    $share42_js = file_get_contents($library_path . '/share42.js', NULL, NULL, 0, 32);
+    if (preg_match($pattern, $share42_js, $matches)) {
+      $version = $matches[1];
+    }
+    else {
+      $version = 'Unknown';
+    }
+  }
+
+  return $version;
+}

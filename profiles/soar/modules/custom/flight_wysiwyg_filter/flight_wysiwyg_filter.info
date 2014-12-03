@@ -1,0 +1,9 @@
+name = Flight WYSIWYG Filter
+description = Simple implementation of a WYSIWYG filter
+package = Input filters
+core = 7.x
+
+dependencies[] = simplehtmldom
+
+files[] = flight_wysiwyg_filter.module
+

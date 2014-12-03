@@ -1,0 +1,37 @@
+#media-tab-media_inkfilepicker {
+  padding: 0;
+  border-bottom: none;
+}
+
+#media-inkfilepicker-form #edit-submit,
+#media-inkfilepicker-form .loading,
+#media-inkfilepicker-form.filepicker-loading #inkfilepicker {
+  display: none;
+}
+
+#media-inkfilepicker-form.filepicker-loading,
+#inkfilepicker{
+  width: 99%;
+  min-width: 500px;
+  height: 420px;
+  border: none;
+}
+
+#media-inkfilepicker-form .loading{
+  display: none;
+}
+
+#media-inkfilepicker-form.filepicker-loading .loading{
+  display: block;
+  font-family: 'ProximaNova', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  padding-top: 15%;
+  height: 100%;
+  width: 100%;
+  font-size: 4em;
+  line-height: 1.2em;
+  text-align: center;
+}
+
+.ui-dialog.media-wrapper {
+  width: 800px !important;
+}

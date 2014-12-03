@@ -1,0 +1,106 @@
+$zselect-max-height: rem-calc(250);
+$zselect-horiz-pad: rem-calc(10);
+$zselect-height-diff: rem-calc(5);
+
+.zselect {
+  -webkit-appearance: none !important;
+  background-color: $select-bg-color;
+  background-image: url("data:image/svg+xml;base64, PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeD0iMHB4IiB5PSIwcHgiIHdpZHRoPSI2cHgiIGhlaWdodD0iM3B4IiB2aWV3Qm94PSIwIDAgNiAzIiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCA2IDMiIHhtbDpzcGFjZT0icHJlc2VydmUiPjxwb2x5Z29uIHBvaW50cz0iNS45OTIsMCAyLjk5MiwzIC0wLjAwOCwwICIvPjwvc3ZnPg==");
+  background-repeat: no-repeat;
+  background-position: if($text-direction == "rtl", 3%, 97%) center;
+  border: $input-border-width $input-border-style $input-border-color;
+  padding: $form-spacing / 2;
+  font-size: $input-font-size;
+  @include radius(0);
+  cursor: pointer;
+  &.radius {
+    @include radius($global-radius);
+  }
+  ul {
+    display: block;
+    position: absolute;
+    background-color: $select-bg-color;
+    border: $input-border-width $input-border-style $input-border-color;
+    border-top: none;
+    padding: 0;
+    margin: $form-spacing / 2 0 0 -$form-spacing / 2 - rem-calc($input-border-width);
+    z-index: 10;
+    list-style-type: none;
+    display: none;
+    max-height: $zselect-max-height;
+    overflow-y: scroll;
+  }
+  span.zmshead {
+    color: $f-dropdown-font-color;
+    display: block;
+    margin-top: $zselect-height-diff * 0.8;
+    margin-bottom: $zselect-height-diff * 0.2;
+  }
+  ul {
+    li {
+      color: $f-dropdown-font-color;
+      padding: rem-calc(3) $zselect-horiz-pad rem-calc(3) $zselect-horiz-pad + rem-calc(20);
+      font-size: 0.8rem;
+      position: relative;
+      /*line-height:1.5rem */
+      &.selectall,
+      &.deselectall {
+        @include f(bold);
+        padding-top: rem-calc(4);
+        padding-bottom: rem-calc(4);
+      }
+      &.selectall {
+        @include nice-icon(check-square-o);
+      }
+      &.deselectall {
+        @include nice-icon(square-o);
+      }
+      &.selectall:before,
+      &.deselectall:before,
+      input {
+        left: $zselect-horiz-pad;
+        position: absolute;
+        top: rem-calc(7);
+      }
+      span {}
+    }
+    &.disabled {
+      color: #808080;
+    }
+    &:hover {
+      background-color: $f-dropdown-list-hover-bg;
+    }
+  }
+}
+
+.zselect ul li.zmsfilter,
+.zselect ul li.zmsfilter:hover,
+.zselect ul li.filterResult,
+.zselect ul li.filterResult:hover,
+.zselect ul li.optgroup,
+.zselect ul li.optgroup:hover {
+  background-color: transparent;
+  color: #000;
+}
+
+.zselect ul li.zmsfilter input {
+  margin-bottom: 0.3rem;
+}
+
+.zselect ul li input[type='checkbox'] {
+  padding: 0;
+  margin: 0;
+}
+
+.zselect ul li.filterResult {
+  font-size: 0.8em;
+}
+
+.zselect ul li.optgroup {
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.zselect ul li.selectall {}
+
+.zselect ul li.deselectall {}

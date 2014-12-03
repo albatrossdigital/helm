@@ -1,0 +1,20 @@
+name = oEmbed
+description = Common functionality for oEmbed client and provider
+package = oEmbed
+core = 7.x
+
+dependencies[] = ctools
+
+files[] = oembed.test
+files[] = OEmbedStreamWrapper.inc
+files[] = MediaInternetOEmbedHandler.inc
+
+configure = admin/config/media/oembed
+
+
+; Information added by drush on 2014-12-03
+version = "7.x-1.0-rc2+24-dev"
+core = "7.x"
+project = "oembed"
+datestamp = "1417594599"
+

@@ -1,0 +1,71 @@
+// Drupal comes with CSS quirks (Drupalisms). Unravel or override them here.
+
+// Make the "sticky" Top Bar play nice with the "fixed" Admin Menu.
+.admin-menu .fixed {
+  top: emCalc(29px);
+}
+
+// manage font size
+#admin-menu ul {
+  font-size: 0.8rem;
+}
+
+// Remove the bottom padding on status messages when displayed inside a Zurb
+// Foundation Reveal modal.
+#status-messages.reveal-modal {
+  .alert-box {
+    margin-bottom: 0;
+  }
+}
+
+// Fix Zurb Foundation Reveal Modal z-index and make it play nice with dropdown
+// menus, lightboxes, etc.
+.reveal-modal {
+  z-index: 999;
+}
+
+// Override Drupal Core pager styles. This is necessary because we need to keep
+// the .pager class on pagers for Views AJAX to work. If you are disabling
+// Drupal Core CSS you can safely comment the following lines.
+.item-list .pager {
+  clear: none;
+}
+
+.item-list .pager li {
+  padding: 0;
+}
+
+// Krumo
+.alert-box {
+  .krumo-root {
+    color: $black;
+  }
+  p, ul {
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.label-inline {
+  @include f(alt);
+  font-size: $h5-font-size;
+  margin-right: 0.25em;
+  &, & + * {
+    display: inline-block;
+  }
+}
+
+// Ajax throbbers
+.ajax-progress-throbber {
+  .throbber {
+    background-image: none;
+    @include spinner-core(15px);
+    @include spinner-active;
+  }
+  .pager & {
+    position: absolute;
+    margin-left: rem-calc(-9);
+    margin-top: rem-calc(-21);
+  }
+}

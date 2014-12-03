@@ -1,0 +1,12 @@
+name = Workbench Access Test 
+description = Support module for Workbench Access testing.
+package = Testing
+core = 7.x
+hidden = TRUE
+
+; Information added by drupal.org packaging script on 2013-01-27
+version = "7.x-1.2"
+core = "7.x"
+project = "workbench_access"
+datestamp = "1359319137"
+

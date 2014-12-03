@@ -1,0 +1,45 @@
+
+form.inlinelabels label{
+  width: 150px;
+  position: absolute;
+  text-align: right;
+  margin-right: 10px;
+}
+
+form.inlinelabels .textarea-wrapper label,
+form.inlinelabels #edit-body-wrapper label,
+form.inlinelabels label.option,
+form.inlinelabels label.not-inline{
+  position: relative;
+  width: 100%;
+  text-align: inherit;
+}
+
+form.inlinelabels input,
+form.inlinelabels select,
+form.inlinelabels .container-inline,
+form.inlinelabels .form-checkboxes,
+form.inlinelabels .form-radios,
+form.inlinelabels .description,
+form.inlinelabels .form-item div.description ,
+form.inlinelabels .resizable-textarea,
+form.inlinelabels .form-textarea,
+form.inlinelabels .option,
+form.inlinelabels .image-widget{
+  margin-left: 160px;
+  max-width: 70% !important;
+}
+
+form.inlinelabels .resizable-textarea textarea,
+form.inlinelabels input.form-radio,
+form.inlinelabels input.form-checkbox,
+form.inlinelabels .container-inline input,
+form.inlinelabels .container-inline select,
+form.inlinelabels .webform-component-time .option,
+form.inlinelabels .form-checkboxes .option{
+  margin-left: 0;
+}
+
+form.inlinelabels .resizable-textarea textarea{
+  max-width: 100% !important;
+}

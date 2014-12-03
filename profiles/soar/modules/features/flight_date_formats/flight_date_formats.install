@@ -1,0 +1,94 @@
+<?php
+
+/**
+ * @file
+ * Installation file for Albatross Date Formats feature module.
+ */
+
+/**
+ * Get the values that we need to set in date_formats and date_format_type.
+ */
+function _flight_date_formats_fields(){
+  return array(
+    'format_types' => array(
+      array(
+        'type' => 'short_date',
+        'title' => 'Short Date',
+      ),
+      array(
+        'type' => 'medium_date',
+        'title' => 'Medium Date',
+      ),
+      array(
+        'type' => 'long_date',
+        'title' => 'Long Date',
+      ),
+      array(
+        'type' => 'time',
+        'title' => 'Time',
+      ),
+    ),
+    'formats' => array(
+      array(
+        'format' => 'l, F j, Y',
+        'type' => 'custom',
+      ),
+      array(
+        'format' => 'F j, Y',
+        'type' => 'custom',
+      ),
+      array(
+        'format' => 'n/j/Y',
+        'type' => 'custom',
+      ),
+      array(
+        'format' => 'g:ia',
+        'type' => 'custom',
+      ),
+    ),
+  );
+}
+
+/**
+ * Implements hook_install().
+ */
+function flight_date_formats_install() {
+  $data = _flight_date_formats_fields();
+  
+  // Create date format types
+  foreach ($data['format_types'] as $field) {
+    db_insert('date_format_type')
+      ->fields(array($field))
+      ->execute();  
+  }
+  
+  // Create date formats
+  foreach ($data['formats'] as $field) {
+    db_insert('date_formats')
+      ->fields(array($field))
+      ->execute();  
+  }
+  
+  // Update existing date format types (done with Strongarm in this feature)
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function flight_date_formats_uninstall() {
+  $data = _flight_date_formats_fields();
+  
+  // Create date format types
+  foreach ($data['format_types'] as $field) {
+    db_delete('date_format_type')
+      ->condition('type', $field['type'])
+      ->execute();
+  }
+  
+  // Create date formats
+  foreach ($data['formats'] as $field) {
+    db_delete('date_formats')
+      ->condition('format', $field['format'])
+      ->execute();
+  }
+}

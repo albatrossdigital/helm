@@ -1,0 +1,15 @@
+name = "Feeds module tests"
+description = "Support module for Feeds related testing."
+package = Testing
+version = VERSION
+core = 7.x
+test_dependencies[] = entity
+hidden = TRUE
+
+
+; Information added by drush on 2014-12-03
+version = "7.x-1.x-dev"
+core = "7.x"
+project = "feeds"
+datestamp = "1417594609"
+

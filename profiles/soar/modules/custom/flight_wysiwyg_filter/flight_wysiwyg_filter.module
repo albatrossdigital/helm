@@ -1,0 +1,520 @@
+<?php
+
+/**
+ * @file
+ * Provides an input filter that allows site administrators configure which
+ * HTML elements, attributes and style properties are allowed.
+ */
+
+/**
+* Implements hook_filter_info().
+*/
+function flight_wysiwyg_filter_filter_info() {
+  $filters = array();
+  $defaults = module_invoke_all('flight_wysiwyg_filter_defaults');
+  $filters['flight_wysiwyg_filter'] = array(
+    'title' => t('Flight WYSIWYG filter'),
+    'description' => t('Simple wysiwyg filter allowing for html WE want.'), 
+    'process callback' => '_flight_wysiwyg_filter_process',
+    'settings callback' => 'flight_wysiwyg_filter_filter_flight_wysiwyg_filter_settings',
+    //'type' => FilterInterface::TYPE_HTML_RESTRICTOR,
+    // Allow other modules to declare default tags and replacement markup.
+    'default settings' => $defaults,
+    'tips callback' => '_flight_wysiwyg_filter_tips'
+  );
+  return $filters;
+}
+
+// temp function to test implementing CKEDITOR style filter
+/*
+function flight_wysiwyg_filter_menu() {
+
+  $items = array();
+
+  $items['tester'] = array(
+    'title' => 'XSS Filter',
+    'description' => 'XSS Filter.',
+    'page callback' => '_flight_wysiwyg_filter_process_test',
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+  );
+  return $items;
+}*/
+
+
+/**
+ * Process callback for filter. Test function supplies content to test against
+ * temp function to test implementing CKEDITOR style filter
+ */
+function _flight_wysiwyg_filter_process_test() {
+  $text = '<div class="clear-block"><div class="node" id="node-6"><div class="content clear-block">
+      <style type="text/css">.node {
+  border-bottom: 0px solid #e9eff3;
+  margin: 0 -26px 1.5em;
+  padding: 0em 26px;
+}
+      </style>
+      <div style="border-top: 1px solid #808080;"><div class="landingMainImage"><img alt="New York Immigration Coalition" class="imagecache imagecache-top_left_non_home_page_image imagecache-default imagecache-top_left_non_home_page_image_default" height="214" src="http://www.thenyic.org/sites/default/files/imagecache/top_left_non_home_page_image/Get_Involved_Main_Image.jpg" title="" width="282" /></div>
+
+        <div class="landingTopRight"><h4>Get Involved</h4>
+
+          <p>The NYIC is about working together to build and strengthen our community.&nbsp; There are many ways you can join us, support us, and get involved.&nbsp;<br />
+            [[{"fid":"2","view_mode":"full","type":"media","attributes":{"height":153,"width":148,"class":"media-element file-full img__fid__2 img__view_mode__full attr__format__full attr__field_file_image_alt_text[und][0][value]__ attr__field_file_image_title_text[und][0][value]__"}}]]</p>
+
+          <p>[[{"fid":"1","view_mode":"full","type":"media","attributes":{"height":153,"width":148,"class":"media-element file-full img__fid__1 img__view_mode__full attr__format__full attr__field_file_image_alt_text[und][0][value]__ attr__field_file_image_title_text[und][0][value]__"}}]]</p>
+        </div>
+      </div>
+
+      <div class="landingBottomHeader"><h2>members</h2>
+      </div>
+
+      <div class="landingBottomLeftBlock"><div class="landingBottomTitle"><h3>take action</h3>
+        </div>
+
+        <div class="landingBottomText">Every voice matters. Make a difference on some of the most important issues of our time. Just do it!<br />
+          <a href="take-action">Learn More</a></div>
+
+        <div class="landingBottomImage"><img alt="Take Action" class="imagecache imagecache-landing_page_small_image imagecache-default imagecache-landing_page_small_image_default" height="140" src="http://www.thenyic.org/sites/default/files/imagecache/landing_page_small_image/Take_Action_Title_Box_1.jpg" title="Take Action" width="140" /></div>
+      </div>
+
+      <div class="landingBottomRightBlock"><div class="landingBottomTitle"><h3>upcoming events</h3>
+        </div>
+
+        <div class="landingBottomText">Come to an event—see old friends, make new ones, network, and discover.<br />
+          <a href="upcoming-events">Learn More</a></div>
+
+        <div class="landingBottomImage"><img alt="Upcoming Events" class="imagecache imagecache-landing_page_small_image imagecache-default imagecache-landing_page_small_image_default" height="140" src="http://www.thenyic.org/sites/default/files/imagecache/landing_page_small_image/Upcoming_Events_Title_Box_2.jpg" title="Upcoming Events" width="140" /></div>
+      </div>
+
+      <div class="landingBottomLeftBlock"><div class="landingBottomTitle"><h3>become a member</h3>
+        </div>
+
+        <div class="landingBottomText">Join our coalition. Work with us to improve the lives of immigrants and all New Yorkers.<br />
+          <a href="become-a-member">Learn More</a></div>
+
+        <div class="landingBottomImage"><img alt="Become a Member" class="imagecache imagecache-landing_page_small_image imagecache-default imagecache-landing_page_small_image_default" height="140" src="http://www.thenyic.org/sites/default/files/imagecache/landing_page_small_image/Become_a_Member_Title_Box_3.jpg" title="Become a Member" width="140" /></div>
+      </div>
+
+      <div class="landingBottomRightBlock"><div class="landingBottomTitle"><h3>donate</h3>
+        </div>
+
+        <div class="landingBottomText">Your generous support goes a long way toward achieving justice and opportunity for all.<br />
+          <a href="http://www.nycharities.org/donate/c_donate.asp?CharityCode=1722">Learn More</a></div>
+
+        <div class="landingBottomImage"><img alt="Donate to NYIC" class="imagecache imagecache-landing_page_small_image imagecache-default imagecache-landing_page_small_image_default" height="140" src="http://www.thenyic.org/sites/default/files/imagecache/landing_page_small_image/Donate_Title_Box_4.jpg" title="Donate to NYIC" width="140" /></div>
+      </div>
+    </div>
+
+    <div class="clear-block"><div class="meta"><div class="terms"><ul class="links inline"><li class="taxonomy_term_6 first last"><a href="/taxonomy/term/6" rel="tag" title="membership">membership</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="links"><ul class="links inline"><li class="print_html first"><a class="print-page" href="/print/6" rel="nofollow" title="Display a printer-friendly version of this page."><img alt="Printer-friendly version" class="print-icon print-icon-margin" height="16" src="/sites/all/modules/print/icons/print_icon.gif" title="Printer-friendly version" width="16" />Printer-friendly version</a></li>
+          <li class="addthis"><span><a addthis:title="members" addthis:url="http://www.thenyic.org/members" class="addthis_button" href="/"><img alt="Share" border="0" height="16" src="//ct1.addthis.com/static/btn/v2/lg-share-en.gif" width="125" /></a></span></li>
+          <li class="print_mail last"><a class="print-mail" href="/printmail/6" rel="nofollow" title="Send this page by e-mail."><img alt="Send to friend" class="print-icon print-icon-margin" height="16" src="/sites/all/modules/print/icons/mail_icon.gif" title="Send to friend" width="16" />Send to friend</a></li>
+          <li class="print_mail last">&nbsp;</li>
+          <li class="print_mail last">&nbsp;</li>
+        </ul>
+
+        <p class="print_mail last">[[{"fid":"3","view_mode":"full","type":"media","attributes":{"height":360,"width":480,"alt":"J.K. Rowling Speaks at Harvard Commencement on YouTube","title":"J.K. Rowling Speaks at Harvard Commencement","class":"media-element file-full img__fid__3 img__view_mode__full attr__format__full"}}]]</p>
+
+        <p class="print_mail last">&nbsp;</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p><iframe>alsdjladjss</iframe></p>
+';
+
+  $settings['settings']['valid_attributes'] = "p a div span h2 h3 h4 h5 h6 section article strong b i em cite[href,target,alt,name,title,class,id,data-reaveal-id,data-clearing,data-abide,data-options,data-section,data-section-content,data-section-title](*); blockquote small sub sup code ul ol li dl dt dd table thead tbody th tr td img caption br{text-align,float}";
+
+  _flight_wysiwyg_filter_prepare($text, $settings);
+
+  
+  /*if(!isset($settings['valid_elements']) || !isset($settings['valid_attributes']) || !isset($settings['valid_styles'])) {
+    return;
+  }*/
+  // Mega strip
+  $special_cases = flight_wysiwyg_filter_get_elements_blacklist();
+
+  // grab dom object
+  $html = '';//new simple_html_dom();
+  //$html->load($text);
+
+  // just make sure simple_html worked
+  if (method_exists($html, 'find')) {
+    // grab attributes
+    $attributes = explode(',', $settings['valid_attributes']);
+    $styles = explode(',', $settings['valid_styles']);
+    // grab regex for styles
+    $styles_regex = _flight_wysiwyg_filter_styles_regex_builder($styles);
+    // there are styles so add to allowed attributes
+    if(!empty($styles_regex)) {
+      array_push($attributes, 'style');
+    }
+
+    // @TODO account for wildcards
+
+    // grab root html element
+    $root = $html->find('root', 0);
+    //dpm($root->children());
+    // call recursive handler to run through tree
+    _flight_wysiwyg_filter_process_recursive(
+      $root, 
+      explode(',', $settings['valid_elements']),
+      $special_cases,
+      $attributes,
+      $styles_regex
+    );
+    return $root->outertext;
+  }
+
+  return $text;
+}
+
+// temp function to test implementing CKEDITOR style filter
+function _flight_wysiwyg_filter_prepare_settings(&$settings) {
+  $rules = explode(';', $settings['valid_attributes']);
+  $attrs = '/\[(.*?)\]/';
+  $classes = '/\((.*?)\)/';
+  $styles = '/\{(.*?)\}/';
+  $other = '/\[.*?\]|\{.*?\}|\(.*?\)/';
+  $ruleset = array();
+  foreach($rules as $rule) {
+    $elements = 
+    preg_match($attrs, $rule, $attrs_match);
+    //dpm($attrs_match);
+    preg_match($classes, $rule, $class_match);
+    //dpm($class_match);
+    preg_match($styles, $rule, $styles_match);
+    //dpm($styles_match);
+    preg_match($other, $rule, $match);
+    //dpm($match);
+
+  }
+  //http://docs.ckeditor.com/#!/guide/dev_allowed_content_rules-section-3
+  preg_match('/^([a-z0-9*\s]+)((?:\s*\{[!\w\-,\s\*]+\}\s*|\s*\[[!\w\-,\s\*]+\]\s*|\s*\([!\w\-,\s\*]+\)\s*){0,3})(?:;\s*|$)/i', $settings['valid_attributes'], $matches);
+  dpm($matches);
+}
+
+// temp function to test implementing CKEDITOR style filter
+function _flight_wysiwyg_filter_prepare(&$text, &$filter) {
+  //return preg_replace('!<time ?/>!', '[filter-example-time]', $text);
+   _flight_wysiwyg_filter_prepare_settings($filter['settings']);
+  dpm($filter);
+}
+
+
+/**
+ * Process callback for filter.
+ */
+function _flight_wysiwyg_filter_process($text, $filter) {
+  $settings = $filter->settings;
+
+  if(!isset($settings['valid_elements']) || !isset($settings['valid_attributes']) || !isset($settings['valid_styles'])) {
+    return;
+  }
+  // Mega strip
+  $special_cases = flight_wysiwyg_filter_get_elements_blacklist();
+
+  // grab dom object
+  $html = new simple_html_dom();
+  $html->load($text);
+
+  // just make sure simple_html worked
+  if (method_exists($html, 'find')) {
+    // grab attributes
+    $attributes = explode(',', $settings['valid_attributes']);
+    $styles = explode(',', $settings['valid_styles']);
+    // grab regex for styles
+    $styles_regex = _flight_wysiwyg_filter_styles_regex_builder($styles);
+    // there are styles so add to allowed attributes
+    if(!empty($styles_regex)) {
+      array_push($attributes, 'style');
+    }
+
+    // @TODO account for wildcards
+
+    // grab root html element
+    $root = $html->find('root', 0);
+    //dpm($root->children());
+    // call recursive handler to run through tree
+    _flight_wysiwyg_filter_process_recursive(
+      $root, 
+      explode(',', $settings['valid_elements']),
+      $special_cases,
+      $attributes,
+      $styles_regex
+    );
+    return $root->outertext;
+  }
+
+  return $text;
+}
+
+// http://stackoverflow.com/questions/12412388/regex-to-remove-all-styles-but-leave-color-and-background-color-if-they-exist
+function _flight_wysiwyg_filter_styles_regex_builder($styles) {
+  if(!empty($styles)) { 
+    $regex = '/(?:';
+    foreach($styles as $style) {
+      $regex .= '(?!(?:|[^$]*[;\s])' . $style . '\s*:[^$;]*)';
+    }
+    $regex .= '[^$]*$|';
+    foreach($styles as $style) {
+      $regex .= '(?=(?:|[^$]*[;\s])(' . $style . '\s*:[^$;]*))?';
+    }
+    return $regex . '[^$]*$)/i';
+  }
+  return FALSE;
+}
+
+function _flight_wysiwyg_filter_process_recursive($e, $elements, $special_cases, $attributes, $styles_regex) {
+  // we have an element
+  if(!empty($e)) {
+    // if the tag isn't in our elements, clear
+    if($e->tag != 'root') {
+      _flight_wysiwyg_filter_process_elements($e, $elements, $special_cases);
+    }
+    // we have attributes
+    if($all_attributes = $e->getAllAttributes()) {
+      // process attributes
+      _flight_wysiwyg_filter_process_attributes($e, $all_attributes, $attributes);
+      // process styles
+      _flight_wysiwyg_filter_process_styles($e, $styles_regex);
+    }
+    // recurse to sibling
+    if(method_exists($e, 'next_sibling')) {
+      _flight_wysiwyg_filter_process_recursive(
+        $e->next_sibling(), 
+        $elements, 
+        $special_cases, 
+        $attributes, 
+        $styles_regex
+      );
+    }
+    // recurse to first child
+    if(method_exists($e, 'first_child')) {
+      _flight_wysiwyg_filter_process_recursive(
+        $e->first_child(), 
+        $elements, 
+        $special_cases, 
+        $attributes, 
+        $styles_regex
+      );
+    }
+  }
+}
+
+function _flight_wysiwyg_filter_process_elements(&$e, $elements, $special_cases) {
+  // test against <script>, <style>, ect
+  if(in_array($e->tag, $special_cases)) {
+    $e->outertext = '';
+    $e->attributes = array();
+  }
+  // check against out allowed tags
+  else if(!in_array($e->tag, $elements)) {
+    $e->tag = 'root';
+    $e->attributes = array();
+  } 
+}
+
+function _flight_wysiwyg_filter_process_attributes(&$e, $all_attributes, $attributes) {
+  // diff has un-allowed
+  $delete_attrs = array_diff(array_keys($all_attributes), $attributes);
+  if(!empty($delete_attrs)) {
+    // remove un-allowed
+    foreach($delete_attrs as $attr) {
+      $e->removeAttribute($attr);
+    }
+  }
+}
+
+function _flight_wysiwyg_filter_process_styles(&$e, $styles_regex) {
+  // deal with styles
+  if($e->style) {
+    // we have some styles allowed
+    if(!empty($styles_regex)) {
+      // match
+      preg_match($styles_regex, $e->style, $matches);
+      // always matches 1, so must have more for actual hits
+      array_shift($matches);
+      if(!empty($matches)) {
+        $e->style = implode(';', $matches) . ';';
+        return;
+      }
+    }
+    // clear
+    $e->removeAttribute('style');
+  }
+}
+
+
+/**
+ * Tips callback for tag filter.
+ */
+function _flight_wysiwyg_filter_tips($filter, $format, $long = FALSE) {
+  $tips = '';
+  if (user_access('administer filters')) {
+    $tips .= ' ' . l(t('Configure format.'), 'admin/config/content/formats/' . $format->format);
+    return $tips;
+  }
+}
+
+/**
+ * Implements hook_filter_FILTER_settings
+ *
+ * @ingroup forms
+ */
+function flight_wysiwyg_filter_filter_flight_wysiwyg_filter_settings($form, $form_state, $filter, $format, $defaults) {
+  // Add CSS to make the form elements in _flight_wysiwyg_filter_add_rm_formset() look good.
+  //drupal_add_css(drupal_get_path('module', 'flight_wysiwyg_filter') . '/flight_wysiwyg_filter.css');
+  // Declare the array will hold our settings form elements.
+  
+  //dpm($filter);
+  //dpm($defaults);
+
+
+  $settings = $filter->settings;
+  $settings += $defaults;
+
+  // carry over settings for other formats
+  $filterform = array();
+
+  // *** valid elements ***
+  $valid_elements = $settings['valid_elements'];
+  $valid_elements_rows = min(20, max(5, substr_count($valid_elements, "\n") + 2));
+
+  // show blacklisted elements in description
+  $elements_blacklist = array();//wysiwyg_filter_get_elements_blacklist();
+  foreach ($elements_blacklist as $i => $element) {
+    $elements_blacklist[$i] = '<' . $element . '>';
+  }
+
+  $filterform['valid_elements'] = array(
+      '#type' => 'textarea',
+      '#title' => t('Valid HTML elements'),
+      '#default_value' => $valid_elements,
+      '#cols' => 60,
+      '#rows' => $valid_elements_rows,
+      '#description' => t('<p>
+  This option allows you to specify which HTML elements allowed.
+  </p>
+  <ul>
+    <li>The following elements cannot be whitelisted due to security reasons, to prevent users from breaking site layout and/or to avoid posting invalid HTML. Forbidden elements: %elements-blacklist.</li>
+  </ul>', array(
+        '%elements-blacklist' => implode(' ', $elements_blacklist),
+      )),
+  );
+
+    // *** valid attributes ***
+  $valid_attributes = $settings['valid_attributes'];
+  $valid_attributes_rows = min(20, max(5, substr_count($valid_attributes, "\n") + 2));
+
+  $filterform['valid_attributes'] = array(
+      '#type' => 'textarea',
+      '#title' => t('Valid element attributes'),
+      '#default_value' => $valid_attributes,
+      '#cols' => 60,
+      '#rows' => $valid_attributes_rows,
+      '#description' => t('<p>
+  This option allows you to specify which element attributes allowed.
+  </p>'),
+  );
+
+  // *** valid styles ***
+  $valid_styles = $settings['valid_styles'];
+  $valid_styles_rows = min(20, max(5, substr_count($valid_styles, "\n") + 2));
+
+  // *** Style properties ***
+  $filterform['valid_styles'] = array(
+    '#type' => 'textarea',
+    '#title' => t('Valid Style properties'),
+    '#default_value' => $valid_styles,
+    '#cols' => 60,
+    '#rows' => $valid_styles_rows,
+    '#description' => '<p>' . t('This section allows you to select which style properties can be used for HTML styles where the &quot;style&quot; attribute has been allowed. The <em>WYSIWYG Filter</em> will strip out style properties (and their values) not explicitly enabled here.') . '</p>',
+  );
+  
+  return $filterform;
+}
+
+/*
+ * Implements hook_form_FORM_ID_alter
+ * 
+ * add validate and submit handlers
+ */
+function flight_wysiwyg_filter_form_filter_admin_format_form_alter(&$form, &$form_state, $form_id) {
+  $form['#validate'][] = 'flight_wysiwyg_filter_settings_validate';
+}
+
+
+/**
+ * Validate filter settings form.
+ *
+ * @ingroup forms
+ */
+function flight_wysiwyg_filter_settings_validate($form, &$form_state) {
+  $values =& $form_state['values']['filters']['flight_wysiwyg_filter']['settings'];
+
+  // boolean for errors being thrown
+  $errors_thrown = false;
+
+  // *** validate valid_elements ***
+  // Check elements against hardcoded backlist.
+  $elements_blacklist = flight_wysiwyg_filter_get_elements_blacklist();
+  $valid_elements = trim($values['valid_elements']);
+  $valid_elements = explode(',', $valid_elements);
+  $forbidden_elements = array();
+  foreach ($valid_elements as $element) {
+    if (in_array($element, $elements_blacklist)) {
+      $forbidden_elements[] = $element;
+    }
+  }
+  if (!empty($forbidden_elements)) {
+    $errors_thrown = true;
+    form_set_error('valid_elements', t('The following elements cannot be allowed: %elements.', array('%elements' => implode(', ', $forbidden_elements))));
+  }
+
+  if(!$errors_thrown) {
+    $form_state['values']['filters']['flight_wysiwyg_filter']['settings']['valid_elements'] = trim($values['valid_elements']);
+  }
+}
+
+/**
+ * Get HTML elements blacklist.
+ */
+function flight_wysiwyg_filter_get_elements_blacklist() {
+  return array(
+    'applet',
+    'area',
+    'base',
+    'basefont',
+    'body',
+    'button',
+    'embed',
+    'form',
+    'frame',
+    'frameset',
+    'head',
+    'html',
+    'input',
+    'isindex',
+    'label',
+    'link',
+    'map',
+    'meta',
+    'noframes',
+    'noscript',
+    'object',
+    'optgroup',
+    'option',
+    'param',
+    'script',
+    'select',
+    'style',
+    'textarea',
+    'title',
+  );
+}

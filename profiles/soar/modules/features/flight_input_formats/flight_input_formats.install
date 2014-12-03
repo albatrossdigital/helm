@@ -1,0 +1,29 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the flight_config module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function flight_input_formats_install() {
+  // Make Flight the default CKEditor profile
+  db_query('UPDATE {ckeditor_input_format} SET name = :name', array(':name' => 'Flight'));
+
+  // Set the default skin back to Moono if Silver doesn't exist
+  module_load_include('inc', 'ckeditor', 'includes/ckeditor.lib');
+  $skins = ckeditor_load_skin_options();
+  if (!empty($skins['silver'])) {
+    $edit = ckeditor_profile_load('CKEditor Global Profile');
+    $edit->settings['skin'] = 'moono';
+
+    db_update('ckeditor_settings')
+      ->fields(array(
+        "settings" => serialize($edit->settings)
+      ))
+      ->condition('name', $edit->name, '=')
+      ->execute();
+  }
+}

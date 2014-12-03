@@ -1,0 +1,10 @@
+/* line 7, ../sass/flight-config-admin-menu-skin.sass */
+#admin-menu li.admin-menu-account > a {
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
+  opacity: 0.8;
+}
+
+/* line 11, ../sass/flight-config-admin-menu-skin.sass */
+#admin-menu li.admin-menu-account > a strong {
+  color: white !important;
+}

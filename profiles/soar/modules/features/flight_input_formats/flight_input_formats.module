@@ -1,0 +1,114 @@
+<?php
+/**
+ * @file
+ * Code for the Flight Input Formats feature.
+ */
+
+include_once 'flight_input_formats.features.inc';
+
+/**
+ * @file
+ */
+
+// Drupal needs this blank file.
+
+/**
+ * Implementation of hook_wysiwyg_editor_settings_alter
+ */
+function flight_input_formats_wysiwyg_editor_settings_alter(&$settings,$context) {
+  if($context['profile']->editor == 'ckeditor') {
+    $settings['forcePasteAsPlainText'] = TRUE;
+    $settings['disableNativeSpellChecker'] = false;
+    $settings['browserContextMenuOnCtrl'] = true;
+    //$settings['enterMode'] = 2; // CKEDITOR.ENTER_BR
+    //$settings['shiftEnterMode'] = 1; // CKEDITOR.ENTER_P
+  }
+}
+
+/**
+ * Hook to extend/change the ckeditor settings.
+ *
+ * This hook is invoked from ckeditor_profile_settings_compile(). The settings
+ * may be customized or enhanced; typically with options that cannot be
+ * controlled though the administrative UI from the ckeditor module.
+ *
+ * @param $settings
+ *   An associative array of settings.
+ */
+function flight_input_formats_ckeditor_settings_alter(&$settings) {
+  // Change the ckeditor config path.
+  //$settings['customConfig'] = drupal_get_path('module', 'ckeditor') . '/ckeditor.config.js';
+  //dpm($settings);
+  $settings['autoGrow_maxHeight'] = 500;
+}
+
+/**
+ * Implements hook_element_info_alter().
+ */
+function flight_input_formats_element_info_alter(&$types) {
+  $types['text_format']['#pre_render'][] = 'flight_input_formats_pre_render_text_format';
+}
+
+/**
+ * Builds a map of media tags in the element.
+ *
+ * Builds a map of the media tags in an element that are being rendered to their
+ * rendered HTML. The map is stored in JS, so we can transform them when the
+ * editor is being displayed.
+ */
+function flight_input_formats_pre_render_text_format($element) {
+
+  $attached = array(
+    drupal_get_path('module', 'media_wysiwyg') . '/js/media_wysiwyg.filter.js',
+    drupal_get_path('module', 'flight_input_formats') . '/js/flightInputFormat.js'
+  );
+  if (empty($element['#attached']['js'])) {
+    $element['#attached']['js'] = $attached;
+  }
+  else {
+    $element['#attached']['js'] = array_merge(
+      $element['#attached']['js'], 
+      $attached
+    );
+  }
+  
+  return $element;
+}
+
+
+/**
+ * Implements hook_flight_wysiwyg_filter_defaults()
+ * Sets default text filter values
+ **/
+function flight_input_formats_flight_wysiwyg_filter_defaults() {
+  return array(
+    'valid_elements' => 'p,a,div,span,h2,h3,h4,h5,h6,section,article,strong,b,i,em,cite,blockquote,small,sub,sup,code,pre,ul,ol,li,dl,dt,dd,table,thead,tbody,th,tr,td,img,caption,br',
+    'valid_attributes' => 'href,src,target,width,height,colspan,span,alt,name,title,class,id,data-reveal,data-reveal-id,data-clearing,data-options,data-slug,data-tab,data-accordion,data-equalizer,data-equalizer,data-dropdown,data-dropdown-content,data-interchange,data-alert',
+    'valid_styles' => 'text-align,float'
+  );
+}
+
+
+/**
+ * Implementation of hook_form_alter
+ * Modifications to the node/__/edit pages
+ */
+function flight_input_formats_form_alter(&$form, &$form_state, $form_id) {
+
+  if (strpos($form_id, '_node_form') !== FALSE){
+    
+    // Add spellchecker
+    if (isset($form['title'])){
+      $form['title']['#attributes']['spellcheck'] = 'true';
+    }
+    if (isset($form['field_subtitle'])){
+      $form['field_subtitle']['und'][0]['value']['#attributes']['spellcheck'] = 'true';
+    }
+    if (isset($form['body'])){
+      $form['body']['und'][0]['value']['#attributes']['spellcheck'] = 'true';
+    }
+    
+  }
+  //dpm($form_id);
+}
+

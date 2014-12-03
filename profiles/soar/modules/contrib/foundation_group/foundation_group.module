@@ -1,0 +1,216 @@
+<?php
+
+/**
+ * Implements hook_ctools_plugin_api().
+ */
+function foundation_group_ctools_plugin_api($module, $api) {
+  if ($module == 'field_group' && $api == 'field_group') {
+    return array('version' => 1);
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function foundation_group_theme() {
+  return array(
+    'foundation_section' => array(
+      'template' => 'templates/foundation-section',
+      'render element' => 'element',
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_group_formatter_info().
+ */
+function foundation_group_field_group_formatter_info() {
+  return array(
+    'display' => array(
+      'foundation_group_section' => array(
+        'label' => t('Foundation Section container'),
+        'description' => t('This field group type renders a Zurb Foundation Section container.'),
+        'format_types' => array('open'),
+        'default_formatter' => 'open',
+        'instance_settings' => array(
+          'classes' => '',
+          'section_type' => 'auto',
+          'deep_linking' => FALSE,
+        ),
+      ),
+      'foundation_group_section_item' => array(
+        'label' => t('Foundation Section item'),
+        'description' => t('This field group type renders the items of an section within a Zurb Foundation Section container.'),
+        'format_types' => array('open', 'closed'),
+        'default_formatter' => 'closed',
+        'instance_settings' => array(
+          'classes' => '',
+        ),
+      ),
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_group_format_settings().
+ */
+function foundation_group_field_group_format_settings($group) {
+  // Add a wrapper for extra settings to use by others.
+  $form = array(
+    'instance_settings' => array(
+      '#tree' => TRUE,
+      '#weight' => 2,
+    ),
+  );
+
+  $field_group_types = field_group_formatter_info();
+  $mode = $group->mode == 'form' ? 'form' : 'display';
+  $formatter = $field_group_types[$mode][$group->format_type];
+
+  if ($group->format_type === 'foundation_group_section') {
+    $form['instance_settings']['section_type'] = array(
+      '#title' => t('Section type'),
+      '#type' => 'select',
+      '#options' => drupal_map_assoc(array('auto', 'tabs', 'accordion', 'vertical-nav', 'horizontal-nav')),
+      '#default_value' => isset($group->format_settings['instance_settings']['section_type']) ? $group->format_settings['instance_settings']['section_type'] : $formatter['instance_settings']['section_type'],
+    );
+
+    $form['instance_settings']['deep_linking'] = array(
+      '#title' => t('Enable Deep linking'),
+      '#description' => t('Deep linking allows visitors to visit a predefined URL with a hash that points to a particular section of the content.'),
+      '#type' => 'checkbox',
+      '#default_value' => isset($group->format_settings['instance_settings']['deep_linking']) ? $group->format_settings['instance_settings']['deep_linking'] : $formatter['instance_settings']['deep_linking'],
+    );
+  }
+
+  return $form;
+}
+
+/**
+ * Implements field_group_pre_render_<format-type>().
+ */
+function field_group_pre_render_foundation_group_section(&$element, &$group, &$form) {
+  // Convenience variables.
+  $settings =& $group->format_settings['instance_settings'];
+  $classes =& $settings['classes'];
+
+  // Cast classes to array for easy manipulation and for adherence to
+  // drupal_attributes() requirements.
+  $classes = !empty($classes) ? explode(' ', $classes) : array();
+
+  // Add required classes.
+  $classes[] = 'section-container';
+
+  // Add extra required class for section type.
+  $classes[] = $settings['section_type'];
+
+  // Strip duplicate classes.
+  $classes = array_unique($classes);
+
+  $element += array(
+    '#type' => 'foundation_section',
+    '#theme' => 'foundation_section',
+    '#title' => check_plain(t($group->label)),
+    '#attributes' => array(
+      'id' => drupal_clean_css_identifier($group->label),
+    ),
+    '#description' => $group->description,
+    '#parents' => array($group->parent_name),
+    '#settings' => $settings,
+  );
+}
+
+/**
+ * Implements field_group_pre_render_<format-type>().
+ */
+function field_group_pre_render_foundation_group_section_item(&$element, $group, &$form) {
+  // Convenience variables.
+  $settings =& $group->format_settings['instance_settings'];
+  $classes =& $settings['classes'];
+
+  // Cast classes to array for easy manipulation and for adherence to
+  // drupal_attributes() requirements.
+  $classes = !empty($classes) ? explode(' ', $classes) : array();
+
+  // Add required classes.
+  $classes += array(
+    'foundation-section-item',
+  );
+
+  // Strip duplicate classes.
+  $classes = array_unique($classes);
+
+  $element += array(
+    '#type' => 'foundation_section_item',
+    '#group' => $group->parent_name,
+    '#title' => check_plain(t($group->label)),
+    '#attributes' => array(
+      'id' => $element['#id'],
+    ),
+    '#description' => $group->description,
+    '#parents' => array($group->parent_name),
+    '#formatter' => $group->format_settings['formatter'],
+    '#settings' => $group->format_settings['instance_settings'],
+  );
+}
+
+/**
+ * Implements template_preprocess_foundation_section().
+ */
+function template_preprocess_foundation_section(&$variables) {
+  $deep_linking = isset($variables['element']['#settings']['deep_linking'])
+    ? $variables['element']['#settings']['deep_linking']
+    : FALSE;
+
+  // Prepare section items for rendering.
+  $items_processed = array();
+
+  foreach (element_children($variables['element'], TRUE) as $key) {
+    $item =& $variables['element'][$key];
+
+    if (!empty($item) && $item['#type'] === 'foundation_section_item') {
+      // Add classes array for drupal_attributes().
+      $item['#attributes']['class'] = $item['#settings']['classes'];
+
+      $item_processed = array(
+        'title' => $item['#title'],
+        'content' => drupal_render($item),
+        'container_attributes' => $item['#attributes'],
+        'content_attributes' => array(),
+      );
+
+      if ($deep_linking) {
+        $item_processed['content_attributes']['data-slug'] = $item['#attributes']['id'];
+      }
+
+      if ($item['#formatter'] === 'open') {
+        $item_processed['container_attributes']['class'][] = 'active';
+      }
+
+      // Add required class.
+      $item_processed['content_attributes']['class'][] = 'content';
+
+      $items_processed[] = $item_processed;
+    }
+  }
+
+  // Replace items with processed version but keep original version.
+  $variables['items'] = $items_processed;
+
+  // Setup data-options.
+  $data_options = array();
+
+  if ($deep_linking) {
+    $data_options[] = 'deep_linking: true';
+  }
+
+  // Setup attributes.
+  $attributes =& $variables['element']['#attributes'];
+
+  if (!empty($data_options)) {
+    $attributes['data-options'] = implode('; ', $data_options);
+  }
+
+  // Add classes.
+  $attributes['class'] = $variables['element']['#settings']['classes'];
+}

@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Albatross Page feature.
+ */
+
+include_once('flight_page.features.inc');

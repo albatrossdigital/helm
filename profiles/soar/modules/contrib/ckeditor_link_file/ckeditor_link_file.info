@@ -1,0 +1,15 @@
+name = CKEditor Link for Files
+description = Easily create links to Drupal files through CKEditor.
+package = User interface
+core = 7.x
+dependencies[] = ckeditor_link
+dependencies[] = file_entity
+configure = admin/config/content/ckeditor_link
+
+
+; Information added by drush on 2014-12-03
+version = "7.x-1.3+2-dev"
+core = "7.x"
+project = "ckeditor_link_file"
+datestamp = "1417594610"
+

@@ -1,0 +1,56 @@
+@import "base/init";
+
+// Remove foundation code from custom, as it will be printed in
+// custom-foundation
+
+$include-html-classes: false;
+$include-print-styles: false;
+$include-html-global-classes: false;
+
+// Global Zurb Foundation variables.
+// Comment out this import below if you are customizing you imports below.
+@import "vendor/foundation";
+
+// Import our mixins early so they can be used by other partials.
+// Optional.
+@import "base/mixins";
+
+// Common file is where you place common utility classes to extend or
+// parametrics.
+// Optional.
+// @import "base/common";
+
+// Fix for some Drupal CSS quirks (Drupalisms).
+@import "base/drupal";
+
+// Styling for elements.
+// Optional.
+@import "base/elements";
+
+// Layout
+// Each section of the document has it's own partial seperated out to improve
+// developer experience. Additionally, grids can be declared in layouts as well.
+@import "layout/page";
+@import "layout/header";
+@import "layout/main";
+@import "layout/aside";
+@import "layout/footer";
+
+// Components
+
+@import "components/forms";
+
+// Modules
+
+//@import "modules/typekit"
+@import "modules/off-canvas";
+//@import "modules/topbar";
+@import "modules/views";
+
+// Themes
+
+@import "theme/common-fields";
+@import "theme/teasers";
+
+// Older IE support
+// @import "vendor/ie";

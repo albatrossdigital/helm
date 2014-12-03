@@ -1,0 +1,31 @@
+<?php
+/**
+ * @file
+ * Code for the Flight Bean feature.
+ */
+
+include_once 'flight_bean.features.inc';
+
+
+/**
+ * Implements hook_form_alter()
+ * Hide some unnecessary fields on the Bean edit form.
+ **/
+function flight_bean_form_bean_form_alter(&$form, &$form_state) {
+  $form['revision']['is_new_revision']['#type'] = 'hidden';
+  $form['revision']['default_revision']['#type'] = 'hidden';
+  $form['revision']['log']['#type'] = 'hidden';
+  if (!empty($form['view_mode']) && !empty($form['view_mode']['#options']) && count($form['view_mode']['#options']) <= 1) {
+    $form['view_mode']['#type'] = 'hidden';
+  } 
+  $form['redirect']['#attributes']['style'] = 'display:none;';
+}
+
+/**
+ * Implements hook_menu_alter()
+ * @todo: hide configure block field?
+ **/
+function flight_bean_menu_alter(&$items) {
+  //dpm($items);
+}
+

@@ -1,0 +1,172 @@
+.off-canvas-wrap {
+  overflow: hidden;
+  max-width: 100%;
+}
+
+.contain-to-grid {
+  width: 100%;
+  background: $tabbar-bg;
+
+  .tab-bar {
+    max-width: $row-width;
+    margin: 0 auto; 
+  }
+}
+
+.tab-bar {
+  max-width: $row-width;
+  margin: 0 auto; 
+  
+  a {
+    color: $tabbar-color;
+
+    &:hover {
+      color: darken($tabbar-color, 10%);
+    }
+  }
+}
+
+// Main Menu
+// ------------------------------------------------------
+
+.left-off-canvas-menu {
+  .menu-name-main-menu {
+    ul {
+      @include list-clear;
+    }
+  }
+}
+
+// *
+// * Media Queries
+// *
+// ******************************************************
+
+@include respond($small-to-menu) {
+
+  // Tabbar
+  // ------------------------------------------------------
+  
+  // Force offcanvas to be possible
+  .tab-bar {
+    position: static;
+  }
+
+
+  // Main Menu
+  // ------------------------------------------------------
+  .left-off-canvas-menu {
+    padding-left: 0;
+    padding-right: 0;
+
+    .left-off-canvas-toggle {
+      padding: $off-canvas-link-padding;
+    }
+    
+    & > * {
+      max-width: $off-canvas-width;
+      overflow: hidden;
+    }
+
+    ul {
+      border-top: $off-canvas-link-border-bottom;
+      width: 100%;
+      @include off-canvas-list();
+    }
+  }
+}
+
+
+@include respond($past-menu) {
+
+  // Toggle buttons
+  .menu-toggle,
+  .left-off-canvas-toggle {
+    display: none;
+  }
+ 
+  // Main Menu
+  // ------------------------------------------------------
+  .left-off-canvas-menu {
+    background: none;
+    position: relative !important;
+    overflow: visible;
+    padding-top: 0;
+    height: auto !important;
+    @include translate3d(0, 0, 0);
+    @include box-sizing(border-box);
+    width: 100%!important;
+    z-index: 1;
+
+    // From foundation: components/top-bar
+    // -----------------------------------------------
+    ul {
+      @include clearfix;
+      margin-bottom: 0;
+      list-style: none;
+
+      li {
+        margin-bottom: 0;
+        background: $topbar-dropdown-bg;
+        display: inline-block;
+
+        & > a {
+          display: block;
+          width: 100%;
+          color: $topbar-link-color;
+          padding: 12px 0 12px 0;
+          padding-#{$default-float}: $topbar-link-padding;
+          font-family: $topbar-link-font-family;
+          font-size: $topbar-link-font-size;
+          font-weight: $topbar-link-weight;
+          text-transform: $topbar-link-text-transform;
+          &.button {
+            font-size: $topbar-link-font-size;
+            padding-#{$opposite-direction}: $topbar-link-padding;
+            padding-#{$default-float}: $topbar-link-padding;
+            @include button-style($bg:$primary-color);
+          }
+          &.button.secondary { @include button-style($bg:$secondary-color); }
+          &.button.success { @include button-style($bg:$success-color); }
+          &.button.alert { @include button-style($bg:$alert-color); }
+          &.button.warning { @include button-style($bg:$warning-color); }
+        }
+
+        &.hover {
+          > a:not(.button) {
+            background-color: $topbar-link-bg-color-hover;
+            @if ($topbar-link-bg-hover) {
+              background: $topbar-link-bg-hover;
+            }
+            color: $topbar-link-color-hover;
+          }
+        }
+        &:not(.has-form) {
+          a:not(.button) {
+            padding: 0 $topbar-link-padding;
+            line-height: $topbar-height;
+            background: $topbar-link-bg;
+            &:hover {
+              background-color: $topbar-link-bg-color-hover;
+              @if ($topbar-link-bg-hover) {
+                background: $topbar-link-bg-hover;
+              }
+            }
+          }
+        }
+        &.active:not(.has-form) {
+          a:not(.button) {
+            padding: 0 $topbar-link-padding;
+            line-height: $topbar-height;
+            color: $topbar-link-color-active;
+            background: $topbar-link-bg-active;
+            &:hover {
+              background: $topbar-link-bg-active-hover;
+              color: $topbar-link-color-active-hover;
+            }
+          }
+        }
+      }
+    }
+  }
+}

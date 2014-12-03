@@ -1,0 +1,60 @@
+<?php
+/**
+ * @file
+ * Code for the Albatross Date Formats feature.
+ */
+
+include_once('flight_date_formats.features.inc');
+
+
+/**
+ * Define and export date formats.
+ * See http://www.thedavidmeister.info/post/exporting-and-maintaining-custom-date-formats-drupal-7
+ * Also see https://drupal.org/node/1279928
+ */
+
+/**
+ * Implements hook_date_formats().
+ */
+function flight_date_formats_date_formats() {
+  $formats = array();
+  $formats[] = array(
+    'type' => 'flight_date_formats_date_short',
+    'format' => 'M j Y',
+    'locales' => array(),
+  );
+  $formats[] = array(
+    'type' => 'flight_date_formats_date_medium',
+    'format' => 'F j Y',
+    'locales' => array(),
+  );
+  $formats[] = array(
+    'type' => 'flight_date_formats_date_mmddyyyy',
+    'format' => 'n/j/Y',
+    'locales' => array(),
+  );
+  $formats[] = array(
+    'type' => 'flight_date_formats_time_ampm',
+    'format' => 'g:ia',
+    'locales' => array(),
+  );
+  $formats[] = array(
+    'type' => 'flight_date_formats_day_of_week',
+    'format' => 'l',
+    'locales' => array(),
+  );
+  return $formats;
+}
+
+/**
+ * Implements hook_date_format_types().
+ */
+function flight_date_formats_date_format_types() {
+  $types = array();
+  $types['flight_date_formats_date_short'] = t('Date only: short');
+  $types['flight_date_formats_date_medium'] = t('Date only: medium');
+  $types['flight_date_formats_date_mmddyyyy'] = t('Date only: mm/dd/yyyy');
+  $types['flight_date_formats_time_ampm'] = t('Time only: am/pm');
+  $types['flight_date_formats_day_of_week'] = t('Day of the week');
+  return $types;
+}

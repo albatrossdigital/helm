@@ -1,0 +1,12 @@
+<?php
+/**
+ * @file
+ * Code for the Flight Permissions feature.
+ */
+
+include_once 'flight_permissions.features.inc';
+/**
+ * @file
+ */
+
+// Drupal needs this blank file.

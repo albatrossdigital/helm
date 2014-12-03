@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Albatross Webform feature.
+ */
+
+include_once('flight_webform.features.inc');

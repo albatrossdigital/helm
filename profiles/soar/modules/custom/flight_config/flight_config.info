@@ -1,0 +1,6 @@
+name = Flight Config
+description = Tweaks to the UI and helper functions used in the Flight distribution
+core = 7.x
+
+
+

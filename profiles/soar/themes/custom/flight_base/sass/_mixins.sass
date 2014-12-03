@@ -1,0 +1,407 @@
+// @file
+// Place your mixins here. Feel free to roll your own mixins.
+
+
+//***********************************
+// Helpers
+//
+//***********************************
+
+// sets before as visible
+@mixin before-as-image($display: block, $direction: false, $amount: 0)
+  content: ""
+  display: $display
+
+  @if $direction
+    #{$direction}: $amount
+    position: absolute
+
+// simple list clear, does not assume
+@mixin list-clear()
+  list-style: none
+  padding: 0
+  margin: 0
+
+// simple list float, does not assume
+@mixin list-float()
+  +list-clear()
+
+  li
+    display: inline-block
+
+// hit all headers
+@mixin all-headers()
+  h1, h2, h3, h4, h5, h6
+    @content
+
+// makes div an overflow ellipse
+@mixin ellipsis()
+  display: block
+  overflow: hidden
+  text-overflow: ellipsis
+  white-space: nowrap
+
+// hit all bootstrap inputs
+@mixin all-form-inputs($select: true)
+  @if $select 
+    select
+      @content
+
+  textarea,
+  input[type="text"],
+  input[type="password"],
+  input[type="datetime"],
+  input[type="datetime-local"],
+  input[type="date"],
+  input[type="month"],
+  input[type="time"],
+  input[type="week"],
+  input[type="number"],
+  input[type="email"],
+  input[type="url"],
+  input[type="search"],
+  input[type="tel"],
+  input[type="color"]
+    @content
+
+@mixin undo-button($color: $anchor-font-color, $hover: $anchor-font-color-hover)
+  margin: 0
+  color: $color
+  font-size: 1rem
+  font-weight: normal
+
+  &, &:focus, &:hover, &:active
+    background: none
+    border: 0
+    padding: 0
+    font-size: rem-calc($rem-base)
+  
+  &:focus, &:hover, &:active
+    color: $hover
+    outline: 0
+
+
+//***********************************
+// Grid / Layout
+//
+//***********************************
+
+// gets em-compensated value (useful for headers, buttons)
+@function compensate-size($size, $element, $base: rem-calc($rem-base))
+  @return $size * ($base/$element)
+
+// add / remove column padding 
+
+@mixin column-padding($half: true, $modify: false)
+
+  $size: 0
+
+  @if $half == true
+    $size: $column-gutter/2
+
+  @else if $half
+    $size: $half
+
+  @if $half == true
+    $size: $column-gutter/2
+
+  @if $modify
+    $size: compensate-size($size, $modify)
+
+  padding-left: $size
+  padding-right: $size
+
+
+// expand row
+
+@mixin expand-row($half: true, $modify: false)
+  $size: 0
+
+  @if $half == true
+    $size: $column-gutter/2
+
+  @else if $half
+    $size: $half
+
+  @if $half == true
+    $size: $column-gutter/2
+
+  @if $modify
+    $size: compensate-size($size, $modify)
+
+  margin-left: -($size)
+  margin-right: -($size)
+
+
+@mixin expand-and-padding($half: true, $modify: false)
+  +column-padding($half, $modify)
+  +expand-row($half, $modify)
+
+
+// fake columns
+@mixin fake-column($position: first, $columns: ($total-columns/2))
+  $last: false
+  $float: true
+
+  @if $position == last
+    $last: true
+    $float: false
+
+  +grid-column($columns, $last, false, false, false, false, false, $float)
+
+  @if $position == first
+    padding-left: 0
+
+  @if $position == last
+    padding-right: 0
+
+
+// quick even columns using fake column
+// accepts list of selectors
+@mixin quick-columns($selectors, $column-counts: false, $property: false)
+  $i: 1
+  $len: length($selectors)
+  
+  @if $column-counts == false
+    $column-counts: ($total-columns/$len)
+    
+    $j: 1
+
+    @while $j < $len
+      $column-counts: append($column-counts, ($total-columns/$len))
+      $j: $j + 1
+
+  @each $selector in $selectors
+    #{$selector}
+      $position: false
+
+      @if $i%$len == 1
+        $position: first
+
+      @else if $i%$len == 0
+        $position: last
+      
+      +fake-column($position, nth($column-counts, $i))
+
+      @if $property
+        #{nth($property, 1)}: #{nth($property, 2)}
+
+      $i: $i + 1
+
+// border goes on rows, constrains to column width
+
+@mixin nice-row-border($margin: $column-gutter/2, $padding: 1em, $border: 1px solid $gray, $direction: bottom, $hide: false)
+  $child: last-child
+  $selector: after
+  $pad-dir: top
+
+  @if $direction == top
+    $child: first-child
+    $selector: before
+    $pad-dir: bottom
+
+
+  &:#{$selector}
+    +before-as-image(block)
+    border-#{$direction}: $border
+    margin-left: $margin
+    margin-right: $margin
+    padding-#{$pad-dir}: $padding
+    margin-#{$direction}: $padding
+
+  @if $hide != hidden
+
+    @if $hide
+      &:#{$hide}
+        margin-#{$direction}: 0
+        padding-#{$pad-dir}: 0
+        border: 0
+
+    @else 
+      &:#{$child}:#{$selector}
+        margin-#{$direction}: 0
+        padding-#{$pad-dir}: 0
+        border: 0
+
+      
+// centers an element
+@mixin centered()
+  margin-right: auto
+  margin-left: auto
+  float: none
+  display: block
+
+// centers an element with a max width
+@mixin max-width-center($width: $grid-max-width)
+  max-width: $width
+  +centered
+
+
+//************************************
+// Responsive
+//************************************
+
+@mixin respond($media)
+  @media #{$media}
+    @content
+
+
+
+//************************************
+// Sprites
+//************************************
+
+// simple sprite
+@mixin image-sprite($x, $y, $img: "sprite.png", $repeat: no-repeat)
+  background-image: image-url($img)
+  background-position: $x $y
+  background-repeat: $repeat
+
+
+// text replacing sprite
+// $img file name
+@mixin image-replace($width, $height, $left, $top, $img: "sprite.png", $repeat: no-repeat)
+  width: $width
+  height: $height
+  display: block
+  text-indent: -1000em
+  overflow: hidden
+  @include sprite($left, $top, $img, $repeat)
+
+
+// Create folder in images/ called icons/
+//
+// Put this in subtheme mixin file under the sprites section
+// $icons: sprite-map("icons/*.png")
+//
+// If certain icons need spacing / alignment use this call form instead
+// $icons: sprite-map("icons/*.png", $icons-ICONNAME-position: 100%, $icons-ANOTHERICON-spacing: 100px)
+//
+// Call using
+// +get-sprite(name ($icons),
+//             file without .png (facebook),
+//             offset-x,
+//             offset-y,
+//             repeat,
+//             set height of item to sprite height?,
+//             set width of item to sprite width?,
+//             exchange image with another on hover? Use the file name (facebook_hover))
+//
+// The hover functionality assumes you have the image in the same sprite folder.
+
+// http://compass-style.org/reference/compass/helpers/sprites/
+@mixin get-sprite($map, $sprite, $offset-x: 0, $offset-y: 0, $repeat: no-repeat, $height: true, $width: true, $hover: false)
+  //http://compass-style.org/reference/compass/helpers/sprites/#sprite-file
+  $sprite-image: sprite-file($map, $sprite)
+
+  // http://compass-style.org/reference/compass/helpers/sprites/#sprite-url
+  $sprite-map: sprite-url($map)
+
+  // http://compass-style.org/reference/compass/helpers/sprites/#sprite-position
+  $sprite-position: sprite-position($map, $sprite, $offset-x, $offset-y)
+
+  // Returns background
+  background: $sprite-map $sprite-position $repeat
+
+  // http://compass-style.org/reference/compass/helpers/image-dimensions/
+  // Checks to see if the user wants height returned
+  @if $height == true
+    // Gets the height of the sprite-image
+    $sprite-height: image-height($sprite-image)
+    // Returns the height
+    height: $sprite-height
+
+  // http://compass-style.org/reference/compass/helpers/image-dimensions/
+  // Checks to see if the user wants height returned
+  @if $width == true
+    // Gets the height of the sprite-image
+    $sprite-width: image-width($sprite-image)
+    // Returns the width
+    width: $sprite-width
+
+
+  @if $hover
+    $sprite-image: sprite-file($map, $hover)
+
+    // http://compass-style.org/reference/compass/helpers/sprites/#sprite-url
+    $sprite-map: sprite-url($map)
+
+    // http://compass-style.org/reference/compass/helpers/sprites/#sprite-position
+    $sprite-position: sprite-position($map, $hover, $offset-x, $offset-y)
+
+    &:hover, &:focus
+      // Returns background
+      background: $sprite-map $sprite-position $repeat
+
+
+//***********************************
+// Animations
+//
+// for css3 spinner and other animations
+//***********************************
+
+$animation-time: 1s!default
+$animation-rotation-border-color-inactive: #eee!default
+$animation-rotation-border-color: #ddd!default
+$animation-rotation-border-width: rem-calc(2)!default
+
+=rotation($time: $animation-time)
+  -webkit-animation: rotation $time infinite linear
+  -moz-animation: rotation $time infinite linear
+  -o-animation: rotation $time infinite linear
+  animation: rotation $time infinite linear
+
+=rotation-init
+  @-webkit-keyframes rotation
+    from
+      -webkit-transform: rotate(0deg)
+    to
+      -webkit-transform: rotate(359deg)
+
+  @-moz-keyframes rotation
+    from
+      -moz-transform: rotate(0deg)
+    to
+      -moz-transform: rotate(359deg)
+
+  @-o-keyframes rotation
+    from
+      -o-transform: rotate(0deg)
+    to
+      -o-transform: rotate(359deg)
+
+  @keyframes rotation
+    from
+      transform: rotate(0deg)
+    to
+      transform: rotate(359deg)
+
+=spinner-active($border-color: $animation-rotation-border-color, $time: $animation-time)
+  +rotation($time)
+  &:before
+    border-top-color: $border-color
+
+=spinner-core($dimensions, $border-color-inactive: $animation-rotation-border-color-inactive, $border-width: $animation-rotation-border-width)
+  $width: nth($dimensions, 1)
+  $height: $width
+  @if length($dimensions) == 2
+    $height: nth($dimensions, 2)
+  height: $height
+  width: $width
+  display: inline-block
+  position: relative
+  border: $border-width solid $border-color-inactive
+  border-radius: 100%
+  &:before
+    content: ""
+    display: block
+    position: absolute
+    left: -$border-width
+    top: -$border-width
+    height: $height
+    width: $width
+    border-top: $border-width solid $border-color-inactive
+    border-left: $border-width solid transparent
+    border-bottom: $border-width solid transparent
+    border-right: $border-width solid transparent
+    border-radius: 100%

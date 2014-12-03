@@ -1,0 +1,222 @@
+<?php
+
+/**
+ * Implementation of hook_menu().
+ */
+function form_beautifier_menu() {
+  $items = array();
+  $items['admin/config/user-interface/form-beautifier'] = array(
+    'title' => 'Form Beautifier',
+    'description' => 'Customize Forms with jQuery Plugins.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('form_beautifier_settings'),
+    'access arguments' => array('administer site configuration'),
+    'file' => 'form_beautifier.admin.inc',
+    'type' => MENU_CALLBACK,
+  );
+  return $items;
+}
+
+/**
+ * Implementation of hook_form_alter().
+ */
+function form_beautifier_form_alter(&$form, $form_state, $form_id) {
+  static $check_set, $drop_set, $ddcl_set, $focus_set, $infieldlabels_set, $inlinelabels_set;
+  
+  // Checkboxes and Radios
+  if (variable_get('form_beautifier_chk_rdio_enable', 0)) {
+    $include = explode(',', variable_get('form_beautifier_checkboxes_radios_include', '*'));
+  	$exclude = explode(',', variable_get('form_beautifier_checkboxes_radios_exclude', ''));
+	
+	  if ((in_array($form_id, $include) || in_array('*', $include)) && !in_array($form_id, $exclude)) {
+	    if (!$check_set) {
+	  	  $trigger = variable_get('form_beautifier_library', 'prettyCheckboxes');
+	      drupal_add_js(drupal_get_path('module', 'form_beautifier') . '/js/' . $trigger . '.js');
+	      drupal_add_css(drupal_get_path('module', 'form_beautifier') . '/css/' . $trigger . '.css');
+	      
+	  		// Add in some logic for jQueryUI Checkbox
+	  		if (module_exists('jquery_ui') && variable_get('form_beautifier_checkboxes_radios_library', 'prettyCheckboxes') == 'checkbox') {
+	  		  jquery_ui_add();
+	  		  $trigger = 'ui.' . $trigger;
+	  		}
+	  		
+	  		if (variable_get('form_beautifier_checkboxes_radios_library', 'prettyCheckboxes') == 'prettyCheckboxes') {
+	  		  $settings = array (
+	  		  	'checkboxWidth' 	=> (int)variable_get('form_beautifier_prettycheckboxes_width', 17),
+	  		  	'checkboxHeight'	=> (int)variable_get('form_beautifier_prettycheckboxes_height', 17),
+	  		  	//'display' => variable_get('form_beautifier_display', 'list'),
+	  		  );
+	  		  $settings = drupal_json_encode($settings);
+	  		} 
+	  		
+	      drupal_add_js('$(document).ready(function(){$("form#' . str_replace('_', '-', $form_id) . ' input").filter(":checkbox,:radio").' . $trigger . '(' . $settings . ');});', 'inline');
+	      $check_set = TRUE;
+	    }
+	  }
+	}
+
+    // Foundation Multi Select
+  if (variable_get('form_beautifier_fnd_multi_enable', 0)) {
+    $include = explode(',', variable_get('form_beautifier_fnd_multi_include', '*'));
+    $exclude = explode(',', variable_get('form_beautifier_fnd_multi_exclude', ''));
+    if (((in_array($form['#id'], $include) || in_array($form_id, $include)) || in_array('*', $include)) && (empty($exclude) || !in_array($form_id, $exclude))) {
+      form_beautifier_add_fnd_multi($form);
+    }
+  }
+	
+	// Dropdown Select
+	if (variable_get('form_beautifier_drpdwn_enable', 0)) {
+	  $include = explode(',', variable_get('form_beautifier_drpdwn_include', '*'));
+  	$exclude = explode(',', variable_get('form_beautifier_drpdwn_exclude', ''));
+  	if ((in_array($form_id, $include) || in_array('*', $include)) && !in_array($form_id, $exclude)) {
+		  if (!$drop_set) {
+		    $style = variable_get('form_beautifier_drpdwn_style', 'sexy');
+		  	drupal_add_js(drupal_get_path('module', 'form_beautifier') . '/js/jquery.sexy-combo.js');
+		  	drupal_add_css(drupal_get_path('module', 'form_beautifier') . '/css/' . $style . '.css');
+		  }
+		  $settings = array(
+		    'initialHiddenValue'	=> variable_get('form_beautifier_drpdwn_init_value', ''),
+		    'emptyText' 					=> variable_get('form_beautifier_drpdwn_empty_text', '--Select Option--'),
+		    'autoFill' 						=> (bool)variable_get('form_beautifier_drpdwn_autofill', 1),
+		    'triggerSelected'			=> (bool)variable_get('form_beautifier_drpdwn_selected', 1),
+		    'dropUp'							=> (bool)variable_get('form_beautifier_drpdwn_up', 0),
+		  );
+		  $settings = drupal_json_encode($settings);
+		  
+		  drupal_add_js('$(document).ready(function(){$("#' . str_replace('_', '-', $form_id) . ' select").sexyCombo(' . $settings . ')});', 'inline');
+		  $drop_set = TRUE;
+	  }
+	}
+	
+	
+	// Dropdown Check-list
+	if (variable_get('form_beautifier_ddcl_enable', 0)) {
+
+	  $include = explode(',', variable_get('form_beautifier_ddcl_include', '*'));
+  	$exclude = explode(',', variable_get('form_beautifier_ddcl_exclude', ''));
+  	if ((in_array($form_id, $include) || in_array('*', $include)) && !in_array($form_id, $exclude)) {
+		  if (!$ddcl_set) {
+		    $style = variable_get('form_beautifier_ddcl_style', 'classic');
+		    drupal_add_library('system', 'ui.mouse');
+		    drupal_add_library('system', 'ui.effects');
+		    drupal_add_library('system', 'ui.sortable');
+		    drupal_add_library('system', 'ui.progressbar');
+		    drupal_add_library('system', 'ui.dialog');
+		  	drupal_add_js(drupal_get_path('module', 'form_beautifier') . '/js/ui.dropdownchecklist.js');
+		  	drupal_add_js(drupal_get_path('module', 'form_beautifier') . '/js/form-beautifier.js');
+		  	drupal_add_css(drupal_get_path('module', 'form_beautifier') . '/css/ddcl/ui.dropdownchecklist.standalone.css'); // TODO: Something with $style
+		  	drupal_add_css(drupal_get_path('module', 'form_beautifier') . '/css/ddcl/custom.css'); 
+		  	
+		  }
+		  $settings = array(		    
+		    'forms'               => array(str_replace('_', '-', $form_id)),
+		    'maxHeight'           => variable_get('form_beautifier_ddcl_maxheight', 150),
+		    'any'                 => (bool)variable_get('form_beautifier_ddcl_any', 1),
+		    'single'              => (bool)variable_get('form_beautifier_ddcl_single', 1),
+		  );
+		  drupal_add_js(array('form_beautifier' => array('ddcl' => $settings)), 'setting');
+		  $ddcl_set = TRUE;
+	  }
+	}
+	
+	
+	// Field Focus
+	// TODO: set the default to 1 (instead of 0).
+	if (variable_get('form_beautifier_focus_enabled', 0) && !$focus_set) {
+	  $include = explode(',', variable_get('form_beautifier_focus_include', '*'));
+  	$exclude = explode(',', variable_get('form_beautifier_focus_exclude', ''));
+  	drupal_add_css(drupal_get_path('module', 'form_beautifier') . '/css/fieldfocus.css');
+  	
+  	if ((in_array($form_id, $include) || in_array('*', $include)) && !in_array($form_id, $exclude)) {
+		  $js = '$(document).ready(function(){$("input").focus(function() {
+		  	$(this).parent().addClass("curFocus")});
+		  	$("input").blur(function() {
+		  		$(this).parent().removeClass("curFocus")
+		  	});
+		  });';
+		  drupal_add_js($js, 'inline');
+		  $focus_set = TRUE;
+		}
+	}
+	
+  // In-field labels
+	if (variable_get('form_beautifier_infieldlabels_enable', 0)) {
+	  $include = explode(',', variable_get('form_beautifier_infieldlabels_include', '*') . ',');
+  	$exclude = explode(',', variable_get('form_beautifier_infieldlabels_exclude', '') . ',');
+  	if ((in_array($form_id, $include) || in_array('*', $include)) && !in_array($form_id, $exclude)) {
+      form_beautifier_add_infieldlabels($form);
+	  }
+	}
+	
+	// Inline labels
+	if (variable_get('form_beautifier_inlinelabels_enable', 0)) {
+	  $include = explode(',', variable_get('form_beautifier_inlinelabels_include', '*') . ',');
+  	$exclude = explode(',', variable_get('form_beautifier_inlinelabels_exclude', '') . ',');
+  	if ((in_array($form_id, $include) || in_array('*', $include)) && !in_array($form_id, $exclude)) {
+      form_beautifier_add_inlinelabels($form);
+	  }
+	}
+	
+	// formalize.me
+	if (variable_get('form_beautifier_formalize_enable', 0)) {
+	  $include = explode(',', variable_get('form_beautifier_formalize_include', '*') . ',');
+  	$exclude = explode(',', variable_get('form_beautifier_formalize_exclude', '') . ',');
+  	if ((in_array($form_id, $include) || in_array('*', $include)) && !in_array($form_id, $exclude)) {
+      form_beautifier_add_formalize();
+	  }
+	}
+
+  // select2
+  if (variable_get('form_beautifier_select2_enable', 0)) {
+    $include = explode(',', variable_get('form_beautifier_select2_include', '*'));
+    $exclude = explode(',', variable_get('form_beautifier_select2_exclude', ''));
+    if (((in_array($form['#id'], $include) || in_array($form_id, $include)) || in_array('*', $include)) && (empty($exclude) || !in_array($form_id, $exclude))) {
+      form_beautifier_add_select2($form);
+    }
+  }
+}
+
+function form_beautifier_add_fnd_multi(&$form){
+  if ($path = drupal_get_path('module', 'form_beautifier')) {
+    $form['#attributes']['class'][] = 'zurb-multiselect';
+    $form['#attached']['js'][] = $path . '/js/zurb5-multiselect.js';
+    $form['#attached']['js'][] = $path . '/js/zurb-multiselect.js';
+    $settings = array(
+      'live'   => FALSE,
+      'filter' => FALSE
+    );
+    drupal_add_js(array('form_beautifier' => array('zurbmulti' => $settings)), 'setting');
+  }
+}
+
+function form_beautifier_add_infieldlabels(&$form){
+  $form['#attributes']['class'][] = 'infieldlabels';
+	drupal_add_js(drupal_get_path('module', 'form_beautifier') . '/js/jquery.infieldlabel.min.js');
+	drupal_add_js(drupal_get_path('module', 'form_beautifier') . '/js/form-beautifier.js');
+	drupal_add_css(drupal_get_path('module', 'form_beautifier') . '/css/infieldlabels.css'); 
+}
+
+function form_beautifier_add_inlinelabels(&$form){
+  $form['#attributes']['class'][] = 'inlinelabels';
+  drupal_add_css(drupal_get_path('module', 'form_beautifier') . '/css/inlinelabels.css');
+}
+
+function form_beautifier_add_formalize(&$form = FALSE){
+  drupal_add_css(drupal_get_path('module', 'form_beautifier') . '/css/formalize.css');
+  drupal_add_js(drupal_get_path('module', 'form_beautifier') . '/js/jquery.formalize.min.js');
+}
+
+function form_beautifier_add_select2(&$form){
+  if ($path = libraries_get_path('select2')) {
+    $form['#attributes']['class'][] = 'select2';
+    $form['#attached']['css'][] = $path . '/select2.css';
+    $form['#attached']['js'][] = $path . '/select2.min.js';
+    $form['#attached']['js'][] = drupal_get_path('module', 'form_beautifier') . '/js/select2.js';
+    $settings = array(
+      'selector'         => variable_get('form_beautifier_select2_selector', 'form.select2 select'),
+      'width'            => variable_get('form_beautifier_select2_width', '200px'),
+    );
+    drupal_add_js(array('form_beautifier' => array('select2' => $settings)), 'setting');
+  }
+}
+

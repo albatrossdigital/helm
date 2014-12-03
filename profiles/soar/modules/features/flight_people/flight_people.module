@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the flight_people feature.
+ */
+
+include_once 'flight_people.features.inc';

@@ -1,0 +1,422 @@
+<?php
+/**
+ * @file
+ * Core functionality for Administration Menu select module.
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function admin_select_menu() {
+  $items = array();
+
+  $items['admin/config/user-interface/admin_select'] = array(
+    'title' => 'Default administration menus',
+    'access arguments' => array('administer administration menu select'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('admin_select_defaults'),
+    'type' => MENU_NORMAL_ITEM,
+    'file' => 'admin_select.admin.inc',
+  );
+
+  $items['admin-select/default'] = array(
+    'title' => 'Default',
+    'page callback' => 'admin_select_switch_callback',
+    'page arguments' => array(1),
+    'access arguments' => array('select administration menu'),
+    'type' => MENU_CALLBACK,
+  );
+  $items['admin-select/none'] = array(
+    'title' => 'None',
+    'page callback' => 'admin_select_switch_callback',
+    'page arguments' => array(1),
+    'access arguments' => array('select administration menu'),
+    'type' => MENU_CALLBACK,
+  );
+  $info = admin_select_get_admin_select_info();
+  asort($info);
+  foreach ($info as $key => $item) {
+    $items["admin-select/{$key}"] = array(
+      'title' => $item['title'],
+      'access callback' => $item['access callback'],
+      'access arguments' => $item['access arguments'],
+      'page callback' => 'admin_select_switch_callback',
+      'page arguments' => array(1),
+      'type' => MENU_CALLBACK,
+    );
+  }
+
+  return $items;
+}
+
+/**
+ * Implements hook_admin_menu().
+ */
+function admin_select_admin_menu_output_alter(&$content) {
+  $info = admin_select_get_admin_select_info();
+  asort($info);
+
+  if (!empty($info)) {
+    $destination = drupal_get_destination();
+    $content['icon']['icon']['admin_select'] = array(
+      '#title' => 'Select administration menu',
+      '#weight' => 40,
+    );
+    $content['icon']['icon']['admin_select']['default'] = array(
+      '#title' => t('Default'),
+      '#href' => 'admin-select/default',
+      '#access' => user_access('select administration menu'),
+      '#weight' => -10,
+      '#options' => array(
+        'query' => $destination + array('token' => drupal_get_token('admin-select/default')),
+      ),
+    );
+    $content['icon']['icon']['admin_select']['none'] = array(
+      '#title' => t('None'),
+      '#href' => 'admin-select/none',
+      '#access' => user_access('select administration menu'),
+      '#weight' => 10,
+      '#options' => array(
+        'query' => $destination + array('token' => drupal_get_token('admin-select/none')),
+      ),
+    );
+
+    foreach ($info as $key => $item) {
+      $content['icon']['icon']['admin_select'][$key] = array(
+        '#title' => $item['title'],
+        '#href' => "admin-select/{$key}",
+        '#access' => user_access('select administration menu') && !empty($item['access']),
+        '#options' => array(
+          'query' => $destination + array('token' => drupal_get_token('admin-select/' . $key)),
+        ),
+      );
+    }
+  }
+}
+
+/**
+ * Callback for a user to change their administration menu.
+ *
+ * @param string $admin_menu
+ *   The machine name of the administration menu, or 'default' or 'none'.
+ */
+function admin_select_switch_callback($admin_menu) {
+  if (!isset($_GET['token']) || !drupal_valid_token($_GET['token'], $_GET['q'])) {
+    return MENU_ACCESS_DENIED;
+  }
+
+  if ($admin_menu == 'default') {
+    $admin_menu = NULL;
+  }
+  if ($admin_menu == 'none') {
+    $admin_menu = '';
+  }
+
+  user_save($GLOBALS['user'], array('admin_select' => $admin_menu));
+  drupal_goto();
+}
+
+/**
+ * Implements hook_init().
+ */
+function admin_select_init() {
+  $current = isset($GLOBALS['user']->data['admin_select']) ? $GLOBALS['user']->data['admin_select'] : _admin_select_default();
+  $info = admin_select_get_admin_select_info();
+  foreach ($info as $key => $item) {
+    if ($key != $current) {
+      admin_select_suppress_item($item);
+    }
+  }
+}
+
+function _admin_select_default() {
+  $info = admin_select_get_admin_select_info();
+  $settings = variable_get('admin_select_defaults', array());
+  foreach ($settings as &$setting) {
+    $setting['#weight'] = $setting['weight'];
+  }
+  uasort($settings, "element_sort");
+
+  foreach(array_keys($settings) as $rid) {
+    if (isset($GLOBALS['user']->roles[$rid]) && (isset($info[$settings[$rid]['admin_select_default']]) || empty($settings[$rid]['admin_select_default']))) {
+      return $settings[$rid]['admin_select_default'];
+    }
+  }
+
+  return '';
+}
+
+/**
+ * Implements hook_permission().
+ */
+function admin_select_permission() {
+  return array(
+    'administer administration menu select' => array(
+      'title' => t('Administer administration menu select'),
+      'description' => t('Configure the administration menu select module defaults.'),
+    ),
+    'select administration menu' => array(
+      'title' => t('Select administration menu'),
+      'description' => t('Display the administration menu select dropdown at the bottom of user account page.'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_theme().
+ */
+function admin_select_theme() {
+  $items = array();
+
+  $items['admin_select_defaults'] = array(
+    'render element' => 'form',
+    'file' => 'admin_select.admin.inc',
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_form_user_profile_form_alter().
+ */
+function admin_select_form_user_profile_form_alter(&$form, &$form_state) {
+  if ($form['#user_category'] == 'account' && user_access('select administration menu')) {
+    $info = admin_select_get_admin_select_info();
+    $options = array();
+    foreach ($info as $key => $item) {
+      if (!empty($item['access'])) {
+        $options[$key] = $item['title'];
+      }
+    }
+    asort($options);
+    $form['admin_select'] = array(
+      '#type' => 'fieldset',
+      '#title' => t('Administration Menu select settings'),
+      '#collapsible' => TRUE,
+      '#weight' => 10,
+      '#access' => !empty($options),
+    );
+    $form['admin_select']['admin_select'] = array(
+      '#type' => 'select',
+      '#options' => array('' => t('None')) + $options,
+      '#default_value' => isset($form['#user']->data['admin_select']) ? $form['#user']->data['admin_select'] : _admin_select_default(),
+    );
+  }
+}
+
+/**
+ * Implements hook_user_presave().
+ */
+function admin_select_user_presave(&$edit, $account, $category) {
+  if (isset($edit['admin_select'])) {
+    $edit['data']['admin_select'] = $edit['admin_select'];
+  }
+}
+
+/**
+ * Implements hook_field_extra_fields().
+ */
+function admin_select_field_extra_fields() {
+  $info['user']['user']['form']['admin_select'] = array(
+    'label' => 'Admin select',
+    'description' => t('Administration Menu select module account form elements'),
+    'weight' => 10,
+  );
+
+  return $info;
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function admin_select_block_info() {
+  $blocks = array();
+  $blocks[] = array(
+    'info' => t('Administration Menu select'),
+    'admin' => TRUE,
+  );
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function admin_select_block_view($delta = '') {
+  $block = array();
+
+  switch ($delta) {
+    case 0:
+      $info = admin_select_get_admin_select_info();
+      $options = array();
+      foreach ($info as $key => $item) {
+        if (!empty($item['access'])) {
+          $options[$key] = $item['title'];
+        }
+      }
+      asort($options);
+      if (!empty($options)) {
+        $block = array(
+          'subject' => t('Administration Menu select'),
+          'content' => drupal_get_form('admin_select_block_form', $options),
+        );
+      }
+      break;
+  }
+
+  return $block;
+}
+
+/**
+ * Administration Menu select block form.
+ */
+function admin_select_block_form($form, &$form_state, $options) {
+  $form['admin_select'] = array(
+    '#type' => 'select',
+    '#options' => array('' => t('None')) + $options,
+    '#default_value' => isset($GLOBALS['user']->data['admin_select']) ? $GLOBALS['user']->data['admin_select'] : '',
+  );
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Switch'),
+  );
+  return $form;
+}
+
+/**
+ * Administration Menu select block form submit callback.
+ */
+function admin_select_block_form_submit($form, $form_state) {
+  user_save($GLOBALS['user'], array('admin_select' => $form_state['values']['admin_select']));
+}
+
+/**
+ *
+ */
+function admin_select_get_admin_select_info($check_access = TRUE) {
+  $info = module_invoke_all('admin_select_info');
+  drupal_alter('admin_select_info', $info);
+
+  if ($check_access) {
+    $info = array_map('_admin_select_check_access', $info);
+  }
+
+  return $info;
+}
+
+/**
+ * Suppress and admin item.
+ */
+function admin_select_suppress_item($item) {
+  if (!empty($item['include'])) {
+    include_once $item['include'];
+  }
+
+  if (!empty($item['suppress callback']) && function_exists($item['suppress callback'])) {
+    $item['suppress callback']();
+  }
+}
+
+/**
+ * Check to see if the current user has access to an admin item.
+ */
+function _admin_select_check_access(&$item) {
+  // Determine access callback, which will decide whether or not the current
+  // user has access to this path.
+  $item += array('access callback' => 'user_access');
+  $callback = empty($item['access callback']) ? FALSE : trim($item['access callback']);
+  // Check for a TRUE or FALSE value.
+  if (is_bool($callback)) {
+    $item['access'] = $callback;
+  }
+  else {
+    $arguments = isset($item['access arguments']) ? $item['access arguments'] : array();
+    // As call_user_func_array is quite slow and user_access is a very common
+    // callback, it is worth making a special case for it.
+    if ($callback == 'user_access') {
+      $item['access'] = (count($arguments) == 1) ? user_access($arguments[0]) : user_access($arguments[0], $arguments[1]);
+    }
+    elseif (function_exists($callback)) {
+      $item['access'] = call_user_func_array($callback, $arguments);
+    }
+  }
+
+  // Check that the callback exists.
+  if (!empty($item['include'])) {
+    include_once $item['include'];
+  }
+  if (!function_exists($item['suppress callback'])) {
+    $item['access'] = FALSE;
+  }
+
+  return $item;
+}
+
+/**
+ * Implements hook_admin_select_info().
+ */
+function admin_select_admin_select_info() {
+  $info = array();
+
+  if (module_exists('toolbar')) {
+    $info['toolbar'] = array(
+      'title' => t('Toolbar module'),
+      'access arguments' => array('access toolbar'),
+      'suppress callback' => 'admin_select_toolbar_suppress',
+    );
+  }
+
+  if (module_exists('admin_menu') && !function_exists('admin_menu_admin_select_info')) {
+    $info['admin_menu'] = array(
+      'title' => t('Administration menu module'),
+      'access arguments' => array('access administration menu'),
+      'suppress callback' => 'admin_menu_suppress',
+    );
+  }
+
+  // Only support navbar if a version including https://drupal.org/node/1728726
+  // exists (version 7.x-1.0-beta1 or later).
+  if (module_exists('navbar') && !function_exists('navbar_admin_select_info')) {
+    $info['navbar'] = array(
+      'title' => t('Navigation toolbar'),
+      'access arguments' => array('access navbar'),
+      'suppress callback' => 'navbar_suppress',
+    );
+  }
+
+  if (module_exists('admin') && !function_exists('admin_admin_select_info')) {
+    $info['admin'] = array(
+      'title' => t('Admin module'),
+      'access arguments' => array('use admin toolbar'),
+      'suppress callback' => 'admin_suppress',
+    );
+  }
+
+  return $info;
+}
+
+/**
+ * Implements hook_page_alter() on behalf of toolbar.module.
+ *
+ * We have to do this as there is no toolbar_suppress() function in core so we
+ * must manually disable the toolbar in the page render array if desired.
+ *
+ * @see admin_select_toolbar_suppress()
+ */
+function admin_select_page_alter(&$page) {
+  if (admin_select_toolbar_suppress(FALSE) && !empty($page['page_top']['toolbar'])) {
+    $page['page_top']['toolbar']['#access'] = FALSE;
+  }
+}
+
+/**
+ * Adds a suppress callback on behalf of toolbar.module.
+ *
+ * @see admin_select_page_alter()
+ */
+function admin_select_toolbar_suppress($set = TRUE) {
+  $suppress = &drupal_static(__FUNCTION__, FALSE);
+  if (!empty($set)) {
+    $suppress = TRUE;
+  }
+  return $suppress;
+}

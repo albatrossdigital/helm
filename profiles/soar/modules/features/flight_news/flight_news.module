@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Albatross News feature.
+ */
+
+include_once('flight_news.features.inc');

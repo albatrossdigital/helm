@@ -1,0 +1,30 @@
+ul#social-block,
+ul#social-block li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  list-style-image: none;
+}
+
+ul#social-block > li {
+  margin: 0 5px !important;
+  float: left;
+}
+
+ul#social-block li a {
+  width: 32px;
+  height: 32px;
+  display: block;
+  text-indent: -1000em;
+  overflow: hidden;
+  background: 0 0 no-repeat; 
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=70)";
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=70);
+  opacity: 0.7;
+}
+
+ul#social-block li a:hover {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+  opacity: 1;
+}

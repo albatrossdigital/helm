@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Flight Media feature.
+ */
+
+include_once 'flight_media.features.inc';

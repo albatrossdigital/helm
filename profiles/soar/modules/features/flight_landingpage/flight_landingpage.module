@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Flight Landing Page feature.
+ */
+
+include_once 'flight_landingpage.features.inc';

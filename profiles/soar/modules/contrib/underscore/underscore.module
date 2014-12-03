@@ -1,0 +1,82 @@
+<?php
+/**
+ * @file
+ * Primary underscore module file.
+ */
+
+/**
+ * URI of master version of Underscore.js.
+ */
+define('UNDERSCORE_CURRENT_VERSION_MASTER_URI', 'http://underscorejs.org/underscore.js');
+
+/**
+ * Directory name for Underscore.js library.
+ */
+define('UNDERSCORE_DEFAULT_LIBRARY_FOLDER_NAME', 'underscore');
+
+/**
+ * File name for Underscore.js library.
+ */
+define('UNDERSCORE_DEFAULT_LIBRARY_FILE_NAME', 'underscore.js');
+
+/**
+ * Implements hook_libraries_info().
+ */
+function underscore_libraries_info() {
+  $libraries['underscore'] = array(
+    'name' => 'Underscore.js',
+    'vendor url' => 'http://underscorejs.org',
+    'download url' => UNDERSCORE_CURRENT_VERSION_MASTER_URI,
+    'version arguments' => array(
+      'file' => 'underscore.js',
+      // 1.x: Underscore.js 1.4.4
+      'pattern' => '/Underscore.js\s?([0-9\.]+)/',
+      'lines' => 2,
+      'cols' => 200,
+    ),
+    'files' => array(
+      'js' => array(
+        'underscore.js',
+      ),
+    ),
+  );
+
+  return $libraries;
+}
+
+/**
+ * Find out the current stable version of Underscore.js.
+ *
+ * @return string
+ *   Version number of the current stable release.
+ *
+ * @see _underscore_installed_version()
+ */
+function _underscore_current_stable_version() {
+
+  $info = libraries_info('underscore');
+  $options = $info['version arguments'];
+
+  $file = fopen(UNDERSCORE_CURRENT_VERSION_MASTER_URI, 'r');
+  while ($options['lines'] && $line = fgets($file, $options['cols'])) {
+    if (preg_match($options['pattern'], $line, $version)) {
+      fclose($file);
+      return $version[1];
+    }
+    $options['lines']--;
+  }
+  fclose($file);
+}
+
+/**
+ * Find out installed version of Underscore.js library.
+ *
+ * @return string
+ *   Version number of installed Underscore.js.
+ *
+ * @see _underscore_current_stable_version()
+ */
+function _underscore_installed_version() {
+  $info = libraries_detect('underscore');
+  return (isset($info['version']) && !empty($info['version'])) ? $info['version'] : FALSE;
+}

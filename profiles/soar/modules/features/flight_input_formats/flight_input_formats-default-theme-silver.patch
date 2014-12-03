@@ -1,0 +1,21 @@
+diff --git a/flight_input_formats.features.ckeditor_profile.inc b/flight_input_formats.features.ckeditor_profile.inc
+index bb2f25c..67756e7 100644
+--- a/flight_input_formats.features.ckeditor_profile.inc
++++ b/flight_input_formats.features.ckeditor_profile.inc
+@@ -8,11 +8,15 @@
+  * Implements hook_ckeditor_profile_defaults().
+  */
+ function flight_input_formats_ckeditor_profile_defaults() {
++  // Set the default skin back to Moono if Silver doesn't exist
++  module_load_include('inc', 'ckeditor', 'includes/ckeditor.lib');
++  $skins = ckeditor_load_skin_options();
++
+   $data = array(
+     'CKEditor Global Profile' => array(
+       'name' => 'CKEditor Global Profile',
+       'settings' => array(
+-        'skin' => 'moono',
++        'skin' => !empty($skins['silver']) ? 'silver' : 'moono',
+         'ckeditor_path' => '%l/ckeditor',
+         'ckeditor_local_path' => '',
+         'ckeditor_plugins_path' => '%m/plugins',
