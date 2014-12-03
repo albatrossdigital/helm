@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Flight Sitemap feature.
+ */
+
+include_once 'soar_sitemap.features.inc';

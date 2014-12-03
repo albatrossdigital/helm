@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Soar News feature.
+ */
+
+include_once 'soar_news.features.inc';
