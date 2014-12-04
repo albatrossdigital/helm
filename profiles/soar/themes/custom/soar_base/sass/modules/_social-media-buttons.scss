@@ -1,0 +1,90 @@
+$social-size: $icon-size;
+$social-font-size: $icon-font-size;
+
+// Share 42
+//-----------------------------------------------------------------------------
+
+#share42 {
+  &, &:hover {
+    background: none;
+    border: 0;
+    display: block;
+    padding: 0;
+    @include box-shadow(none);
+    height: $social-size;
+  }
+  &:before {
+    display: block;
+    float: left;
+    content: "Share This: ";
+    @include h(5);
+    height: $social-size;
+    line-height: $social-size;
+    margin: 0;
+  }
+}
+
+.share42-item {
+  margin: 0 0 0 rem-calc(15) !important;
+  &, a {
+    text-align: center;
+  }
+  &, a, a:before {
+    height: $social-size !important;
+    width: $social-size !important;
+    overflow: hidden;
+  }
+  a {
+    background: none !important;
+    opacity: 1 !important;
+  }
+  a:before {
+    line-height: $social-size !important;
+  }
+  &:first-child a {
+    @include icon(envelope);
+  }
+  &:nth-child(2) a {
+    @include icon(facebook-square);
+  }
+  &:nth-child(3) a {
+    @include icon(twitter);
+  }
+  &:nth-child(4) a {
+    @include icon(google-plus);
+  }
+  &:nth-child(5) a {
+    @include icon(linkedin);
+  }
+}
+
+// Social media links
+//-----------------------------------------------------------------------------
+
+.block-bean-social-links,
+.block-bean-social-links--2 {
+  .field-name-field-links {
+    a {
+      @include icon-button-replace(false, $social-size, $social-font-size, i);
+      width: rem-calc(45);
+      i {
+        margin: 0;
+      }
+    }
+  }
+}
+
+// Social media links + share 42
+//-----------------------------------------------------------------------------
+
+.block-bean-social-links .field-name-field-links,
+.block-bean-social-links--2 .field-name-field-links,
+.share42-item {
+  a {
+    color: $gray-border;
+    font-size: $social-font-size !important;
+    &:hover, &:active {
+      color: darken($gray-border, 10%);
+    }
+  }
+}

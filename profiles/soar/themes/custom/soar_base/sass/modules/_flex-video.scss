@@ -1,0 +1,29 @@
+$flex-play-width: rem-calc(41);
+$flex-play-height: rem-calc(41);
+
+// Flex Video
+//-------------------------------------
+
+.flex-video {}
+
+.click-to-play {
+  display: inline-block;
+  position: relative;
+  img {
+    min-width: 100%;
+  }
+}
+
+// click to play video
+.click-to-play-placeholder {}
+
+.button.icon-play {
+  @include icon-button-replace($fa-var-play, $flex-play-height, $flex-play-height / 2);
+  font-size: 1em !important;
+  position: absolute;
+  margin-bottom: 0;
+  margin-left: -($flex-play-width / 2);
+  margin-top: -($flex-play-height / 2);
+  left: 50%;
+  top: 50%;
+}

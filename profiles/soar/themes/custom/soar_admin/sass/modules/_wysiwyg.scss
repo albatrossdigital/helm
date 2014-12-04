@@ -1,0 +1,23 @@
+
+
+
+.filter-guidelines {
+  display: none;
+}
+
+
+//*
+//* Responsive
+//* --------------------------------------------------
+//*
+
+@media screen and (min-width: $screen-sm-min) {
+  .filter-help {
+    float: right;
+    padding-top: 22px;
+
+    & ~ .form-type-select {
+      float: left;
+    }
+  }
+}

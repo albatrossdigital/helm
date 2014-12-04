@@ -1,0 +1,119 @@
+$highlight-height: rem-calc(45);
+
+// Collapse menu for smaller screens
+// ----------------------------------------------------------------------------
+
+.menu-block-2 {
+  & > a {
+    @include icon-replace(chevron-down, rem-calc(40), rem-calc(40), rem-calc(20), $white, darken($white, 10%));
+    width: 100% !important;
+    text-indent: -9000px;
+    position: absolute;
+    right: rem-calc(-10);
+    top: 2px;
+    z-index: 100;
+    &:before {
+      float: right;
+      text-indent: 0;
+    }
+  }
+  .menu {
+    &:after {
+      @include horizontal-menu-link($white, $white);
+      content: "Sub Menu";
+      position: absolute;
+      top: 0;
+      z-index: 1;
+    }
+  }
+  .expanded & {
+    & > a {
+      width: auto !important;
+      @extend %fa-chevron-up;
+    }
+    .menu {
+      &:after {
+        display: none;
+      }
+    }
+  }
+}
+
+// *
+// * Media Queries
+// *
+// ******************************************************
+
+@include respond($small-to-menu) {
+  // Collapse menu for smaller screens
+  // ----------------------------------------------------------------------------
+  .menu-block-2 {
+    position: relative;
+    ul {
+      margin-bottom: 0;
+      padding-right: rem-calc(20px) !important;
+      li {
+        float: none;
+        display: block;
+      }
+      li, a {}
+      a {
+        padding-bottom: rem-calc(9) !important;
+      }
+    }
+    .js & {
+      height: $highlight-height;
+      overflow: hidden;
+      padding-top: $highlight-height;
+      li {
+        &.active-trail, &.active {
+          min-width: rem-calc(105);
+          background: $blue;
+          position: absolute;
+          top: 0;
+          z-index: 2;
+          width: 100%;
+          a {
+            color: $white;
+            display: block;
+            max-width: 90%;
+            @include ellipsis;
+          }
+        }
+      }
+    }
+  }
+  .expanded {
+    .menu-block-2 {
+      height: auto;
+      padding-top: 0;
+      li {
+        margin-bottom: rem-calc(10) !important;
+        &, &.active-trail, &.active {
+          a {
+            display: inline !important;
+          }
+        }
+        &.active-trail, &.active {
+          position: relative;
+          a {
+            max-width: 100%;
+            overflow: visible;
+            white-space: normal;
+          }
+        }
+      }
+      a {}
+    }
+  }
+}
+
+
+@include respond($past-menu) {
+  .menu-block-2 {
+    & > a,
+    .menu:after {
+      display: none !important;
+    }
+  }
+}

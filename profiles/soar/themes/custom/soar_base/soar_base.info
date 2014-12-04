@@ -1,0 +1,101 @@
+name = Flight subtheme soar_base
+description = Subtheme based on Flight and Kalatheme.
+screenshot = images/screenshot.png
+
+core = 7.x
+engine = phptemplate
+base theme = kalatheme
+
+; This section controls the CSS files for your theme. There are 3 different
+; things you can do with a "stylesheets" line:
+; - Add a new stylesheet for your theme.
+; - Override a module's stylesheet. If the stylesheet you are adding uses the
+;   same filename as a stylesheet from a Drupal core or contrib module, your CSS
+;   file will be used instead of the module's file.
+; - Remove a module's stylesheet. If you specify the name of a Drupal core or
+;   contrib module's stylesheets, Drupal will remove that stylesheet if you do
+;   NOT include a file with that name with your theme.
+;
+; stylesheets[MEDIA][] = FILE
+;
+; The "FILE" is the name of the stylesheet to add/override/remove.
+; The "MEDIA" in the first set of brackets is a media type or a media query.
+; Typical CSS media types include "all", "screen", "print", and "handheld". A
+; typical media query is "screen and (max-width: 320px)".
+;
+; CSS2.1 media types: http://www.w3.org/TR/CSS21/media.html#media-types
+; CSS3 media queries: http://www.w3.org/TR/css3-mediaqueries/
+
+; For CSS users, load the app.css file:
+; stylesheets[all][] = css/app.css
+; Comment the app.css file (above) if you're using sass to preprocess css:
+stylesheets[all][] = css/custom.css
+
+
+; Modernizr acts as a shim for HTML5 elements for older browsers
+; as well as detection for mobile devices.
+scripts[] = js/vendor/custom.modernizr.js
+
+; Foundation framework scripts (minified).
+; Use the Gruntfile to exclude scripts from this minified file
+; in the "Uglify" grunt task
+scripts[] = js/custom-bootstrap.min.js
+
+; Bootstrap scripts (uncompressed).
+; scripts[] = js/bootstrap/affix.js
+; scripts[] = js/bootstrap/alert.js
+; scripts[] = js/bootstrap/button.js
+; scripts[] = js/bootstrap/carousel.js
+; scripts[] = js/bootstrap/collapse.js
+; scripts[] = js/bootstrap/dropdown.js
+; scripts[] = js/bootstrap/modal.js
+; scripts[] = js/bootstrap/popover.js
+; scripts[] = js/bootstrap/scrollspy.js
+; scripts[] = js/bootstrap/tab.js
+; scripts[] = js/bootstrap/tooltip.js
+; scripts[] = js/bootstrap/transition.js
+
+
+; Theme scripts.
+; This file is empty, just uncomment this line and start editing!
+scripts[] = js/scripts.js
+
+; This section lists the regions defined in the page.tpl.php. The name in
+; brackets is the machine name of the region. The text after the equals sign is
+; a descriptive text used on the admin/structure/blocks page.
+;
+; In the page.tpl.php, the contents of the region are output with a
+; $page['MACHINE-NAME'] variable. For example, with this line in the .info
+; file:
+;   regions[header] = Header
+; You'll use this variable in page.tpl.php:
+;   <?php print render($page['header']); ?>
+
+regions[header] = header
+regions[content] = content
+regions[footer_left] = footer_left
+regions[footer_right] = footer_right
+regions[footer_bottom] = footer_bottom
+
+
+; Various page elements output by the theme can be toggled on and off. The
+; "features" control which of these check boxes display on the
+; admin/appearance config page. This is useful for suppressing check boxes
+; for elements not used by your sub-theme. To add a check box, uncomment the
+; entry for it below. See the Drupal 7 Theme Guide for more info:
+; http://drupal.org/node/171205#features
+
+; features[] = logo
+; features[] = name
+; features[] = slogan
+; features[] = node_user_picture
+; features[] = comment_user_picture
+; features[] = favicon
+; features[] = main_menu
+; features[] = secondary_menu
+
+; Panel Layouts
+; plugins[panels][layouts] = layouts
+
+; Theme settings:
+
