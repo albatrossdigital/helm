@@ -12,8 +12,8 @@
  * @see system_install()
  */
 function soar_install() {
-  theme_enable(array('bootstrap'));
-  variable_set('theme_default', 'bootstrap');
+  theme_enable(array('soar_base'));
+  variable_set('theme_default', 'soar_base');
 
   // Add text formats.
   $filtered_html_format = array(
@@ -339,7 +339,7 @@ Completely synergize resource sucking relationships via premier niche markets. P
   variable_set('jquery_update_jquery_admin_version', '1.7');
 
   // Enable the admin theme.
-  $admin_theme = 'bootstrap';
+  $admin_theme = 'soar_admin';
   db_update('system')
     ->fields(array('status' => 1))
     ->condition('type', 'theme')

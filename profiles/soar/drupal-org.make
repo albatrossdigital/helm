@@ -322,6 +322,93 @@ projects[ckeditor_link_file][download][revision] = "abbd337"
 projects[ckeditor_link_file][download][branch] = "7.x-1.x"
 
 
+; *********************************************************************************
+; * Panopoly Distro
+; *********************************************************************************
+
+
+projects[panopoly_core][version] = 1.14
+projects[panopoly_core][subdir] = panopoly
+
+projects[panopoly_theme][version] = 1.14
+projects[panopoly_theme][subdir] = panopoly
+
+projects[panopoly_magic][version] = 1.14
+projects[panopoly_magic][subdir] = panopoly
+
+projects[panopoly_widgets][version] = 1.14
+projects[panopoly_widgets][subdir] = panopoly
+
+
+; *********************************************************************************
+; * Panopoly Contrib
+; *********************************************************************************
+
+
+; panels_core
+
+projects[panels][version] = 3.4
+projects[panels][subdir] = contrib
+projects[panels][patch][2283719] = http://drupal.org/files/issues/panels-icon-text-renderer-2283719-1.patch
+projects[panels][patch][2280797] = http://drupal.org/files/issues/panels-ipe-keyboard-focus-2280797-2.patch
+
+projects[panels_breadcrumbs][version] = 2.2
+projects[panels_breadcrumbs][subdir] = contrib
+
+projects[panelizer][version] = 3.1
+projects[panelizer][subdir] = contrib
+projects[panelizer][patch][1623536] = http://drupal.org/files/issues/array-to-object-on-update-1623536-26.patch
+
+projects[fieldable_panels_panes][version] = 1.5
+projects[fieldable_panels_panes][subdir] = contrib
+projects[fieldable_panels_panes][patch][2283263] = http://drupal.org/files/issues/fieldable_panels_panes-n2283263-5.patch
+
+projects[pm_existing_pages][version] = 1.4
+projects[pm_existing_pages][subdir] = contrib
+
+projects[fape][version] = 1.2
+projects[fape][subdir] = contrib
+
+projects[views_autocomplete_filters][version] = 1.1
+projects[views_autocomplete_filters][subdir] = contrib
+projects[views_autocomplete_filters][patch][2277453] = http://drupal.org/files/issues/ViewsAutocompleteFilters-no_results_on_some_environments-2277453-1.patch
+projects[views_autocomplete_filters][patch][2374709] = http://www.drupal.org/files/issues/views_autocomplete_filters-cache-2374709-2.patch
+projects[views_autocomplete_filters][patch][2317351] = http://www.drupal.org/files/issues/views_autocomplete_filters-content-pane-2317351-4.patch
+
+projects[transliteration][version] = 3.2
+projects[transliteration][subdir] = contrib
+
+projects[defaultconfig][version] = 1.0-alpha9
+projects[defaultconfig][subdir] = contrib
+projects[defaultconfig][patch][2042799] = http://drupal.org/files/default_config_delete_only_if_overriden.patch
+projects[defaultconfig][patch][2043307] = http://drupal.org/files/defaultconfig_include_features_file.patch
+projects[defaultconfig][patch][2008178] = http://drupal.org/files/defaultconfig-rebuild-filters-2008178-4_0.patch
+projects[defaultconfig][patch][1861054] = http://drupal.org/files/fix-defaultconfig_rebuild_all.patch
+
+; Panopoly theme
+
+projects[radix_layouts][version] = 3.3
+projects[radix_layouts][subdir] = contrib
+
+
+; Panolpoly widgets
+
+projects[tablefield][version] = 2.3
+projects[tablefield][subdir] = contrib
+
+projects[simple_gmap][version] = 1.2
+projects[simple_gmap][subdir] = contrib
+
+projects[media_youtube][version] = 2.x-dev
+projects[media_youtube][subdir] = contrib
+projects[media_youtube][download][type] = git
+projects[media_youtube][download][revision] = d0377b3
+projects[media_youtube][download][branch] = 7.x-2.x
+
+projects[media_vimeo][version] = 2.0
+projects[media_vimeo][subdir] = contrib
+
+
 
 ; *********************************************************************************
 ; * Themes
@@ -330,7 +417,8 @@ projects[ckeditor_link_file][download][branch] = "7.x-1.x"
 projects[bootstrap][version] = "3.0"
 projects[bootstrap][subdir] = "contrib"
 
-
+projects[kalatheme][version] = "3.0"
+projects[kalatheme][subdir] = "contrib"
 
 
 ; *********************************************************************************
