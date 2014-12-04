@@ -1,0 +1,15 @@
+name = Soar admin theme soar_admin
+description = Subtheme based on bootstrap.
+screenshot = images/screenshot.png
+
+core = 7.x
+engine = phptemplate
+base theme = bootstrap
+
+; This section controls the CSS files for your theme.
+stylesheets[all][] = css/custom.css
+
+; Theme scripts.
+; This file is empty, just uncomment this line and start editing!
+scripts[] = js/scripts.js
+

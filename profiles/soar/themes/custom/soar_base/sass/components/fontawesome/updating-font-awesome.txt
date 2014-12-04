@@ -1,0 +1,8 @@
+search
+
+(\.\#((?!\; \}).|\n)*content: \$fa-var)(-.*);
+
+replace
+
+%fa$3 { &:before { content:$fa-var$3; } } \n@if $fa-include-css { $1$3; } 
+

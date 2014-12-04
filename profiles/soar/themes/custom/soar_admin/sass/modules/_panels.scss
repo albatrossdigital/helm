@@ -1,0 +1,17 @@
+
+
+
+// page manager 
+
+
+body form#page-manager-list-pages-form {
+  @include clearfix; 
+
+  button:first-of-type {
+    clear: left;
+  }
+}
+
+#page-manager-list-pages td.page-manager-page-operations .ctools-dropbutton {
+  width: 100%;
+}

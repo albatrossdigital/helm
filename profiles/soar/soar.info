@@ -131,5 +131,47 @@ dependencies[] = soar_media
 #dependencies[] = soar_workbench
 ;@todo: slideshow
 
+
+; **************************************
+; * Panopoly Distro
+; **************************************
+
+
+;dependencies[] = panopoly_core
+;dependencies[] = panopoly_theme
+;dependencies[] = panopoly_magic
+;dependencies[] = panopoly_widgets
+
+
+; **************************************
+; * Panopoly Contrib
+; **************************************
+
+
+; panels_core
+
+dependencies[] = panels
+dependencies[] = panels_ipe
+dependencies[] = panels_breadcrumbs
+dependencies[] = panelizer
+dependencies[] = fieldable_panels_panes
+dependencies[] = pm_existing_pages
+dependencies[] = fape
+dependencies[] = views_autocomplete_filters
+dependencies[] = transliteration
+dependencies[] = defaultconfig
+
+; Panopoly theme
+
+dependencies[] = radix_layouts
+
+; Panolpoly widgets
+
+dependencies[] = tablefield
+dependencies[] = simple_gmap
+dependencies[] = media_vimeo
+dependencies[] = media_youtube
+
+
 files[] = soar.profile
 

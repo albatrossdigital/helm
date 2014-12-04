@@ -1,0 +1,249 @@
+// Do we include any css?
+$fa-include-css: true !default;
+
+// Font variables
+
+$fa-font-path: "../fonts/fontawesome";
+$fontName: "FontAwesome";
+
+//$fa-font-path:        "//netdna.bootstrapcdn.com/font-awesome/4.0.3/fonts" !default // for referencing Bootstrap CDN font files directly
+$fa-css-prefix: "fa";
+$fa-version: "4.2.0";
+$fa-border-color: #eee;
+$fa-inverse: #fff;
+$fa-li-width: 30em / 14;
+
+//***********************************
+//
+// Icon Helpers for NON foundation icons mixins
+//
+// There are a number of ways to include icon fonts in your css / sass.
+//
+// The most common is to inject
+//
+// class="icon-name"
+//
+// into html structure, and load a separate icon font stylesheet. This is
+// probably the easiest for the majority of cases.
+//
+// Another would be to set up some tools to place icons with css only.
+//
+// These are some tools to assist the second scenario.
+//
+// 1) Set up the icon variables in _variables.
+// 2) Fill in some real values in the example section below.
+// 3) Call icons-init in your style sheet
+// 4) Insert an icon using +icon(twitter)
+//
+//***********************************
+
+// The extendable definition
+%icons-core {
+  display: inline-block;
+  font-family: FontAwesome;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// Simple icon mixin
+// $icon: the name without the "icon-" preface
+// $size: (optional) font-size the icon should be
+// $color: (optional) color of the icon
+// $hover: (optional) color of the icon on hover
+@mixin icon($icon, $size: inherit, $color: false, $hover: false) {
+  @if $hover != false {
+    &:hover {
+      &:before {
+        color: $hover;
+      }
+    }
+  }
+  @extend %fa-#{$icon};
+  &:before {
+    font-size: $size;
+    @if $color != false {
+      color: $color;
+    }
+    @extend %icons-core;
+  }
+}
+
+@mixin nice-icon($icon, $size: inherit, $color: false, $hover: false) {
+  @include icon($icon, $size, $color, $hover);
+  &:before {
+    margin-right: 0.5em;
+    text-align: center;
+    width: 1em;
+  }
+}
+
+// Mixin replaces an element with the icon
+// $icon: the name without the "icon-" preface
+// $width: width the element should be
+// $height: (optional) height the element should be
+// $size: (optional) font-size the icon should be
+// $color: (optional) color of the icon
+// $hover: (optional) color of the icon on hover
+@mixin icon-replace($icon, $width, $height: false, $size: inherit, $color: false, $hover: false) {
+  @if $hover != false {
+    &:hover {
+      &:before {
+        color: $hover;
+      }
+    }
+  }
+  display: inline-block;
+  text-align: center;
+  @extend %fa-#{$icon};
+  &,
+  &:before {
+    @if $height != false {
+      height: $height;
+      line-height: $height;
+    }
+    overflow: hidden;
+    width: $width;
+  }
+  &:before {
+    font-size: $size;
+    @if $color != false {
+      color: $color;
+    }
+    @extend %icons-core;
+  }
+}
+
+// Icon only
+// $icon: the name without the "icon-" preface
+@mixin icon-only($icon, $core: simple) {
+  @extend %fa-#{$icon};
+  // include the font family, ect
+  @if $core {
+    &:before {
+      @if $core == simple {
+        @extend %icons-core-simple;
+      }
+      @else {
+        @extend %icons-core;
+      }
+    }
+  }
+}
+
+// Mixin replaces an element with the icon
+// $icon: the name without the "icon-" preface
+// $width: width the element should be
+// $height: (optional) height the element should be
+// $size: (optional) font-size the icon should be
+// $color: (optional) color of the icon
+// $hover: (optional) color of the icon on hover
+@mixin icon-replace($icon, $width, $height: false, $size: inherit, $color: false, $hover: false) {
+  @if $hover != false {
+    &:hover {
+      &:before {
+        color: $hover;
+      }
+    }
+  }
+  display: inline-block;
+  text-align: center;
+  @extend %fa-#{$icon};
+  &,
+  &:before {
+    @if $height != false {
+      height: $height;
+      line-height: $height;
+    }
+    overflow: hidden;
+    width: $width;
+  }
+  &:before {
+    font-size: $size;
+    @if $color != false {
+      color: $color;
+    }
+    @extend %icons-core;
+  }
+}
+
+%icon-replace-link-core {
+  overflow: hidden;
+  padding-left: 0;
+  padding-right: 0;
+  position: relative;
+  display: inline-block;
+}
+
+@mixin icon-replace-link-size($size) {
+  height: $size;
+  width: $size;
+  text-indent: -(10 * $size);
+}
+
+%icon-replace-icon-core {
+  position: absolute;
+  left: 0;
+  text-align: center;
+  top: 0;
+  text-indent: 0;
+}
+
+@mixin icon-replace-icon-size($size, $font) {
+  font-size: $font;
+  line-height: $size;
+  width: $size;
+}
+
+// fudge the icon styling on a button with appropriate paddding
+// USE PIXELS on $size FOR IE
+@mixin icon-button-replace($icon: $fa-var-chevron-right, $size: 36px, $font: $size * 0.75, $selector: "&:before") {
+  @extend %icon-replace-link-core;
+  @include icon-replace-link-size($size);
+  #{$selector} {
+    @if $icon {
+      content: $icon;
+      @extend %icons-core;
+    }
+    @extend %icon-replace-icon-core;
+    @include icon-replace-icon-size($size, $font);
+  }
+}
+
+// Core CSS
+// --------------------------
+
+// Include core fontawesome styles
+@if $fa-include-css {
+  @font-face {
+    font-family: "FontAwesome";
+    src: url("#{$fa-font-path}/fontawesome-webfont.eot?v=#{$fa-version}");
+    src: url("#{$fa-font-path}/fontawesome-webfont.eot?#iefix&v=#{$fa-version}") format("embedded-opentype"), url("#{$fa-font-path}/fontawesome-webfont.woff?v=#{$fa-version}") format("woff"), url("#{$fa-font-path}/fontawesome-webfont.ttf?v=#{$fa-version}") format("truetype"), url("#{$fa-font-path}/fontawesome-webfont.svg?v=#{$fa-version}#fontawesomeregular") format("svg");
+    //src: url('#{$fa-font-path/FontAwesome.otf') format('opentype') // used when developing fonts
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  /* Font Awesome uses the Unicode Private Use Area (PUA) to ensure screen
+   * readers do not read off random characters that represent icons */
+  i[class^="#{$fa-css-prefix}"] {
+    @extend %icons-core;
+    margin-right: 0.75em;
+    .icon-right & {
+      margin-left: 0.75em;
+      margin-right: 0;
+    }
+  }
+}
+
+// Variables
+// --------------------------
+
+@import "variables";
+
+// Icons
+// --------------------------
+
+@import "icons";
