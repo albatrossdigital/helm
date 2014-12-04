@@ -120,6 +120,11 @@
     deepEqual(model.omit('foo', 'bar'), {'baz': 'c'});
   });
 
+  test("chain", function() {
+    var model = new Backbone.Model({ a: 0, b: 1, c: 2 });
+    deepEqual(model.chain().pick("a", "b", "c").values().compact().value(), [1, 2]);
+  });
+
   test("clone", 10, function() {
     var a = new Backbone.Model({ 'foo': 1, 'bar': 2, 'baz': 3});
     var b = a.clone();
@@ -260,6 +265,26 @@
     model.set({result: null}, {silent: true});
     model.set({result: false}, {silent: true});
     model.set({result: void 0});
+  });
+
+  test("nested set triggers with the correct options", function() {
+    var model = new Backbone.Model();
+    var o1 = {};
+    var o2 = {};
+    var o3 = {};
+    model.on('change', function(__, options) {
+      switch (model.get('a')) {
+      case 1:
+        equal(options, o1);
+        return model.set('a', 2, o2);
+      case 2:
+        equal(options, o2);
+        return model.set('a', 3, o3);
+      case 3:
+        equal(options, o3);
+      }
+    });
+    model.set('a', 1, o1);
   });
 
   test("multiple unsets", 1, function() {
@@ -452,6 +477,14 @@
     equal(this.syncArgs.options.attrs.d, 4);
     equal(this.syncArgs.options.attrs.a, undefined);
     equal(this.ajaxSettings.data, "{\"b\":2,\"d\":4}");
+  });
+
+  test("save with PATCH and different attrs", function() {
+    doc.clear().save({b: 2, d: 4}, {patch: true, attrs: {B: 1, D: 3}});
+    equal(this.syncArgs.options.attrs.D, 3);
+    equal(this.syncArgs.options.attrs.d, undefined);
+    equal(this.ajaxSettings.data, "{\"B\":1,\"D\":3}");
+    deepEqual(doc.attributes, {b: 2, d: 4});
   });
 
   test("save in positional style", 1, function() {
