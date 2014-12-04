@@ -1,0 +1,57 @@
+@font-face {
+  font-family: "icomoon_flight_config";
+  src: url("../fonts/icomoon.eot");
+  src: url("../fonts/icomoon.eot?#iefix") format("embedded-opentype"), url("../fonts/icomoon.woff") format("woff"), url("../fonts/icomoon.ttf") format("truetype") url("../fonts/icomoon.svg#icomoon") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* line 11, ../sass/flight-config-edit-launcher.sass */
+.flight-config-edit-trigger-link {
+  position: fixed;
+  right: 10px;
+  top: 5px;
+  width: 16px;
+  padding-left: 4px;
+  font-size: 13px;
+  line-height: 20px;
+  height: 20px;
+  z-index: 9999;
+  overflow: hidden;
+  color: white;
+  text-decoration: none;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+  background-color: #333333;
+}
+/* line 27, ../sass/flight-config-edit-launcher.sass */
+.flight-config-edit-trigger-link:before {
+  font-family: "icomoon_flight_config";
+  content: " \e001  ";
+  speak: none;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+}
+/* line 37, ../sass/flight-config-edit-launcher.sass */
+.flight-config-edit-trigger-link:hover {
+  background-color: #666666;
+  text-decoration: none;
+  color: white;
+}
+/* line 42, ../sass/flight-config-edit-launcher.sass */
+.flight-config-edit-trigger-link.active {
+  background-color: white;
+  color: black !important;
+}
+
+/* line 47, ../sass/flight-config-edit-launcher.sass */
+#toolbar > div.toolbar-menu,
+#admin-menu-wrapper {
+  padding-right: 35px;
+}
