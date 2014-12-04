@@ -112,14 +112,14 @@ dependencies[] = devel
 
 
 ; Soar - Contrib - Standard Features
-dependencies[] = flight_config
-#dependencies[] = soar_wysiwyg_filter
-#dependencies[] = soar_date_formats
-#dependencies[] = soar_input_formats
+dependencies[] = soar_config
+dependencies[] = soar_date_formats
+dependencies[] = soar_input_formats
+dependencies[] = soar_page
+dependencies[] = soar_media
 #dependencies[] = soar_permissions
-#dependencies[] = soar_page
-#dependencies[] = soar_media
-#dependencies[] = soar_bean
+#dependencies[] = soar_wysiwyg_filter
+
 
 
 ; Soar - Contrib - Optional Features
@@ -128,10 +128,8 @@ dependencies[] = flight_config
 #dependencies[] = soar_webform
 #dependencies[] = soar_landingpage
 #dependencies[] = soar_sitemap
-#dependencies[] = soar_slideshow
-#dependencies[] = soar_highlights
 #dependencies[] = soar_workbench
-;@todo: Create soar_sitemap feature
+;@todo: slideshow
 
 files[] = soar.profile
 
