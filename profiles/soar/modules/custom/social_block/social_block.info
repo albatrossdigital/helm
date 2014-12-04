@@ -1,7 +1,0 @@
-name = Social Networking Block
-description = Adds a simple block for a Facebook/Twitter link
-core = 7.x
-
-dependencies[] = block
-
-files[] = social_block.module

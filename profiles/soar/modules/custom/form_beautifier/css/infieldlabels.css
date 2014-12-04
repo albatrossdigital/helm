@@ -1,9 +1,0 @@
-form.infieldlabels .form-item:not(.form-item-mollom-captcha) label.processed{
-  padding: 2px 4px;
-  position: absolute;
-  font-weight: normal;
-}
-
-form.infieldlabels .form-item.form-item-mollom-captcha label.processed{
-  position: relative;
-}
