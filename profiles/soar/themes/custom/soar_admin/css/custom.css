@@ -4934,6 +4934,38 @@ div.my-workbench.admin > .left, div.my-workbench.admin > .right {
 .filter-guidelines {
   display: none; }
 
+.text-format-wrapper .form-type-textarea {
+  margin-bottom: 0; }
+.text-format-wrapper .ckeditor_links {
+  display: none !important; }
+.text-format-wrapper fieldset.filter-wrapper {
+  border: none;
+  background: #eeeeee;
+  padding: 6px 12px;
+  border-radius: 0;
+  font-size: 12px; }
+  .text-format-wrapper fieldset.filter-wrapper .form-group {
+    margin-bottom: 0; }
+  .text-format-wrapper fieldset.filter-wrapper select {
+    font-size: 12px;
+    height: 28px; }
+  .text-format-wrapper fieldset.filter-wrapper .panel-body {
+    border: none;
+    padding: 0; }
+    .text-format-wrapper fieldset.filter-wrapper .panel-body label {
+      float: left;
+      padding-right: 12px;
+      line-height: 28px;
+      margin-bottom: 0; }
+    .text-format-wrapper fieldset.filter-wrapper .panel-body .filter-help {
+      padding-top: 0;
+      line-height: 28px; }
+
+#ckeditor-admin-profile-form div.sortableList div.sortableListDiv span.sortableListSpan, #ckeditor-admin-profile-form div.sortableList div.sortableListDiv span.sortableListSpan ul {
+  height: 38px; }
+#ckeditor-admin-profile-form div.sortableList div.sortableListDiv span.sortableListSpan li {
+  height: 30px; }
+
 @media screen and (min-width: 768px) {
   .filter-help {
     float: right;
@@ -4953,6 +4985,65 @@ div.my-workbench.admin > .left, div.my-workbench.admin > .right {
 
 .views-exposed-form .views-submit-button ~ .views-reset-button {
   padding-left: 0.5em; }
+
+.button {
+  display: inline-block;
+  margin-bottom: 0;
+  font-weight: normal;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  background-image: none;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.428571429;
+  border-radius: 4px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  color: #333;
+  background-color: #fff;
+  border-color: #ccc; }
+  .button:focus, .button:active:focus, .button.active:focus {
+    outline: thin dotted;
+    outline: 5px auto -webkit-focus-ring-color;
+    outline-offset: -2px; }
+  .button:hover, .button:focus {
+    color: #333;
+    text-decoration: none; }
+  .button:active, .button.active {
+    outline: 0;
+    background-image: none;
+    -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125); }
+  .button.disabled, .button[disabled], fieldset[disabled] .button {
+    cursor: not-allowed;
+    pointer-events: none;
+    opacity: 0.65;
+    filter: alpha(opacity=65);
+    -webkit-box-shadow: none;
+    box-shadow: none; }
+  .button:hover, .button:focus, .button.focus, .button:active, .button.active, .open > .button.dropdown-toggle {
+    color: #333;
+    background-color: #e6e6e6;
+    border-color: #adadad; }
+  .button:active, .button.active, .open > .button.dropdown-toggle {
+    background-image: none; }
+  .button.disabled, .button.disabled:hover, .button.disabled:focus, .button.disabled.focus, .button.disabled:active, .button.disabled.active, .button[disabled], .button[disabled]:hover, .button[disabled]:focus, .button[disabled].focus, .button[disabled]:active, .button[disabled].active, fieldset[disabled] .button, fieldset[disabled] .button:hover, fieldset[disabled] .button:focus, fieldset[disabled] .button.focus, fieldset[disabled] .button:active, fieldset[disabled] .button.active {
+    background-color: #fff;
+    border-color: #ccc; }
+  .button .badge {
+    color: #fff;
+    background-color: #333; }
+
+.media-widget .button.browse:before {
+  font-family: 'Glyphicons Halflings';
+  margin-right: 12px;
+  content: "\e060";
+  color: #555555; }
 
 html body.toolbar-drawer {
   padding-top: 15px !important; }
@@ -4979,9 +5070,6 @@ div.admin .right {
   display: block;
   width: 13px;
   height: 14.5px; }
-
-.btn + .btn {
-  margin-left: 10px; }
 
 @media screen and (max-width: 767px) {
   button:first-of-type {
