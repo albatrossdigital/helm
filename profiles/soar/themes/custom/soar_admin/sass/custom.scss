@@ -3,13 +3,14 @@
 
 @import "regions/header";
 
+@import "modules/button";
 @import "modules/field-group";
+@import "modules/media";
 @import "modules/panels";
+@import "modules/permissions";
+@import "modules/views";
 @import "modules/workbench";
 @import "modules/wysiwyg";
-@import "modules/views";
-@import "modules/button";
-@import "modules/media";
 
 
 @import "theme/admin";

@@ -30,4 +30,13 @@ function soar_admin_css_alter(&$css) {
   // Give override css greater weight.
   $theme_path = drupal_get_path('theme', 'bootstrap');
   $css[$theme_path . '/css/overrides.css']['weight'] = 1;
+
+  //dpm($css);
+  // Give override css greater weight.
+  //$theme_path = drupal_get_path('module', 'panopoly_magic') . '/css/panopoly-modal.css';
+  //dpm($theme_path);
+  //if(isset($css[$theme_path])) {
+    //unset($css[$theme_path]);
+  //}
+  //dpm($css);
 }

@@ -11,6 +11,27 @@ fieldset {
   margin-left: 0;
 }
 
+// Horizontal radios
+
+.ui-buttonset {
+
+  .radio, .checkbox {
+    label {
+      padding-left: 4px;
+    }
+  } 
+
+  .radio + .radio, .checkbox + .checkbox {
+    margin-top: 0;
+    margin-left: 15px;  
+  }
+
+  // & > .radio:last-child, 
+  // & > .checkbox:last-child {
+  //   margin-bottom: 10px;
+  // }
+}
+
 // image upload
 
 .form-managed-file {

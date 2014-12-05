@@ -39,12 +39,16 @@ div.admin {
 
 .ajax-progress-throbber {
   background: none;
+  height: auto;
+  min-height: 0;
+  width: auto;
+  padding: 0;
 }
 
 .ajax-progress .glyphicon {
   display: block;
-  width: 13px;
-  height: 14.5px;
+  width: auto;
+  height: auto;
 }
 
 

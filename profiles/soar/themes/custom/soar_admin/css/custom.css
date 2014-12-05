@@ -4896,10 +4896,69 @@ button.close {
   .logo ~ .name {
     font-weight: bold; }
 
+.button {
+  display: inline-block;
+  margin-bottom: 0;
+  font-weight: normal;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  background-image: none;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.428571429;
+  border-radius: 4px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  color: #333;
+  background-color: #fff;
+  border-color: #ccc; }
+  .button:focus, .button:active:focus, .button.active:focus {
+    outline: thin dotted;
+    outline: 5px auto -webkit-focus-ring-color;
+    outline-offset: -2px; }
+  .button:hover, .button:focus {
+    color: #333;
+    text-decoration: none; }
+  .button:active, .button.active {
+    outline: 0;
+    background-image: none;
+    -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125); }
+  .button.disabled, .button[disabled], fieldset[disabled] .button {
+    cursor: not-allowed;
+    pointer-events: none;
+    opacity: 0.65;
+    filter: alpha(opacity=65);
+    -webkit-box-shadow: none;
+    box-shadow: none; }
+  .button:hover, .button:focus, .button.focus, .button:active, .button.active, .open > .button.dropdown-toggle {
+    color: #333;
+    background-color: #e6e6e6;
+    border-color: #adadad; }
+  .button:active, .button.active, .open > .button.dropdown-toggle {
+    background-image: none; }
+  .button.disabled, .button.disabled:hover, .button.disabled:focus, .button.disabled.focus, .button.disabled:active, .button.disabled.active, .button[disabled], .button[disabled]:hover, .button[disabled]:focus, .button[disabled].focus, .button[disabled]:active, .button[disabled].active, fieldset[disabled] .button, fieldset[disabled] .button:hover, fieldset[disabled] .button:focus, fieldset[disabled] .button.focus, fieldset[disabled] .button:active, fieldset[disabled] .button.active {
+    background-color: #fff;
+    border-color: #ccc; }
+  .button .badge {
+    color: #fff;
+    background-color: #333; }
+
 .form-item-fields--add-new-group-group-name > span .form-text {
   display: inline-block;
   margin-left: 10px;
   width: auto; }
+
+.media-widget .button.browse:before {
+  font-family: 'Glyphicons Halflings';
+  margin-right: 12px;
+  content: "\e060";
+  color: #555555; }
 
 body form#page-manager-list-pages-form:before, body form#page-manager-list-pages-form:after {
   content: " ";
@@ -4909,8 +4968,50 @@ body form#page-manager-list-pages-form:after {
 body form#page-manager-list-pages-form button:first-of-type {
   clear: left; }
 
+html.js #panels-dnd-main div.ctools-dropdown div.ctools-dropdown-container hr, html.js div.panels-display-links div.ctools-dropdown-container hr {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em; }
+
+#modal-content {
+  overflow-y: auto; }
+  #modal-content fieldset legend {
+    position: relative;
+    left: 0;
+    padding: 10px 15px;
+    height: auto;
+    line-height: 1;
+    top: 0; }
+    #modal-content fieldset legend, #modal-content fieldset legend.panel-heading {
+      border-top-right-radius: 3px;
+      border-top-left-radius: 3px; }
+  #modal-content .content-type-button .ajax-progress, #modal-content .content-type-button .ajax-progress * {
+    text-indent: 0; }
+  #modal-content .widget-preview, #modal-content .fieldset-wrapper {
+    margin-top: 0; }
+
 #page-manager-list-pages td.page-manager-page-operations .ctools-dropbutton {
   width: 100%; }
+
+#permissions .module {
+  font-family: inherit;
+  font-weight: bold;
+  line-height: 2.2;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  color: inherit;
+  font-size: 14px; }
+
+.view-filters {
+  margin-bottom: 30px; }
+
+.view-empty, .views-empty {
+  padding-top: 20px !important; }
+
+.admin-views-view .views-exposed-form .form-text {
+  width: auto; }
+
+.views-exposed-form .views-submit-button ~ .views-reset-button {
+  padding-left: 0.5em; }
 
 div.my-workbench.admin > .left, div.my-workbench.admin > .right {
   padding-right: 0;
@@ -4974,77 +5075,6 @@ div.my-workbench.admin > .left, div.my-workbench.admin > .right {
       float: left; }
  }
 
-.view-filters {
-  margin-bottom: 30px; }
-
-.view-empty, .views-empty {
-  padding-top: 20px !important; }
-
-.admin-views-view .views-exposed-form .form-text {
-  width: auto; }
-
-.views-exposed-form .views-submit-button ~ .views-reset-button {
-  padding-left: 0.5em; }
-
-.button {
-  display: inline-block;
-  margin-bottom: 0;
-  font-weight: normal;
-  text-align: center;
-  vertical-align: middle;
-  cursor: pointer;
-  background-image: none;
-  border: 1px solid transparent;
-  white-space: nowrap;
-  padding: 6px 12px;
-  font-size: 14px;
-  line-height: 1.428571429;
-  border-radius: 4px;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  color: #333;
-  background-color: #fff;
-  border-color: #ccc; }
-  .button:focus, .button:active:focus, .button.active:focus {
-    outline: thin dotted;
-    outline: 5px auto -webkit-focus-ring-color;
-    outline-offset: -2px; }
-  .button:hover, .button:focus {
-    color: #333;
-    text-decoration: none; }
-  .button:active, .button.active {
-    outline: 0;
-    background-image: none;
-    -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125); }
-  .button.disabled, .button[disabled], fieldset[disabled] .button {
-    cursor: not-allowed;
-    pointer-events: none;
-    opacity: 0.65;
-    filter: alpha(opacity=65);
-    -webkit-box-shadow: none;
-    box-shadow: none; }
-  .button:hover, .button:focus, .button.focus, .button:active, .button.active, .open > .button.dropdown-toggle {
-    color: #333;
-    background-color: #e6e6e6;
-    border-color: #adadad; }
-  .button:active, .button.active, .open > .button.dropdown-toggle {
-    background-image: none; }
-  .button.disabled, .button.disabled:hover, .button.disabled:focus, .button.disabled.focus, .button.disabled:active, .button.disabled.active, .button[disabled], .button[disabled]:hover, .button[disabled]:focus, .button[disabled].focus, .button[disabled]:active, .button[disabled].active, fieldset[disabled] .button, fieldset[disabled] .button:hover, fieldset[disabled] .button:focus, fieldset[disabled] .button.focus, fieldset[disabled] .button:active, fieldset[disabled] .button.active {
-    background-color: #fff;
-    border-color: #ccc; }
-  .button .badge {
-    color: #fff;
-    background-color: #333; }
-
-.media-widget .button.browse:before {
-  font-family: 'Glyphicons Halflings';
-  margin-right: 12px;
-  content: "\e060";
-  color: #555555; }
-
 html body.toolbar-drawer {
   padding-top: 15px !important; }
 
@@ -5064,12 +5094,16 @@ div.admin .right {
   border-radius: 4px 0 0 4px; }
 
 .ajax-progress-throbber {
-  background: none; }
+  background: none;
+  height: auto;
+  min-height: 0;
+  width: auto;
+  padding: 0; }
 
 .ajax-progress .glyphicon {
   display: block;
-  width: 13px;
-  height: 14.5px; }
+  width: auto;
+  height: auto; }
 
 @media screen and (max-width: 767px) {
   button:first-of-type {
@@ -5088,6 +5122,12 @@ fieldset .panel-body {
 .radio input[type="radio"], .radio-inline input[type="radio"], .checkbox input[type="checkbox"], .checkbox-inline input[type="checkbox"] {
   position: relative;
   margin-left: 0; }
+
+.ui-buttonset .radio label, .ui-buttonset .checkbox label {
+  padding-left: 4px; }
+.ui-buttonset .radio + .radio, .ui-buttonset .checkbox + .checkbox {
+  margin-top: 0;
+  margin-left: 15px; }
 
 .form-managed-file > div:only-child {
   float: none; }
