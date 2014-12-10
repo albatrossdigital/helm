@@ -1,0 +1,16 @@
+
+name = Address Field Tokens
+description = Creates tokens for address fields, adds new addressfield renders, and adds webform integration.
+core = 7.x
+package = Fields
+
+dependencies[] = addressfield
+dependencies[] = entity_token
+dependencies[] = token
+
+; Information added by Drupal.org packaging script on 2014-10-29
+version = "7.x-1.5"
+core = "7.x"
+project = "addressfield_tokens"
+datestamp = "1414599829"
+
