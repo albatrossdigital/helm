@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Soar Page Display feature.
+ */
+
+include_once 'soar_page_display.features.inc';
