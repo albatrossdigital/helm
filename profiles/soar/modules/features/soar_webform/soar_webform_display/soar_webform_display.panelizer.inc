@@ -30,7 +30,7 @@ function soar_webform_display_panelizer_defaults() {
   $panelizer->link_to_entity = TRUE;
   $panelizer->extra = array();
   $display = new panels_display();
-  $display->layout = 'radix_bryant_flipped';
+  $display->layout = 'soar_full_page';
   $display->layout_settings = array();
   $display->panel_settings = array(
     'style_settings' => array(
