@@ -1,7 +1,7 @@
 name = Soar Events Calendar
 description = Creates Calendar display for events
 core = 7.x
-package = Features
+package = Soar
 dependencies[] = calendar
 dependencies[] = date_views
 dependencies[] = soar_events_display

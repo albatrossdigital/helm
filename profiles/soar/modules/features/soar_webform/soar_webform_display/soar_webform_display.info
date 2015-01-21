@@ -1,8 +1,9 @@
 name = Soar Webform Display
 description = Manages the display of webform nodes
 core = 7.x
-package = Features
+package = Soar
 dependencies[] = ctools
+dependencies[] = soar_webform
 dependencies[] = panelizer
 dependencies[] = strongarm
 features[ctools][] = panelizer:panelizer:1

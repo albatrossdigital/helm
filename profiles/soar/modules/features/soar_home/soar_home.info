@@ -1,7 +1,7 @@
 name = Soar Home
 description = Panels based homepage with carousel
 core = 7.x
-package = Features
+package = Soar
 dependencies[] = hot_bs_carousel
 dependencies[] = panels
 dependencies[] = panels_ipe
