@@ -215,3 +215,38 @@ function soar_config_view_data($view_name, $display = 'default', $args = array()
   return ($mode == 'view') ? $view : $view->result;
 }
 
+
+
+//******************************************************************
+
+// Panels workflow
+
+//******************************************************************
+
+
+
+/**
+ * Implements hook_panels_pane_content_alter().
+ */
+function soar_config_panels_pane_content_alter($content, $pane, $args, $context) {
+  
+  // only display the link to people with adequate permissions, obviously
+  if ( user_access('change layouts in place editing') 
+    && isset($content->module)
+    && $content->module == 'panels_mini'
+  ) {
+    
+    $delta = $content->delta;
+    $mini_panel = panels_mini_load($delta);
+    $url = 'admin/structure/mini-panels/list/'. $delta .'/edit/content';
+    $title = $mini_panel->admin_title;
+    
+    $content_addition = '<p class="col-xs-12 edit-mini-panel-link">'
+                      . l('Edit '. $title, $url, array('attributes' => array('class' => array('btn', 'btn-warning', 'btn-xs'))))
+                      . '</p>';
+
+    // Prepend edit link to content
+    $content->content =  $content_addition . $content->content;
+  }
+}
+
