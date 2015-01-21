@@ -22,7 +22,6 @@ function kalatheme_form($variables) {
   return '<form' . drupal_attributes($element['#attributes']) . '><div>' . $element['#children'] . '</div></form>';
 }
 
-
 /**
  * Implements hook_element_info_alter().
  */
@@ -36,7 +35,7 @@ function kalatheme_element_info_alter(&$elements) {
 }
 
 /**
- * Process all elements.
+ * Implements template_process_element().
  */
 function kalatheme_process_element(&$element, &$form_state) {
   if (!empty($element['#attributes']['class']) && is_array($element['#attributes']['class'])) {
@@ -51,9 +50,33 @@ function kalatheme_process_element(&$element, &$form_state) {
 }
 
 /**
- * Process input elements.
+ * Implements template_process_input().
  */
 function kalatheme_process_input(&$element, &$form_state) {
+  if (isset($element['#required']) && $element['#required'] == TRUE) {
+    if (!isset($element['#attributes'])) {
+      $element['#attributes'] = array();
+    }
+    // Is this process going to use a WYSIWYG?
+    $wysiwyg_process = FALSE;
+    // Checks prerender function.
+    if (isset($element['#pre_render'])) {
+      foreach ($element['#pre_render'] as $delta => $callback) {
+        if ($callback == 'wysiwyg_pre_render_text_format') {
+          $wysiwyg_process = TRUE;
+        }
+      }
+    }
+
+    // Unless it is a wysiwyg field.
+    if (!$wysiwyg_process) {
+      // Doubling up on required
+      // @link http://john.foliot.ca/required-inputs/
+      $element['#attributes']['required'] = 'true';
+      $element['#attributes']['aria-required'] = 'true';
+    }
+  }
+
   $types = array(
     'textfield',
     'textarea',
@@ -161,7 +184,7 @@ function kalatheme_form_element($variables) {
   }
 
   if (!empty($element['#description'])) {
-    $output .= '<span class="help-block">' . $element['#description'] . "</span>\n";
+    $output .= '<p class="help-block">' . $element['#description'] . "</p>\n";
   }
 
   $output .= "</div>\n";
@@ -228,7 +251,7 @@ function kalatheme_button($variables) {
     $element['#attributes']['class'][] = 'btn-primary';
   }
 
-  return '<input' . drupal_attributes($element['#attributes']) . ' />';;
+  return '<input' . drupal_attributes($element['#attributes']) . ' />';
 }
 
 /**
@@ -236,17 +259,17 @@ function kalatheme_button($variables) {
  */
 function kalatheme_textarea($variables) {
   $element = $variables['element'];
-  // Set only if they are set
-  if(isset($element['#name'])){
+  // Set only if they are set.
+  if (isset($element['#name'])) {
     $element['#attributes']['name'] = $element['#name'];
   }
-  if(isset($element['#id'])){
+  if (isset($element['#id'])) {
     $element['#attributes']['id'] = $element['#id'];
   }
-  if(isset($element['#cols'])){
+  if (isset($element['#cols'])) {
     $element['#attributes']['cols'] = $element['#cols'];
   }
-  if(isset($element['#rows'])){
+  if (isset($element['#rows'])) {
     $element['#attributes']['rows'] = $element['#rows'];
   }
   _form_set_class($element, array('form-textarea'));
@@ -284,6 +307,46 @@ function kalatheme_date($variables) {
 }
 
 /**
+ * Implements theme_textfield().
+ */
+function kalatheme_textfield($variables) {
+  $element = $variables['element'];
+  $element['#attributes']['type'] = 'text';
+  element_set_attributes($element, array(
+    'id',
+    'name',
+    'value',
+    'size',
+    'maxlength',
+  ));
+  _form_set_class($element, array('form-text'));
+
+  $output = '<input' . drupal_attributes($element['#attributes']) . ' />';
+
+  $extra = '';
+  if ($element['#autocomplete_path'] && drupal_valid_path($element['#autocomplete_path'])) {
+    drupal_add_library('system', 'drupal.autocomplete');
+    $element['#attributes']['class'][] = 'form-autocomplete';
+
+    $attributes = array();
+    $attributes['type'] = 'hidden';
+    $attributes['id'] = $element['#attributes']['id'] . '-autocomplete';
+    $attributes['value'] = url($element['#autocomplete_path'], array('absolute' => TRUE));
+    $attributes['disabled'] = 'disabled';
+    $attributes['class'][] = 'autocomplete';
+
+    $icon = _kalatheme_font_icon('refresh');
+
+    $output = '<div class="input-group">' . $output . '<span class="input-group-addon">' . $icon . '</span></div>';
+
+    $extra = '<input' . drupal_attributes($attributes) . ' />';
+  }
+
+  return $output . $extra;
+}
+
+
+/**
  * Implements theme_fieldset().
  */
 function kalatheme_fieldset($variables) {
@@ -307,4 +370,19 @@ function kalatheme_fieldset($variables) {
   $output .= '</div>';
   $output .= "</fieldset>\n";
   return $output;
+}
+/**
+ * Implements theme_form_required_marker().
+ */
+function kalatheme_form_required_marker($variables) {
+
+  $t = get_t();
+  $attributes = array(
+    'class' => 'form-required',
+    'title' => $t('This field is required.'),
+    // Don't announce this since we are already giving the form aria-required
+    // required attributes.
+    'aria-hidden' => 'true',
+  );
+  return '<span' . drupal_attributes($attributes) . '>*</span>';
 }

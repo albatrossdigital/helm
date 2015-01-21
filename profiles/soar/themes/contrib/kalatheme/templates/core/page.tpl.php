@@ -84,107 +84,47 @@
 ?>
 <div id="page-wrapper"><div id="page">
 
-   <!-- Page Header -->
-  <header class="navbar navbar-default <?php if ($hide_site_name && $hide_site_slogan && !$logo && !$main_menu && !$secondary_menu) { print ' element-invisible'; } ?>">
-    <div class="container">
-      <div class="navbar-header">
-        <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
-          <span class="element-invisible">Toggle navigation</span>
-          <span class="icon-bar" aria-hidden="true"></span>
-          <span class="icon-bar" aria-hidden="true"></span>
-          <span class="icon-bar" aria-hidden="true"></span>
-        </button>
-        <?php if ($logo): ?>
-          <div class='brand navbar-brand'>
-            <a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home" id="logo">
-              <img src="<?php print $logo; ?>" alt="<?php print t('Home'); ?>" />
-            </a>
-          </div>
-        <?php endif; ?>
+  <!-- Site Header -->
+  <?php print theme('kt_site_header', array(
+      'front_page' => $front_page,
+      'logo' => $logo,
+      'site_name' => $site_name,
+      'hide_site_name' => $hide_site_name,
+      'site_slogan' => $site_slogan,
+      'hide_site_slogan' => $hide_site_slogan,
+      )
+    );
 
-        <?php if ($site_name || $site_slogan): ?>
-          <div id="site-name-slogan" class="brand navbar-brand <?php if ($hide_site_name && $hide_site_slogan) { print ' element-invisible'; } ?>">
+  ?>
 
-            <?php if ($site_name): ?>
-              <h1 id="site-name"<?php if ($hide_site_name) { print ' class="element-invisible"'; } ?>>
-                <strong>
-                  <a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home"><span><?php print $site_name; ?></span></a>
-                </strong>
-              </h1>
-            <?php endif; ?>
+  <!-- Site Navigation -->
+  <div class="container">
+    <?php print theme('kt_navbar', array(
+      'main_menu' => $main_menu,
+      'main_menu_expanded' => $main_menu_expanded,
+      'secondary_menu'=> $secondary_menu,
+      'site_name' => $site_name,
+      'front_page' => $front_page,
+      'site_name' => $site_name
+    ));
 
-            <?php if ($site_slogan): ?>
-              <div id="site-slogan" <?php if ($hide_site_slogan) { print 'class="element-invisible"'; } ?>>
-                <?php print $site_slogan; ?>
-              </div>
-            <?php endif; ?>
+    ?>
+  </div>
 
-          </div> <!-- /#name-and-slogan -->
-        <?php endif; ?>
-      </div><!-- /.navbar-header -->
-
-      <nav class="collapse navbar-collapse <?php if (!$main_menu && !$secondary_menu) { print 'element-invisible'; } ?>" role="navigation">
-        <?php
-          $pri_attributes = array(
-            'class' => array(
-              'nav',
-              'navbar-nav',
-              'links',
-              'clearfix',
-            ),
-          );
-          if (!$main_menu) {
-            $pri_attributes['class'][] = 'element-invisible';
-          }
-        ?>
-        <?php print theme('links__system_main_menu', array(
-          'links' => $main_menu_expanded,
-          'attributes' => $pri_attributes,
-          'heading' => array(
-            'text' => t('Main menu'),
-            'level' => 'h2',
-            'class' => array('element-invisible'),
-          ),
-        )); ?>
-
-        <?php
-          $sec_attributes = array(
-            'id' => 'secondary-menu-links',
-            'class' => array('nav', 'navbar-nav', 'secondary-links'),
-          );
-          if (!$secondary_menu) {
-            $sec_attributes['class'][] = 'element-invisible';
-          }
-        ?>
-
-        <?php print theme('links__system_secondary_menu', array(
-          'links' => $secondary_menu,
-          'attributes' => $sec_attributes,
-          'heading' => array(
-            'text' => t('Secondary menu'),
-            'level' => 'h2',
-            'class' => array('element-invisible'),
-          ),
-        )); ?>
-      </nav>
-
-    </div>
-  </header>
 
   <!-- Page Main -->
   <div id="main-wrapper" class="clearfix">
     <main id="main" class="clearfix" role="main">
       <div id="top-content">
         <div class="column container">
-          <a id="main-content"></a>
           <?php if (($no_panels || $always_show_page_title) && $title): ?>
-            <h1 id="page-title" class="title">
+            <h1 class="page-header title">
               <?php print $title; ?>
             </h1>
           <?php endif; ?>
 
           <?php if ($messages): ?>
-            <div id="messages">
+            <div class="alerts">
               <?php print $messages; ?>
             </div>
           <?php endif; ?>
