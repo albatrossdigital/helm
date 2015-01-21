@@ -157,95 +157,6 @@ function soar_page_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-page-field_media'
-  $field_instances['node-page-field_media'] = array(
-    'bundle' => 'page',
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'hidden',
-        'module' => 'foundation_formatters',
-        'settings' => array(
-          'autoplay' => 1,
-          'class' => '',
-          'edit' => array(
-            'editor' => 'form',
-          ),
-          'format' => 'inline',
-          'image_field' => 'field_picture',
-          'image_style' => 'large',
-          'play_class' => 'button icon-play',
-          'quickedit' => array(
-            'editor' => 'form',
-          ),
-        ),
-        'type' => 'file_click_to_play',
-        'weight' => 2,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 10,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_media',
-    'label' => 'Media',
-    'required' => 0,
-    'settings' => array(
-      'description_field' => 0,
-      'file_directory' => 'media',
-      'file_extensions' => 'wav mp3 jpg gif jpeg png',
-      'max_filesize' => '',
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'media',
-      'settings' => array(
-        'allowed_schemes' => array(
-          'oembed' => 'oembed',
-          'public' => 'public',
-        ),
-        'allowed_types' => array(
-          'audio' => 'audio',
-          'document' => 0,
-          'image' => 'image',
-          'video' => 'video',
-        ),
-        'browser_plugins' => array(
-          'media_default--media_browser_1' => 0,
-          'media_default--media_browser_my_files' => 0,
-          'media_inkfilepicker' => 0,
-          'media_internet' => 0,
-          'upload' => 0,
-        ),
-        'manualcrop_crop_info' => 1,
-        'manualcrop_default_crop_area' => 1,
-        'manualcrop_enable' => FALSE,
-        'manualcrop_inline_crop' => 0,
-        'manualcrop_instant_crop' => FALSE,
-        'manualcrop_instant_preview' => 1,
-        'manualcrop_maximize_default_crop_area' => 0,
-        'manualcrop_require_cropping' => array(),
-        'manualcrop_styles_list' => array(),
-        'manualcrop_styles_mode' => 'include',
-        'manualcrop_thumblist' => 0,
-        'progress_indicator' => 'throbber',
-      ),
-      'type' => 'media_generic',
-      'weight' => 4,
-    ),
-  );
-
   // Exported field_instance: 'node-page-field_picture'
   $field_instances['node-page-field_picture'] = array(
     'bundle' => 'page',
@@ -397,7 +308,6 @@ function soar_page_field_default_field_instances() {
   // Included for use with string extractors like potx.
   t('Attachments');
   t('Body');
-  t('Media');
   t('Picture');
   t('Subtitle');
 
