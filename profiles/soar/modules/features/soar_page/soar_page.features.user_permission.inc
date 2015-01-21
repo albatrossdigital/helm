@@ -15,6 +15,7 @@ function soar_page_user_default_permissions() {
     'name' => 'create page content',
     'roles' => array(
       'administrator' => 'administrator',
+      'editor' => 'editor',
     ),
     'module' => 'node',
   );
@@ -33,6 +34,7 @@ function soar_page_user_default_permissions() {
     'name' => 'delete own page content',
     'roles' => array(
       'administrator' => 'administrator',
+      'editor' => 'editor',
     ),
     'module' => 'node',
   );
@@ -42,6 +44,7 @@ function soar_page_user_default_permissions() {
     'name' => 'edit any page content',
     'roles' => array(
       'administrator' => 'administrator',
+      'editor' => 'editor',
     ),
     'module' => 'node',
   );
@@ -51,6 +54,7 @@ function soar_page_user_default_permissions() {
     'name' => 'edit own page content',
     'roles' => array(
       'administrator' => 'administrator',
+      'editor' => 'editor',
     ),
     'module' => 'node',
   );

@@ -149,7 +149,7 @@ function soar_page_display_panelizer_defaults() {
     $pane->access = array();
     $pane->configuration = array(
       'label' => 'hidden',
-      'formatter' => 'image_super',
+      'formatter' => 'image',
       'delta_limit' => 0,
       'delta_offset' => '0',
       'delta_reversed' => FALSE,
@@ -169,6 +169,7 @@ function soar_page_display_panelizer_defaults() {
         'quickedit' => array(
           'editor' => 'form',
         ),
+        'image_link' => '',
       ),
       'context' => 'panelizer',
       'override_title' => 1,
@@ -195,7 +196,7 @@ function soar_page_display_panelizer_defaults() {
     $pane->access = array();
     $pane->configuration = array(
       'label' => 'hidden',
-      'formatter' => 'file_click_to_play',
+      'formatter' => 'file_rendered',
       'delta_limit' => 0,
       'delta_offset' => '0',
       'delta_reversed' => FALSE,
@@ -212,6 +213,7 @@ function soar_page_display_panelizer_defaults() {
         'quickedit' => array(
           'editor' => 'form',
         ),
+        'file_view_mode' => 'full',
       ),
       'context' => 'panelizer',
       'override_title' => 1,
