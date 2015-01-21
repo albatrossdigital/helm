@@ -14,7 +14,7 @@ function soar_webform_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'comment_webform';
-  $strongarm->value = 'COMMENT_NODE_CLOSED';
+  $strongarm->value = '0';
   $export['comment_webform'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -71,9 +71,7 @@ function soar_webform_strongarm() {
   $strongarm->api_version = 1;
   $strongarm->name = 'menu_options_webform';
   $strongarm->value = array(
-    0 => 'menu-footer-menu',
-    1 => 'main-menu',
-    2 => 'menu-secondary-menu',
+    0 => 'main-menu',
   );
   $export['menu_options_webform'] = $strongarm;
 
@@ -105,7 +103,7 @@ function soar_webform_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'node_submitted_webform';
-  $strongarm->value = 1;
+  $strongarm->value = 0;
   $export['node_submitted_webform'] = $strongarm;
 
   $strongarm = new stdClass();

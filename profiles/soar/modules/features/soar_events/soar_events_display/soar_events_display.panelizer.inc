@@ -30,7 +30,7 @@ function soar_events_display_panelizer_defaults() {
   $panelizer->link_to_entity = TRUE;
   $panelizer->extra = array();
   $display = new panels_display();
-  $display->layout = 'radix_burr_flipped';
+  $display->layout = 'radix_bryant_flipped';
   $display->layout_settings = array();
   $display->panel_settings = array(
     'style_settings' => array(
@@ -134,14 +134,14 @@ function soar_events_display_panelizer_defaults() {
     $pane->style = array(
       'settings' => array(
         'title' => array(
-          'element' => '',
+          'element' => 'no_wrapper',
           'attributes' => array(
             'id' => '',
             'class' => '',
           ),
         ),
         'content' => array(
-          'element' => '0',
+          'element' => 'h4',
           'attributes' => array(
             'id' => '',
             'class' => '',
@@ -187,16 +187,22 @@ function soar_events_display_panelizer_defaults() {
     $pane->style = array(
       'settings' => array(
         'title' => array(
-          'prefix' => '',
-          'suffix' => '',
+          'element' => 'no_wrapper',
+          'attributes' => array(
+            'id' => '',
+            'class' => '',
+          ),
         ),
         'content' => array(
-          'prefix' => '<h4 class="time-address all-inline">',
-          'suffix' => '',
+          'element' => 'h4',
+          'attributes' => array(
+            'id' => '',
+            'class' => 'inline-header',
+          ),
         ),
         'theme' => 0,
       ),
-      'style' => 'wrapper_raw',
+      'style' => 'wrapper_element',
     );
     $pane->css = array();
     $pane->extras = array();
@@ -234,16 +240,22 @@ function soar_events_display_panelizer_defaults() {
     $pane->style = array(
       'settings' => array(
         'title' => array(
-          'prefix' => '',
-          'suffix' => '',
+          'element' => 'no_wrapper',
+          'attributes' => array(
+            'id' => '',
+            'class' => '',
+          ),
         ),
         'content' => array(
-          'prefix' => ' <span class="seperator">|</span> ',
-          'suffix' => '</h4>',
+          'element' => 'h4',
+          'attributes' => array(
+            'id' => '',
+            'class' => 'inline-header',
+          ),
         ),
         'theme' => 0,
       ),
-      'style' => 'wrapper_raw',
+      'style' => 'wrapper_element',
     );
     $pane->css = array();
     $pane->extras = array();
@@ -451,24 +463,8 @@ function soar_events_display_panelizer_defaults() {
     );
     $pane->cache = array();
     $pane->style = array(
-      'settings' => array(
-        'title' => array(
-          'element' => '',
-          'attributes' => array(
-            'id' => '',
-            'class' => '',
-          ),
-        ),
-        'content' => array(
-          'element' => '0',
-          'attributes' => array(
-            'id' => '',
-            'class' => '',
-          ),
-        ),
-        'theme' => 0,
-      ),
-      'style' => 'wrapper_element',
+      'style' => 'default',
+      'settings' => NULL,
     );
     $pane->css = array();
     $pane->extras = array();
@@ -505,16 +501,22 @@ function soar_events_display_panelizer_defaults() {
     $pane->style = array(
       'settings' => array(
         'title' => array(
-          'prefix' => '',
-          'suffix' => '',
+          'element' => 'no_wrapper',
+          'attributes' => array(
+            'id' => '',
+            'class' => '',
+          ),
         ),
         'content' => array(
-          'prefix' => '<h4 class="time-address all-inline">',
-          'suffix' => '',
+          'element' => 'h4',
+          'attributes' => array(
+            'id' => '',
+            'class' => 'inline-header',
+          ),
         ),
         'theme' => 0,
       ),
-      'style' => 'wrapper_raw',
+      'style' => 'wrapper_element',
     );
     $pane->css = array();
     $pane->extras = array();
@@ -552,16 +554,22 @@ function soar_events_display_panelizer_defaults() {
     $pane->style = array(
       'settings' => array(
         'title' => array(
-          'prefix' => '',
-          'suffix' => '',
+          'element' => 'no_wrapper',
+          'attributes' => array(
+            'id' => '',
+            'class' => '',
+          ),
         ),
         'content' => array(
-          'prefix' => ' <span class="seperator">|</span> ',
-          'suffix' => '</h4>',
+          'element' => 'h4',
+          'attributes' => array(
+            'id' => '',
+            'class' => 'inline-header',
+          ),
         ),
         'theme' => 0,
       ),
-      'style' => 'wrapper_raw',
+      'style' => 'wrapper_element',
     );
     $pane->css = array();
     $pane->extras = array();
@@ -620,6 +628,58 @@ function soar_events_display_panelizer_defaults() {
     $display->content['new-17d36e42-3bd7-44bf-b0fc-5de0e7460cf0'] = $pane;
     $display->panels['contentmain'][3] = 'new-17d36e42-3bd7-44bf-b0fc-5de0e7460cf0';
     $pane = new stdClass();
+    $pane->pid = 'new-0cf746ba-8f5e-4d67-ba11-9d731abcaae7';
+    $pane->panel = 'sidebar';
+    $pane->type = 'entity_field';
+    $pane->subtype = 'node:field_date';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array(
+      'label' => 'hidden',
+      'formatter' => 'date_default',
+      'delta_limit' => '0',
+      'delta_offset' => '0',
+      'delta_reversed' => 0,
+      'formatter_settings' => array(
+        'format_type' => 'panopoly_day',
+        'multiple_number' => '',
+        'multiple_from' => '',
+        'multiple_to' => '',
+        'fromto' => 'both',
+      ),
+      'context' => array(),
+      'override_title' => 1,
+      'override_title_text' => '',
+    );
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => array(
+        'title' => array(
+          'element' => '0',
+          'attributes' => array(
+            'id' => '',
+            'class' => '',
+          ),
+        ),
+        'content' => array(
+          'element' => 'h4',
+          'attributes' => array(
+            'id' => '',
+            'class' => 'margin-top-none',
+          ),
+        ),
+        'theme' => 0,
+      ),
+      'style' => 'wrapper_element',
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 0;
+    $pane->locks = array();
+    $pane->uuid = '0cf746ba-8f5e-4d67-ba11-9d731abcaae7';
+    $display->content['new-0cf746ba-8f5e-4d67-ba11-9d731abcaae7'] = $pane;
+    $display->panels['sidebar'][0] = 'new-0cf746ba-8f5e-4d67-ba11-9d731abcaae7';
+    $pane = new stdClass();
     $pane->pid = 'new-e34b8ac5-e704-4394-9450-b72b7d105d67';
     $pane->panel = 'sidebar';
     $pane->type = 'entity_field';
@@ -664,63 +724,11 @@ function soar_events_display_panelizer_defaults() {
     );
     $pane->css = array();
     $pane->extras = array();
-    $pane->position = 0;
+    $pane->position = 1;
     $pane->locks = array();
     $pane->uuid = 'e34b8ac5-e704-4394-9450-b72b7d105d67';
     $display->content['new-e34b8ac5-e704-4394-9450-b72b7d105d67'] = $pane;
-    $display->panels['sidebar'][0] = 'new-e34b8ac5-e704-4394-9450-b72b7d105d67';
-    $pane = new stdClass();
-    $pane->pid = 'new-0cf746ba-8f5e-4d67-ba11-9d731abcaae7';
-    $pane->panel = 'sidebar';
-    $pane->type = 'entity_field';
-    $pane->subtype = 'node:field_date';
-    $pane->shown = TRUE;
-    $pane->access = array();
-    $pane->configuration = array(
-      'label' => 'hidden',
-      'formatter' => 'date_default',
-      'delta_limit' => '0',
-      'delta_offset' => '0',
-      'delta_reversed' => 0,
-      'formatter_settings' => array(
-        'format_type' => 'panopoly_day',
-        'multiple_number' => '',
-        'multiple_from' => '',
-        'multiple_to' => '',
-        'fromto' => 'both',
-      ),
-      'context' => array(),
-      'override_title' => 1,
-      'override_title_text' => '',
-    );
-    $pane->cache = array();
-    $pane->style = array(
-      'settings' => array(
-        'title' => array(
-          'element' => '',
-          'attributes' => array(
-            'id' => '',
-            'class' => '',
-          ),
-        ),
-        'content' => array(
-          'element' => '0',
-          'attributes' => array(
-            'id' => '',
-            'class' => '',
-          ),
-        ),
-        'theme' => 0,
-      ),
-      'style' => 'wrapper_element',
-    );
-    $pane->css = array();
-    $pane->extras = array();
-    $pane->position = 1;
-    $pane->locks = array();
-    $pane->uuid = '0cf746ba-8f5e-4d67-ba11-9d731abcaae7';
-    $display->content['new-0cf746ba-8f5e-4d67-ba11-9d731abcaae7'] = $pane;
-    $display->panels['sidebar'][1] = 'new-0cf746ba-8f5e-4d67-ba11-9d731abcaae7';
+    $display->panels['sidebar'][1] = 'new-e34b8ac5-e704-4394-9450-b72b7d105d67';
   $display->hide_title = PANELS_TITLE_NONE;
   $display->title_pane = '0';
   $panelizer->display = $display;

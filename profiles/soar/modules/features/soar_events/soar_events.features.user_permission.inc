@@ -14,6 +14,7 @@ function soar_events_user_default_permissions() {
   $permissions['create event content'] = array(
     'name' => 'create event content',
     'roles' => array(
+      'administrator' => 'administrator',
       'editor' => 'editor',
     ),
     'module' => 'node',
@@ -23,7 +24,7 @@ function soar_events_user_default_permissions() {
   $permissions['delete any event content'] = array(
     'name' => 'delete any event content',
     'roles' => array(
-      'editor' => 'editor',
+      'administrator' => 'administrator',
     ),
     'module' => 'node',
   );
@@ -31,7 +32,10 @@ function soar_events_user_default_permissions() {
   // Exported permission: 'delete own event content'.
   $permissions['delete own event content'] = array(
     'name' => 'delete own event content',
-    'roles' => array(),
+    'roles' => array(
+      'administrator' => 'administrator',
+      'editor' => 'editor',
+    ),
     'module' => 'node',
   );
 
@@ -39,6 +43,7 @@ function soar_events_user_default_permissions() {
   $permissions['edit any event content'] = array(
     'name' => 'edit any event content',
     'roles' => array(
+      'administrator' => 'administrator',
       'editor' => 'editor',
     ),
     'module' => 'node',
@@ -47,7 +52,10 @@ function soar_events_user_default_permissions() {
   // Exported permission: 'edit own event content'.
   $permissions['edit own event content'] = array(
     'name' => 'edit own event content',
-    'roles' => array(),
+    'roles' => array(
+      'administrator' => 'administrator',
+      'editor' => 'editor',
+    ),
     'module' => 'node',
   );
 

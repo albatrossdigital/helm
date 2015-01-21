@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Soar Events Calendar feature.
+ */
+
+include_once 'soar_events_calendar.features.inc';

@@ -429,92 +429,6 @@ function soar_events_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-event-field_media'
-  $field_instances['node-event-field_media'] = array(
-    'bundle' => 'event',
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'compact_teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 21,
-      ),
-      'default' => array(
-        'label' => 'hidden',
-        'module' => 'foundation_formatters',
-        'settings' => array(
-          'autoplay' => 1,
-          'class' => '',
-          'format' => 'inline',
-          'image_field' => 'field_picture',
-          'image_style' => 'large',
-          'play_class' => 'button icon-play',
-          'quickedit' => array(
-            'editor' => 'form',
-          ),
-          'vimeo' => 'vimeo',
-          'widescreen' => 1,
-        ),
-        'type' => 'file_click_to_play',
-        'weight' => 3,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 21,
-      ),
-    ),
-    'ds_extras_field_template' => '',
-    'entity_type' => 'node',
-    'field_name' => 'field_media',
-    'label' => 'Video',
-    'required' => 0,
-    'settings' => array(
-      'description_field' => 0,
-      'file_directory' => '[current-domain:machine-name]/media',
-      'file_extensions' => 'wav mp3 jpg gif jpeg png',
-      'max_filesize' => '',
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'media',
-      'settings' => array(
-        'allowed_schemes' => array(
-          'oembed' => 'oembed',
-          'private' => 0,
-          'public' => 0,
-        ),
-        'allowed_types' => array(
-          'audio' => 'audio',
-          'document' => 0,
-          'image' => 'image',
-          'video' => 'video',
-        ),
-        'browser_plugins' => array(
-          'media_default--media_browser_1' => 0,
-          'media_default--media_browser_my_files' => 0,
-          'media_inkfilepicker' => 0,
-          'media_internet' => 0,
-          'upload' => 0,
-        ),
-        'progress_indicator' => 'throbber',
-      ),
-      'type' => 'media_generic',
-      'weight' => 6,
-    ),
-    'workbench_access_field' => 0,
-  );
-
   // Exported field_instance: 'node-event-field_picture'
   $field_instances['node-event-field_picture'] = array(
     'bundle' => 'event',
@@ -614,7 +528,6 @@ function soar_events_field_default_field_instances() {
   t('Description');
   t('Location');
   t('Picture');
-  t('Video');
 
   return $field_instances;
 }

@@ -15,6 +15,7 @@ function soar_webform_user_default_permissions() {
     'name' => 'access all webform results',
     'roles' => array(
       'administrator' => 'administrator',
+      'editor' => 'editor',
     ),
     'module' => 'webform',
   );
@@ -38,6 +39,7 @@ function soar_webform_user_default_permissions() {
     'name' => 'create webform content',
     'roles' => array(
       'administrator' => 'administrator',
+      'editor' => 'editor',
     ),
     'module' => 'node',
   );
@@ -65,6 +67,7 @@ function soar_webform_user_default_permissions() {
     'name' => 'delete own webform content',
     'roles' => array(
       'administrator' => 'administrator',
+      'editor' => 'editor',
     ),
     'module' => 'node',
   );
@@ -72,7 +75,9 @@ function soar_webform_user_default_permissions() {
   // Exported permission: 'delete own webform submissions'.
   $permissions['delete own webform submissions'] = array(
     'name' => 'delete own webform submissions',
-    'roles' => array(),
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
     'module' => 'webform',
   );
 
@@ -81,6 +86,7 @@ function soar_webform_user_default_permissions() {
     'name' => 'edit all webform submissions',
     'roles' => array(
       'administrator' => 'administrator',
+      'editor' => 'editor',
     ),
     'module' => 'webform',
   );
@@ -90,6 +96,7 @@ function soar_webform_user_default_permissions() {
     'name' => 'edit any webform content',
     'roles' => array(
       'administrator' => 'administrator',
+      'editor' => 'editor',
     ),
     'module' => 'node',
   );
@@ -99,6 +106,7 @@ function soar_webform_user_default_permissions() {
     'name' => 'edit own webform content',
     'roles' => array(
       'administrator' => 'administrator',
+      'editor' => 'editor',
     ),
     'module' => 'node',
   );
@@ -106,7 +114,10 @@ function soar_webform_user_default_permissions() {
   // Exported permission: 'edit own webform submissions'.
   $permissions['edit own webform submissions'] = array(
     'name' => 'edit own webform submissions',
-    'roles' => array(),
+    'roles' => array(
+      'administrator' => 'administrator',
+      'editor' => 'editor',
+    ),
     'module' => 'webform',
   );
 

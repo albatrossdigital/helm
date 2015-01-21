@@ -67,7 +67,7 @@ function soar_events_display_default_page_manager_pages() {
     ),
   );
   $display->cache = array();
-  $display->title = '';
+  $display->title = 'Events';
   $display->uuid = 'fd2f9801-1b23-4048-86ec-c1d223063042';
   $display->content = array();
   $display->panels = array();
@@ -85,7 +85,24 @@ function soar_events_display_default_page_manager_pages() {
     );
     $pane->cache = array();
     $pane->style = array(
-      'settings' => NULL,
+      'settings' => array(
+        'title' => array(
+          'element' => 'h1',
+          'attributes' => array(
+            'id' => '',
+            'class' => 'page-title',
+          ),
+        ),
+        'content' => array(
+          'element' => '0',
+          'attributes' => array(
+            'id' => '',
+            'class' => '',
+          ),
+        ),
+        'theme' => 0,
+      ),
+      'style' => 'wrapper_element',
     );
     $pane->css = array();
     $pane->extras = array();
@@ -116,7 +133,7 @@ function soar_events_display_default_page_manager_pages() {
     $pane->uuid = 'a2114b30-98a4-4cfe-b21d-a75db52f1052';
     $display->content['new-a2114b30-98a4-4cfe-b21d-a75db52f1052'] = $pane;
     $display->panels['sidebar'][0] = 'new-a2114b30-98a4-4cfe-b21d-a75db52f1052';
-  $display->hide_title = PANELS_TITLE_NONE;
+  $display->hide_title = PANELS_TITLE_PANE;
   $display->title_pane = 'new-030767f8-a2c8-4f1b-bf06-d5e40970146a';
   $handler->conf['display'] = $display;
   $page->default_handlers[$handler->name] = $handler;
