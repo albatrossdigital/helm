@@ -1,0 +1,43 @@
+<?php
+/**
+ * @file
+ * Code for the hot-bs-carousel feature.
+ */
+
+include_once 'hot_bs_carousel.features.inc';
+/**
+ * @file
+ * hot-bs-carousel Module file
+ */
+
+/**
+ * Implements hook_entity_info_alter().
+ *
+ * Defines the field-able pane for bootstrap carousels
+ * @link( Bootstrap JS, http://getbootstrap.com/javascript/)
+ */
+function hot_bs_carousel_entity_info_alter(&$entity_info) {
+
+  // Fieldable panel pane bundle to support Bootstrap carousels:
+  $entity_info['fieldable_panels_pane']['bundles']['hot_bs_carousel'] = array(
+    'label' => t('Carousel'),
+    'pane category' => t('HotApps!'),
+    'pane top level' => FALSE,
+    'admin' => array(
+      'path' => 'admin/structure/fieldable-panels-panes/manage/%fieldable_panels_panes_type',
+      'bundle argument' => 4,
+      'real path' => 'admin/structure/fieldable-panels-panes/manage/hot-bs-carousel',
+      'access arguments' => array('administer fieldable panels panes'),
+    ),
+  );
+
+}
+
+
+/**
+ * Implements themplate_preprocess_views_bootstrap_carousel_plugin_style().
+ */
+function hot_bs_carousel_preprocess_views_bootstrap_carousel_plugin_style(&$vars) {
+  // Add touch events.
+  drupal_add_js(drupal_get_path('module', 'hot_bs_carousel') . '/hot_bs_carousel.min.js');
+}

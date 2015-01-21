@@ -1,0 +1,22 @@
+{
+  "name": "hot_bs_carousel",
+  "version": "0.0.0",
+  "description": "hot_bs_carousel =============",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/kalamuna/kala_carousel.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kalamuna/kala_carousel/issues"
+  },
+  "homepage": "https://github.com/kalamuna/kala_carousel",
+  "dependencies": {
+    "bootstrap-carousel-swipe": "git+ssh://git@github.com:bassettsj/bootstrap-carousel-swipe.git"
+  }
+}
