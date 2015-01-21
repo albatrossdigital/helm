@@ -63,6 +63,7 @@ dependencies[] = panels
 dependencies[] = panels_ipe
 dependencies[] = panels_mini
 dependencies[] = fences
+dependencies[] = panels_extra_styles
 ; dependencies[] = quickedit
 
 

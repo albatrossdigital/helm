@@ -231,6 +231,8 @@ projects[json2][subdir] = contrib
 projects[fences][version] = 1.0
 projects[fences][subdir] = contrib
 
+projects[panels_extra_styles][version] = 1.1
+projects[panels_extra_styles][subdir] = contrib
 
 ; +++++ Modules not installed by default +++++
 
