@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Soar Home feature.
+ */
+
+include_once 'soar_home.features.inc';

@@ -1,0 +1,16 @@
+name = Soar Home
+description = Panels based homepage with carousel
+core = 7.x
+package = Features
+dependencies[] = hot_bs_carousel
+dependencies[] = panels
+dependencies[] = panels_ipe
+dependencies[] = panels_mini
+dependencies[] = soar_news_display
+features[ctools][] = page_manager:pages_default:1
+features[ctools][] = panels_mini:panels_default:1
+features[features_api][] = api:2
+features[page_manager_pages][] = home_page
+features[panels_mini][] = page_sidebar_right_complex_
+features_exclude[dependencies][ctools] = ctools
+features_exclude[dependencies][page_manager] = page_manager
