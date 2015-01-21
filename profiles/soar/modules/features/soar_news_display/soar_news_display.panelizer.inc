@@ -30,7 +30,7 @@ function soar_news_display_panelizer_defaults() {
   $panelizer->link_to_entity = TRUE;
   $panelizer->extra = array();
   $display = new panels_display();
-  $display->layout = 'radix_burr_flipped';
+  $display->layout = 'radix_bryant_flipped';
   $display->layout_settings = array();
   $display->panel_settings = array(
     'style_settings' => array(
@@ -345,24 +345,8 @@ function soar_news_display_panelizer_defaults() {
     );
     $pane->cache = array();
     $pane->style = array(
-      'settings' => array(
-        'title' => array(
-          'element' => '',
-          'attributes' => array(
-            'id' => '',
-            'class' => '',
-          ),
-        ),
-        'content' => array(
-          'element' => '0',
-          'attributes' => array(
-            'id' => '',
-            'class' => '',
-          ),
-        ),
-        'theme' => 0,
-      ),
-      'style' => 'wrapper_element',
+      'style' => 'default',
+      'settings' => NULL,
     );
     $pane->css = array();
     $pane->extras = array();

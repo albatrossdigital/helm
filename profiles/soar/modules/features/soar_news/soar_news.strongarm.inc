@@ -58,7 +58,7 @@ function soar_news_strongarm() {
   $strongarm->name = 'node_options_article';
   $strongarm->value = array(
     0 => 'status',
-    1 => 'promote',
+    1 => 'revision',
   );
   $export['node_options_article'] = $strongarm;
 
@@ -73,7 +73,7 @@ function soar_news_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'node_submitted_article';
-  $strongarm->value = 1;
+  $strongarm->value = 0;
   $export['node_submitted_article'] = $strongarm;
 
   return $export;

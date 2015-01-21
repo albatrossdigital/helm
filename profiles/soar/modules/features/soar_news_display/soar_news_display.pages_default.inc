@@ -15,7 +15,7 @@ function soar_news_display_default_page_manager_pages() {
   $page->task = 'page';
   $page->admin_title = 'News';
   $page->admin_description = 'News listing';
-  $page->path = 'news';
+  $page->path = 'news/!category';
   $page->access = array();
   $page->menu = array(
     'type' => 'normal',
@@ -29,7 +29,23 @@ function soar_news_display_default_page_manager_pages() {
       'weight' => '0',
     ),
   );
-  $page->arguments = array();
+  $page->arguments = array(
+    'category' => array(
+      'id' => 1,
+      'identifier' => 'Taxonomy term: ID',
+      'name' => 'term',
+      'settings' => array(
+        'input_form' => 'term',
+        'vids' => array(
+          1 => 0,
+          3 => 0,
+          2 => 0,
+        ),
+        'breadcrumb' => 1,
+        'transform' => 1,
+      ),
+    ),
+  );
   $page->conf = array(
     'admin_paths' => FALSE,
   );
@@ -54,7 +70,7 @@ function soar_news_display_default_page_manager_pages() {
     'relationships' => array(),
   );
   $display = new panels_display();
-  $display->layout = 'radix_burr_flipped';
+  $display->layout = 'radix_bryant_flipped';
   $display->layout_settings = array();
   $display->panel_settings = array(
     'style_settings' => array(
@@ -98,7 +114,7 @@ function soar_news_display_default_page_manager_pages() {
     'style' => 'wrapper_element',
   );
   $display->cache = array();
-  $display->title = 'News';
+  $display->title = '%category:name';
   $display->uuid = '8709f9bb-fa7a-471a-a7fe-fa42c66f0502';
   $display->content = array();
   $display->panels = array();
@@ -113,6 +129,9 @@ function soar_news_display_default_page_manager_pages() {
       'view_settings' => 'rendered_entity',
       'header_type' => 'none',
       'view_mode' => 'teaser',
+      'arguments' => array(
+        'field_category_tid' => 'press release',
+      ),
     );
     $pane->cache = array();
     $pane->style = array(
@@ -121,7 +140,7 @@ function soar_news_display_default_page_manager_pages() {
           'element' => 'h1',
           'attributes' => array(
             'id' => '',
-            'class' => '',
+            'class' => 'page-title',
           ),
         ),
         'content' => array(
@@ -181,7 +200,7 @@ function soar_news_display_default_page_manager_pages() {
     $pane->uuid = '9bd33221-f638-4895-94a2-4bb97f394250';
     $display->content['new-9bd33221-f638-4895-94a2-4bb97f394250'] = $pane;
     $display->panels['sidebar'][0] = 'new-9bd33221-f638-4895-94a2-4bb97f394250';
-  $display->hide_title = PANELS_TITLE_FIXED;
+  $display->hide_title = PANELS_TITLE_PANE;
   $display->title_pane = 'new-63c7b281-998f-456d-89e5-b3ca5f98d2ec';
   $handler->conf['display'] = $display;
   $page->default_handlers[$handler->name] = $handler;
