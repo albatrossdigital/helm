@@ -8,7 +8,12 @@ module.exports = function(grunt) {
     theme_css: 'css',
     theme_scss: 'scss',
     theme_compass: false,
-    theme_dist: 'nested'
+    theme_dist: 'nested',
+    bowerPath: {
+      'bootSass': 'bower_components/bootstrap-sass-official/assets/stylesheets/',
+      'bootJs':   'bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/',
+      'bourbon':  'bower_components/bourbon/dist/'
+    }
   };
 
   // Set up our sass files
@@ -40,8 +45,8 @@ module.exports = function(grunt) {
           outputStyle: 'nested', // expanded or nested or compact or compressed
           includePaths: [
             'sass',
-            'bower_components/bootstrap-sass-official/assets/stylesheets',
-            'bower_components/bourbon/dist'
+            '<%= globalConfig.bowerPath.bootSass %>',
+            '<%= globalConfig.bowerPath.bourbon %>'
           ],
           imagePath: '../images/unminified'
         },
@@ -52,8 +57,8 @@ module.exports = function(grunt) {
           outputStyle: 'compressed', // expanded or nested or compact or compressed
           includePaths: [
             'sass',
-            'bower_components/bootstrap-sass-official/assets/stylesheets',
-            'bower_components/bourbon/dist'
+            '<%= globalConfig.bowerPath.bootSass %>',
+            '<%= globalConfig.bowerPath.bourbon %>'
           ],
           imagePath: '../images'
         },
@@ -88,6 +93,52 @@ module.exports = function(grunt) {
         }]
       }
     },
+    uglify: {
+      foundation: {
+        options: {
+          preserveComments: 'some',
+          mangle: false
+        },
+        files: {
+          'js/custom-bootstrap.min.js' : [
+            '<%= globalConfig.bowerPath.bootJs %>transition.js',
+            '<%= globalConfig.bowerPath.bootJs %>modal.js',
+            '<%= globalConfig.bowerPath.bootJs %>affix.js',
+            '<%= globalConfig.bowerPath.bootJs %>alert.js',
+            '<%= globalConfig.bowerPath.bootJs %>button.js',
+            '<%= globalConfig.bowerPath.bootJs %>carousel.js',
+            '<%= globalConfig.bowerPath.bootJs %>collapse.js',
+            '<%= globalConfig.bowerPath.bootJs %>dropdown.js',
+            '<%= globalConfig.bowerPath.bootJs %>tooltip.js',
+            '<%= globalConfig.bowerPath.bootJs %>popover.js',
+            '<%= globalConfig.bowerPath.bootJs %>scrollspy.js',
+            '<%= globalConfig.bowerPath.bootJs %>tab.js'
+          ]
+        }
+      }
+    },
+    concat: {///\$(\.fn\.(.*?)\.Constructor.*?\=.*?(.*)),
+      dist: {// $(\.fn\.(.*?)\.Constructor\=)
+        options: {
+          // Pass in the new jquery val
+          process: function(src, filepath) {
+            if(filepath.indexOf('bootstrap') > 0) {
+              // Inject new jquery version
+              src = src.replace(/jQuery/g, 'jqboot');
+            }
+            return src;
+          },
+        },
+        files: {
+          'js/bootstrap-full.min.js': [
+            'bower_components/jquery/dist/jquery.min.js',
+            'js/no-conflict.js',
+            'js/custom-bootstrap.min.js',
+            'js/attach-no-conflict.js'
+          ],
+        },
+      },
+    },
     stripmq: {
       options: {
         stripBase: true,
@@ -111,5 +162,5 @@ module.exports = function(grunt) {
   grunt.registerTask('default', ['sass:dev','stripmq','watch']);
 
   // Run watch with options
-  grunt.registerTask('build', ['compile-sass']);
+  grunt.registerTask('build', ['compile-sass', 'uglify', 'concat:dist']);
 }

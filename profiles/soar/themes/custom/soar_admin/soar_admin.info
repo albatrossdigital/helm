@@ -9,6 +9,9 @@ base theme = bootstrap
 ; This section controls the CSS files for your theme.
 stylesheets[all][] = css/custom.css
 
+
+scripts[] = js/bootstrap-full.min.js
+
 ; Theme scripts.
 ; This file is empty, just uncomment this line and start editing!
 scripts[] = js/scripts.js

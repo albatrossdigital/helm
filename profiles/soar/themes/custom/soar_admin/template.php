@@ -40,3 +40,17 @@ function soar_admin_css_alter(&$css) {
   //}
   //dpm($css);
 }
+
+/**
+ * Implements hook_js_alter().
+ */
+function soar_admin_js_alter(&$js) {
+ // Always remove base theme JS.
+ $theme_path = 'bootstrapcdn';
+
+ foreach($js as $path => $values) {
+   if(strpos($path, $theme_path) > 0) {
+     unset($js[$path]);
+   }
+ }
+}

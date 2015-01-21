@@ -9,7 +9,9 @@
     "grunt-contrib-imagemin": "~0.7.1",
     "grunt-newer": "~0.7.0",
     "grunt-stripmq": "git://github.com/aschmoe/grunt-stripmq.git",
-    "grunt-sass": "0.16.0"
+    "grunt-sass": "0.16.0",
+    "grunt-contrib-uglify": "~0.5.1",
+    "grunt-contrib-concat": "~0.5.0"
   },
   "engines": {
     "node": ">=0.8.0"

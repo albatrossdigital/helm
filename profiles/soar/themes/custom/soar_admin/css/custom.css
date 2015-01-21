@@ -4892,7 +4892,8 @@ button.close {
 .logo {
   height: 35px; }
   .logo img {
-    margin-top: -2px; }
+    margin-top: -2px;
+    max-height: 39px; }
   .logo ~ .name {
     font-weight: bold; }
 
@@ -4948,6 +4949,15 @@ button.close {
   .button .badge {
     color: #fff;
     background-color: #333; }
+
+#features-export-wrapper {
+  width: 59%; }
+
+#features-export-info, #features-export-advanced, #features-export-buttons {
+  width: 39%; }
+
+#features-export-wrapper #features-export-wrapper, #features-export-info #features-export-info, #features-export-advanced #features-export-advanced, #features-export-buttons #features-export-buttons {
+  width: 100%; }
 
 .form-item-fields--add-new-group-group-name > span .form-text {
   display: inline-block;
@@ -5075,7 +5085,7 @@ div.my-workbench.admin > .left, div.my-workbench.admin > .right {
       float: left; }
  }
 
-html body.toolbar-drawer {
+html body.admin-menu {
   padding-top: 15px !important; }
 
 div.admin .left, div.admin .right {
