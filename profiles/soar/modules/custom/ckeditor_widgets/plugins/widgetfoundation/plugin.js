@@ -25,7 +25,7 @@ CKEDITOR.plugins.add( 'widgetfoundation', {
         // Configurable settings
         var allowedFull = editor.config.widgetFoundation_allowedFull != undefined ? editor.config.widgetFoundation_allowedFull :
             'div(!row,two-col-left,two-col-right,accordion,two-col,three-col){width};' +
-            'div(!columns,small-12,medium-3,medium-9,col-sidebar,col-main,col-1,col-2,col-3)'
+            'div(!col-xs-12,col-sm-3,col-sm-9,col-sm-6,col-sm-4,col-sidebar,col-main,col-1,col-2,col-3)'
             'div(!alert-box,success,alert,warning,info,secondary,alert-text)';
         var allowedWidget = editor.config.widgetFoundation_allowedWidget != undefined ? editor.config.widgetFoundation_allowedFull :
             'p span br ul ol li strong em img[!src,alt,width,height]';
@@ -45,8 +45,8 @@ CKEDITOR.plugins.add( 'widgetfoundation', {
 
             template:
                 '<div class="row two-col-left">' +
-                    '<div class="columns small-12 medium-3 col-sidebar"><img src="http://placehold.it/300x250&text=Medium" /></div>' +
-                    '<div class="columns small-12 medium-9 col-main"><p>Content</p></div>' +
+                    '<div class="col-xs-12 col-sm-3 col-sidebar"><img src="http://placehold.it/300x250&text=Medium" /></div>' +
+                    '<div class="col-xs-12 col-sm-9 col-main"><p>Content</p></div>' +
                 '</div>',
 
             editables: {
@@ -74,8 +74,8 @@ CKEDITOR.plugins.add( 'widgetfoundation', {
 
             template:
                 '<div class="row two-col-right">' +
-                    '<div class="columns small-12 medium-9 col-main"><p>Content</p></div>' +
-                    '<div class="columns small-12 medium-3 col-sidebar"><img src="http://placehold.it/300x250&text=Medium" /></div>' +
+                    '<div class="col-xs-12 col-sm-9 col-main"><p>Content</p></div>' +
+                    '<div class="col-xs-12 col-sm-3 col-sidebar"><img src="http://placehold.it/300x250&text=Medium" /></div>' +
                 '</div>',
 
             editables: {
@@ -103,8 +103,8 @@ CKEDITOR.plugins.add( 'widgetfoundation', {
 
             template:
                 '<div class="row two-col">' +
-                    '<div class="columns small-12 medium-6 col-1">Content</div>' +
-                    '<div class="columns small-12 medium-6 col-2">Content</div>' +
+                    '<div class="col-xs-12 col-sm-6 col-1">Content</div>' +
+                    '<div class="col-xs-12 col-sm-6 col-2">Content</div>' +
                 '</div>',
 
             editables: {
@@ -132,9 +132,9 @@ CKEDITOR.plugins.add( 'widgetfoundation', {
 
             template:
                 '<div class="row three-col">' +
-                    '<div class="columns small-12 medium-4 col-1"><img src="http://placehold.it/300x250&text=Medium" /><p>Text below</p></div>' +
-                    '<div class="columns small-12 medium-4 col-2"><img src="http://placehold.it/300x250&text=Medium" /><p>Text below</p></div>' +
-                    '<div class="columns small-12 medium-4 col-3"><img src="http://placehold.it/300x250&text=Medium" /><p>Text below</p></div>' +
+                    '<div class="col-xs-12 col-sm-4 col-1"><img src="http://placehold.it/300x250&text=Medium" /><p>Text below</p></div>' +
+                    '<div class="col-xs-12 col-sm-4 col-2"><img src="http://placehold.it/300x250&text=Medium" /><p>Text below</p></div>' +
+                    '<div class="col-xs-12 col-sm-4 col-3"><img src="http://placehold.it/300x250&text=Medium" /><p>Text below</p></div>' +
                 '</div>',
 
             editables: {

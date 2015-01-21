@@ -15,7 +15,7 @@ CKEDITOR.plugins.add( 'widgetcommon', {
         // Configurable settings
         var allowedFull = editor.config.widgetcommon_allowedFull != undefined ? editor.config.widgetcommon_allowedFull :
             'div(!row,two-col-left,two-col-right,accordion,two-col,three-col){width};' +
-            'div(!columns,small-12,medium-3,medium-9,col-sidebar,col-main,col-1,col-2,col-3)';
+            'div(!columns,col-xs-12,col-sm-3,col-sm-9,col-sidebar,col-main,col-1,col-2,col-3,panel,panel-default,panel-heading,panel-body)';
         var allowedWidget = editor.config.widgetcommon_allowedWidget != undefined ? editor.config.widgetcommon_allowedFull :
             'p br ul ol li a strong em img[!src,alt,width,height]';
         var allowedText = editor.config.widgetcommon_allowedText != undefined ? editor.config.widgetcommon_allowedFull :
@@ -34,9 +34,9 @@ CKEDITOR.plugins.add( 'widgetcommon', {
             button: showButtons ? 'Add box' : undefined,
 
             template:
-                '<div class="row box">' +
-                    '<div class="row"><h2 class="box-title">Title</h2></div>' +
-                    '<div class="row box-content"><ul><li>Content</li></ul></div>' +
+                '<div class="panel panel-default">' +
+                    '<div class="panel-heading box-title">Title</h2></div>' +
+                    '<div class="panel-body box-content">Content</div>' +
                 '</div>',
 
             editables: {
