@@ -57,10 +57,10 @@ function soar_page_display_default_panels_mini() {
   $display->content = array();
   $display->panels = array();
     $pane = new stdClass();
-    $pane->pid = 'new-685668bf-a082-4287-a1ca-2bc32acd96c5';
+    $pane->pid = 'new-ec23db89-89b6-4baf-b0c9-6615c20e4a95';
     $pane->panel = 'contentmain';
-    $pane->type = 'panels_mini';
-    $pane->subtype = 'page_sidebar_right';
+    $pane->type = 'block';
+    $pane->subtype = 'menu_block-1';
     $pane->shown = TRUE;
     $pane->access = array();
     $pane->configuration = array(
@@ -69,32 +69,15 @@ function soar_page_display_default_panels_mini() {
     );
     $pane->cache = array();
     $pane->style = array(
-      'settings' => array(
-        'title' => array(
-          'element' => '',
-          'attributes' => array(
-            'id' => '',
-            'class' => '',
-          ),
-        ),
-        'content' => array(
-          'element' => '0',
-          'attributes' => array(
-            'id' => '',
-            'class' => '',
-          ),
-        ),
-        'theme' => 0,
-      ),
-      'style' => 'wrapper_element',
+      'settings' => NULL,
     );
     $pane->css = array();
     $pane->extras = array();
     $pane->position = 0;
     $pane->locks = array();
-    $pane->uuid = '685668bf-a082-4287-a1ca-2bc32acd96c5';
-    $display->content['new-685668bf-a082-4287-a1ca-2bc32acd96c5'] = $pane;
-    $display->panels['contentmain'][0] = 'new-685668bf-a082-4287-a1ca-2bc32acd96c5';
+    $pane->uuid = 'ec23db89-89b6-4baf-b0c9-6615c20e4a95';
+    $display->content['new-ec23db89-89b6-4baf-b0c9-6615c20e4a95'] = $pane;
+    $display->panels['contentmain'][0] = 'new-ec23db89-89b6-4baf-b0c9-6615c20e4a95';
   $display->hide_title = PANELS_TITLE_NONE;
   $display->title_pane = '0';
   $mini->display = $display;
