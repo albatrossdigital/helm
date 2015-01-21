@@ -11,7 +11,12 @@
 // *
 // ******************************************************
 
-@include respond($small-only) {
+
+
+// Mobile only
+// --------------------------------------------------
+
+@media screen and (max-width: $screen-xs-max) {
   .l-logo {
     text-align: center;
   }

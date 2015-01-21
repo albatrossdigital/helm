@@ -4889,6 +4889,20 @@ button.close {
     display: none !important; }
  }
 
+.l-logo {
+  padding-bottom: rem-calc(10);
+  padding-top: rem-calc(10); }
+
+@media screen and (max-width: 767px) {
+  .l-logo {
+    text-align: center; }
+ }
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: inline-block; }
+
 /*
  * Off Canvas
  * --------------------------------------------------
@@ -4942,3 +4956,14 @@ button.close {
     width: 50%;
     /* 6 columns */ }
  }
+
+.edit-mini-panel-link {
+  display: none; }
+  .panels-ipe-editing .edit-mini-panel-link {
+    display: inline-block; }
+
+.pane-node-title h1, .pane-node-title h2, .pane-node-title h3 {
+  margin-top: 0; }
+
+h1.page-title {
+  margin-top: 0; }

@@ -1,0 +1,20 @@
+
+// DRUPAL panels
+
+.edit-mini-panel-link {
+  display: none;
+
+  .panels-ipe-editing & {
+    display: inline-block;
+  }
+}
+
+.pane-node-title {
+  h1,h2,h3 {
+    margin-top: 0;
+  }
+}
+
+h1.page-title {
+  margin-top: 0;
+}
