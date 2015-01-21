@@ -18,13 +18,13 @@ function soar_input_formats_filter_default_formats() {
     'status' => 1,
     'weight' => 0,
     'filters' => array(
-      'filter_html' => array(
-        'weight' => 1,
+      'soar_wysiwyg_filter' => array(
+        'weight' => 0,
         'status' => 1,
         'settings' => array(
-          'allowed_html' => '<a> <em> <strong> <cite> <blockquote> <code> <ul> <ol> <li> <dl> <dt> <dd> <br> <p> <img> <pre>',
-          'filter_html_help' => 1,
-          'filter_html_nofollow' => 0,
+          'valid_elements' => 'p,a,div,span,h2,h3,h4,h5,h6,section,article,strong,b,i,em,cite,blockquote,small,sub,sup,code,pre,ul,ol,li,dl,dt,dd,table,thead,tbody,th,tr,td,img,caption,br',
+          'valid_attributes' => 'align,href,src,target,width,height,colspan,span,alt,name,title,class,id',
+          'valid_styles' => 'text-align,float,margin',
         ),
       ),
       'filter_htmlcorrector' => array(
