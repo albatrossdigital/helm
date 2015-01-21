@@ -61,7 +61,9 @@ dependencies[] = menu_firstchild
 dependencies[] = page_manager
 dependencies[] = panels
 dependencies[] = panels_ipe
-dependencies[] = quickedit
+dependencies[] = panels_mini
+dependencies[] = fences
+; dependencies[] = quickedit
 
 
 
@@ -117,7 +119,7 @@ dependencies[] = soar_input_formats
 dependencies[] = soar_page
 dependencies[] = soar_media
 ;dependencies[] = soar_permissions
-;dependencies[] = soar_wysiwyg_filter
+dependencies[] = soar_wysiwyg_filter
 
 
 

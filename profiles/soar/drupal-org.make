@@ -228,6 +228,8 @@ projects[jquery_update][subdir] = "contrib"
 projects[json2][version] = 1.1
 projects[json2][subdir] = contrib
 
+projects[fences][version] = 1.0
+projects[fences][subdir] = contrib
 
 
 ; +++++ Modules not installed by default +++++
