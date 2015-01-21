@@ -29,7 +29,7 @@ function soar_admin_css_alter(&$css) {
 
   // Give override css greater weight.
   $theme_path = drupal_get_path('theme', 'bootstrap');
-  $css[$theme_path . '/css/overrides.css']['weight'] = 1;
+  //$css[$theme_path . '/css/overrides.css']['weight'] = 1;
 
   //dpm($css);
   // Give override css greater weight.

@@ -4,7 +4,7 @@ screenshot = images/screenshot.png
 
 core = 7.x
 engine = phptemplate
-base theme = bootstrap
+base theme = radix
 
 ; This section controls the CSS files for your theme.
 stylesheets[all][] = css/custom.css
