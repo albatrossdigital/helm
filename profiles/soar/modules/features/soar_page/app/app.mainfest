@@ -1,0 +1,14 @@
+; App manifest file
+; See https://groups.drupal.org/open-app-standard/oas#manifest
+
+name = Soar Page
+description = Add a basic page content type
+color = #BC85E6
+version = 1.0-alpha1
+author = Albatross Digital
+author_url = http://www.albatrossdigital.com
+machine_name = soar_page
+downloadable = soar_page
+dependencies[views] = views 7.x-1.0
+downloadables[soar_page] = https://github.com/albatrossdigital/soar_page/archive/master.zip
+package = Core Apps
