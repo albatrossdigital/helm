@@ -1,8 +1,14 @@
 name = Soar Landing Page
-description = Creates a Landing Page content type with a view mode to display a list of teasers of submenu children
+description = Creates a landing pages that displays teasers of child items
 core = 7.x
 package = Soar
 project = soar_landingpage
+apps[screenshots][] = app/screenshot.png
+apps[logo] = app/logo.png
+apps[author] = Albatross Digital
+apps[author_url] = http://www.albatrossdigital.com/
+apps[server] = soar
+apps[package] = Add-on Apps
 features[ctools][] = strongarm:strongarm:1
 features[ctools][] = views:views_default:3.0
 features[features_api][] = api:2
