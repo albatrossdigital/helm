@@ -7,7 +7,6 @@ dependencies[] = ckeditor_media
 dependencies[] = ckeditor_widgets
 dependencies[] = features
 dependencies[] = filter
-dependencies[] = quickedit
 dependencies[] = soar_wysiwyg_filter
 features[ckeditor_profile][] = Advanced
 features[ckeditor_profile][] = Basic
