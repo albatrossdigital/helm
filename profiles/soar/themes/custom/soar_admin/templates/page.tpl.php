@@ -21,11 +21,17 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a href="<?php print $front_page; ?>" id="logo" class="navbar-brand">
+        <?php if ($logo): ?>
+          <a class="logo navbar-btn pull-left" href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>">
+            <img src="<?php print $logo; ?>" alt="<?php print t('Home'); ?>" />
+          </a>
+        <?php endif; ?>
+        <a href="<?php print $front_page; ?>" id="logo" class="navbar-brand name">
           <?php print $site_name; ?>
         </a>
       </div> <!-- /.navbar-header -->
-
+      
+      <?php if (FALSE): ?>
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="navbar-collapse">
         <?php if ($main_menu): ?>
@@ -37,6 +43,8 @@
           <?php print $search_form; ?>
         <?php endif; ?>
       </div><!-- /.navbar-collapse -->
+      <?php endif; ?>
+
     </nav><!-- /.navbar -->
   </div> <!-- /.container -->
 </header>

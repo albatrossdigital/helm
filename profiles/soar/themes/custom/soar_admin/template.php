@@ -27,8 +27,17 @@ function soar_admin_css_alter(&$css) {
    }
   }
 
-  // Give override css greater weight.
-  $theme_path = drupal_get_path('theme', 'bootstrap');
+  // $pan_core = drupal_get_path('module', 'panopoly_core');
+  // if(isset($css[$pan_core . '/css/panopoly-jquery-ui-theme.css'])) {
+  //   unset($css[$pan_core . '/css/panopoly-jquery-ui-theme.css']);
+  // }
+
+  $seven = drupal_get_path('theme', 'seven');
+  if(isset($css[$seven . '/style.css'])) {
+    unset($css[$seven . '/style.css']);
+  }
+  // // Give override css greater weight.
+  // $theme_path = drupal_get_path('theme', 'bootstrap');
   //$css[$theme_path . '/css/overrides.css']['weight'] = 1;
 
   //dpm($css);
