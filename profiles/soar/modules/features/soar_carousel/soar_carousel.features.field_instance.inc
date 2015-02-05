@@ -1,18 +1,18 @@
 <?php
 /**
  * @file
- * hot_bs_carousel.features.field_instance.inc
+ * soar_carousel.features.field_instance.inc
  */
 
 /**
  * Implements hook_field_default_field_instances().
  */
-function hot_bs_carousel_field_default_field_instances() {
+function soar_carousel_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'field_collection_item-field_hot_bs_carousel_slide-field_hot_bs_carousel_s_img'
-  $field_instances['field_collection_item-field_hot_bs_carousel_slide-field_hot_bs_carousel_s_img'] = array(
-    'bundle' => 'field_hot_bs_carousel_slide',
+  // Exported field_instance: 'field_collection_item-field_soar_carousel_slide-field_soar_carousel_s_img'
+  $field_instances['field_collection_item-field_soar_carousel_slide-field_soar_carousel_s_img'] = array(
+    'bundle' => 'field_soar_carousel_slide',
     'deleted' => 0,
     'description' => '<div class="alert alert-info">
 <strong>Heads up!</strong>
@@ -31,7 +31,7 @@ You\'re media will be scaled to 900px by 500px by default. Think about editing y
       ),
     ),
     'entity_type' => 'field_collection_item',
-    'field_name' => 'field_hot_bs_carousel_s_img',
+    'field_name' => 'field_soar_carousel_s_img',
     'label' => 'Slide Image',
     'required' => 1,
     'settings' => array(
@@ -94,9 +94,9 @@ You\'re media will be scaled to 900px by 500px by default. Think about editing y
     ),
   );
 
-  // Exported field_instance: 'field_collection_item-field_hot_bs_carousel_slide-field_hot_bs_carousel_s_title'
-  $field_instances['field_collection_item-field_hot_bs_carousel_slide-field_hot_bs_carousel_s_title'] = array(
-    'bundle' => 'field_hot_bs_carousel_slide',
+  // Exported field_instance: 'field_collection_item-field_soar_carousel_slide-field_soar_carousel_s_title'
+  $field_instances['field_collection_item-field_soar_carousel_slide-field_soar_carousel_s_title'] = array(
+    'bundle' => 'field_soar_carousel_slide',
     'default_value' => NULL,
     'deleted' => 0,
     'description' => 'URLs are optional.
@@ -111,10 +111,11 @@ You\'re media will be scaled to 900px by 500px by default. Think about editing y
       ),
     ),
     'entity_type' => 'field_collection_item',
-    'field_name' => 'field_hot_bs_carousel_s_title',
+    'field_name' => 'field_soar_carousel_s_title',
     'label' => 'Slide Title',
     'required' => 0,
     'settings' => array(
+      'absolute_url' => 1,
       'attributes' => array(
         'class' => '',
         'configurable_title' => 0,
@@ -132,6 +133,7 @@ You\'re media will be scaled to 900px by 500px by default. Think about editing y
       ),
       'rel_remove' => 'default',
       'title' => 'required',
+      'title_label_use_field_label' => FALSE,
       'title_maxlength' => 128,
       'title_value' => '',
       'url' => 'optional',
@@ -147,9 +149,9 @@ You\'re media will be scaled to 900px by 500px by default. Think about editing y
     ),
   );
 
-  // Exported field_instance: 'field_collection_item-field_hot_bs_carousel_slide-field_hot_bs_carousel_slide_capt'
-  $field_instances['field_collection_item-field_hot_bs_carousel_slide-field_hot_bs_carousel_slide_capt'] = array(
-    'bundle' => 'field_hot_bs_carousel_slide',
+  // Exported field_instance: 'field_collection_item-field_soar_carousel_slide-field_soar_carousel_slide_capt'
+  $field_instances['field_collection_item-field_soar_carousel_slide-field_soar_carousel_slide_capt'] = array(
+    'bundle' => 'field_soar_carousel_slide',
     'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
@@ -164,7 +166,7 @@ You\'re media will be scaled to 900px by 500px by default. Think about editing y
     ),
     'ds_extras_field_template' => '',
     'entity_type' => 'field_collection_item',
-    'field_name' => 'field_hot_bs_carousel_slide_capt',
+    'field_name' => 'field_soar_carousel_slide_capt',
     'label' => 'Slide Caption',
     'required' => 0,
     'settings' => array(
@@ -186,9 +188,9 @@ You\'re media will be scaled to 900px by 500px by default. Think about editing y
     ),
   );
 
-  // Exported field_instance: 'fieldable_panels_pane-hot_bs_carousel-field_hot_bs_carousel_slide'
-  $field_instances['fieldable_panels_pane-hot_bs_carousel-field_hot_bs_carousel_slide'] = array(
-    'bundle' => 'hot_bs_carousel',
+  // Exported field_instance: 'fieldable_panels_pane-soar_carousel-field_soar_carousel_slide'
+  $field_instances['fieldable_panels_pane-soar_carousel-field_soar_carousel_slide'] = array(
+    'bundle' => 'soar_carousel',
     'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
@@ -234,7 +236,7 @@ You\'re media will be scaled to 900px by 500px by default. Think about editing y
       ),
     ),
     'entity_type' => 'fieldable_panels_pane',
-    'field_name' => 'field_hot_bs_carousel_slide',
+    'field_name' => 'field_soar_carousel_slide',
     'label' => 'Slide',
     'required' => 1,
     'settings' => array(

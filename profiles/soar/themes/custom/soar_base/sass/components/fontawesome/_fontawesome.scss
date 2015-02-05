@@ -228,12 +228,17 @@ $fa-li-width: 30em / 14;
 
   /* Font Awesome uses the Unicode Private Use Area (PUA) to ensure screen
    * readers do not read off random characters that represent icons */
-  i[class^="#{$fa-css-prefix}"] {
+  [class^="#{$fa-css-prefix}"] {
     @extend %icons-core;
-    margin-right: 0.75em;
     .icon-right & {
-      margin-left: 0.75em;
-      margin-right: 0;
+      &:before {
+        margin-left: 0.5em;
+        margin-right: 0;
+      }
+    }
+
+    &:before {
+      margin-right: 0.5em;
     }
   }
 }

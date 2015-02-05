@@ -74,7 +74,7 @@
  */
 ?>
 <header id="navbar" role="banner" class="<?php print $navbar_classes; ?>">
-  <div class="container">
+  <div class="container-fluid">
     <div class="navbar-header">
       <?php if ($logo): ?>
       <a class="logo navbar-btn pull-left" href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>">
@@ -98,7 +98,7 @@
     <?php if (!empty($primary_nav) || !empty($secondary_nav) || !empty($page['navigation'])): ?>
       <div class="navbar-collapse collapse">
         <nav role="navigation">
-          <?php if (FALSE)://(!empty($primary_nav)): ?>
+          <?php if (!empty($primary_nav)): ?>
             <?php print render($primary_nav); ?>
           <?php endif; ?>
           <?php if (!empty($secondary_nav)): ?>
@@ -113,7 +113,7 @@
   </div>
 </header>
 
-<div class="main-container container">
+<div class="main-container container-fluid">
 
   <header role="banner" id="page-header">
     <?php if (!empty($site_slogan)): ?>
@@ -163,6 +163,6 @@
 
   </div>
 </div>
-<footer class="footer container">
+<footer class="footer container-fluid">
   <?php print render($page['footer']); ?>
 </footer>

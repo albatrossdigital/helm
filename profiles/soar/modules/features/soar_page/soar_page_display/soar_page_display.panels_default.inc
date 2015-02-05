@@ -21,7 +21,7 @@ function soar_page_display_default_panels_mini() {
   $mini->contexts = array();
   $mini->relationships = array();
   $display = new panels_display();
-  $display->layout = 'radix_boxton';
+  $display->layout = 'onecol';
   $display->layout_settings = array();
   $display->panel_settings = array(
     'style_settings' => array(
@@ -58,7 +58,7 @@ function soar_page_display_default_panels_mini() {
   $display->panels = array();
     $pane = new stdClass();
     $pane->pid = 'new-ec23db89-89b6-4baf-b0c9-6615c20e4a95';
-    $pane->panel = 'contentmain';
+    $pane->panel = 'middle';
     $pane->type = 'block';
     $pane->subtype = 'menu_block-1';
     $pane->shown = TRUE;
@@ -77,7 +77,7 @@ function soar_page_display_default_panels_mini() {
     $pane->locks = array();
     $pane->uuid = 'ec23db89-89b6-4baf-b0c9-6615c20e4a95';
     $display->content['new-ec23db89-89b6-4baf-b0c9-6615c20e4a95'] = $pane;
-    $display->panels['contentmain'][0] = 'new-ec23db89-89b6-4baf-b0c9-6615c20e4a95';
+    $display->panels['middle'][0] = 'new-ec23db89-89b6-4baf-b0c9-6615c20e4a95';
   $display->hide_title = PANELS_TITLE_NONE;
   $display->title_pane = '0';
   $mini->display = $display;

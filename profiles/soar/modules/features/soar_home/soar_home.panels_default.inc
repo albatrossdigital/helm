@@ -21,28 +21,34 @@ function soar_home_default_panels_mini() {
   $mini->contexts = array();
   $mini->relationships = array();
   $display = new panels_display();
-  $display->layout = 'radix_boxton';
+  $display->layout = 'onecol';
   $display->layout_settings = array();
   $display->panel_settings = array(
     'style_settings' => array(
       'default' => array(
         'content' => array(
-          'prefix' => '',
-          'suffix' => '',
+          'element' => 'no_wrapper',
+          'attributes' => array(
+            'id' => '',
+            'class' => '',
+          ),
         ),
         'theme' => 0,
       ),
       'contentmain' => array(
         'content' => array(
-          'prefix' => '',
-          'suffix' => '',
+          'element' => 'no_wrapper',
+          'attributes' => array(
+            'id' => '',
+            'class' => '',
+          ),
         ),
         'theme' => 0,
       ),
     ),
-    'style' => 'wrapper_raw',
+    'style' => 'wrapper_element',
     'contentmain' => array(
-      'style' => 'wrapper_raw',
+      'style' => 'wrapper_element',
     ),
   );
   $display->cache = array();
@@ -51,10 +57,10 @@ function soar_home_default_panels_mini() {
   $display->content = array();
   $display->panels = array();
     $pane = new stdClass();
-    $pane->pid = 'new-52603a0b-6a98-473a-ae30-8cbb992665b6';
-    $pane->panel = 'contentmain';
+    $pane->pid = 'new-329a682a-7667-4b5a-b636-1de1085c37e3';
+    $pane->panel = 'middle';
     $pane->type = 'fieldable_panels_pane';
-    $pane->subtype = 'fpid:16';
+    $pane->subtype = 'uuid:6d49f829-c1ce-4734-ae6b-b2d6bd6ec9f2';
     $pane->shown = TRUE;
     $pane->access = array();
     $pane->configuration = array(
@@ -64,90 +70,30 @@ function soar_home_default_panels_mini() {
     $pane->style = array(
       'settings' => array(
         'title' => array(
-          'prefix' => '',
-          'suffix' => '',
+          'element' => 'no_wrapper',
+          'attributes' => array(
+            'id' => '',
+            'class' => '',
+          ),
         ),
         'content' => array(
-          'prefix' => '',
-          'suffix' => '',
+          'element' => 'no_wrapper',
+          'attributes' => array(
+            'id' => '',
+            'class' => '',
+          ),
         ),
         'theme' => 0,
       ),
-      'style' => 'wrapper_raw',
+      'style' => 'wrapper_element',
     );
     $pane->css = array();
     $pane->extras = array();
     $pane->position = 0;
     $pane->locks = array();
-    $pane->uuid = '52603a0b-6a98-473a-ae30-8cbb992665b6';
-    $display->content['new-52603a0b-6a98-473a-ae30-8cbb992665b6'] = $pane;
-    $display->panels['contentmain'][0] = 'new-52603a0b-6a98-473a-ae30-8cbb992665b6';
-    $pane = new stdClass();
-    $pane->pid = 'new-8aa60014-58c8-49a3-8328-9b1dc35edf96';
-    $pane->panel = 'contentmain';
-    $pane->type = 'block';
-    $pane->subtype = 'webform-client-block-3';
-    $pane->shown = TRUE;
-    $pane->access = array();
-    $pane->configuration = array(
-      'override_title' => 1,
-      'override_title_text' => '',
-    );
-    $pane->cache = array();
-    $pane->style = array(
-      'settings' => array(
-        'title' => array(
-          'prefix' => '',
-          'suffix' => '',
-        ),
-        'content' => array(
-          'prefix' => '',
-          'suffix' => '',
-        ),
-        'theme' => 0,
-      ),
-      'style' => 'wrapper_raw',
-    );
-    $pane->css = array();
-    $pane->extras = array();
-    $pane->position = 1;
-    $pane->locks = array();
-    $pane->uuid = '8aa60014-58c8-49a3-8328-9b1dc35edf96';
-    $display->content['new-8aa60014-58c8-49a3-8328-9b1dc35edf96'] = $pane;
-    $display->panels['contentmain'][1] = 'new-8aa60014-58c8-49a3-8328-9b1dc35edf96';
-    $pane = new stdClass();
-    $pane->pid = 'new-11e6ebc3-f674-4abb-aa0e-5323fc875045';
-    $pane->panel = 'contentmain';
-    $pane->type = 'block';
-    $pane->subtype = 'block-1';
-    $pane->shown = TRUE;
-    $pane->access = array();
-    $pane->configuration = array(
-      'override_title' => 1,
-      'override_title_text' => '',
-    );
-    $pane->cache = array();
-    $pane->style = array(
-      'settings' => array(
-        'title' => array(
-          'prefix' => '',
-          'suffix' => '',
-        ),
-        'content' => array(
-          'prefix' => '<div class="panels-twitter-feed">',
-          'suffix' => '</div>',
-        ),
-        'theme' => 0,
-      ),
-      'style' => 'wrapper_raw',
-    );
-    $pane->css = array();
-    $pane->extras = array();
-    $pane->position = 2;
-    $pane->locks = array();
-    $pane->uuid = '11e6ebc3-f674-4abb-aa0e-5323fc875045';
-    $display->content['new-11e6ebc3-f674-4abb-aa0e-5323fc875045'] = $pane;
-    $display->panels['contentmain'][2] = 'new-11e6ebc3-f674-4abb-aa0e-5323fc875045';
+    $pane->uuid = '329a682a-7667-4b5a-b636-1de1085c37e3';
+    $display->content['new-329a682a-7667-4b5a-b636-1de1085c37e3'] = $pane;
+    $display->panels['middle'][0] = 'new-329a682a-7667-4b5a-b636-1de1085c37e3';
   $display->hide_title = PANELS_TITLE_FIXED;
   $display->title_pane = '0';
   $mini->display = $display;

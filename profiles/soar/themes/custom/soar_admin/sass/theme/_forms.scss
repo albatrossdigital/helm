@@ -54,12 +54,21 @@ fieldset {
 }
 
 
+// Autocomplete
+
 .form-autocomplete {
   max-width: 100%!important;
 
   .form-text {
     width: 100%!important;
   }
+}
+
+
+// Views exposed form
+
+.views-exposed-form .views-exposed-widget .form-submit {
+  margin-top: 1.25em;
 }
 
 

@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * Code for the hot-bs-carousel feature.
+ * Code for the soar-carousel feature.
  */
 
-include_once 'hot_bs_carousel.features.inc';
+include_once 'soar_carousel.features.inc';
 /**
  * @file
- * hot-bs-carousel Module file
+ * soar-carousel Module file
  */
 
 /**
@@ -16,17 +16,17 @@ include_once 'hot_bs_carousel.features.inc';
  * Defines the field-able pane for bootstrap carousels
  * @link( Bootstrap JS, http://getbootstrap.com/javascript/)
  */
-function hot_bs_carousel_entity_info_alter(&$entity_info) {
+function soar_carousel_entity_info_alter(&$entity_info) {
 
   // Fieldable panel pane bundle to support Bootstrap carousels:
-  $entity_info['fieldable_panels_pane']['bundles']['hot_bs_carousel'] = array(
+  $entity_info['fieldable_panels_pane']['bundles']['soar_carousel'] = array(
     'label' => t('Carousel'),
-    'pane category' => t('HotApps!'),
+    'pane category' => t('Soar Carousel'),
     'pane top level' => FALSE,
     'admin' => array(
       'path' => 'admin/structure/fieldable-panels-panes/manage/%fieldable_panels_panes_type',
       'bundle argument' => 4,
-      'real path' => 'admin/structure/fieldable-panels-panes/manage/hot-bs-carousel',
+      'real path' => 'admin/structure/fieldable-panels-panes/manage/soar-carousel',
       'access arguments' => array('administer fieldable panels panes'),
     ),
   );
@@ -37,7 +37,7 @@ function hot_bs_carousel_entity_info_alter(&$entity_info) {
 /**
  * Implements themplate_preprocess_views_bootstrap_carousel_plugin_style().
  */
-function hot_bs_carousel_preprocess_views_bootstrap_carousel_plugin_style(&$vars) {
+function soar_carousel_preprocess_views_bootstrap_carousel_plugin_style(&$vars) {
   // Add touch events.
-  drupal_add_js(drupal_get_path('module', 'hot_bs_carousel') . '/hot_bs_carousel.min.js');
+  drupal_add_js(drupal_get_path('module', 'soar_carousel') . '/soar_carousel.min.js');
 }
