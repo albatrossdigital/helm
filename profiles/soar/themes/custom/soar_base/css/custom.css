@@ -6603,6 +6603,21 @@ img {
   height: auto;
   display: inline-block; }
 
+h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
+  color: #337ab7; }
+  h1 a:hover, h2 a:hover, h3 a:hover, h4 a:hover, h5 a:hover, h6 a:hover {
+    color: #23527c; }
+h1.margin-top-none, h2.margin-top-none, h3.margin-top-none, h4.margin-top-none, h5.margin-top-none, h6.margin-top-none {
+  margin-top: 0; }
+h1.margin-bottom-none, h2.margin-bottom-none, h3.margin-bottom-none, h4.margin-bottom-none, h5.margin-bottom-none, h6.margin-bottom-none {
+  margin-bottom: 0; }
+h1.margin-top-double, h2.margin-top-double, h3.margin-top-double, h4.margin-top-double, h5.margin-top-double, h6.margin-top-double {
+  margin-top: 40px; }
+h1.margin-bottom-double, h2.margin-bottom-double, h3.margin-bottom-double, h4.margin-bottom-double, h5.margin-bottom-double, h6.margin-bottom-double {
+  margin-bottom: 20px; }
+h1 + h1, h1 + h2, h1 + h3, h1 + h4, h1 + h5, h1 + h6, h2 + h1, h2 + h2, h2 + h3, h2 + h4, h2 + h5, h2 + h6, h3 + h1, h3 + h2, h3 + h3, h3 + h4, h3 + h5, h3 + h6, h4 + h1, h4 + h2, h4 + h3, h4 + h4, h4 + h5, h4 + h6, h5 + h1, h5 + h2, h5 + h3, h5 + h4, h5 + h5, h5 + h6, h6 + h1, h6 + h2, h6 + h3, h6 + h4, h6 + h5, h6 + h6 {
+  margin-top: -3px; }
+
 /*
  * Off Canvas
  * --------------------------------------------------
