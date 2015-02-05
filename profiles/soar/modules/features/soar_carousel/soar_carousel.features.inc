@@ -41,8 +41,8 @@ function soar_carousel_image_default_styles() {
         'module' => 'image',
         'name' => 'image_scale_and_crop',
         'data' => array(
-          'width' => 720,
-          'height' => 440,
+          'width' => 760,
+          'height' => 460,
         ),
         'weight' => 1,
       ),
