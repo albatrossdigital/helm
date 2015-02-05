@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * hot_bs_carousel.features.inc
+ * soar_carousel.features.inc
  */
 
 /**
  * Implements hook_ctools_plugin_api().
  */
-function hot_bs_carousel_ctools_plugin_api($module = NULL, $api = NULL) {
+function soar_carousel_ctools_plugin_api($module = NULL, $api = NULL) {
   if ($module == "panelizer" && $api == "panelizer") {
     return array("version" => "1");
   }
@@ -16,20 +16,20 @@ function hot_bs_carousel_ctools_plugin_api($module = NULL, $api = NULL) {
 /**
  * Implements hook_views_api().
  */
-function hot_bs_carousel_views_api($module = NULL, $api = NULL) {
+function soar_carousel_views_api($module = NULL, $api = NULL) {
   return array("api" => "3.0");
 }
 
 /**
  * Implements hook_image_default_styles().
  */
-function hot_bs_carousel_image_default_styles() {
+function soar_carousel_image_default_styles() {
   $styles = array();
 
-  // Exported image style: hot_bs_carousel_image.
-  $styles['hot_bs_carousel_image'] = array(
-    'name' => 'hot_bs_carousel_image',
-    'label' => 'Hot Bs Slide Image (900x500)',
+  // Exported image style: soar_carousel_image.
+  $styles['soar_carousel_image'] = array(
+    'name' => 'soar_carousel_image',
+    'label' => 'Soar Slide Image',
     'effects' => array(
       2 => array(
         'label' => 'Scale',
@@ -50,10 +50,10 @@ function hot_bs_carousel_image_default_styles() {
     ),
   );
 
-  // Exported image style: hot_bs_carousel_image_promo.
-  $styles['hot_bs_carousel_image_promo'] = array(
-    'name' => 'hot_bs_carousel_image_promo',
-    'label' => 'Hot Bootstrap Carousel Image - Promo (1200x666)',
+  // Exported image style: soar_carousel_image_promo.
+  $styles['soar_carousel_image_promo'] = array(
+    'name' => 'soar_carousel_image_promo',
+    'label' => 'Soar Carousel Image - Promo (1200x666)',
     'effects' => array(
       3 => array(
         'label' => 'Scale',

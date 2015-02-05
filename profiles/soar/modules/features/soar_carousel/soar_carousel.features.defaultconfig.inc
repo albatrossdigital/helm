@@ -1,15 +1,15 @@
 <?php
 /**
  * @file
- * hot_bs_carousel.features.defaultconfig.inc
+ * soar_carousel.features.defaultconfig.inc
  */
 
 /**
  * Implements hook_defaultconfig_features().
  */
-function hot_bs_carousel_defaultconfig_features() {
+function soar_carousel_defaultconfig_features() {
   return array(
-    'hot_bs_carousel' => array(
+    'soar_carousel' => array(
       'field_default_fields' => 'field_default_fields',
       'strongarm' => 'strongarm',
       'user_default_permissions' => 'user_default_permissions',
@@ -20,17 +20,17 @@ function hot_bs_carousel_defaultconfig_features() {
 /**
  * Implements hook_defaultconfig_field_default_fields().
  */
-function hot_bs_carousel_defaultconfig_field_default_fields() {
+function soar_carousel_defaultconfig_field_default_fields() {
   $fields = array();
 
-  // Exported field: 'field_collection_item-field_hot_bs_carousel_slide-field_hot_bs_carousel_s_img'.
-  $fields['field_collection_item-field_hot_bs_carousel_slide-field_hot_bs_carousel_s_img'] = array(
+  // Exported field: 'field_collection_item-field_soar_carousel_slide-field_soar_carousel_s_img'.
+  $fields['field_collection_item-field_soar_carousel_slide-field_soar_carousel_s_img'] = array(
     'field_config' => array(
       'active' => 1,
       'cardinality' => 1,
       'deleted' => 0,
       'entity_types' => array(),
-      'field_name' => 'field_hot_bs_carousel_s_img',
+      'field_name' => 'field_soar_carousel_s_img',
       'foreign keys' => array(
         'fid' => array(
           'columns' => array(
@@ -54,7 +54,7 @@ function hot_bs_carousel_defaultconfig_field_default_fields() {
       'type' => 'image',
     ),
     'field_instance' => array(
-      'bundle' => 'field_hot_bs_carousel_slide',
+      'bundle' => 'field_soar_carousel_slide',
       'deleted' => 0,
       'description' => '<div class="alert alert-info">
 <strong>Heads up!</strong>
@@ -73,7 +73,7 @@ You\'re media will be scaled to 900px by 500px by default. Think about editing y
         ),
       ),
       'entity_type' => 'field_collection_item',
-      'field_name' => 'field_hot_bs_carousel_s_img',
+      'field_name' => 'field_soar_carousel_s_img',
       'label' => 'Slide Image',
       'required' => 1,
       'settings' => array(
@@ -137,14 +137,14 @@ You\'re media will be scaled to 900px by 500px by default. Think about editing y
     ),
   );
 
-  // Exported field: 'field_collection_item-field_hot_bs_carousel_slide-field_hot_bs_carousel_s_title'.
-  $fields['field_collection_item-field_hot_bs_carousel_slide-field_hot_bs_carousel_s_title'] = array(
+  // Exported field: 'field_collection_item-field_soar_carousel_slide-field_soar_carousel_s_title'.
+  $fields['field_collection_item-field_soar_carousel_slide-field_soar_carousel_s_title'] = array(
     'field_config' => array(
       'active' => 1,
       'cardinality' => 1,
       'deleted' => 0,
       'entity_types' => array(),
-      'field_name' => 'field_hot_bs_carousel_s_title',
+      'field_name' => 'field_soar_carousel_s_title',
       'foreign keys' => array(),
       'indexes' => array(),
       'locked' => 0,
@@ -168,7 +168,7 @@ You\'re media will be scaled to 900px by 500px by default. Think about editing y
       'type' => 'link_field',
     ),
     'field_instance' => array(
-      'bundle' => 'field_hot_bs_carousel_slide',
+      'bundle' => 'field_soar_carousel_slide',
       'default_value' => NULL,
       'deleted' => 0,
       'description' => 'URLs are optional.
@@ -183,10 +183,11 @@ You\'re media will be scaled to 900px by 500px by default. Think about editing y
         ),
       ),
       'entity_type' => 'field_collection_item',
-      'field_name' => 'field_hot_bs_carousel_s_title',
+      'field_name' => 'field_soar_carousel_s_title',
       'label' => 'Slide Title',
       'required' => 0,
       'settings' => array(
+        'absolute_url' => 1,
         'attributes' => array(
           'class' => '',
           'configurable_title' => 0,
@@ -204,6 +205,7 @@ You\'re media will be scaled to 900px by 500px by default. Think about editing y
         ),
         'rel_remove' => 'default',
         'title' => 'required',
+        'title_label_use_field_label' => FALSE,
         'title_maxlength' => 128,
         'title_value' => '',
         'url' => 'optional',
@@ -220,14 +222,14 @@ You\'re media will be scaled to 900px by 500px by default. Think about editing y
     ),
   );
 
-  // Exported field: 'field_collection_item-field_hot_bs_carousel_slide-field_hot_bs_carousel_slide_capt'.
-  $fields['field_collection_item-field_hot_bs_carousel_slide-field_hot_bs_carousel_slide_capt'] = array(
+  // Exported field: 'field_collection_item-field_soar_carousel_slide-field_soar_carousel_slide_capt'.
+  $fields['field_collection_item-field_soar_carousel_slide-field_soar_carousel_slide_capt'] = array(
     'field_config' => array(
       'active' => 1,
       'cardinality' => 1,
       'deleted' => 0,
       'entity_types' => array(),
-      'field_name' => 'field_hot_bs_carousel_slide_capt',
+      'field_name' => 'field_soar_carousel_slide_capt',
       'foreign keys' => array(
         'format' => array(
           'columns' => array(
@@ -248,7 +250,7 @@ You\'re media will be scaled to 900px by 500px by default. Think about editing y
       'type' => 'text_long',
     ),
     'field_instance' => array(
-      'bundle' => 'field_hot_bs_carousel_slide',
+      'bundle' => 'field_soar_carousel_slide',
       'default_value' => NULL,
       'deleted' => 0,
       'description' => '',
@@ -263,7 +265,7 @@ You\'re media will be scaled to 900px by 500px by default. Think about editing y
       ),
       'ds_extras_field_template' => '',
       'entity_type' => 'field_collection_item',
-      'field_name' => 'field_hot_bs_carousel_slide_capt',
+      'field_name' => 'field_soar_carousel_slide_capt',
       'label' => 'Slide Caption',
       'required' => 0,
       'settings' => array(
@@ -286,14 +288,14 @@ You\'re media will be scaled to 900px by 500px by default. Think about editing y
     ),
   );
 
-  // Exported field: 'fieldable_panels_pane-hot_bs_carousel-field_hot_bs_carousel_slide'.
-  $fields['fieldable_panels_pane-hot_bs_carousel-field_hot_bs_carousel_slide'] = array(
+  // Exported field: 'fieldable_panels_pane-soar_carousel-field_soar_carousel_slide'.
+  $fields['fieldable_panels_pane-soar_carousel-field_soar_carousel_slide'] = array(
     'field_config' => array(
       'active' => 1,
       'cardinality' => -1,
       'deleted' => 0,
       'entity_types' => array(),
-      'field_name' => 'field_hot_bs_carousel_slide',
+      'field_name' => 'field_soar_carousel_slide',
       'foreign keys' => array(),
       'indexes' => array(
         'revision_id' => array(
@@ -310,7 +312,7 @@ You\'re media will be scaled to 900px by 500px by default. Think about editing y
       'type' => 'field_collection',
     ),
     'field_instance' => array(
-      'bundle' => 'hot_bs_carousel',
+      'bundle' => 'soar_carousel',
       'default_value' => NULL,
       'deleted' => 0,
       'description' => '',
@@ -356,7 +358,7 @@ You\'re media will be scaled to 900px by 500px by default. Think about editing y
         ),
       ),
       'entity_type' => 'fieldable_panels_pane',
-      'field_name' => 'field_hot_bs_carousel_slide',
+      'field_name' => 'field_soar_carousel_slide',
       'label' => 'Slide',
       'required' => 1,
       'settings' => array(
@@ -391,78 +393,13 @@ You\'re media will be scaled to 900px by 500px by default. Think about editing y
 /**
  * Implements hook_defaultconfig_strongarm().
  */
-function hot_bs_carousel_defaultconfig_strongarm() {
+function soar_carousel_defaultconfig_strongarm() {
   $export = array();
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'field_bundle_settings_fieldable_panels_pane__hot_bs_carousel';
-  $strongarm->value = array(
-    'view_modes' => array(
-      'full' => array(
-        'custom_settings' => FALSE,
-      ),
-      'promo' => array(
-        'custom_settings' => TRUE,
-      ),
-      'diff_standard' => array(
-        'custom_settings' => FALSE,
-      ),
-      'token' => array(
-        'custom_settings' => FALSE,
-      ),
-    ),
-    'extra_fields' => array(
-      'form' => array(
-        'title' => array(
-          'weight' => '-5',
-        ),
-      ),
-      'display' => array(
-        'title' => array(
-          'default' => array(
-            'weight' => '-5',
-            'visible' => TRUE,
-          ),
-          'full' => array(
-            'weight' => '-5',
-            'visible' => TRUE,
-          ),
-          'promo' => array(
-            'weight' => '-5',
-            'visible' => TRUE,
-          ),
-        ),
-      ),
-    ),
-  );
-  $export['field_bundle_settings_fieldable_panels_pane__hot_bs_carousel'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'field_bundle_settings_field_collection_item__field_hot_bs_carousel_slide';
-  $strongarm->value = array(
-    'view_modes' => array(
-      'full' => array(
-        'custom_settings' => FALSE,
-      ),
-      'token' => array(
-        'custom_settings' => FALSE,
-      ),
-    ),
-    'extra_fields' => array(
-      'form' => array(),
-      'display' => array(),
-    ),
-  );
-  $export['field_bundle_settings_field_collection_item__field_hot_bs_carousel_slide'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'panelizer_defaults_fieldable_panels_pane_hot_bs_carousel';
+  $strongarm->name = 'panelizer_defaults_fieldable_panels_pane_soar_carousel';
   $strongarm->value = array(
     'status' => 1,
     'view modes' => array(
@@ -471,14 +408,19 @@ function hot_bs_carousel_defaultconfig_strongarm() {
         'default' => 1,
         'choice' => 0,
       ),
-      'promo' => array(
-        'status' => 1,
-        'default' => 1,
+      'full' => array(
+        'status' => 0,
+        'default' => 0,
+        'choice' => 0,
+      ),
+      'token' => array(
+        'status' => 0,
+        'default' => 0,
         'choice' => 0,
       ),
     ),
   );
-  $export['panelizer_defaults_fieldable_panels_pane_hot_bs_carousel'] = $strongarm;
+  $export['panelizer_defaults_fieldable_panels_pane_soar_carousel'] = $strongarm;
 
   return $export;
 }
@@ -486,26 +428,26 @@ function hot_bs_carousel_defaultconfig_strongarm() {
 /**
  * Implements hook_defaultconfig_user_default_permissions().
  */
-function hot_bs_carousel_defaultconfig_user_default_permissions() {
+function soar_carousel_defaultconfig_user_default_permissions() {
   $permissions = array();
 
-  // Exported permission: 'create fieldable hot_bs_carousel'.
-  $permissions['create fieldable hot_bs_carousel'] = array(
-    'name' => 'create fieldable hot_bs_carousel',
+  // Exported permission: 'create fieldable soar_carousel'.
+  $permissions['create fieldable soar_carousel'] = array(
+    'name' => 'create fieldable soar_carousel',
     'roles' => array(),
     'module' => 'fieldable_panels_panes',
   );
 
-  // Exported permission: 'delete fieldable hot_bs_carousel'.
-  $permissions['delete fieldable hot_bs_carousel'] = array(
-    'name' => 'delete fieldable hot_bs_carousel',
+  // Exported permission: 'delete fieldable soar_carousel'.
+  $permissions['delete fieldable soar_carousel'] = array(
+    'name' => 'delete fieldable soar_carousel',
     'roles' => array(),
     'module' => 'fieldable_panels_panes',
   );
 
-  // Exported permission: 'edit fieldable hot_bs_carousel'.
-  $permissions['edit fieldable hot_bs_carousel'] = array(
-    'name' => 'edit fieldable hot_bs_carousel',
+  // Exported permission: 'edit fieldable soar_carousel'.
+  $permissions['edit fieldable soar_carousel'] = array(
+    'name' => 'edit fieldable soar_carousel',
     'roles' => array(),
     'module' => 'fieldable_panels_panes',
   );

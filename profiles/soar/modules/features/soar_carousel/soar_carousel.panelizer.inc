@@ -1,22 +1,22 @@
 <?php
 /**
  * @file
- * hot_bs_carousel.panelizer.inc
+ * soar_carousel.panelizer.inc
  */
 
 /**
  * Implements hook_panelizer_defaults().
  */
-function hot_bs_carousel_panelizer_defaults() {
+function soar_carousel_panelizer_defaults() {
   $export = array();
 
   $panelizer = new stdClass();
   $panelizer->disabled = FALSE; /* Edit this to true to make a default panelizer disabled initially */
   $panelizer->api_version = 1;
-  $panelizer->name = 'fieldable_panels_pane:hot_bs_carousel:default:default';
+  $panelizer->name = 'fieldable_panels_pane:soar_carousel:default:default';
   $panelizer->title = 'Default';
   $panelizer->panelizer_type = 'fieldable_panels_pane';
-  $panelizer->panelizer_key = 'hot_bs_carousel';
+  $panelizer->panelizer_key = 'soar_carousel';
   $panelizer->no_blocks = FALSE;
   $panelizer->css_id = '';
   $panelizer->css = '';
@@ -24,9 +24,9 @@ function hot_bs_carousel_panelizer_defaults() {
   $panelizer->contexts = array();
   $panelizer->relationships = array(
     0 => array(
-      'identifier' => 'Slide field collection (field_hot_bs_carousel_slide) from fieldable_panels_pane (hot_bs_carousel)',
+      'identifier' => 'Slide field collection (field_soar_carousel_slide) from fieldable_panels_pane (soar_carousel)',
       'keyword' => 'Field collection',
-      'name' => 'field_collection_from_field:fieldable_panels_pane:hot_bs_carousel:field_hot_bs_carousel_slide',
+      'name' => 'field_collection_from_field:fieldable_panels_pane:soar_carousel:field_soar_carousel_slide',
       'delta' => '0',
       'context' => 'panelizer',
       'id' => 1,
@@ -39,13 +39,37 @@ function hot_bs_carousel_panelizer_defaults() {
   $panelizer->link_to_entity = TRUE;
   $panelizer->extra = array();
   $display = new panels_display();
-  $display->layout = 'flexible';
+  $display->layout = 'onecol';
   $display->layout_settings = array();
   $display->panel_settings = array(
     'style_settings' => array(
-      'default' => NULL,
+      'default' => array(
+        'content' => array(
+          'element' => 'no_wrapper',
+          'attributes' => array(
+            'id' => '',
+            'class' => '',
+          ),
+        ),
+        'theme' => 0,
+      ),
       'center' => NULL,
+      'contentmain' => array(
+        'content' => array(
+          'element' => 'no_wrapper',
+          'attributes' => array(
+            'id' => '',
+            'class' => '',
+          ),
+        ),
+        'theme' => 0,
+      ),
+      'middle' => NULL,
     ),
+    'contentmain' => array(
+      'style' => 'wrapper_element',
+    ),
+    'style' => 'wrapper_element',
   );
   $display->cache = array();
   $display->title = '';
@@ -54,19 +78,36 @@ function hot_bs_carousel_panelizer_defaults() {
   $display->panels = array();
     $pane = new stdClass();
     $pane->pid = 'new-364a6f0f-e15d-4718-93fe-eb9f612aff2c';
-    $pane->panel = 'center';
+    $pane->panel = 'middle';
     $pane->type = 'views_panes';
-    $pane->subtype = 'hot_bs_carousel-panel_pane_1';
+    $pane->subtype = 'soar_carousel-panel_pane_1';
     $pane->shown = TRUE;
     $pane->access = array();
     $pane->configuration = array(
       'view_settings' => 'fields',
       'header_type' => 'none',
-      'view_mode' => 'teaser',
+      'view_mode' => 'full',
     );
     $pane->cache = array();
     $pane->style = array(
-      'settings' => NULL,
+      'settings' => array(
+        'title' => array(
+          'element' => 'no_wrapper',
+          'attributes' => array(
+            'id' => '',
+            'class' => '',
+          ),
+        ),
+        'content' => array(
+          'element' => 'no_wrapper',
+          'attributes' => array(
+            'id' => '',
+            'class' => '',
+          ),
+        ),
+        'theme' => 0,
+      ),
+      'style' => 'wrapper_element',
     );
     $pane->css = array();
     $pane->extras = array();
@@ -74,19 +115,19 @@ function hot_bs_carousel_panelizer_defaults() {
     $pane->locks = array();
     $pane->uuid = '364a6f0f-e15d-4718-93fe-eb9f612aff2c';
     $display->content['new-364a6f0f-e15d-4718-93fe-eb9f612aff2c'] = $pane;
-    $display->panels['center'][0] = 'new-364a6f0f-e15d-4718-93fe-eb9f612aff2c';
+    $display->panels['middle'][0] = 'new-364a6f0f-e15d-4718-93fe-eb9f612aff2c';
   $display->hide_title = PANELS_TITLE_FIXED;
   $display->title_pane = 'new-364a6f0f-e15d-4718-93fe-eb9f612aff2c';
   $panelizer->display = $display;
-  $export['fieldable_panels_pane:hot_bs_carousel:default:default'] = $panelizer;
+  $export['fieldable_panels_pane:soar_carousel:default:default'] = $panelizer;
 
   $panelizer = new stdClass();
   $panelizer->disabled = FALSE; /* Edit this to true to make a default panelizer disabled initially */
   $panelizer->api_version = 1;
-  $panelizer->name = 'fieldable_panels_pane:hot_bs_carousel:default:promo';
+  $panelizer->name = 'fieldable_panels_pane:soar_carousel:default:promo';
   $panelizer->title = 'Default';
   $panelizer->panelizer_type = 'fieldable_panels_pane';
-  $panelizer->panelizer_key = 'hot_bs_carousel';
+  $panelizer->panelizer_key = 'soar_carousel';
   $panelizer->no_blocks = FALSE;
   $panelizer->css_id = '';
   $panelizer->css = '';
@@ -94,9 +135,9 @@ function hot_bs_carousel_panelizer_defaults() {
   $panelizer->contexts = array();
   $panelizer->relationships = array(
     0 => array(
-      'identifier' => 'Slide field collection (field_hot_bs_carousel_slide) from fieldable_panels_pane (hot_bs_carousel)',
+      'identifier' => 'Slide field collection (field_soar_carousel_slide) from fieldable_panels_pane (soar_carousel)',
       'keyword' => 'Field collection',
-      'name' => 'field_collection_from_field:fieldable_panels_pane:hot_bs_carousel:field_hot_bs_carousel_slide',
+      'name' => 'field_collection_from_field:fieldable_panels_pane:soar_carousel:field_soar_carousel_slide',
       'delta' => '0',
       'context' => 'panelizer',
       'id' => 1,
@@ -126,7 +167,7 @@ function hot_bs_carousel_panelizer_defaults() {
     $pane->pid = 'new-24c3b704-0ab7-43d6-89c5-e332d15a54a5';
     $pane->panel = 'center';
     $pane->type = 'views_panes';
-    $pane->subtype = 'hot_bs_carousel-hot_bs_carousel_promo';
+    $pane->subtype = 'soar_carousel-soar_carousel_promo';
     $pane->shown = TRUE;
     $pane->access = array();
     $pane->configuration = array(
@@ -148,7 +189,7 @@ function hot_bs_carousel_panelizer_defaults() {
   $display->hide_title = PANELS_TITLE_FIXED;
   $display->title_pane = '0';
   $panelizer->display = $display;
-  $export['fieldable_panels_pane:hot_bs_carousel:default:promo'] = $panelizer;
+  $export['fieldable_panels_pane:soar_carousel:default:promo'] = $panelizer;
 
   return $export;
 }
