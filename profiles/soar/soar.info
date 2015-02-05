@@ -114,7 +114,7 @@ dependencies[] = devel
 
 
 ; Soar - Contrib - Standard Features
-dependencies[] = soar_core
+;dependencies[] = soar_core
 dependencies[] = soar_date_formats
 dependencies[] = soar_input_formats
 dependencies[] = soar_page
