@@ -43,7 +43,7 @@ function soar_home_default_page_manager_pages() {
     'relationships' => array(),
   );
   $display = new panels_display();
-  $display->layout = 'radix_selby_flipped';
+  $display->layout = 'soar_full_page';
   $display->layout_settings = array();
   $display->panel_settings = array(
     'style_settings' => array(
@@ -62,7 +62,7 @@ function soar_home_default_page_manager_pages() {
       'contentfooter' => NULL,
     ),
     'contentcolumn1' => array(
-      'style' => 'wrapper_raw',
+      'style' => 'wrapper_element',
     ),
   );
   $display->cache = array();
@@ -71,10 +71,10 @@ function soar_home_default_page_manager_pages() {
   $display->content = array();
   $display->panels = array();
     $pane = new stdClass();
-    $pane->pid = 'new-510e3ef0-fbc2-4f63-b88c-3088f47a6f1d';
-    $pane->panel = 'contentcolumn1';
+    $pane->pid = 'new-fa5c7b0c-6001-4521-8e13-595e61a0e9b1';
+    $pane->panel = 'contentmain';
     $pane->type = 'fieldable_panels_pane';
-    $pane->subtype = 'fpid:2';
+    $pane->subtype = 'uuid:505af91d-8d63-42da-bf46-14d3eaac7473';
     $pane->shown = TRUE;
     $pane->access = array();
     $pane->configuration = array(
@@ -82,99 +82,18 @@ function soar_home_default_page_manager_pages() {
     );
     $pane->cache = array();
     $pane->style = array(
-      'settings' => array(
-        'title' => array(
-          'element' => '0',
-          'attributes' => array(
-            'id' => '',
-            'class' => '',
-          ),
-        ),
-        'content' => array(
-          'element' => '0',
-          'attributes' => array(
-            'id' => '',
-            'class' => '',
-          ),
-        ),
-        'theme' => 0,
-      ),
-      'style' => 'wrapper_element',
+      'settings' => NULL,
     );
     $pane->css = array();
     $pane->extras = array();
     $pane->position = 0;
     $pane->locks = array();
-    $pane->uuid = '510e3ef0-fbc2-4f63-b88c-3088f47a6f1d';
-    $display->content['new-510e3ef0-fbc2-4f63-b88c-3088f47a6f1d'] = $pane;
-    $display->panels['contentcolumn1'][0] = 'new-510e3ef0-fbc2-4f63-b88c-3088f47a6f1d';
-    $pane = new stdClass();
-    $pane->pid = 'new-436b01bb-aa97-4d36-9a82-7fe04ed31c50';
-    $pane->panel = 'contentcolumn2';
-    $pane->type = 'fieldable_panels_pane';
-    $pane->subtype = 'fpid:7';
-    $pane->shown = TRUE;
-    $pane->access = array();
-    $pane->configuration = array(
-      'view_mode' => 'Full',
-    );
-    $pane->cache = array();
-    $pane->style = array(
-      'settings' => array(
-        'title' => array(
-          'prefix' => '<h4><i class="fa fa-exclamation-triangle"></i>',
-          'suffix' => '</h4>',
-        ),
-        'content' => array(
-          'prefix' => '',
-          'suffix' => '',
-        ),
-        'theme' => 0,
-      ),
-      'style' => 'wrapper_raw',
-    );
-    $pane->css = array();
-    $pane->extras = array();
-    $pane->position = 0;
-    $pane->locks = array();
-    $pane->uuid = '436b01bb-aa97-4d36-9a82-7fe04ed31c50';
-    $display->content['new-436b01bb-aa97-4d36-9a82-7fe04ed31c50'] = $pane;
-    $display->panels['contentcolumn2'][0] = 'new-436b01bb-aa97-4d36-9a82-7fe04ed31c50';
-    $pane = new stdClass();
-    $pane->pid = 'new-14c052f4-4a93-4207-b7e3-ac7c7944baf8';
-    $pane->panel = 'contentcolumn2';
-    $pane->type = 'fieldable_panels_pane';
-    $pane->subtype = 'fpid:14';
-    $pane->shown = TRUE;
-    $pane->access = array();
-    $pane->configuration = array(
-      'view_mode' => 'Full',
-    );
-    $pane->cache = array();
-    $pane->style = array(
-      'settings' => array(
-        'title' => array(
-          'prefix' => '<h4><i class="fa fa-calendar"></i>',
-          'suffix' => '</h4>',
-        ),
-        'content' => array(
-          'prefix' => '',
-          'suffix' => '',
-        ),
-        'theme' => 0,
-      ),
-      'style' => 'wrapper_raw',
-    );
-    $pane->css = array();
-    $pane->extras = array();
-    $pane->position = 1;
-    $pane->locks = array();
-    $pane->uuid = '14c052f4-4a93-4207-b7e3-ac7c7944baf8';
-    $display->content['new-14c052f4-4a93-4207-b7e3-ac7c7944baf8'] = $pane;
-    $display->panels['contentcolumn2'][1] = 'new-14c052f4-4a93-4207-b7e3-ac7c7944baf8';
+    $pane->uuid = 'fa5c7b0c-6001-4521-8e13-595e61a0e9b1';
+    $display->content['new-fa5c7b0c-6001-4521-8e13-595e61a0e9b1'] = $pane;
+    $display->panels['contentmain'][0] = 'new-fa5c7b0c-6001-4521-8e13-595e61a0e9b1';
     $pane = new stdClass();
     $pane->pid = 'new-b4612167-283b-4322-ab40-89ade4172849';
-    $pane->panel = 'contentfooter';
+    $pane->panel = 'contentmain';
     $pane->type = 'views_panes';
     $pane->subtype = 'news-panel_pane_2';
     $pane->shown = TRUE;
@@ -207,11 +126,11 @@ function soar_home_default_page_manager_pages() {
     );
     $pane->css = array();
     $pane->extras = array();
-    $pane->position = 0;
+    $pane->position = 1;
     $pane->locks = array();
     $pane->uuid = 'b4612167-283b-4322-ab40-89ade4172849';
     $display->content['new-b4612167-283b-4322-ab40-89ade4172849'] = $pane;
-    $display->panels['contentfooter'][0] = 'new-b4612167-283b-4322-ab40-89ade4172849';
+    $display->panels['contentmain'][1] = 'new-b4612167-283b-4322-ab40-89ade4172849';
     $pane = new stdClass();
     $pane->pid = 'new-a69675fe-714f-432a-b8e1-ef343c55108c';
     $pane->panel = 'sidebar';

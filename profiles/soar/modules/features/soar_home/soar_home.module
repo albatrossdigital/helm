@@ -5,3 +5,44 @@
  */
 
 include_once 'soar_home.features.inc';
+
+/*
+ * Implementation of hook_menu().
+ */
+function soar_home_menu() {
+  $items = array();
+  $items['soar_home'] = array(
+    'title' => 'Form Beautifier',
+    'page callback' => 'soar_home_test',
+    'access arguments' => array('administer site configuration'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+  return $items;
+}
+
+function soar_home_test() {
+
+  module_load_include('install', 'soar_home');
+  _soar_home_install_content();
+  return ' ';
+}
+
+function soar_home_features_post_restore($op, $items) {
+
+  // Do we run content import?
+  $run_content = $op == 'rebuild'
+              && !empty($items)
+              && isset($items['soar_home'])
+              && !variable_get('soar_home_panel_pane');
+
+  watchdog('Soar Home', 'go: @op  items: @items run content? @run_content', array(
+    '@op' => $op,
+    '@items' => $items,
+    '@run_content' => $run_content
+  ));
+
+  if($run_content) {
+    module_load_include('install', 'soar_home');
+    _soar_home_install_content();
+  }
+}
