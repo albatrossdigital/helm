@@ -26,7 +26,9 @@ function soar_home_uuid_features_default_fpps() {
     'created' => 1418259041,
     'uuid' => '505af91d-8d63-42da-bf46-14d3eaac7473',
     'language' => 'und',
-    'field_soar_carousel_slide' => array(),
+    'field_soar_carousel_slide' => array(
+      'und' => array(),
+    ),
     'rdf_mapping' => array(),
   );
   $fpps[] = array(
