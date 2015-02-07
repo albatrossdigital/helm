@@ -83,6 +83,9 @@ function uuid_fpp_features_export_render($module, $data) {
     $first_fpp = reset($fpps);
     $export = clone $first_fpp;
 
+    $entity_type = 'fieldable_panels_pane';
+    drupal_alter('uuid_entity_features_export_render', $entity_type, $export, $first_fpp);
+
     // Do not export ids.
     unset($export->vid);
     unset($export->fpid);
