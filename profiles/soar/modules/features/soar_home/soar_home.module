@@ -6,27 +6,15 @@
 
 include_once 'soar_home.features.inc';
 
-/*
- * Implementation of hook_menu().
+
+/**
+ * Implements hook_features_post_restore()
+ *
+ * @param string $op
+ *   The operation that is triggered: revert, rebuild, disable, enable
+ * @param array $items
+ *   The items handled by the operation.
  */
-function soar_home_menu() {
-  $items = array();
-  $items['soar_home'] = array(
-    'title' => 'Form Beautifier',
-    'page callback' => 'soar_home_test',
-    'access arguments' => array('administer site configuration'),
-    'type' => MENU_NORMAL_ITEM,
-  );
-  return $items;
-}
-
-function soar_home_test() {
-
-  module_load_include('install', 'soar_home');
-  _soar_home_install_content();
-  return ' ';
-}
-
 function soar_home_features_post_restore($op, $items) {
 
   // Do we run content import?
@@ -44,5 +32,24 @@ function soar_home_features_post_restore($op, $items) {
   if($run_content) {
     module_load_include('install', 'soar_home');
     _soar_home_install_content();
+  }
+}
+
+/**
+ * Allows to modify the export object of an entity.
+ *
+ * @param string $entity_type
+ *   The entity type to export.
+ * @param object $export
+ *   The for the export modified entity.
+ * @param object $entity
+ *   The original entity.
+ */
+function soar_home_uuid_entity_features_export_render_alter($entity_type, &$export, $entity) {
+  if($entity_type == 'fieldable_panels_pane' && $export->bundle == 'soar_carousel') {
+    // Unset the field_collection, since the UUID export doesn't work
+    $export->field_soar_carousel_slide['und'] = array();
+    // Unset the panelizer settings, to avoid errors.
+    unset($export->panelizer);
   }
 }
