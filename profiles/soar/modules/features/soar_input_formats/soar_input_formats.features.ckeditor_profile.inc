@@ -160,6 +160,37 @@ function soar_input_formats_ckeditor_profile_defaults() {
             'path' => '%base_path%profiles/soar/modules/contrib/ckeditor_media/plugins/mediaBrowser/',
             'buttons' => FALSE,
           ),
+          'widgetbootstrap' => array(
+            'name' => 'widgetbootstrap',
+            'desc' => 'Plugin to add widgets based on Bootstrap elements',
+            'path' => '%base_path%profiles/soar/modules/custom/ckeditor_widgets/plugins/widgetbootstrap/',
+            'buttons' => array(
+              'widgetbootstrapLeftCol' => array(
+                'icon' => 'icons/widgetbootstrapLeftCol.png',
+                'label' => 'Insert left column box',
+              ),
+              'widgetbootstrapRightCol' => array(
+                'icon' => 'icons/widgetbootstrapRightCol.png',
+                'label' => 'Insert right column box',
+              ),
+              'widgetbootstrapTwoCol' => array(
+                'icon' => 'icons/widgetbootstrapTwoCol.png',
+                'label' => 'Insert two column box',
+              ),
+              'widgetbootstrapThreeCol' => array(
+                'icon' => 'icons/widgetbootstrapThreeCol.png',
+                'label' => 'Insert three column box',
+              ),
+              'widgetbootstrapAlert' => array(
+                'icon' => 'icons/widgetbootstrapAlert.png',
+                'label' => 'Insert alert box',
+              ),
+              'widgetbootstrapAccordion' => array(
+                'icon' => 'icons/widgetbootstrapAccordion.png',
+                'label' => 'Insert accordion box',
+              ),
+            ),
+          ),
           'widgetcommon' => array(
             'name' => 'widgetcommon',
             'desc' => 'Plugin to add common widgets',
@@ -172,37 +203,6 @@ function soar_input_formats_ckeditor_profile_defaults() {
               'widgetcommonQuotebox' => array(
                 'icon' => 'icons/widgetcommonQuotebox.png',
                 'label' => 'Insert quote box',
-              ),
-            ),
-          ),
-          'widgetfoundation' => array(
-            'name' => 'widgetfoundation',
-            'desc' => 'Plugin to add widgets based on Zurb Foundation elements',
-            'path' => '%base_path%profiles/soar/modules/custom/ckeditor_widgets/plugins/widgetfoundation/',
-            'buttons' => array(
-              'widgetfoundationLeftCol' => array(
-                'icon' => 'icons/widgetfoundationLeftCol.png',
-                'label' => 'Insert left column box',
-              ),
-              'widgetfoundationRightCol' => array(
-                'icon' => 'icons/widgetfoundationRightCol.png',
-                'label' => 'Insert right column box',
-              ),
-              'widgetfoundationTwoCol' => array(
-                'icon' => 'icons/widgetfoundationTwoCol.png',
-                'label' => 'Insert two column box',
-              ),
-              'widgetfoundationThreeCol' => array(
-                'icon' => 'icons/widgetfoundationThreeCol.png',
-                'label' => 'Insert three column box',
-              ),
-              'widgetfoundationAlert' => array(
-                'icon' => 'icons/widgetfoundationAlert.png',
-                'label' => 'Insert alert box',
-              ),
-              'widgetfoundationAccordion' => array(
-                'icon' => 'icons/widgetfoundationAccordion.png',
-                'label' => 'Insert accordion box',
               ),
             ),
           ),
@@ -313,6 +313,97 @@ function soar_input_formats_ckeditor_profile_defaults() {
               ),
             ),
             'default' => 't',
+          ),
+          'media' => array(
+            'name' => 'media',
+            'desc' => 'Plugin for inserting images from Drupal media module',
+            'path' => '%plugin_dir%media/',
+            'buttons' => array(
+              'Media' => array(
+                'label' => 'Media',
+                'icon' => 'images/icon.gif',
+              ),
+            ),
+            'default' => 'f',
+          ),
+          'mediaBrowser' => array(
+            'name' => 'mediaBrowser',
+            'desc' => 'Media Browser for File Upload/Browsing',
+            'path' => '%base_path%profiles/soar/modules/contrib/ckeditor_media/plugins/mediaBrowser/',
+            'buttons' => FALSE,
+          ),
+          'widgetbootstrap' => array(
+            'name' => 'widgetbootstrap',
+            'desc' => 'Plugin to add widgets based on Bootstrap elements',
+            'path' => '%base_path%profiles/soar/modules/custom/ckeditor_widgets/plugins/widgetbootstrap/',
+            'buttons' => array(
+              'widgetbootstrapLeftCol' => array(
+                'icon' => 'icons/widgetbootstrapLeftCol.png',
+                'label' => 'Insert left column box',
+              ),
+              'widgetbootstrapRightCol' => array(
+                'icon' => 'icons/widgetbootstrapRightCol.png',
+                'label' => 'Insert right column box',
+              ),
+              'widgetbootstrapTwoCol' => array(
+                'icon' => 'icons/widgetbootstrapTwoCol.png',
+                'label' => 'Insert two column box',
+              ),
+              'widgetbootstrapThreeCol' => array(
+                'icon' => 'icons/widgetbootstrapThreeCol.png',
+                'label' => 'Insert three column box',
+              ),
+              'widgetbootstrapAlert' => array(
+                'icon' => 'icons/widgetbootstrapAlert.png',
+                'label' => 'Insert alert box',
+              ),
+              'widgetbootstrapAccordion' => array(
+                'icon' => 'icons/widgetbootstrapAccordion.png',
+                'label' => 'Insert accordion box',
+              ),
+            ),
+          ),
+          'widgetcommon' => array(
+            'name' => 'widgetcommon',
+            'desc' => 'Plugin to add common widgets',
+            'path' => '%base_path%profiles/soar/modules/custom/ckeditor_widgets/plugins/widgetcommon/',
+            'buttons' => array(
+              'widgetcommonBox' => array(
+                'icon' => 'icons/widgetcommonBox.png',
+                'label' => 'Insert box',
+              ),
+              'widgetcommonQuotebox' => array(
+                'icon' => 'icons/widgetcommonQuotebox.png',
+                'label' => 'Insert quote box',
+              ),
+            ),
+          ),
+          'widgettemplatemenu' => array(
+            'name' => 'widgettemplatemenu',
+            'desc' => 'Plugin for adding an Insert Template dropdown menu',
+            'path' => '%base_path%profiles/soar/modules/custom/ckeditor_widgets/plugins/widgettemplatemenu/',
+            'buttons' => array(
+              'oembed' => array(
+                'icon' => 'extraIcons/oembed.png',
+                'label' => 'Insert media',
+              ),
+              'codeSnippet' => array(
+                'icon' => 'extraIcons/codesnippet.png',
+                'label' => 'Insert code snippet',
+              ),
+              'leaflet' => array(
+                'icon' => 'extraIcons/leaflet.png',
+                'label' => 'Insert leaflet map',
+              ),
+              'FontAwesome' => array(
+                'icon' => 'extraIcons/fontawesome.png',
+                'label' => 'Insert Font Awesome icon',
+              ),
+              'WidgetTemplateMenu' => array(
+                'icon' => 'icons/widgettemplatemenu.png',
+                'label' => 'Add Template Menu',
+              ),
+            ),
           ),
         ),
       ),

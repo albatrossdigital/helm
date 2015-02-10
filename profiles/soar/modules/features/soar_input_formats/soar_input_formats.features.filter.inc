@@ -16,14 +16,14 @@ function soar_input_formats_filter_default_formats() {
     'name' => 'Filtered HTML',
     'cache' => 1,
     'status' => 1,
-    'weight' => 0,
+    'weight' => -10,
     'filters' => array(
       'soar_wysiwyg_filter' => array(
         'weight' => 0,
         'status' => 1,
         'settings' => array(
-          'valid_elements' => 'p,a,div,span,h2,h3,h4,h5,h6,section,article,strong,b,i,em,cite,blockquote,small,sub,sup,code,pre,ul,ol,li,dl,dt,dd,table,thead,tbody,th,tr,td,img,caption,br',
-          'valid_attributes' => 'align,href,src,target,width,height,colspan,span,alt,name,title,class,id',
+          'valid_elements' => 'p,a,div,span,h2,h3,h4,h5,h6,section,article,iframe,object,embed,strong,b,i,em,cite,pre,blockquote,small,sub,sup,code,ul,ol,li,dl,dt,dd,table,thead,tbody,th,tr,td,img,caption,mediawrapper,br',
+          'valid_attributes' => 'href,src,target,width,height,colspan,span,alt,name,title,class,id,data-options',
           'valid_styles' => 'text-align,float,margin',
         ),
       ),
@@ -41,7 +41,7 @@ function soar_input_formats_filter_default_formats() {
     'name' => 'Full HTML',
     'cache' => 1,
     'status' => 1,
-    'weight' => 1,
+    'weight' => -9,
     'filters' => array(
       'filter_htmlcorrector' => array(
         'weight' => 10,
@@ -51,13 +51,23 @@ function soar_input_formats_filter_default_formats() {
     ),
   );
 
+  // Exported format: HTML Code.
+  $formats['html_code'] = array(
+    'format' => 'html_code',
+    'name' => 'HTML Code',
+    'cache' => 1,
+    'status' => 1,
+    'weight' => -7,
+    'filters' => array(),
+  );
+
   // Exported format: Plain text.
   $formats['plain_text'] = array(
     'format' => 'plain_text',
     'name' => 'Plain text',
     'cache' => 1,
     'status' => 1,
-    'weight' => 10,
+    'weight' => -8,
     'filters' => array(
       'filter_html_escape' => array(
         'weight' => 0,
