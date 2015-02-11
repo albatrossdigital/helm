@@ -11,16 +11,16 @@ function soar_home_uuid_features_default_fpps() {
   $fpps = array();
 
   $fpps[] = array(
-    'timestamp' => 1423089604,
+    'timestamp' => 1423619073,
     'title' => '',
     'log' => '',
     'bundle' => 'soar_carousel',
     'link' => 0,
     'path' => '',
-    'reusable' => 1,
+    'reusable' => 0,
     'admin_title' => 'Home page carousel',
     'admin_description' => '',
-    'category' => 'Home Page',
+    'category' => 'Reusable Content',
     'view_access' => NULL,
     'edit_access' => NULL,
     'created' => 1418259041,

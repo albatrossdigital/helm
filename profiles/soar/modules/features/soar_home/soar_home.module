@@ -8,6 +8,16 @@ include_once 'soar_home.features.inc';
 
 
 /**
+ * Implements hook_entity_info_alter().
+ */
+function soar_home_entity_info_alter(&$entity_info) {
+  $entity_info['fieldable_panels_pane']['view modes']['triptych'] = array(
+    'label' => t('Triptych View'),
+    'custom settings' => TRUE,
+  );
+}
+
+/**
  * Implements hook_features_post_restore()
  *
  * @param string $op
@@ -30,6 +40,7 @@ function soar_home_features_post_restore($op, $items) {
   ));
 
   if($run_content) {
+    watchdog('Soar Home', 'Running content import');
     module_load_include('install', 'soar_home');
     _soar_home_install_content();
   }
@@ -46,10 +57,33 @@ function soar_home_features_post_restore($op, $items) {
  *   The original entity.
  */
 function soar_home_uuid_entity_features_export_render_alter($entity_type, &$export, $entity) {
-  if($entity_type == 'fieldable_panels_pane' && $export->bundle == 'soar_carousel') {
+  $run_alter = $entity_type == 'fieldable_panels_pane' 
+            && $export->bundle == 'soar_carousel';
+  if($run_alter) {
+    watchdog('Soar Home', 'Running export alter');
     // Unset the field_collection, since the UUID export doesn't work
     $export->field_soar_carousel_slide['und'] = array();
     // Unset the panelizer settings, to avoid errors.
     unset($export->panelizer);
   }
 }
+
+/**
+ * Fired before a panels display is rendered.
+ *
+ * Last chance to modify the panels display or add output before the keyword
+ * substitution runs and the panels display is rendered.
+ *
+ * @param panels_display $panels_display
+ *   The panels display that will be rendered.
+ * @param stdClass $renderer
+ *   The renderer object that will be used to render.
+ *
+ * @return string
+ *   Additional output to add before the panels display.
+ */
+// function soar_home_panels_pre_render($panels_display, $renderer) {
+//   dpm($panels_display);
+//   dpm($renderer);
+// }
+
