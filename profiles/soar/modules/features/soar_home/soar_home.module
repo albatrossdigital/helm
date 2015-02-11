@@ -6,17 +6,6 @@
 
 include_once 'soar_home.features.inc';
 
-
-/**
- * Implements hook_entity_info_alter().
- */
-function soar_home_entity_info_alter(&$entity_info) {
-  $entity_info['fieldable_panels_pane']['view modes']['triptych'] = array(
-    'label' => t('Triptych View'),
-    'custom settings' => TRUE,
-  );
-}
-
 /**
  * Implements hook_features_post_restore()
  *

@@ -18,6 +18,11 @@ include_once 'soar_carousel.features.inc';
  */
 function soar_carousel_entity_info_alter(&$entity_info) {
 
+  $entity_info['fieldable_panels_pane']['view modes']['triptych'] = array(
+    'label' => t('Triptych View'),
+    'custom settings' => TRUE,
+  );
+
   // Fieldable panel pane bundle to support Bootstrap carousels:
   $entity_info['fieldable_panels_pane']['bundles']['soar_carousel'] = array(
     'label' => t('Carousel'),
