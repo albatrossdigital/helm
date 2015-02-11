@@ -103,6 +103,9 @@ function soar_home_default_page_manager_pages() {
       'view_settings' => 'fields',
       'header_type' => 'none',
       'view_mode' => 'full',
+      'arguments' => array(
+        'uuid' => '505af91d-8d63-42da-bf46-14d3eaac7473',
+      ),
     );
     $pane->cache = array();
     $pane->style = array();
@@ -225,6 +228,9 @@ function soar_home_default_page_manager_pages() {
       'view_settings' => 'fields',
       'header_type' => 'none',
       'view_mode' => 'full',
+      'arguments' => array(
+        'uuid' => '505af91d-8d63-42da-bf46-14d3eaac7473',
+      ),
     );
     $pane->cache = array();
     $pane->style = array(

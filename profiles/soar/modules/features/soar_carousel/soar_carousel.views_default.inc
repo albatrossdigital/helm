@@ -131,7 +131,7 @@ function soar_carousel_views_default_views() {
   $handler->display->display_options['arguments']['uuid']['limit'] = '0';
   $handler->display->display_options['argument_input'] = array(
     'uuid' => array(
-      'type' => 'fixed',
+      'type' => 'user',
       'context' => 'entity:field_collection_item.archived',
       'context_optional' => 0,
       'panel' => '0',
@@ -296,11 +296,11 @@ function soar_carousel_views_default_views() {
   $handler->display->display_options['allow']['fields_override'] = 0;
   $handler->display->display_options['argument_input'] = array(
     'uuid' => array(
-      'type' => 'fixed',
+      'type' => 'user',
       'context' => 'entity:field_collection_item.archived',
       'context_optional' => 0,
       'panel' => '0',
-      'fixed' => '505af91d-8d63-42da-bf46-14d3eaac7473',
+      'fixed' => '',
       'label' => 'Fieldable pane: Fieldable panel pane UUID',
     ),
   );
