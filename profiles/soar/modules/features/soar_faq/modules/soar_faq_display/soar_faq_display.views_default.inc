@@ -97,8 +97,8 @@ function soar_faq_display_views_default_views() {
   $handler->display->display_options['arguments']['term_node_tid_depth']['depth'] = '1';
   $handler->display->display_options['argument_input'] = array(
     'term_node_tid_depth' => array(
-      'type' => 'user',
-      'context' => 'entity:bean.delta',
+      'type' => 'context',
+      'context' => 'entity:taxonomy_term.tid',
       'context_optional' => 0,
       'panel' => '0',
       'fixed' => '',
@@ -122,21 +122,6 @@ function soar_faq_display_views_default_views() {
   $handler->display->display_options['arguments']['term_node_tid_depth']['summary']['format'] = 'default_summary';
   $handler->display->display_options['arguments']['term_node_tid_depth']['summary_options']['items_per_page'] = '25';
   $handler->display->display_options['arguments']['term_node_tid_depth']['depth'] = '0';
-  $translatables['faq_category'] = array(
-    t('Master'),
-    t('more'),
-    t('Apply'),
-    t('Reset'),
-    t('Sort by'),
-    t('Asc'),
-    t('Desc'),
-    t('All'),
-    t('Block'),
-    t('Content pane'),
-    t('+More'),
-    t('View panes'),
-    t('Popular Front Block'),
-  );
   $export['faq_category'] = $view;
 
   $view = new view();
@@ -381,28 +366,6 @@ function soar_faq_display_views_default_views() {
   $handler->display->display_options['filters']['parent']['table'] = 'taxonomy_term_hierarchy';
   $handler->display->display_options['filters']['parent']['field'] = 'parent';
   $handler->display->display_options['filters']['parent']['value']['value'] = '65';
-  $translatables['faq_home'] = array(
-    t('Master'),
-    t('Answers'),
-    t('+ More'),
-    t('Apply'),
-    t('Reset'),
-    t('Sort by'),
-    t('Asc'),
-    t('Desc'),
-    t('.'),
-    t('<a href="?tid=[tid]" rel="[tid]">[name]</a>'),
-    t('Page'),
-    t('more'),
-    t('Submenu'),
-    t('All'),
-    t('Content pane'),
-    t('<div class="more-link"><a href="/taxonomy/term/!1" title="See more %1 categories">+ More</a></div>'),
-    t('<a href="taxonomy/term/!1?tid=[tid]" rel="[tid]">[name]</a>'),
-    t('View panes'),
-    t('Citywide Popular Categories'),
-    t('<a href="/answers">See All Answers</a>'),
-  );
   $export['faq_home'] = $view;
 
   return $export;

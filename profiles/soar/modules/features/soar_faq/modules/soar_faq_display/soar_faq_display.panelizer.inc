@@ -20,7 +20,7 @@ function soar_faq_display_panelizer_defaults() {
   $panelizer->no_blocks = FALSE;
   $panelizer->css_id = '';
   $panelizer->css = '';
-  $panelizer->pipeline = 'standard';
+  $panelizer->pipeline = 'ipe';
   $panelizer->contexts = array();
   $panelizer->relationships = array();
   $panelizer->access = array();
@@ -30,7 +30,7 @@ function soar_faq_display_panelizer_defaults() {
   $panelizer->link_to_entity = TRUE;
   $panelizer->extra = array();
   $display = new panels_display();
-  $display->layout = 'radix_bryant';
+  $display->layout = 'soar_full_page';
   $display->layout_settings = array();
   $display->panel_settings = array(
     'style_settings' => array(
@@ -40,12 +40,12 @@ function soar_faq_display_panelizer_defaults() {
     ),
   );
   $display->cache = array();
-  $display->title = '';
-  $display->uuid = 'd4cb4e41-fe54-4349-b62f-c82721752ddf';
+  $display->title = '%taxonomy_term:name';
+  $display->uuid = '558f30ea-b3e8-434e-a264-248a60f69dcf';
   $display->content = array();
   $display->panels = array();
     $pane = new stdClass();
-    $pane->pid = 'new-dedc4b6b-9dad-4ae1-a487-dee297fd690c';
+    $pane->pid = 'new-61f419d7-0289-41e4-b752-615567d9fe2c';
     $pane->panel = 'contentmain';
     $pane->type = 'views_panes';
     $pane->subtype = 'faq_category-panel_pane_1';
@@ -58,64 +58,9 @@ function soar_faq_display_panelizer_defaults() {
       'view_settings' => 'fields',
       'header_type' => 'none',
       'view_mode' => 'teaser',
-    );
-    $pane->cache = array();
-    $pane->style = array(
-      'settings' => NULL,
-    );
-    $pane->css = array();
-    $pane->extras = array();
-    $pane->position = 0;
-    $pane->locks = array();
-    $pane->uuid = 'dedc4b6b-9dad-4ae1-a487-dee297fd690c';
-    $display->content['new-dedc4b6b-9dad-4ae1-a487-dee297fd690c'] = $pane;
-    $display->panels['contentmain'][0] = 'new-dedc4b6b-9dad-4ae1-a487-dee297fd690c';
-    $pane = new stdClass();
-    $pane->pid = 'new-27c0641c-2e00-41b0-a416-a369710b62bb';
-    $pane->panel = 'sidebar';
-    $pane->type = 'entity_field';
-    $pane->subtype = 'taxonomy_term:field_color';
-    $pane->shown = TRUE;
-    $pane->access = array();
-    $pane->configuration = array(
-      'label' => 'above',
-      'formatter' => 'hidden',
-      'delta_limit' => 0,
-      'delta_offset' => '0',
-      'delta_reversed' => FALSE,
-      'formatter_settings' => array(),
-      'context' => 'panelizer',
-    );
-    $pane->cache = array();
-    $pane->style = array(
-      'settings' => NULL,
-    );
-    $pane->css = array();
-    $pane->extras = array();
-    $pane->position = 0;
-    $pane->locks = array();
-    $pane->uuid = '27c0641c-2e00-41b0-a416-a369710b62bb';
-    $display->content['new-27c0641c-2e00-41b0-a416-a369710b62bb'] = $pane;
-    $display->panels['sidebar'][0] = 'new-27c0641c-2e00-41b0-a416-a369710b62bb';
-    $pane = new stdClass();
-    $pane->pid = 'new-5fd12d10-3367-4f75-bc79-ef0b6e6d0778';
-    $pane->panel = 'sidebar';
-    $pane->type = 'entity_field';
-    $pane->subtype = 'taxonomy_term:field_icon';
-    $pane->shown = TRUE;
-    $pane->access = array();
-    $pane->configuration = array(
-      'label' => 'above',
-      'formatter' => 'fontawesome_field_formatter',
-      'delta_limit' => 0,
-      'delta_offset' => '0',
-      'delta_reversed' => FALSE,
-      'formatter_settings' => array(
-        'quickedit' => array(
-          'editor' => 'form',
-        ),
+      'context' => array(
+        0 => 'panelizer',
       ),
-      'context' => 'panelizer',
     );
     $pane->cache = array();
     $pane->style = array(
@@ -123,13 +68,13 @@ function soar_faq_display_panelizer_defaults() {
     );
     $pane->css = array();
     $pane->extras = array();
-    $pane->position = 1;
+    $pane->position = 0;
     $pane->locks = array();
-    $pane->uuid = '5fd12d10-3367-4f75-bc79-ef0b6e6d0778';
-    $display->content['new-5fd12d10-3367-4f75-bc79-ef0b6e6d0778'] = $pane;
-    $display->panels['sidebar'][1] = 'new-5fd12d10-3367-4f75-bc79-ef0b6e6d0778';
+    $pane->uuid = '61f419d7-0289-41e4-b752-615567d9fe2c';
+    $display->content['new-61f419d7-0289-41e4-b752-615567d9fe2c'] = $pane;
+    $display->panels['contentmain'][0] = 'new-61f419d7-0289-41e4-b752-615567d9fe2c';
   $display->hide_title = PANELS_TITLE_FIXED;
-  $display->title_pane = 'new-27c0641c-2e00-41b0-a416-a369710b62bb';
+  $display->title_pane = 'new-61f419d7-0289-41e4-b752-615567d9fe2c';
   $panelizer->display = $display;
   $export['taxonomy_term:faq_category:default'] = $panelizer;
 
