@@ -356,6 +356,19 @@ You\'re media will be scaled to 900px by 500px by default. Think about editing y
           'type' => 'field_collection_view',
           'weight' => 0,
         ),
+        'triptych' => array(
+          'label' => 'above',
+          'module' => 'field_collection',
+          'settings' => array(
+            'add' => 'Add',
+            'delete' => 'Delete',
+            'description' => TRUE,
+            'edit' => 'Edit',
+            'view_mode' => 'full',
+          ),
+          'type' => 'field_collection_view',
+          'weight' => 1,
+        ),
       ),
       'entity_type' => 'fieldable_panels_pane',
       'field_name' => 'field_soar_carousel_slide',
@@ -409,13 +422,13 @@ function soar_carousel_defaultconfig_strongarm() {
         'choice' => 0,
       ),
       'full' => array(
-        'status' => 0,
-        'default' => 0,
+        'status' => 1,
+        'default' => 1,
         'choice' => 0,
       ),
-      'token' => array(
-        'status' => 0,
-        'default' => 0,
+      'triptych' => array(
+        'status' => 1,
+        'default' => 1,
         'choice' => 0,
       ),
     ),
