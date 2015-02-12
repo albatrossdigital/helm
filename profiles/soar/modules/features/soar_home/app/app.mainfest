@@ -1,0 +1,14 @@
+; App manifest file
+; See https://groups.drupal.org/open-app-standard/oas#manifest
+
+name = Soar Home
+description = Panels-based homepage with a carousel
+color = #B27636
+version = 1.0-alpha1
+author = Albatross Digital
+author_url = http://www.albatrossdigital.com
+machine_name = soar_home
+downloadable = soar_home
+dependencies[views] = views 7.x-1.0
+downloadables[soar_home] = https://github.com/albatrossdigital/soar_home/archive/master.zip
+package = Core Apps

@@ -1,0 +1,17 @@
+name = "Soar Date Formats"
+package = "Soar"
+php = "5.2.4"
+project = "soar_date_formats"
+
+core = "7.x"
+dependencies[] = "strongarm"
+description = "Creates and sets Date Formats and Date Types to typical North American defaults."
+features[ctools][] = "strongarm:strongarm:1"
+features[variable][] = "date_format_long"
+features[variable][] = "date_format_long_date"
+features[variable][] = "date_format_medium"
+features[variable][] = "date_format_medium_date"
+features[variable][] = "date_format_short"
+features[variable][] = "date_format_short_date"
+features[variable][] = "date_format_time"
+

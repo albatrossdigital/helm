@@ -1,0 +1,12 @@
+name = Share42.com
+description = Integration of social sharing buttons script from http://share42.com.
+core = 7.x
+package = "User interface"
+configure = admin/structure/block/manage/share42/share42/configure
+
+; Information added by drupal.org packaging script on 2013-02-09
+version = "7.x-1.3"
+core = "7.x"
+project = "share42"
+datestamp = "1360415993"
+

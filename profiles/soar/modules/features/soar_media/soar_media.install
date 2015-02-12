@@ -1,0 +1,11 @@
+<?php
+
+/**
+ * Implements hook_install().
+ */
+function soar_media_install() {
+  // @todo?
+  // Make Flight the default CKEditor profile
+  //db_query('UPDATE {ckeditor_input_format} SET name = :name', array(':name' => 'Flight'));
+
+}

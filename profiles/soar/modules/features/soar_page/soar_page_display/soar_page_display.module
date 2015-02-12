@@ -1,0 +1,14 @@
+<?php
+/**
+ * @file
+ * Code for the Soar Page Display feature.
+ */
+
+include_once 'soar_page_display.features.inc';
+
+/**
+ * Implementation of hook_ctools_plugin_directory()
+ */
+function soar_page_display_ctools_plugin_directory($module, $plugin) {
+  return 'plugins/' . $plugin;
+}

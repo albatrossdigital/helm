@@ -1,0 +1,16 @@
+name = Media: oEmbed
+description = Provides oEmbed support to the Media module.
+package = "Media"
+core = 7.x
+files[] = media_oembed.module
+dependencies[] = media_internet
+dependencies[] = oembedcore
+hidden = TRUE
+
+
+; Information added by drush on 2014-12-03
+version = "7.x-1.0-rc2+24-dev"
+core = "7.x"
+project = "oembed"
+datestamp = "1417594599"
+

@@ -1,0 +1,9 @@
+name = UUID Features
+description = Provides features integration for content (nodes, taxonomy, etc) based on the UUID module.
+core = 7.x
+dependencies[] = features
+dependencies[] = uuid
+dependencies[] = entity
+package = Features
+
+configure = admin/config/content/uuid_features

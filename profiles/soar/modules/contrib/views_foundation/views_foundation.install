@@ -1,0 +1,15 @@
+<?php
+
+/**
+ * @file
+ * Installation settings for Views Foundation module.
+ */
+
+/**
+ * Implements hook_uninstall().
+ */
+function views_foundation_uninstall() {
+  variable_del('views_foundation_js', NULL);
+  variable_del('views_foundation_orbit', NULL);
+  variable_del('views_foundation_clearing', NULL);
+}

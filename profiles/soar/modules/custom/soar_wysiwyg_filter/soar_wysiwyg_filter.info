@@ -1,0 +1,9 @@
+name = Soar WYSIWYG Filter
+description = Simple implementation of a WYSIWYG filter
+package = Input filters
+core = 7.x
+
+dependencies[] = simplehtmldom
+
+files[] = soar_wysiwyg_filter.module
+

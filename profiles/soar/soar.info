@@ -1,0 +1,225 @@
+name = "Soar"
+description = "A bare-bones distribution with Twitter Bootstrap, Panels and the new Edit module."
+version = VERSION
+core = "7.x"
+
+; **************************************
+; * Drupal core modules
+; **************************************
+dependencies[] = block
+dependencies[] = node
+dependencies[] = contextual
+dependencies[] = help
+dependencies[] = image
+dependencies[] = list
+dependencies[] = menu
+dependencies[] = number
+dependencies[] = options
+dependencies[] = path
+dependencies[] = taxonomy
+dependencies[] = dblog
+dependencies[] = shortcut
+dependencies[] = field_ui
+dependencies[] = file
+dependencies[] = rdf
+dependencies[] = toolbar
+
+
+
+; **************************************
+; * Soar-specific modules below
+; **************************************
+
+; Soar - Contrib - Foundation
+dependencies[] = entity
+dependencies[] = entityreference
+dependencies[] = ctools
+dependencies[] = views
+dependencies[] = views_ui
+dependencies[] = features
+dependencies[] = strongarm
+dependencies[] = libraries
+dependencies[] = advagg
+dependencies[] = simplehtmldom
+dependencies[] = menu_trail_by_path
+dependencies[] = json2
+
+
+
+; Soar - Contrib - User Interface
+dependencies[] = jquery_update
+dependencies[] = admin_menu
+dependencies[] = admin_menu_toolbar
+dependencies[] = admin_select
+dependencies[] = admin_views
+dependencies[] = ckeditor
+dependencies[] = ckeditor_media
+dependencies[] = module_filter
+dependencies[] = filter_perms
+dependencies[] = menu_block
+dependencies[] = menu_firstchild
+dependencies[] = page_manager
+dependencies[] = panels
+dependencies[] = panels_ipe
+dependencies[] = panels_mini
+dependencies[] = fences
+dependencies[] = panels_extra_styles
+; dependencies[] = quickedit
+
+
+
+; Soar - Contrib - Field UI and Content Types
+dependencies[] = field_group
+dependencies[] = email
+dependencies[] = select_or_other
+dependencies[] = link
+
+
+; Soar - Contrib - SEO
+dependencies[] = pathauto
+dependencies[] = pathauto_persist
+dependencies[] = redirect
+dependencies[] = googleanalytics
+dependencies[] = metatag
+
+dependencies[] = metatag_opengraph
+dependencies[] = share42
+
+
+
+; Soar - Contrib - Media
+dependencies[] = media
+dependencies[] = file_entity
+dependencies[] = media_internet
+dependencies[] = oembed
+dependencies[] = focal_point
+dependencies[] = plupload
+dependencies[] = multiform
+dependencies[] = media_bulk_upload
+dependencies[] = ckeditor
+dependencies[] = ckeditor_media
+dependencies[] = ckeditor_widgets
+dependencies[] = image_resize_filter
+
+
+
+; Soar - Contrib - Views addons
+dependencies[] = draggableviews
+; @todo: bootstrap replacement?
+;dependencies[] = views_foundation
+
+
+; Soar - Contrib - Devel
+dependencies[] = devel
+
+
+; Soar - Contrib - Standard Features
+;dependencies[] = soar_core
+dependencies[] = soar_date_formats
+dependencies[] = soar_input_formats
+dependencies[] = soar_page
+dependencies[] = soar_media
+;dependencies[] = soar_permissions
+dependencies[] = soar_wysiwyg_filter
+
+
+
+; Soar - Contrib - Optional Features
+;dependencies[] = soar_news
+;dependencies[] = soar_events
+;dependencies[] = soar_webform
+;dependencies[] = soar_landingpage
+;dependencies[] = soar_sitemap
+;dependencies[] = soar_workbench
+;@todo: slideshow
+
+
+; **************************************
+; * Panopoly Contrib
+; **************************************
+
+
+; panels_core
+
+;DUPE dependencies[] = ctools
+dependencies[] = date
+dependencies[] = date_api
+dependencies[] = date_popup
+dependencies[] = date_views
+dependencies[] = defaultconfig
+;DUPE dependencies[] = entity
+;DUPE dependencies[] = entityreference
+dependencies[] = features
+dependencies[] = field_group
+dependencies[] = field_sql_storage
+dependencies[] = fieldable_panels_panes
+;DUPE dependencies[] = image
+;DUPE dependencies[] = libraries
+;DUPE dependencies[] = list
+;DUPE dependencies[] = menu
+dependencies[] = page_manager
+dependencies[] = panelizer
+dependencies[] = panels
+dependencies[] = panels_breadcrumbs
+dependencies[] = panels_ipe
+;DUPE dependencies[] = pathauto
+dependencies[] = pm_existing_pages
+;DUPE dependencies[] = strongarm
+;DUPE dependencies[] = taxonomy
+;DUPE dependencies[] = token
+dependencies[] = transliteration
+;DUPE dependencies[] = views
+dependencies[] = views_autocomplete_filters
+dependencies[] = views_content
+
+; Panopoly magic
+
+;DUPE dependencies[] = ctools
+dependencies[] = fape
+;DUPE dependencies[] = features
+;DUPE dependencies[] = page_manager
+;DUPE dependencies[] = panels_ipe
+;DUPE dependencies[] = views
+
+; Panopoly theme
+
+;DUPE dependencies[] = panels
+dependencies[] = radix_layouts
+
+; Panolpoly widgets
+
+;DUPE dependencies[] = ctools
+;DUPE dependencies[] = defaultconfig
+;DUPE dependencies[] = features
+;DUPE dependencies[] = fieldable_panels_panes
+;DUPE dependencies[] = file
+;DUPE dependencies[] = file_entity
+;DUPE dependencies[] = image
+;DUPE dependencies[] = link
+;DUPE dependencies[] = media
+;DUPE dependencies[] = media_vimeo
+dependencies[] = media_youtube
+dependencies[] = menu_block
+;DUPE dependencies[] = number
+;DUPE dependencies[] = page_manager
+dependencies[] = simple_gmap
+dependencies[] = tablefield
+;DUPE dependencies[] = text
+;DUPE dependencies[] = views
+;DUPE dependencies[] = views_autocomplete_filters
+;DUPE dependencies[] = views_content
+
+
+; **************************************
+; * Panopoly Distro
+; **************************************
+
+
+dependencies[] = panopoly_core
+dependencies[] = panopoly_theme
+dependencies[] = panopoly_magic
+dependencies[] = panopoly_widgets
+
+
+files[] = soar.profile
+

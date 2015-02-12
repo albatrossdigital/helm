@@ -1,0 +1,346 @@
+<?php
+
+/**
+ * @file
+ * Implementation of angular_media.module.
+ */
+
+include_once 'angular_media.features.inc';
+include_once 'includes/angular_media.field.inc';
+
+// Load all Field module hooks for File.
+//module_load_include('inc', 'angular_media', 'angular_media.field');
+
+/**
+ * Implements hook_libraries_info().
+ *
+ * For defining external libraries.
+ */
+function angular_media_libraries_info() {
+
+  $libraries['angular-media-app'] = array(
+    'name' => 'Simple library',
+    'files' => array(
+      'js' => array(
+        'dist/js/vendor/libraries.min.js',
+        'dist/js/app.min.js',
+      ),
+      'css' => array(
+        'dist/css/app.min.css',
+        'dist/css/libraries.min.css',
+      ),
+    ),
+  );
+
+  return $libraries;
+}
+
+/**
+ * Returns the path to the JS app.
+ */
+function angular_media_app_path() {
+  $library = libraries_load('angular-media-app');
+  return $library['library path'] . '/dist/';
+}
+
+/**
+ * Implements hook_library().
+ */
+function angular_media_library() {
+  // Library One.
+  $path = angular_media_app_path();
+  $libraries['angular-media-app'] = array(
+    'title' => 'Angular Media app',
+    'website' => 'http://albatrossdigital.com',
+    'version' => '0.1',
+    'js' => array(
+      $path . 'js/libraries.min.js' => array(),
+      $path . 'js/app.min.js' => array(),
+      //$path . 'js/vendor/jcrop.min.js' => array(),
+      drupal_get_path('module', 'angular_media') . '/js/angular-media.js' => array(),
+    ),
+    'css' => array(
+      $path . 'css/app.min.css' => array('weight' => 1),
+    ),
+  );
+  dpm($libraries);
+  return $libraries;
+}
+
+/**
+ * Implements hook_menu().
+ */
+function angular_media_menu() {
+  $items['api/angular-media/upload'] = array(
+    'title' => 'Handles uploads',
+    'page callback' => 'angular_media_callback_upload',
+    'type' => MENU_CALLBACK,
+    'access callback' => 'angular_media_upload_access',
+    'access arguments' => array('access content'),
+  );
+  $items['api/angular-media/file'] = array(
+    'title' => 'Handles uploads',
+    'page callback' => 'angular_media_callback_file',
+    'page arguments' => array(3),
+    'type' => MENU_CALLBACK,
+    'access callback' => 'angular_media_file_access',
+    'access arguments' => array('access content'),
+  );
+  $items['angular_media-test'] = array(
+    'title' => 'Test Plupload',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('angular_media_test'),
+    // @todo: change this to something appropriate, not sure what.
+    'access arguments' => array('Administer site configuration'),
+    'type' => MENU_CALLBACK,
+  );
+  return $items;
+}
+
+/**
+ * Verifies the token for this request.
+ */
+function angular_media_upload_access() {
+  // @todo;
+  return TRUE;
+  /*
+  foreach (func_get_args() as $permission) {
+    if (!user_access($permission)) {
+      return FALSE;
+    }
+  }
+  return !empty($_REQUEST['angular_media_token']) && drupal_valid_token($_REQUEST['angular_media_token'], 'angular_media-handle-uploads');
+  */
+}
+
+/**
+ * Verifies the token for this request.
+ */
+function angular_media_file_access() {
+  // @todo;
+  return TRUE;
+}
+
+
+/**
+ * Returns the path to the angular_media library.
+ */
+/*function _angular_media_library_path() {
+  return variable_get('angular_media_library_path', module_exists('libraries') ? libraries_get_path('angular_media') : 'sites/all/libraries/angular_media');
+}*/
+
+
+/**
+ * Callback that handles and saves uploaded files.
+ *
+ * This will respond to the URL on which plupoad library will upload files.
+ */
+function angular_media_callback_upload() {
+
+  watchdog('angular_media', 'upload: $_FILES sent to server <pre>%f</pre>', array('%f' => print_r($_FILES,1)));
+
+  $destination = 'public://'; //@todo
+  $validators = array();
+  $field_name = 'files';
+
+  // Manually construct $_FILES['files'] for Drupal's file_save_upload()
+  $_FILES['files'] = array();
+  $_FILES['files']['name'][$field_name] = $_FILES['file']['name'];
+  $_FILES['files']['type'][$field_name] = $_FILES['file']['type'];
+  $_FILES['files']['tmp_name'][$field_name] = $_FILES['file']['tmp_name'];
+  $_FILES['files']['error'][$field_name] = $_FILES['file']['error'];
+  $_FILES['files']['size'][$field_name] = $_FILES['file']['size'];
+
+  $file = file_save_upload($field_name, $validators, $destination, FILE_EXISTS_RENAME);
+  watchdog('angular_media', 'file uploaded <pre>%f</pre>', array('%f' => print_r($file,1)));
+
+  drupal_json_output(angular_media_simplify_file($file));
+  exit;
+}
+
+
+/**
+ * Callback to retrieve (GET) or save (POST) updates.
+ *
+ * This will respond to the URL on which plupoad library will upload files.
+ */
+function angular_media_callback_file($fid = NULL) {
+  watchdog('angular_media', 'file $_GET <pre>%f</pre>', array('%f' => print_r($_GET,1)));
+
+  if (!empty($_GET['fid'])) {
+    $file = file_load($_GET['fid']);
+    watchdog('angular_media', 'file loaded <pre>%f</pre>', array('%f' => print_r($file,1)));
+  }
+
+  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    watchdog('angular_media', 'file post <pre>%f</pre>', array('%f' => print_r($file,1)));
+    
+    // Copy file over from url
+    if (!empty($_GET['url'])) {
+      $file = angular_media_file_url_to_object($_GET['url'], $_GET['filename']);
+      watchdog('angular_media', 'file copy from url <pre>%f</pre>', array('%f' => print_r($file,1)));
+    }
+
+    // Update file fields
+    if (isset($file)) {
+      if (!empty($_GET['name'])) {
+        $file->name = $_GET['name'];
+      }
+      if (!empty($_GET['alt'])) {
+        $file->alt = $_GET['name'];
+        $file->field_file_image_alt_text[LANGUAGE_NONE][0]['value'] = $file->alt;
+      }
+      if (!empty($_GET['title'])) {
+        $file->title = $_GET['title'];
+        $file->field_file_image_title_text[LANGUAGE_NONE][0]['value'] = $file->title;
+      }
+      if (!empty($_GET['source'])) {
+        $file->field_media_source[LANGUAGE_NONE][0]['url'] = $_GET['source'];
+      }
+      if (!empty($_GET['license'])) {
+        $file->field_media_license[LANGUAGE_NONE][0]['licence'] = $_GET['license'];
+      }
+      $file = file_save($file);
+      watchdog('angular_media', 'file saved <pre>%f</pre>', array('%f' => print_r($file,1)));
+    }
+    else {
+      // @todo: err
+    }
+    
+  }
+
+  drupal_json_output(angular_media_simplify_file($file));
+  exit;
+}
+
+/**
+ * Clean up file and add thumbnail url.
+ */
+function angular_media_simplify_file($file) {
+  $file = (object)$file;
+  if ($file->type == 'image') {
+    $file->thumbUrl =  image_style_url('media_thumbnail', $file->uri);
+    $file->previewUrl = image_style_url('media_preview', $file->uri);
+    $file->cropUrl = image_style_url('media_crop', $file->uri);
+  }
+  if (!empty($file->field_media_source)) {
+    $file->source = $file->field_media_source[LANGUAGE_NONE][0]['url'];
+  }
+  if (!empty($file->field_media_license)) {
+    $file->license = $file->field_media_license[LANGUAGE_NONE][0]['licence'];
+  }
+  $file->name = $file->filename;
+  return $file;
+}
+
+/**
+ * Returns a file object which can be passed to file_save().
+ *
+ * @param string $uri
+ *   A string containing the URI, path, or filename.
+ *
+ * @return boolean
+ *   A file object, or FALSE on error.
+ *
+ * @todo Replace with calls to this function with file_uri_to_object() when
+ * http://drupal.org/node/685818 is fixed in core.
+ */
+function angular_media_file_uri_to_object($uri) {
+  global $user;
+  $uri = file_stream_wrapper_uri_normalize($uri);
+  $wrapper = file_stream_wrapper_get_instance_by_uri($uri);
+  $file = new StdClass();
+  $file->uid = $user->uid;
+  $file->filename = drupal_basename($uri);
+  $file->uri = $uri;
+  $file->filemime = file_get_mimetype($uri);
+  // This is gagged because some uris will not support it.
+  $file->filesize = @filesize($uri);
+  $file->timestamp = REQUEST_TIME;
+  $file->status = FILE_STATUS_PERMANENT;
+  return $file;
+}
+
+/**
+ * Upload a file from a URL.
+ *
+ * This will copy a file from a remote location and store it locally.
+ *
+ * @see media_parse_to_uri()
+ * @see media_parse_to_file()
+ */
+function angular_media_file_url_to_object($remote_uri, $filename) {
+  // Much of this is copied from media_internet.module
+  // Coppies the remote file locally.
+  //@TODO: we should follow redirection here an save the final filename, not just the basename.
+  global $user;
+  $local_filename = $filename;
+  $local_filename = file_munge_filename($local_filename, variable_get('file_extensions'), FALSE);
+  $local_uri = file_stream_wrapper_uri_normalize('temporary://' . $local_filename);
+  if (!@copy($remote_uri, $local_uri)) {
+    throw new Exception('Unable to add file ' . $remote_uri);
+    return;
+  }
+  // Make the current fileObject point to the local_uri, not the remote one.
+  $file = file_uri_to_object($local_uri);
+  $scheme = variable_get('file_default_scheme', 'public') . '://';
+  $uri = file_stream_wrapper_uri_normalize($scheme . $file->filename);
+  // Now to its new home.
+  $file = file_move($file, $uri, FILE_EXISTS_RENAME);
+  // Add metadata
+  $file->filemime = file_get_mimetype($uri);
+  $file->filename = drupal_basename($uri);
+  $file->uid = $user->uid;
+  $file->filesize = @filesize($uri);
+  $file->timestamp = REQUEST_TIME;
+  $file->status = FILE_STATUS_PERMANENT;
+
+  if (!$file->fid) {
+    form_set_error('url', 'Unknown error: unable to add file, please check URL / Embed code and try again ' . $embed_code);
+    return;
+  }
+
+  return $file;
+}
+
+
+/**
+ * Implements hook_theme().
+ */
+function angular_media_theme() {
+  //$path = drupal_get_path('module', 'angular_media');
+  return array(
+    'angular_media_app' => array(
+      'template' => 'templates/app',
+      'variables' => array(
+        //'app_path' => url(angular_media_app_path()),
+        //'api_path' => url('services/rest'),
+        'field_name' => '',
+        'files' => array(),
+        'cardinality' => 1,
+        'app_url' => url(angular_media_app_path()),
+        'api_url' => url('api/angular-media') . '/',
+        'flickr_key' => '',
+        'hidden' => FALSE,
+      )
+    ),
+  );
+}
+
+/**
+ * Implements hook_ckeditor_plugin().
+ * CKEditor integration
+ */
+function angular_media_ckeditor_plugin() {
+  $plugins = array();
+  $plugins['angularMedia'] = array(
+    // Plugin name.
+    'name' => 'angularMedia',
+    // Plugin description - it will be displayed in the plugins management section of the profile settings.
+    'desc' => t('Plugin for Angular Media Browser'),
+    // The full path to the CKEditor plugin directory, trailing slash included.
+    'path' => drupal_get_path('module', 'angular_media') . '/plugins/angularMedia/',
+  );
+  return $plugins;
+}
+

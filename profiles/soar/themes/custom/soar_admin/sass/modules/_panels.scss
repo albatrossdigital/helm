@@ -1,0 +1,54 @@
+
+
+
+// page manager 
+
+
+body form#page-manager-list-pages-form {
+  @include clearfix; 
+
+  button:first-of-type {
+    clear: left;
+  }
+}
+
+html.js #panels-dnd-main div.ctools-dropdown div.ctools-dropdown-container hr, html.js div.panels-display-links div.ctools-dropdown-container hr {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+#modal-content {
+  overflow-y: auto;
+
+  fieldset {
+    legend {
+
+      position: relative;
+      left: 0;
+      padding: $panel-heading-padding;
+      height: auto;
+      line-height: 1;
+      top: 0;
+      
+      &, &.panel-heading {
+        @include border-top-radius(($panel-border-radius - 1));
+      }
+    }
+  }
+
+  .content-type-button .ajax-progress {
+    &, *, {
+      text-indent: 0;
+    }
+  }
+
+  .widget-preview, 
+  .fieldset-wrapper {
+    margin-top: 0;
+
+  }
+}
+
+#page-manager-list-pages td.page-manager-page-operations .ctools-dropbutton {
+  width: 100%;
+}

@@ -1,0 +1,94 @@
+$orbit-height: rem-calc(325);
+
+// Orbit
+//-----------------------------------------------------------------------------
+
+ul[data-orbit] {
+  .carousel-caption {
+    margin-bottom: 0;
+    position: relative;
+    padding-bottom: $orbit-button-height + 1;
+  }
+  .field-name-field-slideshow-link {
+    border-top: $gray 1px solid;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: $orbit-button-height + 1;
+    a {
+      @include more-link;
+      display: inline-block;
+      line-height: $orbit-button-height;
+      text-align: center;
+      width: 100 / 3#{"%"};
+    }
+  }
+  & ~ .orbit-prev,
+  & ~ .orbit-next {
+    margin-left: -($column-gutter / 2 + rem-calc(1));
+    @include transition(opacity 100ms ease);
+    @include opacity(1);
+  }
+  &.orbit-transitioning ~ .orbit-prev,
+  &.orbit-transitioning ~ .orbit-next {
+    @include opacity(0);
+  }
+  & ~ .orbit-prev {
+    left: grid-calc(5, 12) - $orbit-button-width * 2;
+  }
+  & ~ .orbit-next {
+    border-left: 1px solid $gray;
+    left: grid-calc(5, 12) - $orbit-button-width;
+    right: auto;
+  }
+}
+
+// *
+// * Media Queries
+// *
+// ******************************************************
+
+@include respond($medium-up) {
+  // Orbit
+  //-----------------------------------------------------------------------------
+  ul[data-orbit] {
+    &,
+    .group-right,
+    .file,
+    .carousel-caption {
+      height: $orbit-height;
+    }
+    .group-right {
+      .file {
+        position: relative;
+        overflow: hidden;
+      }
+      .content {
+        left: -10%;
+        right: -10%;
+        position: absolute;
+        text-align: center;
+      }
+    }
+    .group-left {}
+    img {
+      min-height: $orbit-height;
+    }
+    & ~ .orbit-prev,
+    & ~ .orbit-next {
+      bottom: rem-calc(1);
+      top: auto;
+    }
+  }
+}
+
+
+@include respond($large-up) {
+  // Orbit
+  //-----------------------------------------------------------------------------
+  ul[data-orbit] {
+    & ~ .orbit-prev,
+    & ~ .orbit-next {}
+  }
+}

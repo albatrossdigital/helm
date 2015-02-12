@@ -1,0 +1,14 @@
+<?php
+
+function ckeditor_media_ckeditor_plugin() {
+  $plugins = array();
+  $plugins['mediaBrowser'] = array(
+    // Plugin name.
+    'name' => 'mediaBrowser',
+    // Plugin description - it will be displayed in the plugins management section of the profile settings.
+    'desc' => t('Media Browser for File Upload/Browsing'),
+    // The full path to the CKEditor plugin directory, trailing slash included.
+    'path' => drupal_get_path('module', 'ckeditor_media') . '/plugins/mediaBrowser/',
+  );
+  return $plugins;
+}

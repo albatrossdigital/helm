@@ -1,0 +1,71 @@
+
+// reduce top padding, may need to be adjusted
+
+html body.admin-menu {
+  padding-top: 15px!important;
+}
+
+// make admin floats look more like bootstrap
+
+div.admin { 
+  .left, .right {
+    padding-left: $grid-gutter-width/2;
+    padding-right: $grid-gutter-width/2;
+  }
+  
+  .left {
+    margin-left: 0;
+  }
+
+  .right {
+    margin-right: 0;
+  }
+}
+
+// admin listings
+
+* + dt {
+  margin-top: 10px;
+}
+
+// vertical tabs
+
+.vertical-tabs-list {
+  background: darken($nav-tabs-active-link-hover-bg, 5%);
+  border-radius: $nav-pills-border-radius 0 0 $nav-pills-border-radius;
+}
+
+// ajax progress
+
+.ajax-progress-throbber {
+  background: none;
+  height: auto;
+  min-height: 0;
+  width: auto;
+  padding: 0;
+}
+
+.ajax-progress .glyphicon {
+  display: block;
+  width: auto;
+  height: auto;
+}
+
+
+//*
+//* Responsive
+//* --------------------------------------------------
+//*
+
+@media screen and (max-width: $screen-xs-max) {
+  button:first-of-type {
+    clear: left;
+  }
+}
+
+@media screen and (min-width: $screen-md-min) {
+  body > .container-fluid {
+    padding-left: 100px;
+    padding-right: 100px;
+  }
+}

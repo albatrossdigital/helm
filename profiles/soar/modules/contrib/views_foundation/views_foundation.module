@@ -1,0 +1,71 @@
+<?php
+/**
+ * @file
+ * Views Foundation module file.
+ */
+
+/**
+ * Implements hook_views_api().
+ */
+function views_foundation_views_api() {
+  return array(
+    'api' => 3,
+  );
+}
+
+/**
+ * Implements hook_menu().
+ */
+function views_foundation_menu() {
+  $items = array();
+  $items['admin/config/media/views_foundation'] = array(
+    'title' => 'Views Foundation',
+    'description' => 'Configure Views Foundation settings.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('views_foundation_config_form'),
+    'access arguments' => array('administer themes'),
+    'file' => 'views_foundation.admin.inc',
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_help().
+ */
+function views_foundation_help($path, $arg) {
+  switch ($path) {
+    case 'admin/help#views_foundation':
+      // Return the module README.txt
+      return check_markup(file_get_contents(dirname(__FILE__) . "/README.txt"));
+  }
+}
+
+/**
+ * Return a array containing words representing the numbers.
+ *
+ * @param int $amount
+ *   The integer indicating the number of keys to be returned.
+ *
+ * @return array
+ *   Array of strings contains words.
+ */
+function views_foundation_columns($amount = 12) {
+  $words = array(
+    'one',
+    'two',
+    'three',
+    'four',
+    'five',
+    'six',
+    'seven',
+    'eight',
+    'nine',
+    'ten',
+    'eleven',
+    'twelve',
+  );
+  $options = array_slice($words, 0, $amount);
+
+  return drupal_map_assoc($options);
+}
