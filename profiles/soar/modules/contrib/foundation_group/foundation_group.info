@@ -1,0 +1,15 @@
+name = Foundation Field Group
+description = Adds new grouping options in the format of Zurb Foundation tab styles, best used with a Foundation 4.x based theme.
+package = Fields
+core = 7.x
+
+dependencies[] = field
+dependencies[] = ctools
+dependencies[] = field_group
+
+; Information added by  packaging script on 2013-12-03
+version = "7.x-2.3"
+core = "7.x"
+project = "foundation_group"
+datestamp = "1386108809"
+

@@ -1,0 +1,156 @@
+
+/**
+ * Field UI===========================================================
+ */
+
+form.page-node-form {
+  max-width: 1100px;
+}
+
+.filter-wrapper {
+  background: #F2F2F2;
+  padding: 9px 10px 9px 10px;
+  right: 10px;
+  margin-top: -8px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 0;
+  padding: 5px;
+  margin-left: 10px;
+  margin-right: -10px;
+}
+
+.filter-wrapper .clearfix {
+  margin-bottom: 0;
+}
+
+.filter-wrapper .filter-help {
+  float: right;
+  padding: 0px;
+  margin: 0;
+}
+
+.filter-wrapper label,
+.filter-wrapper p,
+.filter-wrapper select {
+  font-size: 11px;
+  height: 22px;
+  line-height: 22px;
+  padding: 1px;
+  margin-bottom: 0;
+}
+
+.filter-wrapper .form-type-select {
+  width: auto;
+  margin: .2em 0 0 0;
+  padding: 0;
+}
+
+.filter-wrapper label {
+  float: left;
+  margin-right: 8px;
+}
+
+.form-wrapper .cke_chrome {
+  border: 0;
+  margin-bottom: 8px;
+}
+
+.ckeditor_links {
+  position: absolute;
+  margin-left: 230px;
+  z-index: 100;
+  font-size: .8em;
+  padding-top: .1em;
+}
+
+.text-format-wrapper {
+  max-width: 1000px;
+}
+
+.vertical-tabs-pane,
+.vertical-tabs .form-type-textfield input {
+  width: inherit;
+}
+
+.vertical-tabs .form-type-link-field .form-type-textfield input {
+  width: 90%;
+}
+
+.vertical-tabs-pane,
+.vertical-tabs .form-type-textfield input {
+  width: inherit;
+}
+
+.vertical-tabs-panes>fieldset {
+  border: none;
+}
+
+div.vertical-tabs .vertical-tabs-panes>fieldset>legend {
+  display: none !important;
+}
+
+
+/**
+ * Media ===========================================================
+ */
+
+/*.ui-dialog.media-wrapper,
+.ui-dialog.media-wrapper .media-modal-frame {
+  width: 800px !important;
+}*/
+
+.ui-widget-overlay {
+  min-height: 1200px;
+}
+
+.media-browser-tab.ui-tabs-panel {
+  border: none;
+}
+
+.ui-dialog .ui-button-icon-only .ui-icon {
+  margin: -8px;
+}
+
+.media-item .label-wrapper label {
+  max-height: 3.5em;
+}
+
+.ui-dialog.media-wrapper {
+  max-width: 800px;
+}
+
+#media-tab-upload form img,
+.page-media-format-form #preview img {
+  max-width: 150px;
+  height: auto;
+  float: left;
+}
+
+#media-tab-upload form .focal-point-preview-link {
+  position: absolute;
+  margin: 2px 0 0 5px;
+}
+
+#media-tab-upload form .form-wrapper:not(.focal-point-indicator),
+#media-wysiwyg-format-form fieldset#edit-options,
+#media-wysiwyg-format-form .fake-ok {
+  margin-left: 170px;
+}
+
+#media-wysiwyg-format-form fieldset#edit-options legend {
+  display: none;
+}
+
+#media-tab-upload .redirect-list,
+#media-wysiwyg-format-form .redirect-list {
+  display: none;
+}
+
+#media-browser-tabset #branding h1 {
+  font-size: 1em;
+  color: #fff;
+}
+
+

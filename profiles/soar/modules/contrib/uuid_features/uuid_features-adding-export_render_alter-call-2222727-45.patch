@@ -1,0 +1,14 @@
+diff --git a/includes/uuid_fpp.features.inc b/includes/uuid_fpp.features.inc
+index aa6386b..c0b4f98 100644
+--- a/includes/uuid_fpp.features.inc
++++ b/includes/uuid_fpp.features.inc
+@@ -83,6 +83,9 @@ function uuid_fpp_features_export_render($module, $data) {
+     $first_fpp = reset($fpps);
+     $export = clone $first_fpp;
+ 
++    $entity_type = 'fieldable_panels_pane';
++    drupal_alter('uuid_entity_features_export_render', $entity_type, $export, $first_fpp);
++
+     // Do not export ids.
+     unset($export->vid);
+     unset($export->fpid);

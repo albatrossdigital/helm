@@ -1,0 +1,24 @@
+<?php
+/**
+ * @file
+ * Code for the Soar News Display feature.
+ */
+
+include_once 'soar_news_display.features.inc';
+
+/**
+ * Implements hook_panels_pre_render
+ */
+function soar_news_display_panels_pre_render($panels_display, $renderer) {
+
+  // Are we an article node?
+  $article_node = isset($panels_display->context['panelizer']->data->type)
+                     && $panels_display->context['panelizer']->data->type == 'article';
+
+  // Article full view
+  if($article_node && isset($renderer->address)) {
+    menu_tree_set_path('main-menu','news');
+  }
+
+  
+}

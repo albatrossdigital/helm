@@ -1,0 +1,14 @@
+; App manifest file
+; See https://groups.drupal.org/open-app-standard/oas#manifest
+
+name = Soar Landing Page
+description = Creates a landing pages that displays teasers of child items
+color = #4DC3FF
+version = 1.0-alpha1
+author = Albatross Digital
+author_url = http://www.albatrossdigital.com
+machine_name = soar_landingpage
+downloadable = soar_landingpage
+dependencies[views] = views 7.x-1.0
+downloadables[soar_landingpage] = https://github.com/albatrossdigital/soar_landingpage/archive/master.zip
+package = Add-on Apps

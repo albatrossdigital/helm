@@ -1,0 +1,11 @@
+name = Underscore.js
+description = Adds the Underscore.js JavaScript library to Drupal.
+dependencies[] = libraries (>=2.0)
+core = 7.x
+
+; Information added by drupal.org packaging script on 2013-02-04
+version = "7.x-2.1"
+core = "7.x"
+project = "underscore"
+datestamp = "1359991540"
+

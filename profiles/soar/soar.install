@@ -1,0 +1,135 @@
+<?php
+/**
+ * @file
+ * Install, update and uninstall functions for the soar install profile.
+ */
+
+/**
+ * Implements hook_install().
+ *
+ * Perform actions to set up the site for this profile.
+ *
+ * @see system_install()
+ */
+function soar_install() {
+  theme_enable(array('soar_base'));
+  variable_set('theme_default', 'soar_base');
+
+  // Add text formats.
+  $filtered_html_format = array(
+    'format' => 'filtered_html',
+    'name' => 'Filtered HTML',
+    'weight' => 0,
+    'filters' => array(
+      // HTML filter.
+      'filter_html' => array(
+        'weight' => 1,
+        'status' => 1,
+        'settings' => array(
+          'allowed_html' => '<a> <em> <strong> <cite> <blockquote> <code> <ul> <ol> <li> <dl> <dt> <dd> <br> <p> <img> <pre>',
+        ),
+      ),
+      // Caption filter.
+      'caption' => array(
+        'weight' => 5,
+        'status' => 1,
+      ),
+      // HTML corrector filter.
+      'filter_htmlcorrector' => array(
+        'weight' => 10,
+        'status' => 1,
+      ),
+    ),
+  );
+  $filtered_html_format = (object) $filtered_html_format;
+  filter_format_save($filtered_html_format);
+
+  $full_html_format = array(
+    'format' => 'full_html',
+    'name' => 'Full HTML',
+    'weight' => 1,
+    'filters' => array(
+      // Caption filter.
+      'caption' => array(
+        'weight' => 5,
+        'status' => 1,
+      ),
+      // HTML corrector filter.
+      'filter_htmlcorrector' => array(
+        'weight' => 10,
+        'status' => 1,
+      ),
+    ),
+  );
+  $full_html_format = (object) $full_html_format;
+  filter_format_save($full_html_format);
+  
+  // Insert default pre-defined RDF mapping into the database.
+  $rdf_mappings = array(
+    array(
+      'type' => 'node',
+      'bundle' => 'page',
+      'mapping' => array(
+        'rdftype' => array('foaf:Document'),
+      ),
+    ),
+    array(
+      'type' => 'node',
+      'bundle' => 'article',
+      'mapping' => array(
+        'field_image' => array(
+          'predicates' => array('og:image', 'rdfs:seeAlso'),
+          'type' => 'rel',
+        ),
+        'field_tags' => array(
+          'predicates' => array('dc:subject'),
+          'type' => 'rel',
+        ),
+      ),
+    ),
+  );
+  foreach ($rdf_mappings as $rdf_mapping) {
+    rdf_mapping_save($rdf_mapping);
+  }
+
+
+  // Enable user picture support and set the default to a square thumbnail option.
+  variable_set('user_pictures', '0');
+  variable_set('user_picture_dimensions', '1024x1024');
+  variable_set('user_picture_file_size', '800');
+  variable_set('user_picture_style', 'thumbnail');
+
+  // Allow visitor account creation with administrative approval.
+  variable_set('user_register', USER_REGISTER_VISITORS_ADMINISTRATIVE_APPROVAL);
+
+  // Zurb Foundation needs jQuery 1.7
+  variable_set('jquery_update_jquery_version', '1.7');
+  variable_set('jquery_update_jquery_admin_version', '1.7');
+
+  // Enable the admin theme.
+  $admin_theme = 'soar_admin';
+  db_update('system')
+    ->fields(array('status' => 1))
+    ->condition('type', 'theme')
+    ->condition('name', $admin_theme)
+    ->execute();
+  variable_set('admin_theme', $admin_theme);
+  variable_set('node_admin_theme', '1');
+
+
+  // Set admin_menu as the admin_select toolbar for uid=1
+  $account = user_load(1);
+  $edit = array();
+  $edit['data']['admin_select'] = 'admin_menu';
+  user_save($account, $edit);
+
+  // Set soar_config module weigth high to add underscore js (related to https://www.drupal.org/node/2238067)
+  db_update('system')
+    ->fields(array('weight' => -1))
+    ->condition('name', 'soar_config')
+    ->execute();
+
+  // Note: Text formats are added as part of the soar_input_formats feature
+  // We want to revert this feature to get the soar profile as the default CKEditor profile for Rich Text formats.
+  //features_revert(array('soar_input_formats'));
+}

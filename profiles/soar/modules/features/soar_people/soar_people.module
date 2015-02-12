@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the soar_people feature.
+ */
+
+include_once 'soar_people.features.inc';

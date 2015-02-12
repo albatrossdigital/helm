@@ -1,0 +1,21 @@
+<?php
+/**
+ * @file
+ * Install/update/uninstall functions for the Administration Menu select module.
+ */
+
+
+/**
+ * Implements hook_uninstall().
+ */
+function admin_select_uninstall() {
+  // Clean up variables.
+  variable_del('admin_select_defaults');
+}
+
+/**
+ * Empty update function to trigger menu rebuild.
+ */
+function admin_select_update_7100() {
+  // Do nothing.
+}

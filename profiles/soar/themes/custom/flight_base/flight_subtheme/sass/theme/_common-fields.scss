@@ -1,0 +1,36 @@
+// Headers in fields
+// ----------------------------------------------------------------------------
+
+.group-left, .group-right, .group-header, .group-header, .field-name-body, .columns {
+  & > h1, & > h2, & > h3, & > h4, & > h5, & > h6 {
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+}
+
+// Content media
+// ----------------------------------------------------------------------------
+
+// body / wysiwyg fields
+
+.field-name-body {
+  img,
+  iframe {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: $paragraph-margin-bottom;
+  }
+  p {
+    img, iframe {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.field-name-field-image {
+  img {
+    margin-bottom: $paragraph-margin-bottom;
+  }
+}

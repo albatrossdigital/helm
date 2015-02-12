@@ -1,0 +1,205 @@
+<?php
+
+/**
+ * Implements hook_media_browser_plugin_info().
+ */
+function media_inkfilepicker_media_browser_plugin_info() {
+  $plugins = array();
+
+  $info['media_inkfilepicker'] = array(
+    'title' => t('Ink Filepicker'), 
+    'class' => 'MediaBrowserInkfilepicker', 
+    //'weight' => -10, 
+    'access callback' => 'user_access', 
+    'access arguments' => array('add media from media_inkfilepicker'),
+  );
+  
+  return $info;
+}
+
+
+/**
+ * Implement hook_permission().
+ */
+function media_inkfilepicker_permission() {
+  return array(
+    'add media from media_inkfilepicker' => array(
+      'title' => t('Add media from Ink Filepicker'),
+      'description' => t('Add media from Ink Filepicker sources such as Facebook, Dropbox, etc.'),
+    ),
+    'administer media_inkfilepicker' => array(
+      'title' => t('Administer Ink Filepicker'),
+      'description' => t('Set the Ink Filepicker key and sources such as Facebook, Dropbox, etc.'),
+    ),
+  );
+}
+
+
+/**
+ * Implements hook_menu().
+ */
+function media_inkfilepicker_menu() {
+  $items['admin/config/media/inkfilepicker'] = array(
+    'title' => 'Ink Filepicker Settings',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('variable_module_form', 'media_inkfilepicker'),
+    'access arguments' => array('administer media_inkfilepicker'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+  return $items;
+}
+
+
+/**
+ * @file
+ * Definition of MediaBrowserInkfilepicker.
+ */
+
+/**
+ * Media browser plugin for showing the upload form.
+ *
+ * @deprecated
+ */
+class MediaBrowserInkfilepicker extends MediaBrowserPlugin {
+  /**
+   * Implements MediaBrowserPluginInterface::access().
+   */
+  public function access($account = NULL) {
+    return file_entity_access('create', $account);
+  }
+
+  /**
+   * Implements MediaBrowserPlugin::view().
+   */
+  public function view() {
+
+    $build = array();
+    $build['form'] = drupal_get_form('media_inkfilepicker_form',  $this->params);
+
+    $raw_services = variable_get('media_inkfilepicker_services', array('COMPUTER' => 'COMPUTER'));
+    $services = array();
+    foreach ($raw_services as $service => $enabled){
+      if ($enabled) {
+        $services[] = $service;
+      }
+    }
+    $settings = array(   
+      'key' => variable_get('media_inkfilepicker_key', ''),
+      'multiselect' => !empty($this->params->multiselect) ? $this->params->multiselect : false,
+    );
+    $settings['options'] = array(
+      'container' => 'inkfilepicker',
+      'services' => $services,
+    );
+
+    $build['#attached']['js'][] = array(
+      'data' => array('media_inkfilepicker' => $settings),
+      'type' => 'setting',
+    );
+    $build['#attached']['js'][] = array(
+      'data' => '//api.filepicker.io/v1/filepicker.js',
+      'type' => 'external',
+    );
+    $build['#attached']['js'][] = array(
+      'data' => drupal_get_path('module', 'media_inkfilepicker') . '/js/media-inkfilepicker.js',
+      'weight' => '100',
+    );
+    $build['#attached']['css'][] = array(
+      'data' => drupal_get_path('module', 'media_inkfilepicker') . '/css/media-inkfilepicker.css',
+      'weight' => '100',
+    );
+
+    return $build;
+  }
+}
+
+
+
+
+
+
+/**
+ * Provides a form for the Filepicker iframe.
+ */
+function media_inkfilepicker_form($form, &$form_state = array(), $params = NULL) {
+
+  if (!variable_get('media_inkfilepicker_key')) {
+    $form['markup'] = array(
+      '#type' => 'markup',
+      '#markup' => '<div id="media-inkfilepicker-form" class="messages warning">'. t('You need to !link to use Ink Filepicker.', array('!link' => l('set your key', 'admin/config/media/inkfilepicker', array('attributes' => array('target' => '_parent'))))) .'</div>',
+    );
+  }
+  else {
+    $form['#id'] = 'media-inkfilepicker-form';
+    $form['markup'] = array(
+      '#type' => 'markup',
+      '#title' => t('URL or Embed code'),
+      '#markup' => '<iframe id="inkfilepicker"></iframe><div class="loading">'. t('Saving') .'</div>',
+    );
+    $form['files'] = array(
+      '#type' => 'hidden',
+      '#attributes' => array('id' => 'inkfilepicker-files'),
+    );
+    $form['submit'] = array(
+      '#type' => 'submit',
+      '#value' => t('Submit'),
+    );
+  }
+  
+
+  return $form;
+}
+
+/**
+ * Allow stream wrappers to have their chance at validation.
+ *
+ * Any module that implements hook_media_parse will have an
+ * opportunity to validate this.
+ *
+ * @see media_parse_to_uri()
+ */
+function media_inkfilepicker_form_validate($form, &$form_state) {
+  
+}
+
+/**
+ * Upload a file from a URL.
+ *
+ * This will copy a file from a remote location and store it locally.
+ *
+ * @see media_parse_to_uri()
+ * @see media_parse_to_file()
+ */
+function media_inkfilepicker_form_submit($form, &$form_state) {
+  $files = json_decode($form_state['values']['files']);
+
+  $file_obj = (object) $files;
+  $file_obj->uri = $file_obj->url;
+
+  // Much of this is copied from media_internet.module]
+  // Coppies the remote file locally.
+  $remote_uri = $file_obj->uri;
+  //@TODO: we should follow redirection here an save the final filename, not just the basename.
+  $local_filename = $file_obj->filename;
+  $local_filename = file_munge_filename($local_filename, media_variable_get('file_extensions'), FALSE);
+  $local_uri = file_stream_wrapper_uri_normalize('temporary://' . $local_filename);
+  if (!@copy($remote_uri, $local_uri)) {
+    throw new Exception('Unable to add file ' . $remote_uri);
+    return;
+  }
+  // Make the current fileObject point to the local_uri, not the remote one.
+  $file_obj = file_uri_to_object($local_uri);
+  $scheme = variable_get('file_default_scheme', 'public') . '://';
+  $uri = file_stream_wrapper_uri_normalize($scheme . $file_obj->filename);
+  // Now to its new home.
+  $file_obj = file_move($file_obj, $uri, FILE_EXISTS_RENAME);
+
+  if (!$file_obj->fid) {
+    form_set_error('url', 'Unknown error: unable to add file, please check URL / Embed code and try again ' . $embed_code);
+    return;
+  }
+
+  $form_state['redirect'] = array('media/browser', array('query' => array('render' => 'media-popup', 'fid' => $file_obj->fid)));
+}
+

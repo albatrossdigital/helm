@@ -1,0 +1,45 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the share42 module.
+ */
+
+/**
+ * Implements hook_uninstall().
+ */
+function share42_uninstall() {
+  variable_del('share42_top1');
+  variable_del('share42_top2');
+  variable_del('share42_margin');
+  
+  variable_del('share42_library_path');
+}
+
+/**
+ * Implements hook_requirements().
+ */
+function share42_requirements($phase) {
+  $requirements = array();
+  // Ensure translations don't break at install time
+  $t = get_t();
+
+  if ($phase == 'runtime') {
+    if ($library_path = _share42_library_path()) {
+      $requirements['share42'] = array(
+        'title' => $t('Share42 library'),
+        'value' => _share42_library_version() . ' (' . $library_path . ')',
+        'severity' => REQUIREMENT_OK,
+      );
+    }
+    else {
+      $requirements['share42'] = array(
+        'title' => $t('Share42 library'),
+        'value' => $t('Share42 library is missing'),
+        'severity' => REQUIREMENT_ERROR,
+      );
+    }
+  }
+
+  return $requirements;
+}

@@ -1,0 +1,17 @@
+
+#features-export-wrapper {
+  width: 59%;
+}
+
+#features-export-info,
+#features-export-advanced,
+#features-export-buttons {
+  width: 39%;
+}
+
+#features-export-wrapper #features-export-wrapper,
+#features-export-info #features-export-info,
+#features-export-advanced #features-export-advanced,
+#features-export-buttons #features-export-buttons {
+  width: 100%;
+}

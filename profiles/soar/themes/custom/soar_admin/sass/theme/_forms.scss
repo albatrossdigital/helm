@@ -1,0 +1,89 @@
+
+
+fieldset {
+  .panel-body {
+    display: block;
+  }
+}
+
+.radio input[type="radio"], .radio-inline input[type="radio"], .checkbox input[type="checkbox"], .checkbox-inline input[type="checkbox"] {
+  position: relative;
+  margin-left: 0;
+}
+
+// Horizontal radios
+
+.ui-buttonset {
+
+  .radio, .checkbox {
+    label {
+      padding-left: 4px;
+    }
+  } 
+
+  .radio + .radio, .checkbox + .checkbox {
+    margin-top: 0;
+    margin-left: 15px;  
+  }
+
+  // & > .radio:last-child, 
+  // & > .checkbox:last-child {
+  //   margin-bottom: 10px;
+  // }
+}
+
+// image upload
+
+.form-managed-file {
+  & > div:only-child {
+    float: none;
+  }
+
+  input {
+    display: inline-block;
+    width: auto;
+  }
+
+  button {
+    margin-left: 10px;
+
+    & ~ div {
+      margin-top: 10px;
+    }
+  }
+}
+
+
+// Autocomplete
+
+.form-autocomplete {
+  max-width: 100%!important;
+
+  .form-text {
+    width: 100%!important;
+  }
+}
+
+
+// Views exposed form
+
+.views-exposed-form .views-exposed-widget .form-submit {
+  margin-top: 1.25em;
+}
+
+
+//*
+//* Responsive
+//* --------------------------------------------------
+//*
+
+@media screen and (min-width: $screen-sm-min) {
+
+  .form-control {
+    width: auto;
+  }
+
+  .form-autocomplete {
+    max-width: 33%!important;
+  }
+}

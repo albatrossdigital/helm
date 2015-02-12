@@ -1,0 +1,32 @@
+
+// container fluid
+// #navbar {
+//   width: auto;
+//   max-width: none;
+//   margin-right: $grid-gutter-width/2;
+//   margin-left: $grid-gutter-width/2;
+// }
+
+
+.logo {
+  height: 35px;
+  padding-left: 15px;
+
+  img {
+    margin-top: -2px;
+    max-height: 39px;
+  }
+
+  & ~ .name {
+    font-weight: bold;
+  }
+}
+
+
+@media screen and (min-width: $screen-md-min) {
+  // container fluid
+  // #navbar {
+  //   margin-right: 100px;
+  //   margin-left: 100px;
+  // }
+}

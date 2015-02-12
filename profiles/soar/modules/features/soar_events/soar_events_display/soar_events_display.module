@@ -1,0 +1,23 @@
+<?php
+/**
+ * @file
+ * Code for the Soar Events Display feature.
+ */
+
+include_once 'soar_events_display.features.inc';
+
+/**
+ * Implements hook_panels_pre_render
+ */
+function soar_events_display_panels_pre_render($panels_display, $renderer) {
+
+  // Are we an article node?
+  $event_node = isset($panels_display->context['panelizer']->data->type)
+                     && $panels_display->context['panelizer']->data->type == 'event';
+
+  // Article full view
+  if($event_node && isset($renderer->address)) {
+    menu_tree_set_path('main-menu','events');
+  }
+  
+}

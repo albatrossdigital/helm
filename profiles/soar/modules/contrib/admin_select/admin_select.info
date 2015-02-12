@@ -1,0 +1,12 @@
+name = Administration Menu Select
+description = Allows users to choose which Administration menu module to use.
+package = Administration
+core = 7.x
+configure = admin/config/user-interface/admin_select
+
+; Information added by Drupal.org packaging script on 2014-03-04
+version = "7.x-1.5"
+core = "7.x"
+project = "admin_select"
+datestamp = "1393968317"
+

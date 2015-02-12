@@ -1,0 +1,16 @@
+package = oEmbed
+name = oEmbed Provider
+description = Turns your site into a oEmbed provider
+core = 7.x
+dependencies[] = oembed
+files[] = oembedprovider.inc
+files[] = oembedprovider.module
+files[] = oembedprovider.test
+
+
+; Information added by drush on 2014-12-03
+version = "7.x-1.0-rc2+24-dev"
+core = "7.x"
+project = "oembed"
+datestamp = "1417594599"
+

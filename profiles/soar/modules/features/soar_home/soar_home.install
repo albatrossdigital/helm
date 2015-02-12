@@ -1,0 +1,143 @@
+<?php
+/**
+ * @file
+ * panopoly_demo.install
+ */
+
+
+/**
+ * Implements hook_enable().
+ */
+function _soar_home_install_content() {
+  // Find our carousel
+  $query = new EntityFieldQuery();
+  $query
+    ->entityCondition('entity_type', 'fieldable_panels_pane', '=')
+    ->propertyCondition('bundle', 'soar_carousel', '=');
+  $result = $query->execute();
+
+  if(!empty($result)) {
+    // Load the pane
+    $pane_shallow =  array_shift($result['fieldable_panels_pane']);
+    $pane = fieldable_panels_panes_load($pane_shallow->fpid);
+
+    // Looks like we need to import
+    if(is_object($pane) && empty($pane->field_soar_carousel_slide)) {
+      $demo_content = array(
+        array(
+          'field_soar_carousel_s_title' => array(
+            LANGUAGE_NONE => array(
+              array(
+                'url' => '<front>',
+                'title' => 'Morbi maximus eget nisi'
+              )
+            )
+          ),
+          'field_soar_carousel_slide_capt' => array(
+            LANGUAGE_NONE => array(
+              array(
+                'value' => 'Morbi maximus eget nisi eget fermentum. Duis dignissim pharetra suscipit. Maecenas eu eros at orci luctus tempus eu eu lacus.'
+              )
+            )
+          ),
+          'field_soar_carousel_s_img' => 'file1.jpg'
+        ),
+        array(
+          'field_soar_carousel_s_title' => array(
+            LANGUAGE_NONE => array(
+              array(
+                'url' => '<front>',
+                'title' => 'Pellentesque laoreet vestibulum'
+              )
+            )
+          ),
+          'field_soar_carousel_slide_capt' => array(
+            LANGUAGE_NONE => array(
+              array(
+                'value' => 'Suspendisse egestas, purus eget dapibus aliquam'
+              )
+            )
+          ),
+          'field_soar_carousel_s_img' => 'file2.jpg'
+        ),
+        array(
+          'field_soar_carousel_s_title' => array(
+            LANGUAGE_NONE => array(
+              array(
+                'url' => '<front>',
+                'title' => 'Donec interdum consectetur'
+              )
+            )
+          ),
+          'field_soar_carousel_slide_capt' => array(
+            LANGUAGE_NONE => array(
+              array(
+                'value' => 'Nunc sit amet augue ut ipsum dignissim maximus quis et est'
+              )
+            )
+          ),
+          'field_soar_carousel_s_img' => 'file3.jpg'
+        )
+      );
+
+      foreach ($demo_content as $content) {
+        // Create our item
+        $field_collection_item = entity_create('field_collection_item', 
+          array('field_name' => 'field_soar_carousel_slide')
+        );
+
+        $field_collection_item->setHostEntity('fieldable_panels_pane', $pane);
+
+        $field_collection_item->field_soar_carousel_s_title = $content['field_soar_carousel_s_title'];
+        $field_collection_item->field_soar_carousel_slide_capt = $content['field_soar_carousel_slide_capt'];
+
+        // Build file
+        $path = drupal_get_path('module', 'soar_home') . '/images/';
+        $file_name = $content['field_soar_carousel_s_img'];
+
+        $source = new stdClass();   
+        $source->filemime = file_get_mimetype($path . $file_name);
+        $source->uid = 1;
+        $source->uri = $path . $file_name;
+        $source->status = 1;
+        $file = file_copy($source, 'public://');
+        $file->data = array(
+          'alt'=> $content['field_soar_carousel_s_title'][LANGUAGE_NONE][0]['title'],
+          'title' => $content['field_soar_carousel_s_title'][LANGUAGE_NONE][0]['title'],
+        );
+
+        // Attach
+        $field_collection_item->field_soar_carousel_s_img[LANGUAGE_NONE][0] = (array)$file;
+        $field_collection_item->save(FALSE);
+      }
+      // Set marker
+      variable_set('soar_home_panel_pane', $pane->uuid);
+      watchdog('Soar Home', 'Imported default content for soar_home');
+    }
+  }
+}
+
+/**
+ * Implements hook_enable().
+ */
+function soar_home_enable() {
+  //_soar_home_install_content();
+}
+
+/**
+ * Implements hook_disable().
+ */
+function soar_home_uninstall() {
+  $query = new EntityFieldQuery();
+  $query
+    ->entityCondition('entity_type', 'fieldable_panels_pane', '=')
+    ->propertyCondition('bundle', 'soar_carousel', '=')
+    ->propertyCondition('uuid', variable_get('soar_home_panel_pane'), '=');
+  $result = $query->execute();
+  if(!empty($result)) {
+    $pane_shallow =  array_shift($result['fieldable_panels_pane']);
+    variable_del('soar_home_panel_pane');
+    entity_delete('fieldable_panels_pane', $pane_shallow->fpid);
+    watchdog('Soar Home', 'Deleted default content for soar_home');
+  }
+}

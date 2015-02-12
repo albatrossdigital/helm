@@ -1,0 +1,26 @@
+From 74cc6a98f3f070c256d818070eef65b17077a303 Mon Sep 17 00:00:00 2001
+From: "Eric J. Duran" <eric.duran7@gmail.com>
+Date: Thu, 17 Oct 2013 16:10:38 -0400
+Subject: [PATCH] Issue #2114587 by ericduran: Fixed Check if the browser
+ object exist before trying to access property in it. (jquery 1.10 issues).
+
+---
+ admin_menu.js | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/admin_menu.js b/admin_menu.js
+index de0bb90..a4eb82f 100644
+--- a/admin_menu.js
++++ b/admin_menu.js
+@@ -220,7 +220,7 @@ Drupal.admin.behaviors.destination = function (context, settings, $adminMenu) {
+  */
+ Drupal.admin.behaviors.hover = function (context, settings, $adminMenu) {
+   // Hover emulation for IE 6.
+-  if ($.browser.msie && parseInt(jQuery.browser.version) == 6) {
++  if ($.browser && $.browser.msie && parseInt(jQuery.browser.version) == 6) {
+     $('li', $adminMenu).hover(
+       function () {
+         $(this).addClass('iehover');
+-- 
+1.8.3.4
+

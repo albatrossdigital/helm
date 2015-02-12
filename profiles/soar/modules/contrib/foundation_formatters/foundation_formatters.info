@@ -1,0 +1,19 @@
+;$Id: 
+name = Foundation formatters
+description = A collection of helpful display formatters, especially for Zurb Foundation
+core = 7.x
+
+
+; Information added by Drupal.org packaging script on 2013-12-23
+version = "7.x-1.0-alpha1"
+core = "7.x"
+project = "foundation_formatters"
+datestamp = "1387827505"
+
+
+; Information added by Drupal.org packaging script on 2014-03-13
+version = "7.x-2.0-alpha1"
+core = "7.x"
+project = "foundation_formatters"
+datestamp = "1394752105"
+

@@ -1,0 +1,10 @@
+.media-widget {
+  .button.browse {
+    &:before {
+      font-family: 'Glyphicons Halflings'; 
+      margin-right: $padding-base-horizontal;
+      content: "\e060";
+      color: $gray;
+    }
+  }
+}
