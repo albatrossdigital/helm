@@ -1,0 +1,35 @@
+.two-col,
+.three-col {
+	padding: 8px;
+	margin: 10px auto;
+	background: #eee;
+	border-radius: 8px;
+	border: 1px solid #ddd;
+	box-shadow: 0 1px 1px #fff inset, 0 -1px 0px #ccc inset;
+}
+.two-col .columns,
+.three-col .columns {
+	box-shadow: 0 1px 1px #ddd inset;
+	border: 1px solid #cccccc;
+	border-radius: 5px;
+	background: #fff;
+}
+.two-col .columns {
+	margin: -2px;
+}
+.two-col .col-sidebar {
+	padding: 0;
+}
+.three-col .col-1 {
+	margin-left: -3px;
+}
+.three-col .col-2 {
+	margin-left: 3px;
+}
+.three-col .col-3 {
+	margin-right: -3px;
+}
+
+.accordion .accordion-navigation > .content, .accordion dd > .content {
+	display: block !important;
+}
