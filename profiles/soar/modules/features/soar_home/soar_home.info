@@ -4,7 +4,6 @@ core = 7.x
 package = Soar
 dependencies[] = ctools
 dependencies[] = entity
-dependencies[] = entity_view_mode
 dependencies[] = field_collection
 dependencies[] = fieldable_panels_panes
 dependencies[] = file_entity
