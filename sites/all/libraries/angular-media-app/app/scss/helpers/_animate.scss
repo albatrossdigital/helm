@@ -1,0 +1,77 @@
+/* Have to set height explicity on ui-view 
+to prevent collapsing during animation*/
+[ui-view] {
+  z-index: 2;
+  min-height: 200px;
+}
+
+.transform.ng-enter, .transform.ng-enter-active, .transform.gn-leave, .transform.ng-leave-active {
+  overflow: hidden;
+}
+
+.transform.ng-enter {
+  z-index: 2;
+}
+
+.transform.ng-leave {
+  z-index: 1;
+}
+
+
+// *
+// * Media Queries
+// *
+// ******************************************************
+
+@media screen and (max-width: $screen-xs-max) {
+
+  .transform.ng-enter,
+  .transform.ng-leave {
+    @include transition(all .5s linear);
+  }
+
+  .transform.ng-enter {
+    @include transform(translateY(100%));
+    position: absolute;
+    height: 100%;
+    left: 0;
+  }
+
+  .transform.ng-enter-active {
+    @include transform(translateY(0%));
+  }
+
+  .transform.ng-leave {
+    opacity: 1;
+  }
+
+  .transform.ng-leave-active {
+    opacity: 0;
+  }
+}
+
+@media screen and (min-width: $screen-sm-min) {
+  .transform.ng-enter,
+  .transform.ng-leave {
+    position: absolute;
+    left: 0;
+    right: 0;
+    @include transition(all .5s ease-in-out);
+  }
+
+  .transform.ng-enter {
+    @include transform(translateY(100%));
+  }
+
+  .transform.ng-enter-active {
+    @include transform(translateY(0%));
+  }
+
+  .transform.ng-leave {
+    @include transform(scale3d(1, 1, 1));
+  }
+
+  .transform.ng-leave-active {
+    @include transform(scale3d(0.5, 0.5, 0.5));
+  }
+}

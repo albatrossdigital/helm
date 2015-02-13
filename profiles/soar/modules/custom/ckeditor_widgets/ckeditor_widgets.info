@@ -1,9 +1,0 @@
-name = CKEditor Widgets
-description = Adds widgets and an Insert Template menu to CKEditor
-
-core = 7.x
-
-dependencies[] = ckeditor
-
-
-

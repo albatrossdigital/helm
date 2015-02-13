@@ -1,0 +1,21 @@
+<?php
+
+
+/**
+ * Implementation of hook_views_api().
+ */
+function views_data_export_json_views_api() {
+  return array(
+    'api' => 2,
+  );
+}
+
+/**
+ * Implementation of hook_theme().
+ */
+function views_data_export_json_theme() {
+  // Make sure that views picks up the preprocess functions.
+  module_load_include('inc', 'views_data_export_json', 'theme/views_data_export_json.theme');
+
+  return array();
+}
