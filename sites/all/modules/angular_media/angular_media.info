@@ -34,5 +34,6 @@ features_exclude[dependencies][views] = views
 features_exclude[dependencies][views_data_export] = views_data_export
 files[] = views/views_handler_field_file_image_style_url.inc
 files[] = includes/angular_media.module
-files[] = includes/angular_media.field.module
+files[] = includes/angular_media.field.inc
+files[] = angular_media.views.inc
 mtime = 1423557443
