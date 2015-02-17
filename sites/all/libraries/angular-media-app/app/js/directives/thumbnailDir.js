@@ -5,7 +5,7 @@
 // 
 angular.module('app.core')
 
-.directive('thumbnail', function() {
+.directive('thumbnails', function() {
   return {
     restrict: 'A',
     templateUrl: appUrl + 'views/thumbnail.html',

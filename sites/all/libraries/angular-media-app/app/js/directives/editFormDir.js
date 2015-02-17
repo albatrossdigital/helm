@@ -28,9 +28,9 @@ angular.module('app.core')
         //$event.preventDefault();
       }
 
-      $scope.saveCrop = function() {
+      $scope.saveCrop = function(overwrite) {
         console.log($scope.coords);
-        var $jcrop = $('.jcrop-holder');
+        var $jcrop = jQuery('.jcrop-holder');
         var params = {
           width: $jcrop.width(),
           height: $jcrop.height(),

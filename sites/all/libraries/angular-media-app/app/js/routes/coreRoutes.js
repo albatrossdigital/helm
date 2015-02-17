@@ -27,20 +27,20 @@ angular.module('app.core', [
           controller: 'modal',
           onEnter: function($state){
             // Hitting the ESC key closes the modal
-            $(document).on('keyup', function(e){
+            jQuery(document).on('keyup', function(e){
               if(e.keyCode == 27){
-                $(document).off('keyup')
+                jQuery(document).off('keyup')
                 $state.go('base')
               }
             });
 
             // Clicking outside of the modal closes it
-            $(document).on('click', '.modal-backdrop, .modal-holder', function() {
+            jQuery(document).on('click', '.modal-backdrop, .modal-holder', function() {
               $state.go('base');
             });
 
             // Clickin on the modal or it's contents doesn't cause it to close
-            $(document).on('click', '.modal-box, .modal-box *', function(e) {
+            jQuery(document).on('click', '.modal-box, .modal-box *', function(e) {
               e.stopPropagation();
             });
           },
@@ -129,7 +129,7 @@ angular.module('app.core', [
         }
         else {
           angular.forEach($scope.items, function(activeItem, key) {
-            $scope.items[key].active = activeItem.id == item.id ? true : false;
+            $scope.items[key].active = activeItem.fid == item.fid ? true : false;
           });
         }
         if ($rootScope.multiple) {
