@@ -11,4 +11,3 @@ features[ctools][] = strongarm:strongarm:1
 features[features_api][] = api:2
 features[uuid_node][] = 906c00bb-4f69-4aa4-91fc-97e9829af6d3
 features[uuid_node][] = a40fec09-78ef-4bef-ac9a-87d232355487
-features[variable][] = language_content_type_faq
