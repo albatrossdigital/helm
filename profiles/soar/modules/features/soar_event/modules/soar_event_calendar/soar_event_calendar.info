@@ -1,7 +1,7 @@
 name = Soar Event Calendar
 description = An interactive event calendar with FullCalendar
 core = 7.x
-package = Soar
+package = Soar Display
 dependencies[] = fullcalendar
 dependencies[] = list
 features[ctools][] = views:views_default:3.0

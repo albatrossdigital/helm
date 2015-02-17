@@ -1,0 +1,12 @@
+name = Soar Event Display
+description = Display elements for Events
+core = 7.x
+package = Soar Display
+dependencies[] = date_views
+dependencies[] = panels
+dependencies[] = soar_event
+dependencies[] = views
+features[ctools][] = views:views_default:3.0
+features[features_api][] = api:2
+features_exclude[dependencies][ctools] = ctools
+mtime = 1424162737

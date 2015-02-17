@@ -51,7 +51,6 @@ function soar_event_field_group_info() {
     'weight' => '5',
     'children' => array(
       0 => 'field_event_category',
-      1 => 'field_internal_event_category',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
@@ -78,12 +77,9 @@ function soar_event_field_group_info() {
     'label' => 'Event Info',
     'weight' => '4',
     'children' => array(
-      0 => 'field_call_to_register',
-      1 => 'field_date',
-      2 => 'field_event_contact',
-      3 => 'field_event_phone_number',
-      4 => 'field_register',
-      5 => 'field_continuing_education',
+      0 => 'field_event_contact',
+      1 => 'field_event_phone_number',
+      2 => 'field_registration',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
@@ -111,7 +107,6 @@ function soar_event_field_group_info() {
     'weight' => '6',
     'children' => array(
       0 => 'field_location_description',
-      1 => 'field_library',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
@@ -138,8 +133,7 @@ function soar_event_field_group_info() {
     'label' => 'Media',
     'weight' => '7',
     'children' => array(
-      0 => 'field_media',
-      1 => 'field_picture',
+      0 => 'field_picture',
     ),
     'format_type' => 'tab',
     'format_settings' => array(

@@ -24,6 +24,12 @@ function soar_event_field_default_field_instances() {
         'type' => 'text_default',
         'weight' => 3,
       ),
+      'featured' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
       'teaser' => array(
         'label' => 'hidden',
         'settings' => array(),
@@ -67,6 +73,12 @@ function soar_event_field_default_field_instances() {
         'settings' => array(),
         'type' => 'file_default',
         'weight' => 4,
+      ),
+      'featured' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -115,7 +127,6 @@ function soar_event_field_default_field_instances() {
     ),
   );
 
-
   // Exported field_instance: 'node-event-field_date'
   $field_instances['node-event-field_date'] = array(
     'bundle' => 'event',
@@ -136,6 +147,12 @@ function soar_event_field_default_field_instances() {
         ),
         'type' => 'date_default',
         'weight' => 8,
+      ),
+      'featured' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -160,6 +177,7 @@ function soar_event_field_default_field_instances() {
       'active' => 1,
       'module' => 'date',
       'settings' => array(
+        'display_all_day' => 0,
         'increment' => 15,
         'input_format' => 'm/d/Y - g:i:sa',
         'input_format_custom' => '',
@@ -169,7 +187,7 @@ function soar_event_field_default_field_instances() {
         'year_range' => '-3:+3',
       ),
       'type' => 'date_popup',
-      'weight' => 19,
+      'weight' => 2,
     ),
     'workbench_access_field' => 0,
   );
@@ -191,6 +209,12 @@ function soar_event_field_default_field_instances() {
         ),
         'type' => 'taxonomy_link',
         'weight' => 6,
+      ),
+      'featured' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -236,6 +260,12 @@ function soar_event_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 34,
       ),
+      'featured' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -259,7 +289,7 @@ function soar_event_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 22,
+      'weight' => 23,
     ),
     'workbench_access_field' => 0,
   );
@@ -276,6 +306,12 @@ function soar_event_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 33,
+      ),
+      'featured' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -300,7 +336,7 @@ function soar_event_field_default_field_instances() {
         'size' => 10,
       ),
       'type' => 'text_textfield',
-      'weight' => 23,
+      'weight' => 24,
     ),
     'workbench_access_field' => 0,
   );
@@ -319,6 +355,12 @@ function soar_event_field_default_field_instances() {
         'type' => 'text_default',
         'weight' => 11,
       ),
+      'featured' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -328,8 +370,9 @@ function soar_event_field_default_field_instances() {
     ),
     'ds_extras_field_template' => '',
     'entity_type' => 'node',
+    'fences_wrapper' => 'div',
     'field_name' => 'field_location_description',
-    'label' => 'Location Description',
+    'label' => 'Location',
     'required' => 0,
     'settings' => array(
       'text_processing' => 0,
@@ -343,79 +386,6 @@ function soar_event_field_default_field_instances() {
       ),
       'type' => 'text_textarea',
       'weight' => 27,
-    ),
-  );
-
-  // Exported field_instance: 'node-event-field_media'
-  $field_instances['node-event-field_media'] = array(
-    'bundle' => 'event',
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'hidden',
-        'module' => 'file_entity',
-        'settings' => array(
-          'file_view_mode' => 'default',
-        ),
-        'type' => 'file_rendered',
-        'weight' => 2,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 12,
-      ),
-    ),
-    'ds_extras_field_template' => '',
-    'entity_type' => 'node',
-    'field_name' => 'field_media',
-    'label' => 'Media',
-    'required' => 0,
-    'settings' => array(
-      'description_field' => 0,
-      'file_directory' => '',
-      'file_extensions' => 'wav mp3 jpg gif jpeg png',
-      'max_filesize' => '',
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'media',
-      'settings' => array(
-        'allowed_schemes' => array(
-          'oembed' => 'oembed',
-          'public' => 'public',
-        ),
-        'allowed_types' => array(
-          'audio' => 'audio',
-          'document' => 0,
-          'image' => 'image',
-          'video' => 'video',
-        ),
-        'browser_plugins' => array(
-          'media_default--media_browser_1' => 0,
-          'media_default--media_browser_my_files' => 0,
-          'media_inkfilepicker' => 0,
-          'media_internet' => 0,
-          'upload' => 0,
-        ),
-        'manualcrop_crop_info' => 1,
-        'manualcrop_default_crop_area' => 1,
-        'manualcrop_enable' => FALSE,
-        'manualcrop_inline_crop' => 0,
-        'manualcrop_instant_crop' => FALSE,
-        'manualcrop_instant_preview' => 1,
-        'manualcrop_maximize_default_crop_area' => 0,
-        'manualcrop_require_cropping' => array(),
-        'manualcrop_styles_list' => array(),
-        'manualcrop_styles_mode' => 'include',
-        'manualcrop_thumblist' => 0,
-        'progress_indicator' => 'throbber',
-      ),
-      'type' => 'media_generic',
-      'weight' => 33,
     ),
   );
 
@@ -435,6 +405,12 @@ function soar_event_field_default_field_instances() {
         ),
         'type' => 'image',
         'weight' => 1,
+      ),
+      'featured' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -502,6 +478,12 @@ function soar_event_field_default_field_instances() {
         'type' => 'text_default',
         'weight' => 0,
       ),
+      'featured' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
       'teaser' => array(
         'label' => 'hidden',
         'module' => 'text',
@@ -532,17 +514,14 @@ function soar_event_field_default_field_instances() {
   // Translatables
   // Included for use with string extractors like potx.
   t('Attachments');
-  t('Call to register');
   t('Category');
   t('Date');
   t('Description');
-  t('Location Description');
+  t('Location');
   t('Main contact');
-  t('Media');
   t('Organizers/performers, lead staff member, with contact information if necessary.  This is only visible to library staff on the backend.');
   t('Phone Number');
   t('Picture');
-  t('Select if patrons must call in.  The registration list can be managed by staff members.');
   t('Subtitle');
 
   return $field_instances;

@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Soar Event Display feature.
+ */
+
+include_once 'soar_event_display.features.inc';
