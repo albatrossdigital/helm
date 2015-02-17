@@ -1,7 +1,7 @@
 name = Soar FAQ Display
 description = Create Panels and Views for Soar FAQ
 core = 7.x
-package = Soar Content
+package = Soar Display
 dependencies[] = defaultconfig
 dependencies[] = entity
 dependencies[] = panelizer
