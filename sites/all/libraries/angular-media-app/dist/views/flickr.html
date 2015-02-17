@@ -29,7 +29,7 @@
     <div class="scroll-wrapper" ng-class="{active: active}" infinite-scroll="loadItems(true)" infinite-scroll-distance=".1">
       <div class="items">
         <div ng-repeat="file in items" ng-click="updateActive(file)" ng-class="{active: file.active}" class="thumbnail">
-          <div thumbnail></div>
+          <div thumbnails></div>
           <a href class="thumbnail-title">{{file.name}}</a>
         </div>
       </div>

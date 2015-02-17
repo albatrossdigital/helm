@@ -1,6 +1,6 @@
 <div class="row edit-form" ng-if="!crop">
   <div class="col-md-4 preview">
-    <div thumbnail class="icon-lg"></div>
+    <div thumbnails class="icon-lg"></div>
     <button class="btn btn-sm" title="crop" ng-if="file.filemime.indexOf('image') != -1" ng-click="startCrop($event)"><span class="glyphicon glyphicon-retweet" aria-hidden="true"></span></button>
   </div>
   <div class="col-md-8">
@@ -48,7 +48,7 @@
 </div>
 
 <div class="image-crop" ng-if="crop">
-  <div ng-jcrop="file.cropUrl" selection="coords"></div>
+  <div ng-jcrop="file.cropUrl" selection="coords" thumbnail="file.thumbUrl"></div>
   <button class="btn btn-danger bottom-left" ng-click="stopCrop($event)">Cancel</button>
 
   <div class="bottom-right">
