@@ -115,50 +115,6 @@ function soar_event_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-event-field_call_to_register'
-  $field_instances['node-event-field_call_to_register'] = array(
-    'bundle' => 'event',
-    'default_value' => array(
-      0 => array(
-        'value' => 0,
-      ),
-    ),
-    'default_value_label_token' => 0,
-    'deleted' => 0,
-    'description' => 'Select if patrons must call in.  The registration list can be managed by staff members.',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 35,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'ds_extras_field_template' => '',
-    'entity_type' => 'node',
-    'field_name' => 'field_call_to_register',
-    'label' => 'Call to register',
-    'required' => 0,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(
-        'display_label' => 1,
-      ),
-      'type' => 'options_onoff',
-      'weight' => 21,
-    ),
-    'workbench_access_field' => 0,
-  );
 
   // Exported field_instance: 'node-event-field_date'
   $field_instances['node-event-field_date'] = array(

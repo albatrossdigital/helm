@@ -26,7 +26,6 @@ features[field_group][] = group_location|node|event|form
 features[field_group][] = group_media|node|event|form
 features[field_instance][] = node-event-body
 features[field_instance][] = node-event-field_attachment
-features[field_instance][] = node-event-field_call_to_register
 features[field_instance][] = node-event-field_date
 features[field_instance][] = node-event-field_event_category
 features[field_instance][] = node-event-field_event_contact
