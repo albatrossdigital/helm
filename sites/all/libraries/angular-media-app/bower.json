@@ -23,5 +23,10 @@
   },
   "resolutions": {
     "angular": "~1.x"
+  },
+  "overrides": {
+    "jcrop": {
+      "main": "js/jquery.Jcrop.js"
+    }
   }
 }
