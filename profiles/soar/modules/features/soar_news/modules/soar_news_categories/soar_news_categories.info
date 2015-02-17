@@ -1,0 +1,13 @@
+name = Soar News Categories
+description = Adds default News Categories
+core = 7.x
+package = Soar Content
+dependencies[] = taxonomy
+dependencies[] = uuid
+dependencies[] = uuid_features
+features[features_api][] = api:2
+features[uuid_term][] = 3ec780ee-00e2-4de0-bc09-445d2aa67bb6
+features[uuid_term][] = 5cca8a00-e977-4347-a791-d5b1cc2f8615
+features[uuid_term][] = 66f8ce4b-76bc-470f-8314-7c9e5bcbb418
+features[uuid_term][] = c7d6edd7-7788-4161-ba4f-168e823f02bd
+features_exclude[uuid_term][b32d7c45-7979-4244-abbd-387641f9cb08] = b32d7c45-7979-4244-abbd-387641f9cb08
