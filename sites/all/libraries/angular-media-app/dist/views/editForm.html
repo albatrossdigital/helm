@@ -5,25 +5,25 @@
   </div>
   <div class="col-md-8">
     
-    <form editable-form name="editableForm" onaftersave="saveFile()" ng-if="!crop">
+    <div editable-form ng-form name="editableForm" onaftersave="saveFile()" ng-if="!crop" class="form">
       <div class="editable-item">
         <span class="title">Name: </span>
-        <span editable-text="file.name" e-name="name" e-required>{{file.name}}</span>
+        <span editable-text="file.name" e-required>{{file.name}}</span>
       </div> 
 
       <div class="editable-item">
         <span class="title">Alt Text: </span>
-        <span editable-text="file.alt" e-name="alt" e-required>{{file.alt}}</span>
+        <span editable-text="file.alt" e-required>{{file.alt}}</span>
       </div>  
 
       <div class="editable-item">
         <span class="title">Attribution: </span>
-        <span editable-text="file.title" e-name="title">{{file.title}}</span>
+        <span editable-text="file.title">{{file.title}}</span>
       </div>
 
       <div class="editable-item">
         <span class="title">Source: </span>
-        <span editable-text="file.source" e-name="title"><a ng-if="file.source" href="{{file.source}}" target="_blank">{{file.source}}</a></span>
+        <span editable-text="file.source"><a ng-if="file.source" href="{{file.source}}" target="_blank">{{file.source}}</a></span>
       </div>
 
       <div>
@@ -42,7 +42,7 @@
         </span>
       </div>
 
-    </form>
+    </div>
 
   </div>
 </div>
