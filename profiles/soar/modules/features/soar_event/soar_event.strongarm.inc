@@ -43,6 +43,9 @@ function soar_event_strongarm() {
       'address_and_location' => array(
         'custom_settings' => FALSE,
       ),
+      'featured' => array(
+        'custom_settings' => TRUE,
+      ),
     ),
     'extra_fields' => array(
       'form' => array(

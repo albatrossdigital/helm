@@ -138,8 +138,8 @@ function soar_event_field_default_field_instances() {
         'label' => 'hidden',
         'module' => 'date',
         'settings' => array(
-          'format_type' => 'date',
-          'fromto' => 'both',
+          'format_type' => 'long',
+          'fromto' => 'value',
           'multiple_from' => 'now',
           'multiple_number' => 1,
           'multiple_to' => '',

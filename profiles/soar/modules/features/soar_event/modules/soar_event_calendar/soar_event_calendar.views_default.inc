@@ -39,12 +39,6 @@ function soar_event_calendar_views_default_views() {
   $handler->display->display_options['style_options']['timeformatDay'] = 'h:mm';
   $handler->display->display_options['style_options']['theme'] = FALSE;
   $handler->display->display_options['style_options']['sameWindow'] = TRUE;
-  $handler->display->display_options['style_options']['fullcalendar_create']['select'] = TRUE;
-  $handler->display->display_options['style_options']['fullcalendar_create']['node_type'] = 'event';
-  $handler->display->display_options['style_options']['fullcalendar_create']['date_field'] = array(
-    'field_date' => 'field_date',
-  );
-  $handler->display->display_options['style_options']['fullcalendar_options']['dayClick'] = TRUE;
   /* Field: Content: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'node';
@@ -86,9 +80,45 @@ function soar_event_calendar_views_default_views() {
   $handler->display->display_options['filters']['type']['value'] = array(
     'event' => 'event',
   );
+  /* Filter criterion: Content: Category (field_event_category) */
+  $handler->display->display_options['filters']['field_event_category_target_id']['id'] = 'field_event_category_target_id';
+  $handler->display->display_options['filters']['field_event_category_target_id']['table'] = 'field_data_field_event_category';
+  $handler->display->display_options['filters']['field_event_category_target_id']['field'] = 'field_event_category_target_id';
+  $handler->display->display_options['filters']['field_event_category_target_id']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_event_category_target_id']['expose']['operator_id'] = 'field_event_category_target_id_op';
+  $handler->display->display_options['filters']['field_event_category_target_id']['expose']['label'] = 'Category';
+  $handler->display->display_options['filters']['field_event_category_target_id']['expose']['operator'] = 'field_event_category_target_id_op';
+  $handler->display->display_options['filters']['field_event_category_target_id']['expose']['identifier'] = 'category';
+  $handler->display->display_options['filters']['field_event_category_target_id']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+  );
+  /* Filter criterion: Global: Combine fields filter */
+  $handler->display->display_options['filters']['combine']['id'] = 'combine';
+  $handler->display->display_options['filters']['combine']['table'] = 'views';
+  $handler->display->display_options['filters']['combine']['field'] = 'combine';
+  $handler->display->display_options['filters']['combine']['operator'] = 'contains';
+  $handler->display->display_options['filters']['combine']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['combine']['expose']['operator_id'] = 'combine_op';
+  $handler->display->display_options['filters']['combine']['expose']['label'] = 'Search';
+  $handler->display->display_options['filters']['combine']['expose']['operator'] = 'combine_op';
+  $handler->display->display_options['filters']['combine']['expose']['identifier'] = 'q';
+  $handler->display->display_options['filters']['combine']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+  );
+  $handler->display->display_options['filters']['combine']['fields'] = array(
+    'title' => 'title',
+    'field_date' => 'field_date',
+  );
 
   /* Display: Calendar */
   $handler = $view->new_display('panel_pane', 'Calendar', 'oa_calendar_month');
+  $handler->display->display_options['exposed_block'] = TRUE;
 
   /* Display: Daily Calendar */
   $handler = $view->new_display('panel_pane', 'Daily Calendar', 'oa_calendar_day');
@@ -118,6 +148,7 @@ function soar_event_calendar_views_default_views() {
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page_1');
+  $handler->display->display_options['enabled'] = FALSE;
   $handler->display->display_options['path'] = 'calendar';
   $export['calendar'] = $view;
 
