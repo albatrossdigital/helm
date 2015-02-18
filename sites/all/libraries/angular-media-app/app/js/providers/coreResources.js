@@ -2,7 +2,7 @@ angular.module('app.core')
 
 // JSON endpoint provided by Drupal view.
 .factory('CoreBrowser', function ($resource, $rootScope) {
-    return $resource($rootScope.apiUrl + 'browse/:person/:type/:name', {
+    return $resource($rootScope.settings[$rootScope.activeField].apiUrl + 'browse/:person/:type/:name', {
       format: 'json',
       type: '@type',
       name: '@name',
@@ -13,7 +13,7 @@ angular.module('app.core')
 
 // Read/edit/create files. Provided by angular_media.module.
 .factory('CoreFile', function ($resource, $rootScope) {
-    return $resource($rootScope.apiUrl + 'file', {
+    return $resource($rootScope.settings[$rootScope.activeField].apiUrl + 'file', {
       format: 'json',
       fid: '@fid',
       filename: '@filename',

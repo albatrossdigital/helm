@@ -60,7 +60,7 @@ angular.module('app.flickr', [
             
             $scope.updateActive = function(item) {
               if (item != undefined) {
-                if ($rootScope.multiple && item.active) {
+                if ($rootScope.settings[$rootScope.activeField].multiple && item.active) {
                   item.active = false;
                   angular.forEach($scope.selected, function(activeItem, key) {
                     if (activeItem.id == item.id) {
@@ -71,7 +71,7 @@ angular.module('app.flickr', [
                 }
                 else {
                   $scope.active = item;
-                  if ($rootScope.multiple) {
+                  if ($rootScope.settings[$rootScope.activeField].multiple) {
                     item.active = true;
                   }
                   else {
@@ -98,7 +98,7 @@ angular.module('app.flickr', [
                       $scope.active.height = size.height;
                       $scope.active.url = size.source;
 
-                      if ($rootScope.multiple) {
+                      if ($rootScope.settings[$rootScope.activeField].multiple) {
                         $scope.selected.push($scope.active);
                       }
                       else {
@@ -124,8 +124,8 @@ angular.module('app.flickr', [
 
                   // Done processing queue
                   if ($scope.queue.completed >= $scope.queue.total) {
-                    Array.prototype.push.apply($rootScope.files, $scope.queue.files);
-                    jQuery('#'+$rootScope.fieldName+'_media').trigger('change');
+                    Array.prototype.push.apply($rootScope.files[$rootScope.activeField], $scope.queue.files);
+                    jQuery('#'+$rootScope.activeField+'_media').trigger('change');
                     $scope.queue = undefined;
                     $state.go('base');
                   }

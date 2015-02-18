@@ -7,30 +7,38 @@
 
 angular.module('app.core')
 
-.controller('thumbnails', function($scope, $rootScope, $state, $stateParams, FileUploader){
+.controller('thumbnails', function($scope, $rootScope, $state, $stateParams, $timeout, FileUploader){
   // set rootscope settings
   $scope.init = function(params) {
     //$rootScope.appUrl = params.appUrl != undefined ? params.appUrl : '';
-    $rootScope.apiUrl = params.apiUrl != undefined ? params.apiUrl : '';
-    $rootScope.cardinality = params.cardinality != undefined ? parseInt(params.cardinality) : $rootScope.cardinality;
-    $rootScope.multiple = $rootScope.cardinality != 1;
-    $rootScope.files = params.files != undefined ? params.files : $rootScope.files;
-    $rootScope.tabs = params.tabs != undefined ? params.files : $rootScope.tabs;
-    $rootScope.tabs.slice().reverse();
-    $rootScope.fieldName = params.fieldName != undefined ? params.fieldName : $rootScope.fieldName;
+    var fieldName = params.fieldName != undefined ? params.fieldName : $rootScope.fieldName;
+    $rootScope.activeField = fieldName;
+    $rootScope.settings[fieldName] = {};
+    $rootScope.settings[fieldName].apiUrl = params.apiUrl != undefined ? params.apiUrl : $rootScope.apiUrl;
+    $rootScope.settings[fieldName].cardinality = params.cardinality != undefined ? parseInt(params.cardinality) : $rootScope.cardinality;
+    $rootScope.settings[fieldName].multiple = $rootScope.cardinality != 1;
+    $rootScope.files[fieldName] = params.files != undefined ? params.files : $rootScope.files;
+    $rootScope.settings[fieldName].tabs = params.tabs != undefined ? params.files : $rootScope.tabs;
+    $rootScope.settings[fieldName].tabs.slice().reverse();
+    
   console.log('params', params);
   }
 
 
 
   // Deal with drop to upload
-  var uploader = $scope.uploader = new FileUploader({
-      url: $rootScope.apiUrlUpload + 'upload',
+  $timeout(function() {
+    var uploader = $scope.uploader = new FileUploader({
+      url: $rootScope.settings[$rootScope.activeField].apiUrlUpload + 'upload',
       autoUpload: true
+    });
   });
 
-  $scope.remove = function(key) {
-    $rootScope.files.splice(key, 1);
+
+  
+
+  $scope.remove = function(fieldName, key) {
+    $rootScope.files[fieldName].splice(key, 1);
   }
 
   $scope.edit = function(fid) {
@@ -38,7 +46,8 @@ angular.module('app.core')
     $state.go('modal.edit', {fid: fid});
   }
 
-  $scope.select = function($event) {
+  $scope.select = function(fieldName, $event) {
+    $rootScope.settings[$rootScope.activeField].activeField = fieldName;
     $state.go('modal.upload');
     $event.preventDefault();
   }

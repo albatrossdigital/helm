@@ -30,11 +30,14 @@ angular.module('app', [
   [          '$rootScope', '$state', '$stateParams', '$window', '$location', '$timeout', 'editableOptions',
     function ($rootScope,   $state,   $stateParams,   $window,   $location, $timeout, editableOptions) {
 
+      $rootScope.settings = {};
+      $rootScope.files = {};
       $rootScope.flickrApiKey = '5202f8e46861f39f55bedfa2374a41d8';
       $rootScope.apiUrlUpload = 'http://liftoff.local/api/angular-media/';
       $rootScope.apiUrlBrowse = 'http://liftoff.local/api/angular-media/';
+
+
       $rootScope.appUrl = '';
-      $rootScope.files = [];
       $rootScope.multiple = false;
       $rootScope.cardinality = 1; // max number of fields
       $rootScope.tabs = [

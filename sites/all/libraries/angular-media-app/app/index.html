@@ -36,11 +36,11 @@
     <div class="thumbnail drop-zone">
       <div><span class="glyphicon glyphicon-download" aria-hidden="true"></span> Drop files</div>
       <div class="or">or</div>
-      <a class="btn btn-primary media-select" ng-click="select($event)"><span class="glyphicon glyphicon-picture" aria-hidden="true"></span> Select</a>
+      <a class="btn btn-primary media-select" ng-click="select('field_picture',$event)"><span class="glyphicon glyphicon-picture" aria-hidden="true"></span> Select</a>
     </div>
   </div>
 
-  <input type="hidden" name="field_picture_media" value="{{files}}" />
+  <input type="textfield" name="field_picture_media" value="{{files['field_picture']}}" />
   
   <div class="clearfix"></div>
 </div>

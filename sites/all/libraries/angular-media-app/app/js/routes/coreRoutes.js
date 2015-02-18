@@ -113,7 +113,7 @@ angular.module('app.core', [
 
   $scope.updateActive = function(item) {
     if (item != undefined) {
-      if ($rootScope.multiple && item.active) {
+      if ($rootScope.settings[$rootScope.activeField].multiple && item.active) {
         item.active = false;
         angular.forEach($scope.selected, function(activeItem, key) {
           if (activeItem.id == item.id) {
@@ -123,7 +123,7 @@ angular.module('app.core', [
       }
       else {
         $scope.active = item;
-        if ($rootScope.multiple) {
+        if ($rootScope.settings[$rootScope.activeField].multiple) {
           item.active = true;
           $scope.active = item;
         }
@@ -132,7 +132,7 @@ angular.module('app.core', [
             $scope.items[key].active = activeItem.fid == item.fid ? true : false;
           });
         }
-        if ($rootScope.multiple) {
+        if ($rootScope.settings[$rootScope.activeField].multiple) {
           $scope.selected.push(item);
         }
         else {
@@ -150,8 +150,8 @@ angular.module('app.core', [
     //$scope.filters.page++;
     console.log($scope.selected);
 
-    Array.prototype.push.apply($rootScope.files, $scope.selected);
-    jQuery('#'+$rootScope.fieldName+'_media').trigger('change');
+    Array.prototype.push.apply($rootScope.files[$rootScope.activeField], $scope.selected);
+    jQuery('#'+$rootScope.activeField+'_media').trigger('change');
     $state.go('base');
     $event.preventDefault();
 
@@ -176,7 +176,7 @@ angular.module('app.core', [
   $scope.selected = [];
 
   var uploader = $scope.uploader = new FileUploader({
-    url: $rootScope.apiUrlUpload + 'upload',
+    url: $rootScope.settings[$rootScope.activeField].apiUrlUpload + 'upload',
     autoUpload: true
   });
   uploader.onAfterAddingFile = function(fileItem) {
@@ -211,8 +211,8 @@ angular.module('app.core', [
     //$scope.filters.page++;
     console.log($scope.selected);
 
-    Array.prototype.push.apply($rootScope.files, $scope.selected);
-    jQuery('#'+$rootScope.fieldName+'_media').trigger('change');
+    Array.prototype.push.apply($rootScope.files[$rootScope.activeField], $scope.selected);
+    jQuery('#'+$rootScope.activeField+'_media').trigger('change');
     $scope.selected = [];
     $state.go('base');
 
