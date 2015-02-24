@@ -5,6 +5,7 @@ package = Soar City
 dependencies[] = cors
 dependencies[] = services
 dependencies[] = services_views
+dependencies[] = rest_server
 dependencies[] = views
 features[ctools][] = services:services:3
 features[ctools][] = views:views_default:3.0
