@@ -144,7 +144,7 @@ function angular_media_field_widget_form(&$form, &$form_state, $field, $instance
 /**
  * An element #process callback.
  *
- * Parses and savesthe angular-media-app json.
+ * Parses and saves the angular-media-app json.
  */
 function angular_media_field_widget_form_validate($form, &$form_state) {
   if (!empty($form_state['values']['angular_media_fields'])) {

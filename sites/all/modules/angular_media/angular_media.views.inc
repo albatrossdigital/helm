@@ -22,6 +22,5 @@ function angular_media_views_data_alter(&$data) {
       ),
     ),
   );
-  dpm($data);
 }
 

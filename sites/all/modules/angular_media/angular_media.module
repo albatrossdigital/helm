@@ -268,6 +268,7 @@ function angular_media_simplify_file($file) {
   if ($file->type == 'image') {
     // Append unique suffix to prevent these images from being cached locally
     $suffix = '&' . time();
+    $file->url = file_create_url($file->uri);
     $file->thumbUrl =  image_style_url('media_thumbnail', $file->uri) . $suffix;
     $file->previewUrl = image_style_url('media_preview', $file->uri) . $suffix;
     $file->cropUrl = image_style_url('media_crop', $file->uri) . $suffix;
@@ -426,6 +427,7 @@ function angular_media_theme() {
         //'app_path' => url(angular_media_app_path()),
         //'api_path' => url('services/rest'),
         'field_name' => '',
+        'addl_field_name' => '',
         'files' => array(),
         'cardinality' => 1,
         'tabs' => 'undefined',
@@ -456,5 +458,73 @@ function angular_media_ckeditor_plugin() {
     'path' => drupal_get_path('module', 'angular_media') . '/plugins/angularMedia/',
   );
   return $plugins;
+}
+
+
+/**
+ * Implements hook_form_alter().
+ * Add the Angular Media field for CKEditor.
+ */
+function angular_media_form_alter(&$form, &$form_state, $form_id) {
+  // @todo: taxonomy...
+  if ($form_id === 'page_node_form' || $form_id === 'page_node_form') {
+    $field_name = 'media_ckeditor';
+
+    $crop_ratio = variable_get('angular_media_ckeditor_crop_ratio', array('free'));
+    $crop_ratio = !empty($crop_ratio[0]) ? $crop_ratio[0] : '';
+
+    $settings = array(
+      'tabs' => variable_get('angular_media_ckeditor_tabs_image', array('upload', 'file', 'flickr')),
+    );
+    foreach ($settings as &$value) {
+      $value = array_filter($value);
+      $value = !empty($value) ? array_keys($value) : array();
+      $value = json_encode($value);
+    }
+
+    $options = array(
+      //'hidden' => 1,
+      'cardinality' => 9999,
+      'field_name' => $field_name,
+      'files' => array(),
+      'crop_ratio' =>  $crop_ratio,
+      'addl_field_name' => variable_get('angular_media_ckeditor_tabs', ''),
+    );
+    $options = array_merge($settings, $options);
+
+    $path = angular_media_app_path();
+    $form[$field_name]['#attached'] = array(
+      // @todo: make libraries_load work
+      //'libraries_load' => array(
+      //  array('angular_media', 'angular-media-app'),
+      //)
+      'js' => array(
+        $path . 'js/libraries.min.js' => array(),
+        $path . 'js/app.min.js' => array(),
+        //$path . 'js/vendor/jcrop.min.js' => array('weight' => 10),
+        drupal_get_path('module', 'angular_media') . '/js/angular-media.js' => array(),
+      ),
+      'css' => array(
+        $path . 'css/app.min.css' => array(),
+      ),
+    );
+    $element = array(
+      '#type' => 'textfield',
+      '#title' => $instance['label'],
+      '#required' => $instance['required'],
+      '#suffix' => theme('angular_media_app', $options),
+      '#attributes' => array('style' => 'display:none'),
+    );
+    $form[$field_name] = $element;
+
+
+    //@todo: this is hacky
+    $form['#validate'][] = 'angular_media_field_widget_form_validate';
+    $form['#submit'][] = 'angular_media_field_widget_form_validate';
+    $form['angular_media_fields'] = isset($form['angular_media_fields']) ? $form['angular_media_fields'] : array('#type' => 'value', '#value' => array());
+    $form['angular_media_fields']['#value'][] = $field_name;
+
+    dpm($form);
+  }
 }
 

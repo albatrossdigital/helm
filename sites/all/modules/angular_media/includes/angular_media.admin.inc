@@ -84,7 +84,7 @@ function angular_media_admin_form($form, &$form_state) {
   $form['ckeditor']['angular_media_ckeditor_field_image'] = array(
     '#title' => t('Images: Add to field'),
     '#type' => 'select',
-    '#default_value' => array(''),
+    '#default_value' => variable_get('angular_media_ckeditor_field_image', array('')),
     '#options' => $options,
     '#description' => t('Select a field to append to when selecting images in the CKEditor image source browser.'),
   );
@@ -92,15 +92,15 @@ function angular_media_admin_form($form, &$form_state) {
   $form['ckeditor']['angular_media_ckeditor_field_link'] = array(
     '#title' => t('Files: Add to field'),
     '#type' => 'select',
-    '#default_value' => array(''),
+    '#default_value' => variable_get('angular_media_ckeditor_field_link', array('')),
     '#options' => $options,
     '#description' => t('Select a field to append to when selecting files in the CKEditor link browser.'),
   );
 
   $options = angular_media_crop_ratios();
-  $form['ckeditor']['angular_media_ckeditor_crop_ratios'] = array(
+  $form['ckeditor']['angular_media_ckeditor_crop_ratio'] = array(
     '#type' => 'checkboxes',
-    '#title' => t('Allowed CKEditor crop ratios'),
+    '#title' => t('CKEditor crop ratio'),
     '#options' => $options,
     '#default_value' => variable_get('angular_media_crop_ratios', array_keys($options)),
     '#description' => t('Allowed crop ratios for images uploaded in the CKEditor dialog. If none are selected, cropping will be disabled. If one is selected, it is forced. If multiple are selected the user will be able to toggle their crop choice.'),

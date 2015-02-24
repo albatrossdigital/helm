@@ -24,14 +24,14 @@
       <div class="thumbnail drop-zone">
         <div><span class="glyphicon glyphicon-download" aria-hidden="true"></span> Drop files</div>
         <div class="or">or</div>
-        <button class="btn btn-primary media-select" ng-click="select('<?php print $field_name; ?>', $event)"><span class="glyphicon glyphicon-picture" aria-hidden="true"></span> Select</button>
+        <button class="btn btn-primary media-select" id="<?php print $field_name; ?>_select" ng-click="select('<?php print $field_name; ?>', $event)"><span class="glyphicon glyphicon-picture" aria-hidden="true"></span> Select</button>
       </div>
     <?php else: ?>
-      <button class="btn btn-primary media-select" ng-click="select('<?php print $field_name; ?>', $event)"><span class="glyphicon glyphicon-picture" aria-hidden="true"></span> Select</button>
+      <button class="btn btn-primary media-select" id="<?php print $field_name; ?>_select" ng-click="select('<?php print $field_name; ?>', $event)"><span class="glyphicon glyphicon-picture" aria-hidden="true"></span> Select</button>
     <?php endif; ?>
   </div>
 
-  <input type="hidden" name="<?php print $field_name; ?>_media" id="<?php print $field_name; ?>_media" value="{{files['<?php print $field_name; ?>']}}" />
+  <input type="textfield" name="<?php print $field_name; ?>_media" id="<?php print $field_name; ?>_media" value="{{files['<?php print $field_name; ?>']}}" />
   
   <div class="clearfix"></div>
 </div> 

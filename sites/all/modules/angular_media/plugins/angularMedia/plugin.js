@@ -59,13 +59,14 @@
     // Invoke the media popup for file selection.
 
     // Invoke the Angular Media dialog
-    $('.media-select').trigger('click');
+    $('#media_ckeditor_select').trigger('click');
 
     // Bind a watch on hidden value field to update CKEditor dialog
     $(document).ready(function() {
       
       setTimeout(function(){
-        $('#field_picture_media').bind('change', function() {
+        $('#media_ckeditor_media').bind('change', function() {
+
           var $that = $(this);
           
           setTimeout(function(){
@@ -74,6 +75,11 @@
 
             var parts = evt.sender.filebrowser.target.split(':');
             dialog.setValueOf(parts[0], parts[1], file.url);
+
+            // @todo: make work with image2 ckeditor element
+            // @todo: resize if width > 500px?
+            setTimeout(function(){
+            }, 100);
 
             // Add title/alt attr using default CKEditor image values.
             var altEl = dialog.getContentElement("info", "txtAlt");
