@@ -71,6 +71,17 @@ function angular_media_library() {
  * Implements hook_menu().
  */
 function angular_media_menu() {
+  
+  $items['admin/config/media/angular-media'] = array(
+    'type' => MENU_NORMAL_ITEM,
+    'title' => 'Angular Media',
+    'description' => 'Set up default settings for angular media dialogs',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('angular_media_admin_form'),
+    'access arguments' => array('administer site configuration'),
+    'file' => 'includes/angular_media.admin.inc',
+  );
+
   $items['api/angular-media/upload'] = array(
     'title' => 'Handles uploads',
     'page callback' => 'angular_media_callback_upload',
@@ -78,6 +89,7 @@ function angular_media_menu() {
     'access callback' => 'angular_media_upload_access',
     'access arguments' => array('access content'),
   );
+
   $items['api/angular-media/file'] = array(
     'title' => 'Handles uploads',
     'page callback' => 'angular_media_callback_file',
@@ -86,6 +98,7 @@ function angular_media_menu() {
     'access callback' => 'angular_media_file_access',
     'access arguments' => array('access content'),
   );
+
   $items['angular_media-test'] = array(
     'title' => 'Test Plupload',
     'page callback' => 'drupal_get_form',
@@ -94,6 +107,7 @@ function angular_media_menu() {
     'access arguments' => array('Administer site configuration'),
     'type' => MENU_CALLBACK,
   );
+
   return $items;
 }
 
@@ -121,6 +135,33 @@ function angular_media_file_access() {
   return TRUE;
 }
 
+
+/**
+ * Verifies the token for this request.
+ */
+function angular_media_tabs() {
+  return array(
+    'upload' => 'Upload',
+    'site' => 'Site Files',
+    'me' => 'My Files',
+    'flickr' => 'Flickr',
+    //'page' => 'Page' // This is hidden, only used for CKEditor
+  );
+}
+
+
+/**
+ * Verifies the token for this request.
+ */
+function angular_media_crop_ratios() {
+  return array(
+    'free' => 'Freeform',
+    '1/1' => '1:1 (Square)',
+    '4/3' => '3:4 (Picture)',
+    '16/9' => '16:9 (Widescreen)',
+    'none' => 'No cropping'
+  );
+}
 
 /**
  * Returns the path to the angular_media library.
@@ -181,25 +222,31 @@ function angular_media_callback_file($fid = NULL) {
       watchdog('angular_media', 'file copy from url <pre>%f</pre>', array('%f' => print_r($file,1)));
     }
 
+    // Process crop
+    if (!empty($_GET['crop'])) {
+      $crop = json_decode($_GET['crop']);
+      $crop = (array)$crop;
+      $file = angular_media_process_crop($file, $crop);
+      watchdog('angular_media', 'file crop <pre>%f</pre>', array('%f' => print_r($crop,1)));
+    }
+
     // Update file fields
     if (isset($file)) {
       if (!empty($_GET['name'])) {
         $file->name = $_GET['name'];
       }
       if (!empty($_GET['alt'])) {
-        $file->alt = $_GET['name'];
+        $file->alt = $_GET['alt'];
         $file->field_file_image_alt_text[LANGUAGE_NONE][0]['value'] = $file->alt;
       }
-      if (!empty($_GET['title'])) {
-        $file->title = $_GET['title'];
-        $file->field_file_image_title_text[LANGUAGE_NONE][0]['value'] = $file->title;
+      $file->title = !empty($_GET['title']) ? $_GET['title'] : '';
+      $file->field_file_image_title_text[LANGUAGE_NONE][0]['value'] = $file->title;
+      $file->field_media_source[LANGUAGE_NONE][0]['title'] = !empty($_GET['attribution']) ? $_GET['attribution'] : '';
+      $file->field_media_source[LANGUAGE_NONE][0]['url'] = !empty($_GET['source']) ? $_GET['source'] : '';
+      if (!empty($_GET['licence'])) {
+        $file->field_media_license[LANGUAGE_NONE][0]['licence'] = $_GET['licence'];
       }
-      if (!empty($_GET['source'])) {
-        $file->field_media_source[LANGUAGE_NONE][0]['url'] = $_GET['source'];
-      }
-      if (!empty($_GET['license'])) {
-        $file->field_media_license[LANGUAGE_NONE][0]['licence'] = $_GET['license'];
-      }
+
       $file = file_save($file);
       watchdog('angular_media', 'file saved <pre>%f</pre>', array('%f' => print_r($file,1)));
     }
@@ -219,12 +266,15 @@ function angular_media_callback_file($fid = NULL) {
 function angular_media_simplify_file($file) {
   $file = (object)$file;
   if ($file->type == 'image') {
-    $file->thumbUrl =  image_style_url('media_thumbnail', $file->uri);
-    $file->previewUrl = image_style_url('media_preview', $file->uri);
-    $file->cropUrl = image_style_url('media_crop', $file->uri);
+    // Append unique suffix to prevent these images from being cached locally
+    $suffix = '&' . time();
+    $file->thumbUrl =  image_style_url('media_thumbnail', $file->uri) . $suffix;
+    $file->previewUrl = image_style_url('media_preview', $file->uri) . $suffix;
+    $file->cropUrl = image_style_url('media_crop', $file->uri) . $suffix;
   }
   if (!empty($file->field_media_source)) {
     $file->source = $file->field_media_source[LANGUAGE_NONE][0]['url'];
+    $file->attribution = $file->field_media_source[LANGUAGE_NONE][0]['title'];
   }
   if (!empty($file->field_media_license)) {
     $file->license = $file->field_media_license[LANGUAGE_NONE][0]['licence'];
@@ -305,6 +355,66 @@ function angular_media_file_url_to_object($remote_uri, $filename) {
 
 
 /**
+ * Performs a crop on a file
+ */
+function angular_media_process_crop($src, $crop) {
+ 
+  // If we're not overwriting, create a copy
+  if (!$crop['overwrite']) {
+    
+    if ($orig_uri = file_unmanaged_copy($src->uri, $src->uri)) {
+      $filename = basename($orig_uri);
+      $filename = substr($filename, 0, strrpos($filename,'.'));
+      $filename = t('Crop !filename', array('!filename' => $filename));
+      $orig = clone $src;
+      $orig->fid = 0;
+      $orig->uri = $orig_uri;
+      $orig->filename = $filename;
+      $orig->status = 1;
+      $orig = file_save($orig);
+      file_usage_add($orig, 'angular_media', 'file', $src->fid);
+      $src = $orig;
+    }
+    else {
+      return false;
+    }
+  }
+
+  if (_angular_media_crop_resize(drupal_realpath($src->uri), $crop, $scale, drupal_realpath($src->uri))) {
+    // Remove cached versions of the cropped image.
+    image_path_flush($src->uri);
+  }
+
+  return $src;
+}
+
+
+/**
+ * Crop the image and resize it
+ */
+function _angular_media_crop_resize($src, $crop = NULL, $scale = NULL, $dst = NULL) {
+  $image = image_load($src);
+  if ($image) {
+    $result = TRUE;
+
+    $info = image_get_info($src);
+    $scaler = $info['width'] / $crop['width'];
+    foreach ($crop['coords'] as &$coord) {
+      $coord = $scaler * $coord;
+    }
+
+    $result = $result && image_crop($image, $crop['coords'][0], $crop['coords'][1], $crop['coords'][4], $crop['coords'][5]);    
+    $result = $result && image_save($image, $dst ? $dst : $src);
+    return $result;
+  }
+
+  return FALSE;
+}
+
+
+
+
+/**
  * Implements hook_theme().
  */
 function angular_media_theme() {
@@ -318,6 +428,10 @@ function angular_media_theme() {
         'field_name' => '',
         'files' => array(),
         'cardinality' => 1,
+        'tabs' => 'undefined',
+        'allowed_types' => 'undefined',
+        'crop_ratio' => 'undefined',
+        'allowed_schemes' => 'undefined',
         'app_url' => url(angular_media_app_path()),
         'api_url' => url('api/angular-media') . '/',
         'flickr_key' => '',

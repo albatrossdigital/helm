@@ -8,7 +8,12 @@ function angular_media_field_widget_info() {
     'file_angular_media' => array(
       'label' => t('Angular Media Dialog'),
       'field types' => array('file', 'image', 'media'),
-      //'settings' => array('size' => 60),
+      'settings' => array(
+        'tabs' => variable_get('angular_media_tabs', array()),
+        'allowed_types' => variable_get('angular_media_allowed_types', array()),
+        'allowed_schemes' => variable_get('angular_media_allowed_schemes', array()),
+        'crop_ratio' => variable_get('angular_media_crop_ratio', array('free')),
+      ),
       'behaviors' => array(
         'multiple values' => FIELD_BEHAVIOR_CUSTOM, //Value for field API indicating a widget can receive several field values.
         'default value' => FIELD_BEHAVIOR_NONE,
@@ -17,18 +22,90 @@ function angular_media_field_widget_info() {
   );
 }
 
+
+
+/**
+ * Implements hook_field_widget_settings_form().
+ */
+function angular_media_field_widget_settings_form($field, $instance) {
+  $widget = $instance['widget'];
+  $settings = $widget['settings'];
+
+  //$plugins = media_get_browser_plugin_info();
+  //$options = array();
+  //foreach ($plugins as $key => $plugin) {
+  //  $options[$key] = check_plain($plugin['title']);
+  //}
+
+  $form['tabs'] = array(
+    '#type' => 'checkboxes',
+    '#title' => t('Enabled browser tabs'),
+    '#options' => angular_media_tabs(),
+    '#default_value' => $settings['browser_plugins'],
+    '#description' => t('Media tabs shown for this field. If no tabs are selected, they will all be available.'),
+  );
+
+  $form['allowed_types'] = array(
+    '#type' => 'checkboxes',
+    '#title' => t('Allowed file types'),
+    '#options' => file_entity_type_get_names(),
+    '#default_value' => $settings['allowed_types'],
+    '#description' => t('File types which are allowed for this field. If no file types are selected, they will all be available.'),
+  );
+
+  $visible_steam_wrappers = file_get_stream_wrappers(STREAM_WRAPPERS_VISIBLE);
+  $options = array();
+  foreach ($visible_steam_wrappers as $scheme => $information) {
+    $options[$scheme] = check_plain($information['name']);
+  }
+
+  $form['allowed_schemes'] = array(
+    '#type' => 'checkboxes',
+    '#title' => t('Allowed URI schemes'),
+    '#options' => $options,
+    '#default_value' => $settings['allowed_schemes'],
+    '#description' => t('URI schemes which are allowed for this field. If no schemes are selected, they will all be available.'),
+  );
+
+  $form['crop_ratio'] = array(
+    '#type' => 'select',
+    '#title' => t('Crop ratio'),
+    '#options' => angular_media_crop_ratios(),
+    '#default_value' => $settings['crop_ratio'],
+    //'#description' => t('Allowed crop ratio for images.'),
+  );
+
+  return $form;
+}
+
+
+
 /**
  * Implements hook_field_widget_form().
  */
 function angular_media_field_widget_form(&$form, &$form_state, $field, $instance, $langcode, $items, $delta, $element) {
+  
+  $settings = $instance['widget']['settings'];
+  $crop_ratio = $settings['crop_ratio'];
+  foreach ($settings as &$value) {
+    $value = array_filter($value);
+    $value = !empty($value) ? array_keys($value) : array();
+    $value = json_encode($value);
+  }
+
   $options = array(
     'cardinality' => $field['cardinality'],
     'field_name' => $instance['field_name'],
     'files' => array(),
+    'crop_ratio' => $crop_ratio,
   );
+  $options = array_merge($settings, $options);
   foreach ($items as $item) {
     $options['files'][] = angular_media_simplify_file($item);
   }
+
+  //dpm($options);
+
 
   $path = angular_media_app_path();
   $form['#attached'] = array(

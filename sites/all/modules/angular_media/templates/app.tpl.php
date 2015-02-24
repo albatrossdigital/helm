@@ -6,7 +6,11 @@
   fieldName: "<?php print $field_name; ?>",
   files: <?php print drupal_json_encode($files, JSON_HEX_APOS); ?>,
   cardinality: <?php print (int)$cardinality; ?>,
-  flickrApiKey: "<?php print $flickr_key; ?>"
+  tabs: <?php print $tabs; ?>,
+  allowedTypes: <?php print $allowed_types; ?>,
+  cropRatio: "<?php print $crop_ratio; ?>",
+  allowedSchemes: <?php print $allowed_schemes; ?>,
+  flickrApiKey: "<?php print $flickr_key; ?>",
 })'><!-- nv-file-drop="" uploader="uploader"-->
     
     
@@ -14,7 +18,7 @@
       <div  class="thumbnail" ng-repeat="(key, file) in files['<?php print $field_name; ?>']" title="{{file.name}}">
         <div thumbnails></div>
         <a href class="thumbnail-title" ng-click="edit(file.fid)">{{file.name}}</a>
-          <button type="button" class="btn btn-default btn-xs thumbnail-edit" ng-click="edit(file.fid)"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></button>
+          <button type="button" class="btn btn-default btn-xs thumbnail-edit" ng-click="edit(file.fid, '<?php print $field_name; ?>', key)"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></button>
           <button type="button" class="btn btn-danger btn-xs thumbnail-remove" ng-click="remove('<?php print $field_name; ?>', key)"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
       </div>
       <div class="thumbnail drop-zone">
