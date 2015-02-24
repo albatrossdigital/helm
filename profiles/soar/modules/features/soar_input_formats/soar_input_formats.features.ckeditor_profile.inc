@@ -130,40 +130,16 @@ function soar_input_formats_ckeditor_profile_defaults() {
         'theme_config_js' => 'f',
         'js_conf' => '',
         'loadPlugins' => array(
-          'drupalbreaks' => array(
-            'name' => 'drupalbreaks',
-            'desc' => 'Plugin for inserting Drupal teaser and page breaks.',
-            'path' => '%plugin_dir%drupalbreaks/',
-            'buttons' => array(
-              'DrupalBreak' => array(
-                'label' => 'DrupalBreak',
-                'icon' => 'images/drupalbreak.png',
-              ),
-            ),
-            'default' => 't',
-          ),
-          'media' => array(
-            'name' => 'media',
-            'desc' => 'Plugin for inserting images from Drupal media module',
-            'path' => '%plugin_dir%media/',
-            'buttons' => array(
-              'Media' => array(
-                'label' => 'Media',
-                'icon' => 'images/icon.gif',
-              ),
-            ),
-            'default' => 'f',
-          ),
-          'mediaBrowser' => array(
-            'name' => 'mediaBrowser',
-            'desc' => 'Media Browser for File Upload/Browsing',
-            'path' => '%base_path%profiles/soar/modules/contrib/ckeditor_media/plugins/mediaBrowser/',
+          'angularMedia' => array(
+            'name' => 'angularMedia',
+            'desc' => 'Plugin for Angular Media Browser',
+            'path' => '%base_path%sites/all/modules/angular_media/plugins/angularMedia/',
             'buttons' => FALSE,
           ),
           'widgetbootstrap' => array(
             'name' => 'widgetbootstrap',
             'desc' => 'Plugin to add widgets based on Bootstrap elements',
-            'path' => '%base_path%profiles/soar/modules/custom/ckeditor_widgets/plugins/widgetbootstrap/',
+            'path' => '%base_path%sites/all/modules/ckeditor_widgets/plugins/widgetbootstrap/',
             'buttons' => array(
               'widgetbootstrapLeftCol' => array(
                 'icon' => 'icons/widgetbootstrapLeftCol.png',
@@ -194,7 +170,7 @@ function soar_input_formats_ckeditor_profile_defaults() {
           'widgetcommon' => array(
             'name' => 'widgetcommon',
             'desc' => 'Plugin to add common widgets',
-            'path' => '%base_path%profiles/soar/modules/custom/ckeditor_widgets/plugins/widgetcommon/',
+            'path' => '%base_path%sites/all/modules/ckeditor_widgets/plugins/widgetcommon/',
             'buttons' => array(
               'widgetcommonBox' => array(
                 'icon' => 'icons/widgetcommonBox.png',
@@ -209,7 +185,7 @@ function soar_input_formats_ckeditor_profile_defaults() {
           'widgettemplatemenu' => array(
             'name' => 'widgettemplatemenu',
             'desc' => 'Plugin for adding an Insert Template dropdown menu',
-            'path' => '%base_path%profiles/soar/modules/custom/ckeditor_widgets/plugins/widgettemplatemenu/',
+            'path' => '%base_path%sites/all/modules/ckeditor_widgets/plugins/widgettemplatemenu/',
             'buttons' => array(
               'oembed' => array(
                 'icon' => 'extraIcons/oembed.png',
