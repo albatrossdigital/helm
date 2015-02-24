@@ -13,30 +13,26 @@ CKEDITOR.plugins.add( 'widgettemplatemenu', {
         // Set the default button info based on installed plugins
         var buttonData = {};
         // @todo: make these if statement work
-        //if (editor.commands.widgetcommonBox != undefined) {
+        if (editor.plugins.widgetcommon != undefined) {
             buttonData.widgetcommonBox = 'Insert box';
             buttonData.widgetcommonQuotebox = 'Insert quote box';
-        //}
-        //if (editor.commands.widgetbootstrapLeftCol != undefined) {
+        }
+        if (editor.plugins.widgetbootstrap != undefined) {
             buttonData.widgetbootstrapLeftCol = 'Insert left column template';
             buttonData.widgetbootstrapRightCol = 'Insert right column template';
             buttonData.widgetbootstrapTwoCol = 'Insert two column template';
             buttonData.widgetbootstrapThreeCol = 'Insert three column template';
             buttonData.widgetbootstrapAlert = 'Insert Alert box';
-            //buttonData.widgetbootstrapAccordion = 'Insert accordion box';
-        //}
-        //if (editor.commands.oembed != undefined) {
+        }
+        if (editor.commands.oembed != undefined) {
             buttonData.oembed = 'Insert media';
-        //}
-        //if (editor.commands.codeSnippet != undefined) {
+        }
+        if (editor.commands.codeSnippet != undefined) {
             buttonData.codeSnippet = 'Insert code snippet';
-        //}
-        //if (editor.commands.leaflet != undefined) {
+        }
+        if (editor.commands.leaflet != undefined) {
             buttonData.leaflet = 'Insert map';
-        //}
-        //if (editor.commands.FontAwesome != undefined) {
-            buttonData.FontAwesome = 'Insert icon';
-        //}
+        }
 
         // Get the enabled menu items from editor.config
         if (editor.config.widgettemplatemenuButtons != undefined) {

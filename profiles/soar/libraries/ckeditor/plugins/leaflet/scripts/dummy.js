@@ -1,1 +1,0 @@
-﻿window2=window.frames[0];console.log(window.frames[0]);(function(a){var b=a.document;console.log("lamang-lupa2");console.log(a);console.log(b);console.log("lamang-labas")})(window2);
