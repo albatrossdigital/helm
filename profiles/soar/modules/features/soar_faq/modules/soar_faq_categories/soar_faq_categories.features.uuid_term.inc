@@ -41,9 +41,7 @@ function soar_faq_categories_uuid_features_default_terms() {
     'field_icon' => array(
       'und' => array(
         0 => array(
-          'value' => 'fa-briefcase',
-          'format' => NULL,
-          'safe_value' => 'fa-briefcase',
+          'icon' => 'fa-briefcase',
         ),
       ),
     ),
@@ -111,9 +109,7 @@ function soar_faq_categories_uuid_features_default_terms() {
     'field_icon' => array(
       'und' => array(
         0 => array(
-          'value' => 'fa-users',
-          'format' => NULL,
-          'safe_value' => 'fa-users',
+          'icon' => 'fa-users',
         ),
       ),
     ),
@@ -209,9 +205,7 @@ function soar_faq_categories_uuid_features_default_terms() {
     'field_icon' => array(
       'und' => array(
         0 => array(
-          'value' => 'fa-music',
-          'format' => NULL,
-          'safe_value' => 'fa-music',
+          'icon' => 'fa-music',
         ),
       ),
     ),
@@ -307,9 +301,7 @@ function soar_faq_categories_uuid_features_default_terms() {
     'field_icon' => array(
       'und' => array(
         0 => array(
-          'value' => 'fa-building-o',
-          'format' => NULL,
-          'safe_value' => 'fa-building-o',
+          'icon' => 'fa-building-o',
         ),
       ),
     ),
@@ -377,9 +369,7 @@ function soar_faq_categories_uuid_features_default_terms() {
     'field_icon' => array(
       'und' => array(
         0 => array(
-          'value' => 'fa-money',
-          'format' => NULL,
-          'safe_value' => 'fa-money',
+          'icon' => 'fa-money',
         ),
       ),
     ),
@@ -458,9 +448,7 @@ function soar_faq_categories_uuid_features_default_terms() {
     'field_icon' => array(
       'und' => array(
         0 => array(
-          'value' => 'fa-gavel',
-          'format' => NULL,
-          'safe_value' => 'fa-gavel',
+          'icon' => 'fa-gavel',
         ),
       ),
     ),
