@@ -41,7 +41,7 @@ function media_formatters_menu() {
   $items = array();
   $items['admin/config/media/media-formatters'] = array(
     'type' => MENU_NORMAL_ITEM,
-    'title' => 'Configure Media Formatters',
+    'title' => 'Media Formatters',
     'description' => 'Set up default settings for media formatters',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('media_formatters_admin_form'),
