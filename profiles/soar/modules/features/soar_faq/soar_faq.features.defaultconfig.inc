@@ -81,9 +81,7 @@ function soar_faq_defaultconfig_user_default_permissions() {
   // Exported permission: 'delete terms in faq_category'.
   $permissions['delete terms in faq_category'] = array(
     'name' => 'delete terms in faq_category',
-    'roles' => array(
-      'editor' => 'editor',
-    ),
+    'roles' => array(),
     'module' => 'taxonomy',
   );
 
@@ -99,7 +97,6 @@ function soar_faq_defaultconfig_user_default_permissions() {
     'name' => 'edit any faq content',
     'roles' => array(
       'administrator' => 'administrator',
-      'editor' => 'editor',
     ),
     'module' => 'node',
   );
@@ -114,9 +111,7 @@ function soar_faq_defaultconfig_user_default_permissions() {
   // Exported permission: 'edit terms in faq_category'.
   $permissions['edit terms in faq_category'] = array(
     'name' => 'edit terms in faq_category',
-    'roles' => array(
-      'editor' => 'editor',
-    ),
+    'roles' => array(),
     'module' => 'taxonomy',
   );
 

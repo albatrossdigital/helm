@@ -185,9 +185,10 @@ function soar_faq_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
+        'module' => 'color_field',
         'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 10,
+        'type' => 'color_field_default_formatter',
+        'weight' => 1,
       ),
       'featured' => array(
         'label' => 'above',
@@ -197,24 +198,13 @@ function soar_faq_field_default_field_instances() {
       ),
       'full' => array(
         'label' => 'above',
-        'module' => 'color_field',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'form',
-          ),
-        ),
-        'type' => 'color_field_default_formatter',
-        'weight' => 12,
-      ),
-      'teaser' => array(
-        'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 12,
+        'weight' => 0,
       ),
     ),
-    'ds_extras_field_template' => '',
     'entity_type' => 'taxonomy_term',
+    'fences_wrapper' => 'div',
     'field_name' => 'field_color',
     'label' => 'Color',
     'required' => 0,
@@ -226,9 +216,8 @@ function soar_faq_field_default_field_instances() {
       'module' => 'color_field',
       'settings' => array(),
       'type' => 'color_field_default_widget',
-      'weight' => 3,
+      'weight' => 2,
     ),
-    'workbench_access_field' => 0,
   );
 
   // Exported field_instance: 'taxonomy_term-faq_category-field_icon'
@@ -243,7 +232,7 @@ function soar_faq_field_default_field_instances() {
         'module' => 'fontawesome_field',
         'settings' => array(),
         'type' => 'fontawesome_field_formatter',
-        'weight' => 11,
+        'weight' => 0,
       ),
       'featured' => array(
         'label' => 'above',
@@ -253,10 +242,9 @@ function soar_faq_field_default_field_instances() {
       ),
       'full' => array(
         'label' => 'above',
-        'module' => 'fontawesome_field',
         'settings' => array(),
-        'type' => 'fontawesome_field_formatter',
-        'weight' => 11,
+        'type' => 'hidden',
+        'weight' => 0,
       ),
     ),
     'entity_type' => 'taxonomy_term',
@@ -272,7 +260,7 @@ function soar_faq_field_default_field_instances() {
       'module' => 'fontawesome_field',
       'settings' => array(),
       'type' => 'fontawesome_field_widget',
-      'weight' => 2,
+      'weight' => 1,
     ),
   );
 
