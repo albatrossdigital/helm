@@ -64,12 +64,20 @@ angular.module('app.core', [
 )
 
 
-.controller('modal', function($scope, $rootScope, $state, $stateParams){
+.controller('modal', function($scope, $rootScope, $state, $stateParams){ 
+  $scope.tabs = $rootScope.settings[$rootScope.activeField].tabs;
   $scope.activeTab = $state.current.controller;
+  
   $scope.loadTab = function(item) {
     $scope.activeTab = item.key;
     $state.go('modal.'+item.key, item.params);
   }
+
+  $scope.close = function($event) {
+    $state.go('base');
+    $event.preventDefault();
+  }
+
 })
 
 
@@ -84,7 +92,6 @@ angular.module('app.core', [
     page: 1,
     person: $stateParams.person
   };
-  console.log($stateParams);
 
   $scope.selected = [];
   $scope.items = [];
@@ -97,7 +104,6 @@ angular.module('app.core', [
       else {
         $scope.items = data;
       }
-      console.log($scope.items);
     });
   }
 
@@ -140,7 +146,6 @@ angular.module('app.core', [
         }
         CoreFile.load({fid: item.fid}, function(data) {
           $scope.active = data;
-          console.log('corefile data', data);
         });
       }
     }
@@ -148,7 +153,6 @@ angular.module('app.core', [
 
   $scope.submit = function($event) {
     //$scope.filters.page++;
-    console.log($scope.selected);
 
     Array.prototype.push.apply($rootScope.files[$rootScope.activeField], $scope.selected);
     jQuery('#'+$rootScope.activeField+'_media').trigger('change');
@@ -176,7 +180,7 @@ angular.module('app.core', [
   $scope.selected = [];
 
   var uploader = $scope.uploader = new FileUploader({
-    url: $rootScope.settings[$rootScope.activeField].apiUrlUpload + 'upload',
+    url: $rootScope.settings[$rootScope.activeField].apiUrl + 'upload',
     autoUpload: true
   });
   uploader.onAfterAddingFile = function(fileItem) {
@@ -188,8 +192,11 @@ angular.module('app.core', [
   uploader.onSuccessItem = function(fileItem, response, status, headers) {
     console.info('onSuccessItem', fileItem, response, status, headers);
     $scope.selected.push(response);
-    fileItem.details = response;
-    console.log(fileItem);
+    fileItem = response;
+    if ($scope.file == undefined) {
+      $scope.file = fileItem;
+      $scope.activeKey = 0;
+    }
   };
   uploader.onCompleteAll = function() {
     console.info('onCompleteAll');
@@ -197,8 +204,8 @@ angular.module('app.core', [
   };
 
   $scope.fileDetails = function(key, file) {
-    if (file.details != undefined && $scope.file != file) {
-      $scope.file = file.details;
+    if (file.fid != undefined && $scope.file != file) {
+      $scope.file = file;
       $scope.activeKey = key;
     }
     else {
@@ -209,7 +216,6 @@ angular.module('app.core', [
 
   $scope.submit = function($event) {
     //$scope.filters.page++;
-    console.log($scope.selected);
 
     Array.prototype.push.apply($rootScope.files[$rootScope.activeField], $scope.selected);
     jQuery('#'+$rootScope.activeField+'_media').trigger('change');

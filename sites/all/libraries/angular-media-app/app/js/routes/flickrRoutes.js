@@ -67,7 +67,6 @@ angular.module('app.flickr', [
                       $scope.selected.splice(key, 1);
                     }
                   });
-                  console.log($scope.active);
                 }
                 else {
                   $scope.active = item;

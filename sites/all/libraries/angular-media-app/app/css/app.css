@@ -134,85 +134,116 @@
     }
   }
 */
-.edit-form .editable-item {
+.modal-box .modal-close {
+  color: #ccc;
+  right: 10px;
+  position: absolute; }
+.modal-box .preview {
+  position: relative;
+  display: block;
+  max-width: 200px; }
+  .modal-box .preview .preview-overlay {
+    top: 20px;
+    position: absolute;
+    display: none;
+    width: 100%;
+    text-align: center; }
+  .modal-box .preview.croppable {
+    cursor: pointer; }
+    .modal-box .preview.croppable:hover img {
+      opacity: 0.5; }
+    .modal-box .preview.croppable:hover .preview-overlay {
+      display: block; }
+.modal-box .edit-form .editable-item {
   height: auto;
   padding: 5px 0; }
-.edit-form .title {
+.modal-box .edit-form .title {
   display: inline-block;
   font-weight: bold;
   padding-top: 5px;
   vertical-align: top;
   min-width: 90px; }
-.edit-form .editable {
+.modal-box .edit-form .editable {
   display: inline-block;
   padding-top: 5px;
   vertical-align: top; }
-
-img.ng-jcrop-image {
-  max-width: 100% !important;
-  max-height: 500px !important;
-  height: auto !important; }
-
-.browser {
+.modal-box .edit-form .editable-form {
+  margin-left: 10px; }
+.modal-box .image-crop {
+  max-width: 500px; }
+  .modal-box .image-crop .ng-jcrop {
+    padding-bottom: 40px; }
+    .modal-box .image-crop .ng-jcrop img.ng-jcrop-image {
+      max-width: 100% !important;
+      max-height: 500px !important;
+      height: auto !important;
+      margin: 0 auto; }
+.modal-box .browser {
   position: relative;
   margin-top: 10px; }
-  .browser .scroll-wrapper {
+  .modal-box .browser .scroll-wrapper {
     width: 800px;
     height: 400px;
     overflow-y: scroll;
     ms-overflow-x: hidden; }
-  .browser .left, .browser .scroll-wrapper.active {
+  .modal-box .browser .left, .modal-box .browser .scroll-wrapper.active {
     width: 540px; }
-  .browser .thumbnail {
+  .modal-box .browser .thumbnail {
     cursor: pointer; }
-  .browser .sidebar {
+  .modal-box .browser .sidebar {
     width: 250px;
     height: 100%;
     position: absolute;
     right: 0;
     top: 0;
     background: white; }
-    .browser .sidebar h3, .browser .sidebar h5 {
+    .modal-box .browser .sidebar h3, .modal-box .browser .sidebar h5 {
       margin: 0; }
-    .browser .sidebar .preview {
+    .modal-box .browser .sidebar .preview {
       text-align: center; }
-      .browser .sidebar .preview img {
+      .modal-box .browser .sidebar .preview img {
         max-height: 200px;
         margin: 0 auto; }
-    .browser .sidebar .bottom-right, .browser .sidebar .bottom-left {
-      position: absolute;
-      bottom: 10px;
-      right: 10px; }
-      .browser .sidebar .bottom-right.bottom-left, .browser .sidebar .bottom-left.bottom-left {
-        left: 10px;
-        right: auto; }
-  .browser.upload .queue {
+  .modal-box .browser.upload .queue {
     margin-top: 5px;
     height: 185px;
     overflow-y: auto;
     margin-left: -30px; }
-    .browser.upload .queue .queue-item {
+    .modal-box .browser.upload .queue .queue-item {
       padding: 7px 5px 7px 30px;
       cursor: pointer; }
-      .browser.upload .queue .queue-item.active {
+      .modal-box .browser.upload .queue .queue-item.active {
         background-color: #F5F5F5; }
-      .browser.upload .queue .queue-item .file-thumb {
+      .modal-box .browser.upload .queue .queue-item .file-thumb {
         float: right;
         margin-left: 5px; }
-      .browser.upload .queue .queue-item .file-name {
+      .modal-box .browser.upload .queue .queue-item .file-name {
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden;
         display: block;
         font-weight: bold; }
-      .browser.upload .queue .queue-item .file-size {
+      .modal-box .browser.upload .queue .queue-item .file-size {
         float: left;
         margin-right: 5px; }
-      .browser.upload .queue .queue-item .progress {
+      .modal-box .browser.upload .queue .queue-item .progress {
         margin: 3px 5px;
         height: 12px; }
-  .browser.upload .file-details {
+  .modal-box .browser.upload .file-details {
     background-color: #F5F5F5;
     padding: 10px;
     border-radius: 3px;
     min-height: 300px; }
+.modal-box .bottom-left, .modal-box .bottom-right {
+  position: absolute;
+  bottom: 10px; }
+  .modal-box .bottom-left.bottom-left, .modal-box .bottom-right.bottom-left {
+    left: 10px; }
+  .modal-box .bottom-left.bottom-right, .modal-box .bottom-right.bottom-right {
+    right: 10px; }
+
+/* Hack to fix issue with how item is added to page via fapi */
+.field-widget-file-angular-media {
+  margin-bottom: 2em; }
+  .field-widget-file-angular-media .form-item {
+    margin-bottom: 0; }

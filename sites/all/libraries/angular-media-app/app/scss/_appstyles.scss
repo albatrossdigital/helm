@@ -210,135 +210,202 @@
   }
 */
 
-.edit-form {
-  .editable-item {
-    height: auto;
-    padding: 5px 0;
-  }
 
-  .title {
-    display: inline-block;
-    font-weight: bold;
-    padding-top: 5px;
-    vertical-align: top;
-    min-width: 90px;
-  }
+.modal-box {
 
-  .editable {
-    display: inline-block;
-    padding-top: 5px;
-    vertical-align: top;
-  }
-  
-}
-
-img.ng-jcrop-image {
-  max-width: 100% !important;
-  max-height: 500px !important;
-  height: auto !important;
-}
-
-
-.browser {
-  position: relative;
-  margin-top: 10px;
-
-  .scroll-wrapper {
-    width: $modal-width;
-    height: $modal-height;
-    overflow-y: scroll;
-    ms-overflow-x: hidden;  
-  }
-
-  .left,
-  .scroll-wrapper.active {
-    width: $modal-width - $modal-sidebar-width - 10px;
-  }
-
-  .thumbnail {
-    cursor: pointer;
-  }
-
-  .sidebar {
-    width: $modal-sidebar-width;
-    height: 100%;
+  .modal-close {
+    color: #ccc;
+    right: 10px;
     position: absolute;
-    right: 0;
-    top: 0;
-    background: white;
+  }
 
-    h3,
-    h5 {
-      margin: 0;
+  .preview {
+    position: relative;
+    display: block;
+    max-width: 200px;
+
+    .preview-overlay {
+      top: 20px;
+      position: absolute;
+      display: none;
+      width: 100%;
+      text-align: center;
     }
 
-    .preview {
-      text-align: center;
+    &.croppable {
+      cursor: pointer;
 
-      img {
-        max-height: 200px;
-        margin: 0 auto;
+      &:hover {
+        img {
+          opacity: .5;
+        }
+
+        .preview-overlay {
+          display: block;
+        }
       }
     }
     
+  }
 
-    .bottom-right,
-    .bottom-left {
+  .edit-form {
+    .editable-item {
+      height: auto;
+      padding: 5px 0;
+    }
+
+    .title {
+      display: inline-block;
+      font-weight: bold;
+      padding-top: 5px;
+      vertical-align: top;
+      min-width: 90px;
+    }
+
+    .editable {
+      display: inline-block;
+      padding-top: 5px;
+      vertical-align: top;
+    }
+
+    .editable-form {
+      margin-left: 10px;
+    }
+    
+  }
+
+  .image-crop {
+    max-width: 500px;
+
+    .ng-jcrop {
+      padding-bottom: 40px;
+
+      img.ng-jcrop-image {
+        max-width: 100% !important;
+        max-height: 500px !important;
+        height: auto !important;
+        margin: 0 auto;
+      }
+    }
+  }
+
+
+
+
+  .browser {
+    position: relative;
+    margin-top: 10px;
+
+    .scroll-wrapper {
+      width: $modal-width;
+      height: $modal-height;
+      overflow-y: scroll;
+      ms-overflow-x: hidden;  
+    }
+
+    .left,
+    .scroll-wrapper.active {
+      width: $modal-width - $modal-sidebar-width - 10px;
+    }
+
+    .thumbnail {
+      cursor: pointer;
+    }
+
+    .sidebar {
+      width: $modal-sidebar-width;
+      height: 100%;
       position: absolute;
-      bottom: 10px;
+      right: 0;
+      top: 0;
+      background: white;
+
+      h3,
+      h5 {
+        margin: 0;
+      }
+
+      .preview {
+        text-align: center;
+
+        img {
+          max-height: 200px;
+          margin: 0 auto;
+        }
+      }
+    }
+
+    &.upload {
+
+      .queue {
+        margin-top: 5px;
+        height: 185px;
+        overflow-y: auto;
+        margin-left: -30px;
+
+        .queue-item {
+          padding: 7px 5px 7px 30px;
+          cursor: pointer;
+
+          &.active {
+            background-color: #F5F5F5;
+          }
+
+          .file-thumb {
+            float: right;
+            margin-left: 5px;
+          }
+
+          .file-name {
+            @include ellipsis;
+            font-weight: bold;
+          }
+
+          .file-size {
+            float: left;
+            margin-right: 5px;
+          }
+
+          .progress {
+            margin: 3px 5px;
+            height: 12px;
+          }
+        }
+      }
+
+      .file-details {
+        background-color: #F5F5F5;
+        padding: 10px;
+        border-radius: 3px;
+        min-height: 300px;
+      }
+    }
+  }
+
+
+  .bottom-left,
+  .bottom-right {
+    position: absolute;
+    bottom: 10px;
+
+    &.bottom-left {
+      left: 10px;
+    }
+
+    &.bottom-right {
       right: 10px;
-
-      &.bottom-left {
-        left: 10px;
-        right: auto;
-      }
-    }
+    }  
   }
 
-  &.upload {
-
-    .queue {
-      margin-top: 5px;
-      height: 185px;
-      overflow-y: auto;
-      margin-left: -30px;
-
-      .queue-item {
-        padding: 7px 5px 7px 30px;
-        cursor: pointer;
-
-        &.active {
-          background-color: #F5F5F5;
-        }
-
-        .file-thumb {
-          float: right;
-          margin-left: 5px;
-        }
-
-        .file-name {
-          @include ellipsis;
-          font-weight: bold;
-        }
-
-        .file-size {
-          float: left;
-          margin-right: 5px;
-        }
-
-        .progress {
-          margin: 3px 5px;
-          height: 12px;
-        }
-      }
-    }
-
-    .file-details {
-      background-color: #F5F5F5;
-      padding: 10px;
-      border-radius: 3px;
-      min-height: 300px;
-    }
-  }
 }
 
+
+
+/* Hack to fix issue with how item is added to page via fapi */
+.field-widget-file-angular-media {
+  margin-bottom: 2em;
+
+  .form-item {
+    margin-bottom: 0;
+  }
+}

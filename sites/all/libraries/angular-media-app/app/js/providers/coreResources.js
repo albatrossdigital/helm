@@ -21,7 +21,9 @@ angular.module('app.core')
       title: '@title',
       alt: '@alt',
       license: '@license',
+      attribution: '@attribution',
       source: '@source',
-      url: '@url'
+      url: '@url',
+      crop: '@crop'
     }, { 'load': { method: 'JSON' } });
 })

@@ -11,17 +11,36 @@ angular.module('app.core')
   // set rootscope settings
   $scope.init = function(params) {
     //$rootScope.appUrl = params.appUrl != undefined ? params.appUrl : '';
+
+    // @todo: Do this with angular.extend()
     var fieldName = params.fieldName != undefined ? params.fieldName : $rootScope.fieldName;
     $rootScope.activeField = fieldName;
     $rootScope.settings[fieldName] = {};
     $rootScope.settings[fieldName].apiUrl = params.apiUrl != undefined ? params.apiUrl : $rootScope.apiUrl;
     $rootScope.settings[fieldName].cardinality = params.cardinality != undefined ? parseInt(params.cardinality) : $rootScope.cardinality;
     $rootScope.settings[fieldName].multiple = $rootScope.cardinality != 1;
+    //$rootScope.settings[fieldName].tabs = params.tabs != undefined ? params.tabs : $rootScope.tabs;
+    $rootScope.settings[fieldName].allowedTypes = params.allowedTypes != undefined ? params.allowedTypes : undefined;
+    $rootScope.settings[fieldName].cropRatio = params.cropRatio != undefined ? params.cropRatio : undefined;
+    $rootScope.settings[fieldName].allowedSchemes = params.allowedSchemes != undefined ? params.allowedSchemes : undefined;
     $rootScope.files[fieldName] = params.files != undefined ? params.files : $rootScope.files;
-    $rootScope.settings[fieldName].tabs = params.tabs != undefined ? params.files : $rootScope.tabs;
+
+    // Merge in tab data
+    if (params.tabs != undefined) {
+      var tabs = [];
+      angular.forEach(params.tabs, function(tab, key) {
+        if ($rootScope.tabs[tab] != undefined) {
+          tabs.push($rootScope.tabs[tab]);
+        }
+      });
+      $rootScope.settings[fieldName].tabs = tabs;
+    }
+    else {
+      $rootScope.settings[fieldName].tabs = $rootScope.tabs; // @todo: this should only be the values?
+    }
     $rootScope.settings[fieldName].tabs.slice().reverse();
-    
-  console.log('params', params);
+
+    console.log('params', $rootScope.settings[fieldName]);
   }
 
 
@@ -41,13 +60,15 @@ angular.module('app.core')
     $rootScope.files[fieldName].splice(key, 1);
   }
 
-  $scope.edit = function(fid) {
-    console.log('edit', fid);
+  $scope.edit = function(fid, fieldName, key) {
+    $rootScope.activeField = fieldName;
+    $rootScope.activeKey = key;
     $state.go('modal.edit', {fid: fid});
   }
 
   $scope.select = function(fieldName, $event) {
-    $rootScope.settings[$rootScope.activeField].activeField = fieldName;
+    $rootScope.activeField = fieldName;
+    $rootScope.activeKey = undefined;
     $state.go('modal.upload');
     $event.preventDefault();
   }

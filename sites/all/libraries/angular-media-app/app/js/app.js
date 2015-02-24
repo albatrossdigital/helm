@@ -5,7 +5,6 @@
 // Main Application
 
 //***************************************
-
 (function ($) {
 
 angular.module('app', [
@@ -21,14 +20,14 @@ angular.module('app', [
   'infinite-scroll',
   'angularFileUpload',
   //'ngImgCrop',
-  'xeditable',
+  //'xeditable',
   'ngJcrop'
   //'wu.masonry'
 ])
 
 .run(
-  [          '$rootScope', '$state', '$stateParams', '$window', '$location', '$timeout', 'editableOptions',
-    function ($rootScope,   $state,   $stateParams,   $window,   $location, $timeout, editableOptions) {
+  [          '$rootScope', '$state', '$stateParams', '$window', '$location', '$timeout',
+    function ($rootScope,   $state,   $stateParams,   $window,   $location, $timeout) {
 
       $rootScope.settings = {};
       $rootScope.files = {};
@@ -40,13 +39,13 @@ angular.module('app', [
       $rootScope.appUrl = '';
       $rootScope.multiple = false;
       $rootScope.cardinality = 1; // max number of fields
-      $rootScope.tabs = [
-        {key: 'upload', title: 'Upload'},
-        {key: 'browse', title: 'Site Files', params: {person: 'all'}},
-        {key: 'flickr', title: 'Flickr'}
-      ];
-
-      editableOptions.theme = 'bs3';
+      $rootScope.tabs = {
+        upload: {key: 'upload', title: 'Upload'},
+        site: {key: 'browse', title: 'Site Files', params: {person: 'all'}},
+        flickr: {key: 'flickr', title: 'Flickr'}
+        // @todo link: {key: 'link', title: 'Page'}
+        // @todo me: {key: 'browse', title: 'My Files', params: {person: 'all'}}
+      };
 
       // It's very handy to add references to $state and $stateParams to the $rootScope
       // @todo: bad for performance?
