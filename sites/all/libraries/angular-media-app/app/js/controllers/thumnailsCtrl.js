@@ -44,14 +44,35 @@ angular.module('app.core')
 
 
   // Deal with drop to upload
-  $timeout(function() {
+  /*$timeout(function() {
     var uploader = $scope.uploader = new FileUploader({
       url: $rootScope.settings[$rootScope.activeField].apiUrlUpload + 'upload',
       autoUpload: true
     });
   });
-
-
+*/
+//$timeout(function() {
+  console.log(FileUploader);
+  var uploader = $scope.uploader = new FileUploader({
+    url: '/api/angular-media/upload',
+    autoUpload: true
+  });
+  uploader.onAfterAddingFile = function(fileItem) {
+    fileItem.showThumb = fileItem.file.type.indexOf('image') != -1 ? true : false;
+  };
+  uploader.onBeforeUploadItem = function(item) {   
+    $scope.uploading = true;
+  };
+  uploader.onSuccessItem = function(fileItem, response, status, headers) {
+    console.info('onSuccessItem', fileItem, response, status, headers);
+    $scope.selected.push(response);
+    fileItem = response;
+    if ($scope.file == undefined) {
+      $scope.file = fileItem;
+      $scope.activeKey = 0;
+    }
+  };
+//});
   
 
   $scope.remove = function(fieldName, key) {
