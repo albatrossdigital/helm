@@ -26,18 +26,16 @@ angular.module('app.core')
     $rootScope.files[fieldName] = params.files != undefined ? params.files : $rootScope.files;
 
     // Merge in tab data
-    if (params.tabs != undefined) {
-      var tabs = [];
-      angular.forEach(params.tabs, function(tab, key) {
-        if ($rootScope.tabs[tab] != undefined) {
-          tabs.push($rootScope.tabs[tab]);
-        }
-      });
-      $rootScope.settings[fieldName].tabs = tabs;
-    }
-    else {
-      $rootScope.settings[fieldName].tabs = $rootScope.tabs; // @todo: this should only be the values?
-    }
+    var enabledTabs = params.tabs.length > 0 && params.tabs[0] != '' ? params.tabs : $rootScope.defaultTabs;
+    console.log('et',enabledTabs);
+    var tabs = [];
+    angular.forEach(enabledTabs, function(tab, key) {
+      if ($rootScope.tabs[tab] != undefined) {
+        tabs.push($rootScope.tabs[tab]);
+      }
+    });
+    $rootScope.settings[fieldName].tabs = tabs;
+
     $rootScope.settings[fieldName].tabs.slice().reverse();
 
     console.log('params', $rootScope.settings[fieldName]);

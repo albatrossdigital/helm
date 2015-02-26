@@ -46,6 +46,7 @@ angular.module('app', [
         // @todo link: {key: 'link', title: 'Page'}
         // @todo me: {key: 'browse', title: 'My Files', params: {person: 'all'}}
       };
+      $rootScope.defaultTabs = ['upload', 'site', 'flickr'];
 
       // It's very handy to add references to $state and $stateParams to the $rootScope
       // @todo: bad for performance?
