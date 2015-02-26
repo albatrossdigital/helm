@@ -427,7 +427,7 @@ function media_formatters_field_formatter_view($entity_type, $entity, $field, $i
           $markup = theme('image_style', $item);
           if (!empty($entity->{$settings['link_field']})) {
             $wrapper = entity_metadata_wrapper($entity_type, $entity);
-            $markup = l($value, $wrapper->{$settings['link_field']}->url->value(), array('html' => TRUE));
+            $markup = !empty($entity->{$settings['link_field']}) ? l($markup, $wrapper->{$settings['link_field']}->url->value(), array('html' => TRUE)) : $markup;
           }
         }
         else {
@@ -457,6 +457,7 @@ function media_formatters_field_formatter_view($entity_type, $entity, $field, $i
           'title' => $item['title'],
           'alt' => $item['alt'],
         );
+        dpm($options);
         $markup = theme('image_lightbox', $options);
         $element[$delta] = array(
           '#markup' => $markup,
@@ -520,7 +521,7 @@ function _media_formatters_view_lazysizes($entity_type, $entity, $field, $instan
   $markup = theme('image_lazysizes', array(
     'item' => $item, 
     'image_style' => $settings['image_style'],
-    'show_src' => $settings['show_src'],
+    'show_src' => !empty($settings['show_src']) ? $settings['show_src'] : NULL,
     'image_style_xs' => $settings['image_style_xs'],
     'image_style_sm' => $settings['image_style_sm'],
     'image_style_md' => $settings['image_style_md'],

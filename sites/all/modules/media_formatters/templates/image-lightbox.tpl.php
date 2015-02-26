@@ -7,5 +7,5 @@
     <?php endif; ?>
   </a>
 <?php else: ?>
-<div data-toggle="lightbox" data-gallery="<?php print $gallery ?>" data-remote="<?php print $path_lightbox ?>" data-title="<?php print $title ?>"></div>
+  <div data-toggle="lightbox" data-gallery="<?php print $gallery ?>" data-remote="<?php print $path_lightbox ?>" data-title="<?php print $title ?>"></div>
 <?php endif; ?>

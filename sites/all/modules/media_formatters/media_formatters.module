@@ -147,10 +147,11 @@ function template_preprocess_image_lazysizes(&$variables) {
     $style = $variables['image_style_'.$key];
     if (!empty($style)) {
       $style = $style == 'default' ? $item['style'] : $style;
-      $url = image_style_url($style, $path);
+      $url = !empty($style) ? image_style_url($style, $path) : file_create_url($path);
       $src_set[] = $url . ' ' . $item['width'] . 'w';
     }
   }
+  dpm( $src_set);
   if (!empty($src_set)) {
     $variables['src_set'] = implode(', ', $src_set);
   }
@@ -168,6 +169,6 @@ function template_preprocess_image_lazysizes(&$variables) {
 function template_preprocess_image_lightbox(&$variables) {
   // Add the js
   libraries_load_files(libraries_load('ekko-lightbox'));
-  drupal_add_js(drupal_get_path('module', 'media_formatters') . '/js/bootstrap-lightbox.js');
+  drupal_add_js(drupal_get_path('module', 'media_formatters') . '/js/bootstrap-lightbox.js', array('scope' => 'footer'));
 }
 
