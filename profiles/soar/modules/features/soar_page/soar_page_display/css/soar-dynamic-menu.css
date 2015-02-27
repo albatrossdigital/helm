@@ -1,0 +1,50 @@
+
+.menu-collection {
+  overflow: hidden;
+}
+
+.menu-collection > div {
+  position: relative;
+  -moz-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
+  -webkit-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+}
+
+.menu-collection > div > div {
+  float: left;
+}
+
+[data-menu-back] a:before {
+  content: "\f104";
+  display: inline-block;
+  font-family: FontAwesome;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin-right: 0.3em;
+}
+
+.level-1-active {
+  margin-left: 0%!important;
+}
+.level-2-active {
+  margin-left: -100%!important;
+}
+.level-3-active {
+  margin-left: -200%!important;
+}
+.level-4-active {
+  margin-left: -300%!important;
+}
+.level-5-active {
+  margin-left: -400%!important;
+}
+.level-6-active {
+  margin-left: -500%!important;
+}
+.level-7-active {
+  margin-left: -500%!important;
+}
