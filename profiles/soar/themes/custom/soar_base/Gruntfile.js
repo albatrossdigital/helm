@@ -206,5 +206,5 @@ module.exports = function(grunt) {
   grunt.registerTask('default', ['warn', 'sass:dev','stripmq','watch']);
 
   // Run watch with options
-  grunt.registerTask('build', ['compile-sass', 'uglify', 'concat:dist']);
+  grunt.registerTask('build', ['compile-sass', 'uglify']);
 }

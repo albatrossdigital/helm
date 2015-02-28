@@ -10,7 +10,7 @@ base theme = radix
 stylesheets[all][] = css/custom.css
 
 
-scripts[] = js/bootstrap-full.min.js
+scripts[] = js/custom-bootstrap.min.js
 
 ; Theme scripts.
 ; This file is empty, just uncomment this line and start editing!

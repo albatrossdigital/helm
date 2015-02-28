@@ -39,7 +39,7 @@ scripts[] = js/vendor/custom.modernizr.js
 ; Foundation framework scripts (minified).
 ; Use the Gruntfile to exclude scripts from this minified file
 ; in the "Uglify" grunt task
-scripts[] = js/bootstrap-full.min.js
+scripts[] = js/custom-bootstrap.min.js
 
 ; Theme scripts.
 ; This file is empty, just uncomment this line and start editing!
