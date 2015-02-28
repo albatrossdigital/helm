@@ -1,4 +1,4 @@
-<span class="image-lazysize">
+<div class="image-lazysize">
   <img
     <?php if (!empty($alt)): ?>alt="<?php print $alt; ?>"<?php endif; ?>
     <?php if (!empty($title)): ?>title="<?php print $title; ?>"<?php endif; ?>
@@ -14,4 +14,4 @@
     <span class="image-attribution-icon glyphicon glyphicon-camera fa fa-camera"></span>
     <span class="image-attribution-text"><?php print $attribution; ?></span>
   </span><?php endif; ?>
-</span>
+</div>

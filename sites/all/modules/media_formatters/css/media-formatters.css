@@ -1,7 +1,11 @@
 /* CSS for attribution box on images */
 .image-lazysize {
   position: relative;
-  display: inline-block;
+}
+
+img[data-sizes="auto"] { 
+  display: block; 
+  width: 100%;
 }
 
 .image-lazysize .image-attribution {

@@ -115,18 +115,23 @@ function media_formatters_theme($existing, $type, $theme, $path) {
 function template_preprocess_image_lazysizes(&$variables) {
   // Determine the dimensions of the styled image.
   // @todo: do we want to do any of this?
-  //$dimensions = array(
-  //  'width' => $variables['width'],
-  //  'height' => $variables['height'],
-  //);
+  // $dimensions = array(
+  //   'width' => $variables['width'],
+  //   'height' => $variables['height'],
+  // );
   //image_style_transform_dimensions($variables['image_style'], $dimensions);
-  //$variables['width'] = $dimensions['width'];
-  //$variables['height'] = $dimensions['height'];
+  // $variables['width'] = $dimensions['width'];
+  // $variables['height'] = $dimensions['height'];
 
   // attrs
   $item = $variables['item'];
   $variables['title'] = !empty($item['title']) ? $item['title'] : NULL;
   $variables['alt'] = !empty($item['alt']) ? $item['alt'] : NULL;
+
+  $dimensions = array(
+    'width' => $item['width'],
+    'height' => $item['height']
+  );
 
   // attribution field (based on title)
   if (!empty($item['title']) && $variables['show_attribution']) {
@@ -140,25 +145,47 @@ function template_preprocess_image_lazysizes(&$variables) {
   $style = $variables['image_style'] == 'default' ? variable_get('media_formatters_style_default', '') : $variables['image_style'];
   $variables['src'] = !empty($style) ? image_style_url($style, $path) : file_create_url($path);
   
-  // src_set
+  // src_set and calc sizes 
   $image_styles = _media_formatters_breakpoints();
   $src_set = array();
+  $sizes = array();
   foreach ($image_styles as $key => $item) {
     $style = $variables['image_style_'.$key];
     if (!empty($style)) {
       $style = $style == 'default' ? $item['style'] : $style;
-      $url = !empty($style) ? image_style_url($style, $path) : file_create_url($path);
+
+      if(!empty($style)) {
+        $url = image_style_url($style, $path);
+
+        // Get sizes
+        // @todo figure out these sizes
+        // $dimen = $dimensions;
+        // image_style_transform_dimensions($style, $dimen);
+        // dpm($dimen);
+        // // Add some rules
+        // $sizes[] = '(min-width: ' . $item['width'] . 'px) ' . $dimen['width'] . 'px';
+      }
+      else {
+        $url = file_create_url($path);
+      }
       $src_set[] = $url . ' ' . $item['width'] . 'w';
+      //dpm($dimensions);
     }
   }
-  dpm( $src_set);
   if (!empty($src_set)) {
     $variables['src_set'] = implode(', ', $src_set);
   }
 
+  // Calc sizes
+  //@todo figure out this
+  // $sizes[] = '100vw';
+  // $variables['sizes'] = implode(', ', $sizes);
+  // dpm($image_styles);
+  // dpm($variables);
+
   // Add the js
   libraries_load_files(libraries_load('lazysizes'));
-  drupal_add_css(drupal_get_path('module', 'media_formatters') . '/css/media-formatters-images.css');
+  drupal_add_css(drupal_get_path('module', 'media_formatters') . '/css/media-formatters.css');
 
   unset($variables['item']);
 }

@@ -99,6 +99,7 @@ function media_formatters_field_info_alter(&$info) {
  * Implements hook_field_formatter_settings_form().
  */
 function media_formatters_field_formatter_settings_form($field, $instance, $view_mode, $form, &$form_state) {
+
   $display = $instance['display'][$view_mode];
   $settings = $display['settings'];
 
@@ -457,7 +458,6 @@ function media_formatters_field_formatter_view($entity_type, $entity, $field, $i
           'title' => $item['title'],
           'alt' => $item['alt'],
         );
-        dpm($options);
         $markup = theme('image_lightbox', $options);
         $element[$delta] = array(
           '#markup' => $markup,
@@ -486,9 +486,9 @@ function media_formatters_field_formatter_view($entity_type, $entity, $field, $i
 
   // Boostrap lightbox
   if ($display['type'] == 'bootstrap_lightbox') {
-    // @todo: Wrap with row
-    $element[0]['#prefix'] = '<div class="row">';
-    //$element[count($element)]['#suffix'] = '</div>';
+    $element[0]['#prefix'] = '<div class="row lightbox-gallery-wrapper">';
+    $element[(count($element) - 1)]['#suffix'] = '</div>';
+    $element = array($element);
   }
 
   // Add a default image to image_super formats
@@ -586,7 +586,6 @@ function _media_formatters_view_video_click_to_play($entity_type, $entity, $fiel
       }
       // Lightbox
       else {
-        dpm($item);
         $options = array(
           'img' => $markup,
           'path_lightbox' => $item['metadata']['oembed']['original_url'],

@@ -1,5 +1,5 @@
 <?php if(!$is_hidden): ?>
-  <a href="<?php print $path_lightbox ?>" data-toggle="lightbox" data-gallery="<?php print $gallery ?>" data-title="<?php print $title ?>" class="<?php print $class ?>">
+  <a href="<?php print $path_lightbox ?>" data-toggle="lightbox" data-gallery="<?php print $gallery ?>" data-title="<?php print $title ?>" data-parent=".lightbox-gallery-wrapper" class="<?php print $class ?>">
     <?php if(!empty($img)): ?>
       <?php print $img ?>
     <?php else: ?>
