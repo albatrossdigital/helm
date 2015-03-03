@@ -28,9 +28,9 @@ CKEDITOR.plugins.add( 'widgetbootstrap', {
             'div(!col-md-6,col-md-3,col-md-9,col-sidebar,col-main,col-1,col-2,col-3)'
             'div(!alert-box,success,alert,warning,info,secondary,alert-text)';
         var allowedWidget = editor.config.widgetbootstrap_allowedWidget != undefined ? editor.config.widgetbootstrap_allowedFull :
-            'p span br ul ol li strong em img[!src,alt,width,height]';
-        var allowedText = editor.config.widgetbootstrap_allowedText != undefined ? editor.config.widgetbootstrap_allowedFull :
-            'p span br ul ol li strong em';
+            'p h2 h3 h4 h5 h6 span br ul ol li strong em img[!src,alt,width,height]';
+        //var allowedText = editor.config.widgetbootstrap_allowedText != undefined ? editor.config.widgetbootstrap_allowedFull :
+        //    'p span br ul ol li strong em';
 
 
         //allowedWidget = 'img[!src,alt,width,height]';
@@ -56,7 +56,7 @@ CKEDITOR.plugins.add( 'widgetbootstrap', {
                 },
                 col2: {
                     selector: '.col-main',
-                    allowedContent: allowedText
+                    allowedContent: allowedWidget
                 }
             },
 
@@ -85,7 +85,7 @@ CKEDITOR.plugins.add( 'widgetbootstrap', {
                 },
                 col2: {
                     selector: '.col-main',
-                    allowedContent: allowedText
+                    allowedContent: allowedWidget
                 }
             },
 
