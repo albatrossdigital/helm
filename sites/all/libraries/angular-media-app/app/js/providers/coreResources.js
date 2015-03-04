@@ -24,6 +24,7 @@ angular.module('app.core')
       attribution: '@attribution',
       source: '@source',
       url: '@url',
-      crop: '@crop'
+      crop: '@crop',
+      external: '@external'
     }, { 'load': { method: 'JSON' } });
 })

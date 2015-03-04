@@ -53,6 +53,16 @@ angular.module('app', [
       $rootScope.$state = $state;
       $rootScope.$stateParams = $stateParams;
 
+      // Adds the files to the individual fields.  Called from the various browsers.
+      $rootScope.addFiles = function(files) {
+        Array.prototype.push.apply($rootScope.files[$rootScope.activeField], files);
+        if ($rootScope.settings[$rootScope.activeField].addlFieldName != undefined && $rootScope.files[$rootScope.settings[$rootScope.activeField].addlFieldName] != undefined) {
+          Array.prototype.push.apply($rootScope.files[$rootScope.settings[$rootScope.activeField].addlFieldName], files);
+        }
+        jQuery('#'+$rootScope.activeField+'_media').trigger('change');
+        $state.go('base');
+      }
+
    
       $rootScope.$on('$stateChangeSuccess', 
         function(event, toState, toParams, fromState, fromParams){

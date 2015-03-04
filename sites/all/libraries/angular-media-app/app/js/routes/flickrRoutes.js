@@ -123,9 +123,8 @@ angular.module('app.flickr', [
 
                   // Done processing queue
                   if ($scope.queue.completed >= $scope.queue.total) {
-                    Array.prototype.push.apply($rootScope.files[$rootScope.activeField], $scope.queue.files);
+                    $rootScope.addFiles($scope.queue.files);
                     $scope.queue = undefined;
-                    $state.go('base');
                   }
                 });
 

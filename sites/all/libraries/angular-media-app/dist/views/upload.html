@@ -31,8 +31,8 @@
         <div class="or">or</div>
         <div>
           <div class="form-inline">
-            <input type="text" class="form-control" model="external" placeholder="http://">
-            <button class="btn btn-primary">Fetch</button>
+            <input type="text" class="form-control" id="externalFile" ng-model="externalFile" placeholder="http://">
+            <button class="btn btn-primary" ng-click="fetch($event)">Fetch</button>
           </div>
           <div class="description">Enter the url of a video, image or document (https://www.youtube.com/watch?v=iy3QS3vO0ag or http://www.analysis.im/uploads/seminar/pdf-sample.pdf)</div>
         </div>

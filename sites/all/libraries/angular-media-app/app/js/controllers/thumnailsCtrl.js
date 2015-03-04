@@ -23,6 +23,7 @@ angular.module('app.core')
     $rootScope.settings[fieldName].allowedTypes = params.allowedTypes != undefined ? params.allowedTypes : undefined;
     $rootScope.settings[fieldName].cropRatio = params.cropRatio != undefined ? params.cropRatio : undefined;
     $rootScope.settings[fieldName].allowedSchemes = params.allowedSchemes != undefined ? params.allowedSchemes : undefined;
+    $rootScope.settings[fieldName].addlFieldName = params.addlFieldName != undefined ? params.addlFieldName : undefined;
     $rootScope.files[fieldName] = params.files != undefined ? params.files : $rootScope.files;
 
     // Merge in tab data

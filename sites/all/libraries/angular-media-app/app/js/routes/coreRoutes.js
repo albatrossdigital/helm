@@ -154,9 +154,7 @@ angular.module('app.core', [
   $scope.submit = function($event) {
     //$scope.filters.page++;
 
-    Array.prototype.push.apply($rootScope.files[$rootScope.activeField], $scope.selected);
-    jQuery('#'+$rootScope.activeField+'_media').trigger('change');
-    $state.go('base');
+    $rootScope.addFiles($scope.selected);
     $event.preventDefault();
 
     //var newData = Flickr.load($scope.filters);
@@ -175,7 +173,7 @@ angular.module('app.core', [
 
 
 
-.controller('upload', function($scope, $rootScope, $state, $stateParams, FileUploader){
+.controller('upload', function($scope, $rootScope, $state, $stateParams, FileUploader, CoreFile){
   $scope.uploading = false;
   $scope.selected = [];
 
@@ -216,16 +214,28 @@ angular.module('app.core', [
 
   $scope.submit = function($event) {
     //$scope.filters.page++;
-
-    Array.prototype.push.apply($rootScope.files[$rootScope.activeField], $scope.selected);
-    jQuery('#'+$rootScope.activeField+'_media').trigger('change');
+    $rootScope.addFiles($scope.selected);   
     $scope.selected = [];
-    $state.go('base');
 
     $event.preventDefault();
 
     //var newData = Flickr.load($scope.filters);
     //Array.prototype.push.apply($scope.items, newData);
+  }
+
+  $scope.fetch = function($event) {
+    var file = new CoreFile({
+      external: 'https://www.youtube.com/watch?v=HZEChv1AaOk'//jQuery('#externalFile').val()//$scope.externalFile
+    });
+    console.log('FILE', $scope.externalFile);
+    $scope.externalFile = 'asdf';
+    
+    file.$save(function(data) {
+      console.log('NEW FILE', data);
+      $rootScope.addFiles([data]);
+    });
+
+    $event.preventDefault();
   }
   
 
