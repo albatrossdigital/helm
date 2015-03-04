@@ -99,13 +99,17 @@ function angular_media_field_widget_form(&$form, &$form_state, $field, $instance
     'files' => array(),
     'crop_ratio' => $crop_ratio,
   );
+
+  if (!empty($_POST[$instance['field_name'].'_media'])) {
+    $options['files'] = json_decode($_POST[$instance['field_name'].'_media']);
+  }
+
   $options = array_merge($settings, $options);
   foreach ($items as $item) {
     $options['files'][] = angular_media_simplify_file($item);
   }
 
   //dpm($options);
-
 
   $path = angular_media_app_path();
   $form['#attached'] = array(

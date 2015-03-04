@@ -84,7 +84,7 @@ function angular_media_admin_form($form, &$form_state) {
   $form['ckeditor']['angular_media_ckeditor_field_image'] = array(
     '#title' => t('Images: Add to field'),
     '#type' => 'select',
-    '#default_value' => variable_get('angular_media_ckeditor_field_image', array('')),
+    '#default_value' => variable_get('angular_media_ckeditor_field_image', ''),
     '#options' => $options,
     '#description' => t('Select a field to append to when selecting images in the CKEditor image source browser.'),
   );
@@ -92,7 +92,7 @@ function angular_media_admin_form($form, &$form_state) {
   $form['ckeditor']['angular_media_ckeditor_field_link'] = array(
     '#title' => t('Files: Add to field'),
     '#type' => 'select',
-    '#default_value' => variable_get('angular_media_ckeditor_field_link', array('')),
+    '#default_value' => variable_get('angular_media_ckeditor_field_link', ''),
     '#options' => $options,
     '#description' => t('Select a field to append to when selecting files in the CKEditor link browser.'),
   );

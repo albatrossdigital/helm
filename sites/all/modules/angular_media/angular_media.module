@@ -216,10 +216,19 @@ function angular_media_callback_file($fid = NULL) {
   if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     watchdog('angular_media', 'file post <pre>%f</pre>', array('%f' => print_r($file,1)));
     
-    // Copy file over from url
+    // Copy file over from url (flickr)
     if (!empty($_GET['url'])) {
       $file = angular_media_file_url_to_object($_GET['url'], $_GET['filename']);
       watchdog('angular_media', 'file copy from url <pre>%f</pre>', array('%f' => print_r($file,1)));
+    }
+
+    // Copy file over from external url (fetch)
+    if (!empty($_REQUEST['external'])) {
+      // Save the remote file
+      $provider = media_internet_get_provider($_REQUEST['external']);
+      // Providers decide if they need to save locally or somewhere else.
+      // This method returns a file object
+      $file = $provider->save();
     }
 
     // Process crop
@@ -450,11 +459,8 @@ function angular_media_theme() {
 function angular_media_ckeditor_plugin() {
   $plugins = array();
   $plugins['angularMedia'] = array(
-    // Plugin name.
     'name' => 'angularMedia',
-    // Plugin description - it will be displayed in the plugins management section of the profile settings.
     'desc' => t('Plugin for Angular Media Browser'),
-    // The full path to the CKEditor plugin directory, trailing slash included.
     'path' => drupal_get_path('module', 'angular_media') . '/plugins/angularMedia/',
   );
   return $plugins;
@@ -466,8 +472,8 @@ function angular_media_ckeditor_plugin() {
  * Add the Angular Media field for CKEditor.
  */
 function angular_media_form_alter(&$form, &$form_state, $form_id) {
-  // @todo: taxonomy...
-  if ($form_id === 'page_node_form' || $form_id === 'page_node_form') {
+  // @todo: other entity types...
+  if ($form_id === 'page_node_form' || $form_id === 'taxonomy_form_term') {
     $field_name = 'media_ckeditor';
 
     $crop_ratio = variable_get('angular_media_ckeditor_crop_ratio', array('free'));
@@ -483,12 +489,12 @@ function angular_media_form_alter(&$form, &$form_state, $form_id) {
     }
 
     $options = array(
-      //'hidden' => 1,
+      'hidden' => 1,
       'cardinality' => 9999,
       'field_name' => $field_name,
       'files' => array(),
       'crop_ratio' =>  $crop_ratio,
-      'addl_field_name' => variable_get('angular_media_ckeditor_tabs', ''),
+      'addl_field_name' => variable_get('angular_media_ckeditor_field_image', ''),
     );
     $options = array_merge($settings, $options);
 
@@ -524,7 +530,6 @@ function angular_media_form_alter(&$form, &$form_state, $form_id) {
     $form['angular_media_fields'] = isset($form['angular_media_fields']) ? $form['angular_media_fields'] : array('#type' => 'value', '#value' => array());
     $form['angular_media_fields']['#value'][] = $field_name;
 
-    dpm($form);
   }
 }
 

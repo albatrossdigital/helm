@@ -1,5 +1,5 @@
 <script type="text/javascript">var appUrl = '<?php print $app_url; ?>';</script>
-<div class="angular-media-field">
+<div class="angular-media-field" <?php if($hidden): ?>style="display: none;"<?php endif; ?>>
   <div ui-view></div>
   <div class="thumbnails" ng-class="" ng-controller="thumbnails" ng-init='init({
   apiUrl: "<?php print $api_url; ?>",
@@ -11,6 +11,7 @@
   cropRatio: "<?php print $crop_ratio; ?>",
   allowedSchemes: <?php print $allowed_schemes; ?>,
   flickrApiKey: "<?php print $flickr_key; ?>",
+  addlFieldName: "<?php print $addl_field_name; ?>",
 })'><!-- nv-file-drop="" uploader="uploader"-->
     
     
@@ -31,7 +32,7 @@
     <?php endif; ?>
   </div>
 
-  <input type="textfield" name="<?php print $field_name; ?>_media" id="<?php print $field_name; ?>_media" value="{{files['<?php print $field_name; ?>']}}" />
+  <input type="hidden" name="<?php print $field_name; ?>_media" id="<?php print $field_name; ?>_media" value="{{files['<?php print $field_name; ?>']}}" />
   
   <div class="clearfix"></div>
 </div> 
