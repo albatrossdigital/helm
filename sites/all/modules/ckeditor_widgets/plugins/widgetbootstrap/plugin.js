@@ -23,17 +23,15 @@ CKEDITOR.plugins.add( 'widgetbootstrap', {
     init: function( editor ) {
         
         // Configurable settings
+        //var allowedWidget = editor.config.widgetbootstrap_allowedWidget != undefined ? editor.config.widgetbootstrap_allowedFull :
+        //    'p h2 h3 h4 h5 h6 span br ul ol li strong em img[!src,alt,width,height]';
         var allowedFull = editor.config.widgetbootstrap_allowedFull != undefined ? editor.config.widgetbootstrap_allowedFull :
-            'div(!row,two-col-left,two-col-right,accordion,two-col,three-col){width};' +
-            'div(!col-md-6,col-md-3,col-md-9,col-sidebar,col-main,col-1,col-2,col-3)'
-            'div(!alert-box,success,alert,warning,info,secondary,alert-text)';
-        var allowedWidget = editor.config.widgetbootstrap_allowedWidget != undefined ? editor.config.widgetbootstrap_allowedFull :
-            'p h2 h3 h4 h5 h6 span br ul ol li strong em img[!src,alt,width,height]';
+            'p a div span h2 h3 h4 h5 h6 section article iframe object embed strong b i em cite pre blockquote small sub sup code ul ol li dl dt dd table thead tbody th tr td img caption mediawrapper br[href,src,target,width,height,colspan,span,alt,name,title,class,id,data-options]{text-align,float,margin}(*);'
         //var allowedText = editor.config.widgetbootstrap_allowedText != undefined ? editor.config.widgetbootstrap_allowedFull :
         //    'p span br ul ol li strong em';
 
 
-        //allowedWidget = 'img[!src,alt,width,height]';
+        allowedWidget = allowedFull;
         //allowedText = allowedWidget;
 
         var showButtons = editor.config.widgetbootstrapShowButtons != undefined ? editor.config.widgetbootstrapShowButtons : true;
