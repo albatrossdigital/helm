@@ -157,7 +157,7 @@ function angular_media_cropRatios() {
   return array(
     'free' => 'Freeform',
     '1/1' => '1:1 (Square)',
-    '4/3' => '3:4 (Picture)',
+    '4/3' => '4:3 (Picture)',
     '16/9' => '16:9 (Widescreen)',
     'none' => 'No cropping'
   );
@@ -448,27 +448,15 @@ function angular_media_form_alter(&$form, &$form_state, $form_id) {
   if ($form_id === 'page_node_form' || $form_id === 'taxonomy_form_term') {
     $fieldName = 'media_ckeditor';
 
-    $cropRatio = variable_get('angular_media_ckeditor_cropRatio', array('free'));
-    $cropRatio = !empty($cropRatio[0]) ? $cropRatio[0] : '';
-
-    $settings = array(
-      'tabs' => variable_get('angular_media_ckeditor_tabs_image', array('upload', 'file', 'flickr')),
-    );
-    foreach ($settings as &$value) {
-      $value = array_filter($value);
-      $value = !empty($value) ? array_keys($value) : array();
-      $value = json_encode($value);
-    }
-
     $options = array(
       'hidden' => 1,
       'cardinality' => 9999,
       'fieldName' => $fieldName,
       'files' => array(),
-      'cropRatio' =>  $cropRatio,
+      'cropRatio' =>  variable_get('angular_media_ckeditor_cropRatio', 'free'),
       'addlFieldName' => variable_get('angular_media_ckeditor_field_image', ''),
+      'tabs' => variable_get('angular_media_ckeditor_tabs_image', array('upload', 'file', 'flickr')),
     );
-    $options = array_merge($settings, $options);
 
     $path = angular_media_app_path();
     $form[$fieldName]['#attached'] = array(
@@ -488,8 +476,8 @@ function angular_media_form_alter(&$form, &$form_state, $form_id) {
     );
     $element = array(
       '#type' => 'textfield',
-      '#title' => $instance['label'],
-      '#required' => $instance['required'],
+      //'#title' => $instance['label'],
+      //'#required' => $instance['required'],
       '#suffix' => theme('angular_media_app', array('settings' => $options)),
       '#attributes' => array('style' => 'display:none'),
     );
@@ -518,21 +506,21 @@ function angular_media_theme() {
       'variables' => array(
         //'app_path' => url(angular_media_app_path()),
         //'api_path' => url('services/rest'),
+        'appUrl' => url(angular_media_app_path()),
+        'style' => 'thumbnails',
+        'hidden' => FALSE,
         'settings' => array(
           'fieldName' => '',
           'addlFieldName' => '',
           'files' => array(),
           'cardinality' => 1,
-          'style' => 'thumbnails',
           'tabs' => NULL,
           'allowedTypes' => NULL,
           'cropRatio' => NULL,
           'allowedSchemes' => NULL,
-          'appUrl' => url(angular_media_app_path()),
-          'apiUrl' => url('api/angular-media') . '/',
+          'apiUrl' => '',
           'flickrKey' => NULL,
           'flickrSearch' => NULL,
-          'hidden' => FALSE,
         )
         
       )
@@ -545,6 +533,7 @@ function angular_media_theme() {
  */
 function template_preprocess_angular_media_app(&$variables) {
   $settings = $variables['settings'];
+  $settings['apiUrl'] = url('api/angular-media') . '/';
 
   // Add settings from variables
   foreach (array('flickrKey', 'flickrSearch') as $key) {
@@ -555,25 +544,29 @@ function template_preprocess_angular_media_app(&$variables) {
   if (!count($settings['tabs']) || empty($settings['tabs'][0])) {
     $settings['tabs'] = angular_media_tabs();
   }
+
   if (empty($settings['flickrKey'])) {
-    $settings['tabs']['flickr'] = FALSE;
+    unset($settings['tabs']['flickr']);
   }
 
   // Some variables are not needed in $settings
   foreach (array('style', 'hidden') as $key) {
-    $variables[$key] = $settings[$key];
-    unset($settings[$key]);
+    if (!empty($settings[$key])) {
+      $variables[$key] = $settings[$key];
+      unset($settings[$key]);
+    }
   }
-
-  
 
   // Cleanup Drupal select output
   foreach (array('tabs', 'allowedTypes', 'allowedSchemes') as $key) {
-    $settings[$key] = array_filter($settings[$key]);
-    $settings[$key] = !empty($settings[$key]) ? array_keys($settings[$key]) : array();
+    if (!empty($settings[$key])) {
+      $settings[$key] = array_filter($settings[$key]);
+      $settings[$key] = !empty($settings[$key]) ? array_keys($settings[$key]) : array();
+    }
   }
-
 
   $variables['fieldName'] = $settings['fieldName'];
   $variables['settings'] = json_encode($settings, JSON_HEX_QUOT);
+
+  dpm($settings);
 }

@@ -58,7 +58,7 @@ function angular_media_admin_form($form, &$form_state) {
     '#type' => 'textfield',
     '#title' => t('API Key'),
     '#default_value' => variable_get('angular_media_flickrKey', ''),
-    '#description' => t('Obtain your !link.', l('api key from Flickr', 'https://www.flickr.com/services/apps/create/apply', array('target' => '_blank'))),
+    '#description' => t('Obtain your !link.', array('!link' => l('api key from Flickr', 'https://www.flickr.com/services/apps/create/apply', array('target' => '_blank')))),
   );
   $form['flickr']['angular_media_flickrSearch'] = array(
     '#type' => 'textfield',

@@ -1,4 +1,4 @@
-<script type="text/javascript">var appUrl = '<?php print $app_url; ?>';</script>
+<script type="text/javascript">var appUrl = '<?php print $appUrl; ?>';</script>
 <div class="angular-media-field" <?php if($hidden): ?>style="display: none;"<?php endif; ?>>
   <div ui-view></div>
   <div class="thumbnails" ng-class="" ng-controller="thumbnails" ng-init="init(<?php print str_replace('"', '\'', $settings); ?>)"><!-- nv-file-drop="" uploader="uploader"-->
