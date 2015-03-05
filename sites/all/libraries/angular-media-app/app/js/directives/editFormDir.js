@@ -5,7 +5,7 @@
 // 
 angular.module('app.core')
 
-.directive('editForm', function($rootScope, CoreFile, ngJcropConfigProvider) {
+.directive('editForm', function($rootScope, CoreFile) {
   return {
     restrict: 'A',
     templateUrl: appUrl + 'views/editForm.html',

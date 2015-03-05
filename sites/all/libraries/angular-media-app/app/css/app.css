@@ -36,6 +36,35 @@
     width: 50%;
     padding: 30px; } }
 
+@-webkit-keyframes spin {
+  from {
+    -webkit-transform: rotate(0deg); }
+
+  to {
+    -webkit-transform: rotate(360deg); } }
+
+@-moz-keyframes spin {
+  from {
+    -moz-transform: rotate(0deg); }
+
+  to {
+    -moz-transform: rotate(360deg); } }
+
+@keyframes spin {
+  from {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg); }
+
+  to {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg); } }
+
 .angular-media-field .thumbnails {
   display: inline;
   margin-left: -10px; }
@@ -106,7 +135,9 @@
 .drop-zone, .thumbnail.drop-zone {
   border: 2px dashed #ccc;
   padding: 10px;
-  text-align: center; }
+  text-align: center;
+  position: relative;
+  background-color: rgba(238, 238, 238, 0); }
   .drop-zone .or, .thumbnail.drop-zone .or {
     font-size: 0.8em;
     text-transform: uppercase;
@@ -122,6 +153,42 @@
     text-align: left;
     width: 85%;
     margin: 5px auto; }
+  .drop-zone, .drop-zone > *, .thumbnail.drop-zone, .thumbnail.drop-zone > * {
+    -webkit-transition: background ease-out 0.1s;
+    -moz-transition: background ease-out 0.1s;
+    transition: background ease-out 0.1s; }
+  .drop-zone > *, .thumbnail.drop-zone > * {
+    opacity: 1; }
+  .drop-zone.upload-active, .thumbnail.drop-zone.upload-active {
+    background-color: #eeeeee; }
+    .drop-zone.upload-active > *, .thumbnail.drop-zone.upload-active > * {
+      opacity: 0.5; }
+    .drop-zone.upload-active:before, .thumbnail.drop-zone.upload-active:before {
+      content: "\e031";
+      display: inline-block;
+      font-family: 'Glyphicons Halflings';
+      font-style: normal;
+      font-weight: 400;
+      -webkit-font-smoothing: antialiased;
+      position: absolute;
+      top: 50%;
+      margin-top: -15px;
+      left: 50%;
+      margin-left: -15px;
+      text-align: center;
+      width: 30px;
+      height: 30px;
+      line-height: 30px;
+      font-size: 28px;
+      -webkit-animation: spin 2s infinite linear;
+      -moz-animation: spin 2s infinite linear;
+      animation: spin 2s infinite linear;
+      -webkit-transform-origin: 15px 14px;
+      -moz-transform-origin: 15px 14px;
+      -ms-transform-origin: 15px 14px;
+      -o-transform-origin: 15px 14px;
+      transform-origin: 15px 14px;
+      z-index: 1; }
 
 /*
   form {
