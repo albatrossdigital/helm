@@ -5,7 +5,7 @@ angular.module('app.flickr')
 .factory('Flickr', function ($resource, $rootScope) {
 
     return $resource('https://api.flickr.com/services/rest/', {
-      api_key: $rootScope.flickrApiKey, //@todo?
+      api_key: $rootScope.flickrKeyKey, //@todo?
       format: 'json', 
       jsoncallback: 'JSON_CALLBACK'
     }, { 'load': { method: 'JSONP' } });

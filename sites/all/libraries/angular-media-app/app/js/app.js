@@ -29,18 +29,17 @@ angular.module('app', [
   [          '$rootScope', '$state', '$stateParams', '$window', '$location', '$timeout',
     function ($rootScope,   $state,   $stateParams,   $window,   $location, $timeout) {
 
-      $rootScope.settings = {};
+      $rootScope.settings = {defaults: {}};
       $rootScope.files = {};
-      $rootScope.flickrApiKey = '5202f8e46861f39f55bedfa2374a41d8';
-      $rootScope.apiUrlUpload = 'http://liftoff.local/api/angular-media/';
-      $rootScope.apiUrlBrowse = 'http://liftoff.local/api/angular-media/';
+      $rootScope.settings.defaults.flickrKey = '5202f8e46861f39f55bedfa2374a41d8';
+      //$rootScope.settings.defaults.apiUrl = 'http://liftoff.local/api/angular-media/';
       // $rootScope.apiUrlUpload = 'http://soar-current.local/api/angular-media';
       // $rootScope.apiUrlBrowse = 'http://soar-current.local/api/angular-media';
 
 
-      $rootScope.appUrl = '';
-      $rootScope.multiple = false;
-      $rootScope.cardinality = 1; // max number of fields
+      $rootScope.settings.defaults.appUrl = '';
+      $rootScope.settings.defaults.multiple = false;
+      $rootScope.settings.defaults.cardinality = 1; // max number of fields
       $rootScope.tabs = {
         upload: {key: 'upload', title: 'Upload'},
         site: {key: 'browse', title: 'Site Files', params: {person: 'all'}},
@@ -48,7 +47,7 @@ angular.module('app', [
         // @todo link: {key: 'link', title: 'Page'}
         // @todo me: {key: 'browse', title: 'My Files', params: {person: 'all'}}
       };
-      $rootScope.defaultTabs = ['upload', 'site', 'flickr'];
+      $rootScope.settings.defaults.tabs = ['upload', 'site', 'flickr'];
 
       // It's very handy to add references to $state and $stateParams to the $rootScope
       // @todo: bad for performance?

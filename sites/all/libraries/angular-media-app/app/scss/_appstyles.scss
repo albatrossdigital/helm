@@ -81,11 +81,32 @@
     margin-left: -10px;
   }
 
+  .thumbnail,
+  .placeholder-thumbnail {
+    position: relative;
+
+    .btn-action {
+      display: none;
+      top: 10px;
+      position: absolute;
+
+      &.thumbnail-edit {
+        left: 10px;
+      }
+      &.thumbnail-remove {
+        right: 10px;
+      }
+    }
+
+    &:hover .btn-action {
+      display: block;
+    }
+  }
+
   .thumbnail {
     width: 110px;
     height: 140px;
     margin: 5px;
-    position: relative;
     float: left;
 
     &.active {
@@ -104,23 +125,6 @@
       @include ellipsis;
       font-size: .9em;
       padding-top: 5px;
-    }
-
-    .btn {
-      display: none;
-      top: 10px;
-      position: absolute;
-
-      &.thumbnail-edit {
-        left: 10px;
-      }
-      &.thumbnail-remove {
-        right: 10px;
-      }
-    }
-
-    &:hover .btn {
-      display: block;
     }
 
     .download-icon {
@@ -146,10 +150,39 @@
 
 }
 
+.placeholder-thumbnail {
+  min-height: 350px;
+  background-color: #eee !important;
+  border: none !important;
+  text-align: center;
+  font-size: 1.5em;
+
+  .upload-text {
+    margin-top: 100px;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    max-height: 500px;
+    margin: 0 auto;
+    width: auto;
+  }
+}
+
 .thumbnail-icon {
   text-align: center;
   position: relative;
   width: 100px;
+
+  &.icon-lg {
+    width: 100%;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
 
   .file-icon {
     font-size: 100px;
@@ -268,6 +301,7 @@
     color: #ccc;
     right: 10px;
     position: absolute;
+    z-index: 1010;
   }
 
   .preview {
@@ -341,11 +375,13 @@
   }
 
 
-
+  .filters,
+  .browser {
+    margin-top: 10px;
+  }
 
   .browser {
     position: relative;
-    margin-top: 10px;
 
     .scroll-wrapper {
       width: $modal-width;

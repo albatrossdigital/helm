@@ -68,11 +68,22 @@
 .angular-media-field .thumbnails {
   display: inline;
   margin-left: -10px; }
+.angular-media-field .thumbnail, .angular-media-field .placeholder-thumbnail {
+  position: relative; }
+  .angular-media-field .thumbnail .btn-action, .angular-media-field .placeholder-thumbnail .btn-action {
+    display: none;
+    top: 10px;
+    position: absolute; }
+    .angular-media-field .thumbnail .btn-action.thumbnail-edit, .angular-media-field .placeholder-thumbnail .btn-action.thumbnail-edit {
+      left: 10px; }
+    .angular-media-field .thumbnail .btn-action.thumbnail-remove, .angular-media-field .placeholder-thumbnail .btn-action.thumbnail-remove {
+      right: 10px; }
+  .angular-media-field .thumbnail:hover .btn-action, .angular-media-field .placeholder-thumbnail:hover .btn-action {
+    display: block; }
 .angular-media-field .thumbnail {
   width: 110px;
   height: 140px;
   margin: 5px;
-  position: relative;
   float: left; }
   .angular-media-field .thumbnail.active {
     border-color: #E9D24F;
@@ -89,16 +100,6 @@
     display: block;
     font-size: 0.9em;
     padding-top: 5px; }
-  .angular-media-field .thumbnail .btn {
-    display: none;
-    top: 10px;
-    position: absolute; }
-    .angular-media-field .thumbnail .btn.thumbnail-edit {
-      left: 10px; }
-    .angular-media-field .thumbnail .btn.thumbnail-remove {
-      right: 10px; }
-  .angular-media-field .thumbnail:hover .btn {
-    display: block; }
   .angular-media-field .thumbnail .download-icon {
     font-size: 15px;
     color: #ccc; }
@@ -111,10 +112,30 @@
 .angular-media-field .clearfix {
   clear: both; }
 
+.placeholder-thumbnail {
+  min-height: 350px;
+  background-color: #eee !important;
+  border: none !important;
+  text-align: center;
+  font-size: 1.5em; }
+  .placeholder-thumbnail .upload-text {
+    margin-top: 100px; }
+  .placeholder-thumbnail img {
+    max-width: 100%;
+    height: auto;
+    max-height: 500px;
+    margin: 0 auto;
+    width: auto; }
+
 .thumbnail-icon {
   text-align: center;
   position: relative;
   width: 100px; }
+  .thumbnail-icon.icon-lg {
+    width: 100%; }
+  .thumbnail-icon img {
+    max-width: 100%;
+    height: auto; }
   .thumbnail-icon .file-icon {
     font-size: 100px;
     color: #ccc; }
@@ -204,7 +225,8 @@
 .modal-box .modal-close {
   color: #ccc;
   right: 10px;
-  position: absolute; }
+  position: absolute;
+  z-index: 1010; }
 .modal-box .preview {
   position: relative;
   display: block;
@@ -245,9 +267,10 @@
       max-height: 500px !important;
       height: auto !important;
       margin: 0 auto; }
-.modal-box .browser {
-  position: relative;
+.modal-box .filters, .modal-box .browser {
   margin-top: 10px; }
+.modal-box .browser {
+  position: relative; }
   .modal-box .browser .scroll-wrapper {
     width: 800px;
     height: 400px;

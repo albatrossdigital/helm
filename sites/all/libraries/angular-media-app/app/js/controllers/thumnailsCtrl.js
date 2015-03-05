@@ -13,9 +13,13 @@ angular.module('app.core')
     //$rootScope.appUrl = params.appUrl != undefined ? params.appUrl : '';
 
     // @todo: Do this with angular.extend()
-    var fieldName = params.fieldName != undefined ? params.fieldName : $rootScope.fieldName;
-    $rootScope.activeField = fieldName;
-    $rootScope.settings[fieldName] = {};
+    //var fieldName = params.fieldName != undefined ? params.fieldName : $rootScope.fieldName;
+    $rootScope.activeField = params.fieldName;
+    var settings = {}
+    console.log('params', params);
+    angular.extend(settings, $rootScope.settings.defaults, params);
+    console.log('extended params', settings);
+/*
     $rootScope.settings[fieldName].apiUrl = params.apiUrl != undefined ? params.apiUrl : $rootScope.apiUrl;
     $rootScope.settings[fieldName].cardinality = params.cardinality != undefined ? parseInt(params.cardinality) : $rootScope.cardinality;
     $rootScope.settings[fieldName].multiple = $rootScope.cardinality != 1;
@@ -25,21 +29,21 @@ angular.module('app.core')
     $rootScope.settings[fieldName].allowedSchemes = params.allowedSchemes != undefined ? params.allowedSchemes : undefined;
     $rootScope.settings[fieldName].addlFieldName = params.addlFieldName != undefined ? params.addlFieldName : undefined;
     $rootScope.files[fieldName] = params.files != undefined ? params.files : $rootScope.files;
-
+*/
     // Merge in tab data
-    var enabledTabs = params.tabs.length > 0 && params.tabs[0] != '' ? params.tabs : $rootScope.defaultTabs;
-    console.log('et',enabledTabs);
+    //var enabledTabs = params.tabs;
+    //console.log('et',enabledTabs);
     var tabs = [];
-    angular.forEach(enabledTabs, function(tab, key) {
+    angular.forEach(settings.tabs, function(tab, key) {
       if ($rootScope.tabs[tab] != undefined) {
         tabs.push($rootScope.tabs[tab]);
       }
     });
-    $rootScope.settings[fieldName].tabs = tabs;
+    settings.tabs = tabs;
+    settings.tabs.slice().reverse();
 
-    $rootScope.settings[fieldName].tabs.slice().reverse();
-
-    console.log('params', $rootScope.settings[fieldName]);
+    $rootScope.settings[settings.fieldName] = settings;
+    console.log('settings', $rootScope.settings);
   }
 
 
@@ -47,7 +51,7 @@ angular.module('app.core')
   // Deal with drop to upload
   /*$timeout(function() {
     var uploader = $scope.uploader = new FileUploader({
-      url: $rootScope.settings[$rootScope.activeField].apiUrlUpload + 'upload',
+      url: $rootScope.settings[$rootScope.activeField].apiUrl + 'upload',
       autoUpload: true
     });
   });
