@@ -16,7 +16,7 @@ angular.module('app.flickr', [
           controller: function($scope, $rootScope, $state, Flickr, CoreFile){
             $scope.filters = {
               method: 'flickr.photos.search',
-              tags: 'baltimore',
+              tags: $rootScope.settings[$rootScope.activeField].flickrSearch,
               license: '4,5',
               page: 1
             };

@@ -10,7 +10,6 @@ angular.module('app.core')
     restrict: 'A',
     templateUrl: appUrl + 'views/editForm.html',
     link: function($scope, $element, $attrs) {
-      console.log('edit form', $scope.file);
 
       if ($scope.file.filemime != undefined) {
         $scope.croppable = $scope.file.filemime.indexOf('image') != -1 && $rootScope.settings[$rootScope.activeField].cropRatio != 'none';
@@ -37,7 +36,7 @@ angular.module('app.core')
 
 
       $scope.saveFile = function($event) {
-        console.log($scope.file.attribution);
+        //console.log($scope.file.attribution);
         $scope.file.$save();
         $scope.editing = false;
         $event.preventDefault();
