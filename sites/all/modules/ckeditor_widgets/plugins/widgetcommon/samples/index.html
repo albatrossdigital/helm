@@ -3,10 +3,10 @@
 
   <head>
     <meta charset="utf-8" />
-    <title>Bootstrap, from Twitter</title>
+    <title>CKEditor Common Widgets</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
+    <meta name="description" content="Common widgets for CKEditor like quoteboxes and boxes with titles" />
+    <meta name="author" content="albatrossdigital.com" />
     <!-- Le styles -->
     <link data-require="bootstrap-css" data-semver="3.3.1" rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" />
     <link data-require="bootstrap@*" data-semver="3.3.1" rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" />
@@ -40,21 +40,16 @@
 
   <body>
     <div class="container">
-      <h1>CKEditor Bootstrap Widgets</h1>
+      <h1>CKEditor Common Widgets</h1>
       <p>
-        Give your content authors the ability to add responsive layout elements to their pages.  CKEditor widgets are provided for common 
-        <a href="http://getbootstrap.com/">Bootstrap</a> layouts:
+        Common widgets for CKEditor like quoteboxes and boxes with titles.
       </p>
+      <p>Each widget can have its own button, or you can use the <a href="http://ckeditor.com/addon/widgettemplatemenu">Widget Template Menu</a> plugin to create a dropdown menu of templates.</p>
       <ul>
-        <li>Left sidebar image</li>
-        <li>Right sidebar image</li>
-        <li>Two columns</li>
-        <li>Three columns</li>
-        <li>Alert box</li>
+        <li><strong><a href="http://albatrossdigital.com/node/41">Watch a demo</a></strong></li>
+        <li><strong><a href="http://albatrossdigital.com/node/41">Documentation and demos</a></strong></li>
       </ul>
-      <p>Each widget can have its own button, or you can use the Widget Template Menu plugin to create a dropdown menu of templates.</p>
-      <p><strong>Watch a demo: <a href="http://albatrossdigital.com/node/41">http://albatrossdigital.com/node/41</a></strong></p>
-
+      
       <h2>Using</h2>
       <p>Install the plugin using the standard <a href="http://docs.ckeditor.com/#!/guide/dev_plugins" target="_blank">CKEditor plugin installation instructions</a>.  
       We recommend manually building your editor on ckeditor.com, or using <a href="https://github.com/albatrossdigital/ckeditor-sandbox" target="_blank">our base editor build</a>, which will include everything you need.</p>
@@ -71,7 +66,7 @@
       <pre>
         CKEDITOR.replace( 'editor1', {
           plugins: 'wysiwygarea,toolbar,basicstyles,menubutton,link,sourcearea,image2,widget',
-          extraPlugins: 'widgetbootstrap,widgettemplatemenu',
+          extraPlugins: 'widgetcommon,widgettemplatemenu',
           height: 400,
           toolbar: [
             [ 'Source', '-', 'NewPage', 'Preview', '-', 'Templates' ],
@@ -94,7 +89,7 @@
 
         CKEDITOR.replace( 'editor1', {
           plugins: 'wysiwygarea,toolbar,basicstyles,menubutton,link,sourcearea,image2,widget',
-          extraPlugins: 'widgetbootstrap,widgettemplatemenu',
+          extraPlugins: 'widgetcommon,widgettemplatemenu',
           height: 400,
           toolbar: [
             [ 'Source', '-', 'NewPage', 'Preview', '-', 'Templates' ],
@@ -114,7 +109,7 @@
       <pre>
         CKEDITOR.replace( 'editor2', {
           plugins: 'wysiwygarea,toolbar,basicstyles,menubutton,link,sourcearea',
-          extraPlugins: 'image2,widget,widgetbootstrap',
+          extraPlugins: 'image2,widget,widgetcommon',
           height: 400,
           toolbarGroups : [
             { name: 'clipboard',   groups: [ 'clipboard', 'undo', 'source' ] },
@@ -140,7 +135,7 @@
 
         CKEDITOR.replace( 'editor2', {
           plugins: 'wysiwygarea,toolbar,basicstyles,menubutton,link,sourcearea',
-          extraPlugins: 'image2,widget,widgetbootstrap',
+          extraPlugins: 'image2,widget,widgetcommon',
           height: 400,
           toolbarGroups : [
               // On the basic preset, clipboard and undo is handled by keyboard.

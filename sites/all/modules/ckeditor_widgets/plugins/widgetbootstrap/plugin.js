@@ -11,7 +11,7 @@ CKEDITOR.config.widgetbootstrapAlert_alertTypes = {
 CKEDITOR.plugins.add( 'widgetbootstrap', {
     requires: 'widget',
 
-    icons: 'widgetbootstrapLeftCol,widgetbootstrapRightCol,widgetbootstrapTwoCol,widgetbootstrapThreeCol,widgetbootstrapThreeCol,widgetbootstrapAlert',
+    icons: 'widgetbootstrapLeftCol,widgetbootstrapRightCol,widgetbootstrapTwoCol,widgetbootstrapThreeCol,widgetbootstrapAlert',
 
     /*defaults : {
         name: 'accordion',
