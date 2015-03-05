@@ -1,0 +1,101 @@
+
+
+
+.filter-guidelines {
+  display: none;
+}
+
+.text-format-wrapper {
+  
+  .form-type-textarea {
+    margin-bottom: 0;
+  }
+
+  .ckeditor_links {
+    display: none !important;
+  }
+
+/*.filter-wrapper {
+  background: #F2F2F2;
+  padding: 9px 10px 9px 10px;
+  right: 10px;
+  margin-top: -8px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 0;
+  padding: 5px;
+  margin-left: 10px;
+  margin-right: -10px;
+}*/
+
+
+  fieldset.filter-wrapper {
+    $filter-height: 28px;
+    border: none;
+    //background: $gray-lighter;
+    padding: $padding-base-vertical $padding-base-horizontal;
+    border-radius: 0;
+    font-size: $font-size-h6;
+    border-bottom: 1px solid #ccc;
+    box-shadow: none;
+
+    .form-group {
+      margin-bottom: 0;
+    }
+
+    select {
+      font-size: $font-size-h6;
+      height: $filter-height;
+    }
+
+    .panel-body {
+      border: none;
+      padding: 0;
+
+      label {
+        float: left;
+        padding-right: $padding-base-horizontal;
+        line-height: $filter-height;
+        margin-bottom: 0;
+      }
+      
+      .filter-help {
+        padding-top: 0;
+        line-height: $filter-height;
+      }
+    }
+  }
+  
+}
+
+
+#ckeditor-admin-profile-form {
+  div.sortableList div.sortableListDiv span.sortableListSpan {
+    &,
+    ul {
+      height: 38px;
+    }
+
+    li {
+      height: 30px;
+    }
+  }
+}
+
+
+//*
+//* Responsive
+//* --------------------------------------------------
+//*
+
+@media screen and (min-width: $screen-sm-min) {
+  .filter-help {
+    float: right;
+    padding-top: 22px;
+
+    & ~ .form-type-select {
+      float: left;
+    }
+  }
+}
