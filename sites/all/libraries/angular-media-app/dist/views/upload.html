@@ -22,7 +22,7 @@
 
     <div class="left">
       
-      <div ng-if="!file" class="drop-zone" nv-file-drop="" uploader="uploader">
+      <div ng-class="{'upload-active': uploading}" ng-if="!file" class="drop-zone" nv-file-drop="" uploader="uploader">
         <div class="drop-label"><span class="glyphicon glyphicon-download" aria-hidden="true"></span> Drop files here</div>
         <div class="or">or</div>
         <div>

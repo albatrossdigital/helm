@@ -14,7 +14,6 @@
   display: block;
 }
 
-
 *
 {
   box-sizing: border-box;
@@ -64,7 +63,16 @@
 }
 
 
+// Set up spinnining icons
 
+@include keyframes(spin) {
+  from {
+    @include transform(rotate(0deg));
+  }
+  to {
+    @include transform(rotate(360deg));
+  }
+}
 
 .angular-media-field {
 
@@ -173,6 +181,8 @@
   border: 2px dashed #ccc;
   padding: 10px;
   text-align: center;
+  position: relative;
+  background-color: rgba(#eeeeee, 0);
 
   .or {
     font-size: .8em;
@@ -195,6 +205,47 @@
     text-align: left;
     width: 85%;
     margin: 5px auto;
+  }
+
+  &,
+  & > *{
+    @include transition(background ease-out .1s)
+  }
+  
+  & > * {
+    opacity: 1;
+  }
+
+  &.upload-active {
+    background-color: rgba(#eeeeee, 1);
+
+    $spinner-dim: 30px;
+
+    & > * { 
+      opacity: 0.5;
+    }
+
+    &:before {
+      content: "\e031";
+      display: inline-block;
+      font-family: 'Glyphicons Halflings';
+      font-style: normal;
+      font-weight: 400;
+      -webkit-font-smoothing: antialiased;
+      position: absolute;
+      top: 50%;
+      margin-top: -($spinner-dim/2);
+      left: 50%;
+      margin-left: -($spinner-dim/2);
+      text-align: center;
+      width: $spinner-dim;
+      height: $spinner-dim;
+      line-height: $spinner-dim;
+      font-size: $spinner-dim - 2;
+      @include animation(spin 2s infinite linear);
+      @include transform-origin(($spinner-dim/2) ($spinner-dim/2 - 1));
+      z-index: 1;
+    }
   }
 }
 

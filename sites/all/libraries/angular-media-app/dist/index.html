@@ -26,10 +26,12 @@
         <button type="button" class="btn btn-default btn-xs thumbnail-edit" ng-click="edit(file.fid)"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></button>
         <button type="button" class="btn btn-danger btn-xs thumbnail-remove" ng-click="remove(key)"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
     </a>
-    <div class="thumbnail drop-zone">
-      <div><span class="glyphicon glyphicon-download" aria-hidden="true"></span> Drop files</div>
-      <div class="or">or</div>
-      <a class="btn btn-primary media-select" ng-click="select('field_picture',$event)"><span class="glyphicon glyphicon-picture" aria-hidden="true"></span> Select</a>
+    <div ng-controller="upload">
+      <div ng-class="{'upload-active': uploading}" class="thumbnail drop-zone" nv-file-drop="" uploader="uploader">
+        <div><span class="glyphicon glyphicon-download" aria-hidden="true"></span> Drop files</div>
+        <div class="or">or</div>
+        <a class="btn btn-primary media-select" ng-click="select('field_picture',$event)"><span class="glyphicon glyphicon-picture" aria-hidden="true"></span> Select</a>
+      </div>
     </div>
   </div>
 

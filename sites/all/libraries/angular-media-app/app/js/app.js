@@ -34,6 +34,8 @@ angular.module('app', [
       $rootScope.flickrApiKey = '5202f8e46861f39f55bedfa2374a41d8';
       $rootScope.apiUrlUpload = 'http://liftoff.local/api/angular-media/';
       $rootScope.apiUrlBrowse = 'http://liftoff.local/api/angular-media/';
+      // $rootScope.apiUrlUpload = 'http://soar-current.local/api/angular-media';
+      // $rootScope.apiUrlBrowse = 'http://soar-current.local/api/angular-media';
 
 
       $rootScope.appUrl = '';

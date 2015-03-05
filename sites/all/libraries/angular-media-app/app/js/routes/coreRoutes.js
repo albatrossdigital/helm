@@ -175,6 +175,8 @@ angular.module('app.core', [
 
 .controller('upload', function($scope, $rootScope, $state, $stateParams, FileUploader, CoreFile){
   $scope.uploading = false;
+  // Check if we're ons base page
+  $scope.basePage = !$state.current.name ? true : false;
   $scope.selected = [];
 
   var uploader = $scope.uploader = new FileUploader({
@@ -194,6 +196,11 @@ angular.module('app.core', [
     if ($scope.file == undefined) {
       $scope.file = fileItem;
       $scope.activeKey = 0;
+    }
+    // If we're in simple mode, submit
+    if($scope.basePage) {
+      $rootScope.addFiles($scope.selected);   
+      $scope.selected = [];
     }
   };
   uploader.onCompleteAll = function() {
@@ -217,7 +224,9 @@ angular.module('app.core', [
     $rootScope.addFiles($scope.selected);   
     $scope.selected = [];
 
-    $event.preventDefault();
+    if($event) {
+      $event.preventDefault();
+    }
 
     //var newData = Flickr.load($scope.filters);
     //Array.prototype.push.apply($scope.items, newData);
@@ -225,10 +234,10 @@ angular.module('app.core', [
 
   $scope.fetch = function($event) {
     var file = new CoreFile({
-      external: 'https://www.youtube.com/watch?v=HZEChv1AaOk'//jQuery('#externalFile').val()//$scope.externalFile
+      external: this.externalFile//'https://www.youtube.com/watch?v=HZEChv1AaOk'//jQuery('#externalFile').val()//$scope.externalFile
     });
-    console.log('FILE', $scope.externalFile);
-    $scope.externalFile = 'asdf';
+    //console.log('FILE', $scope.externalFile);
+    //$scope.externalFile = 'asdf';
     
     file.$save(function(data) {
       console.log('NEW FILE', data);
