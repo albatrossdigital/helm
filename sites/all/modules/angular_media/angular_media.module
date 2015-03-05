@@ -63,7 +63,7 @@ function angular_media_library() {
       $path . 'css/app.min.css' => array('weight' => 1),
     ),
   );
-  dpm($libraries);
+  //dpm($libraries);
   return $libraries;
 }
 
@@ -153,7 +153,7 @@ function angular_media_tabs() {
 /**
  * Verifies the token for this request.
  */
-function angular_media_crop_ratios() {
+function angular_media_cropRatios() {
   return array(
     'free' => 'Freeform',
     '1/1' => '1:1 (Square)',
@@ -182,17 +182,17 @@ function angular_media_callback_upload() {
 
   $destination = 'public://'; //@todo
   $validators = array();
-  $field_name = 'files';
+  $fieldName = 'files';
 
   // Manually construct $_FILES['files'] for Drupal's file_save_upload()
   $_FILES['files'] = array();
-  $_FILES['files']['name'][$field_name] = $_FILES['file']['name'];
-  $_FILES['files']['type'][$field_name] = $_FILES['file']['type'];
-  $_FILES['files']['tmp_name'][$field_name] = $_FILES['file']['tmp_name'];
-  $_FILES['files']['error'][$field_name] = $_FILES['file']['error'];
-  $_FILES['files']['size'][$field_name] = $_FILES['file']['size'];
+  $_FILES['files']['name'][$fieldName] = $_FILES['file']['name'];
+  $_FILES['files']['type'][$fieldName] = $_FILES['file']['type'];
+  $_FILES['files']['tmp_name'][$fieldName] = $_FILES['file']['tmp_name'];
+  $_FILES['files']['error'][$fieldName] = $_FILES['file']['error'];
+  $_FILES['files']['size'][$fieldName] = $_FILES['file']['size'];
 
-  $file = file_save_upload($field_name, $validators, $destination, FILE_EXISTS_RENAME);
+  $file = file_save_upload($fieldName, $validators, $destination, FILE_EXISTS_RENAME);
   watchdog('angular_media', 'file uploaded <pre>%f</pre>', array('%f' => print_r($file,1)));
 
   drupal_json_output(angular_media_simplify_file($file));
@@ -425,34 +425,6 @@ function _angular_media_crop_resize($src, $crop = NULL, $scale = NULL, $dst = NU
 
 
 /**
- * Implements hook_theme().
- */
-function angular_media_theme() {
-  //$path = drupal_get_path('module', 'angular_media');
-  return array(
-    'angular_media_app' => array(
-      'template' => 'templates/app',
-      'variables' => array(
-        //'app_path' => url(angular_media_app_path()),
-        //'api_path' => url('services/rest'),
-        'field_name' => '',
-        'addl_field_name' => '',
-        'files' => array(),
-        'cardinality' => 1,
-        'tabs' => 'undefined',
-        'allowed_types' => 'undefined',
-        'crop_ratio' => 'undefined',
-        'allowed_schemes' => 'undefined',
-        'app_url' => url(angular_media_app_path()),
-        'api_url' => url('api/angular-media') . '/',
-        'flickr_key' => '',
-        'hidden' => FALSE,
-      )
-    ),
-  );
-}
-
-/**
  * Implements hook_ckeditor_plugin().
  * CKEditor integration
  */
@@ -474,10 +446,10 @@ function angular_media_ckeditor_plugin() {
 function angular_media_form_alter(&$form, &$form_state, $form_id) {
   // @todo: other entity types...
   if ($form_id === 'page_node_form' || $form_id === 'taxonomy_form_term') {
-    $field_name = 'media_ckeditor';
+    $fieldName = 'media_ckeditor';
 
-    $crop_ratio = variable_get('angular_media_ckeditor_crop_ratio', array('free'));
-    $crop_ratio = !empty($crop_ratio[0]) ? $crop_ratio[0] : '';
+    $cropRatio = variable_get('angular_media_ckeditor_cropRatio', array('free'));
+    $cropRatio = !empty($cropRatio[0]) ? $cropRatio[0] : '';
 
     $settings = array(
       'tabs' => variable_get('angular_media_ckeditor_tabs_image', array('upload', 'file', 'flickr')),
@@ -491,15 +463,15 @@ function angular_media_form_alter(&$form, &$form_state, $form_id) {
     $options = array(
       'hidden' => 1,
       'cardinality' => 9999,
-      'field_name' => $field_name,
+      'fieldName' => $fieldName,
       'files' => array(),
-      'crop_ratio' =>  $crop_ratio,
-      'addl_field_name' => variable_get('angular_media_ckeditor_field_image', ''),
+      'cropRatio' =>  $cropRatio,
+      'addlFieldName' => variable_get('angular_media_ckeditor_field_image', ''),
     );
     $options = array_merge($settings, $options);
 
     $path = angular_media_app_path();
-    $form[$field_name]['#attached'] = array(
+    $form[$fieldName]['#attached'] = array(
       // @todo: make libraries_load work
       //'libraries_load' => array(
       //  array('angular_media', 'angular-media-app'),
@@ -518,18 +490,90 @@ function angular_media_form_alter(&$form, &$form_state, $form_id) {
       '#type' => 'textfield',
       '#title' => $instance['label'],
       '#required' => $instance['required'],
-      '#suffix' => theme('angular_media_app', $options),
+      '#suffix' => theme('angular_media_app', array('settings' => $options)),
       '#attributes' => array('style' => 'display:none'),
     );
-    $form[$field_name] = $element;
+    $form[$fieldName] = $element;
 
 
     //@todo: this is hacky
     $form['#validate'][] = 'angular_media_field_widget_form_validate';
     $form['#submit'][] = 'angular_media_field_widget_form_validate';
     $form['angular_media_fields'] = isset($form['angular_media_fields']) ? $form['angular_media_fields'] : array('#type' => 'value', '#value' => array());
-    $form['angular_media_fields']['#value'][] = $field_name;
+    $form['angular_media_fields']['#value'][] = $fieldName;
 
   }
 }
 
+
+
+/**
+ * Implements hook_theme().
+ */
+function angular_media_theme() {
+  //$path = drupal_get_path('module', 'angular_media');
+  return array(
+    'angular_media_app' => array(
+      'template' => 'templates/app',
+      'variables' => array(
+        //'app_path' => url(angular_media_app_path()),
+        //'api_path' => url('services/rest'),
+        'settings' => array(
+          'fieldName' => '',
+          'addlFieldName' => '',
+          'files' => array(),
+          'cardinality' => 1,
+          'style' => 'thumbnails',
+          'tabs' => NULL,
+          'allowedTypes' => NULL,
+          'cropRatio' => NULL,
+          'allowedSchemes' => NULL,
+          'appUrl' => url(angular_media_app_path()),
+          'apiUrl' => url('api/angular-media') . '/',
+          'flickrKey' => NULL,
+          'flickrSearch' => NULL,
+          'hidden' => FALSE,
+        )
+        
+      )
+    ),
+  );
+}
+
+/**
+ * Implements hook_theme_preprocess().
+ */
+function template_preprocess_angular_media_app(&$variables) {
+  $settings = $variables['settings'];
+
+  // Add settings from variables
+  foreach (array('flickrKey', 'flickrSearch') as $key) {
+    $settings[$key] = !empty($settings[$key]) ? $settings[$key] : variable_get('angular_media_'.$key, NULL);
+  }
+
+  // Determine which tabs can be shown
+  if (!count($settings['tabs']) || empty($settings['tabs'][0])) {
+    $settings['tabs'] = angular_media_tabs();
+  }
+  if (empty($settings['flickrKey'])) {
+    $settings['tabs']['flickr'] = FALSE;
+  }
+
+  // Some variables are not needed in $settings
+  foreach (array('style', 'hidden') as $key) {
+    $variables[$key] = $settings[$key];
+    unset($settings[$key]);
+  }
+
+  
+
+  // Cleanup Drupal select output
+  foreach (array('tabs', 'allowedTypes', 'allowedSchemes') as $key) {
+    $settings[$key] = array_filter($settings[$key]);
+    $settings[$key] = !empty($settings[$key]) ? array_keys($settings[$key]) : array();
+  }
+
+
+  $variables['fieldName'] = $settings['fieldName'];
+  $variables['settings'] = json_encode($settings, JSON_HEX_QUOT);
+}

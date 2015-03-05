@@ -16,11 +16,11 @@ function angular_media_admin_form($form, &$form_state) {
   );
 
   $options = file_entity_type_get_names();
-  $form['defaults']['angular_media_allowed_types'] = array(
+  $form['defaults']['angular_media_allowedTypes'] = array(
     '#type' => 'checkboxes',
     '#title' => t('Allowed file types'),
     '#options' => $options,
-    '#default_value' => variable_get('angular_media_allowed_types', array()),
+    '#default_value' => variable_get('angular_media_allowedTypes', array()),
     '#description' => t('File types which are allowed for this field. If no file types are selected, they will all be available.'),
   );
 
@@ -30,22 +30,42 @@ function angular_media_admin_form($form, &$form_state) {
     $options[$scheme] = check_plain($information['name']);
   }
 
-  $form['defaults']['angular_media_allowed_schemes'] = array(
+  $form['defaults']['angular_media_allowedSchemes'] = array(
     '#type' => 'checkboxes',
     '#title' => t('Allowed URI schemes'),
     '#options' => $options,
-    '#default_value' => variable_get('angular_media_allowed_schemes', array()),
+    '#default_value' => variable_get('angular_media_allowedSchemes', array()),
     '#description' => t('URI schemes which are allowed for this field. If no schemes are selected, they will all be available.'),
   );
 
-  $options = angular_media_crop_ratios();
-  $form['defaults']['angular_media_crop_ratios'] = array(
+  $options = angular_media_cropRatios();
+  $form['defaults']['angular_media_cropRatios'] = array(
     '#type' => 'checkboxes',
     '#title' => t('Default crop ratio'),
     '#options' => $options,
-    '#default_value' => variable_get('angular_media_crop_ratios', array('free')),
+    '#default_value' => variable_get('angular_media_cropRatios', array('free')),
     '#description' => t('Default crop ratio for images.'),
   );
+
+
+
+  $form['flickr'] = array(
+    '#title' => 'Flickr',
+    '#type' => 'fieldset',
+    '#collapsible' => TRUE,
+  );
+  $form['flickr']['angular_media_flickrKey'] = array(
+    '#type' => 'textfield',
+    '#title' => t('API Key'),
+    '#default_value' => variable_get('angular_media_flickrKey', ''),
+    '#description' => t('Obtain your !link.', l('api key from Flickr', 'https://www.flickr.com/services/apps/create/apply', array('target' => '_blank'))),
+  );
+  $form['flickr']['angular_media_flickrSearch'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Default search term'),
+    '#default_value' => variable_get('angular_media_flickrSearch', ''),
+  );
+  
 
 
 
@@ -97,12 +117,12 @@ function angular_media_admin_form($form, &$form_state) {
     '#description' => t('Select a field to append to when selecting files in the CKEditor link browser.'),
   );
 
-  $options = angular_media_crop_ratios();
-  $form['ckeditor']['angular_media_ckeditor_crop_ratio'] = array(
+  $options = angular_media_cropRatios();
+  $form['ckeditor']['angular_media_ckeditor_cropRatio'] = array(
     '#type' => 'checkboxes',
     '#title' => t('CKEditor crop ratio'),
     '#options' => $options,
-    '#default_value' => variable_get('angular_media_crop_ratios', array_keys($options)),
+    '#default_value' => variable_get('angular_media_cropRatios', array_keys($options)),
     '#description' => t('Allowed crop ratios for images uploaded in the CKEditor dialog. If none are selected, cropping will be disabled. If one is selected, it is forced. If multiple are selected the user will be able to toggle their crop choice.'),
   );
   
