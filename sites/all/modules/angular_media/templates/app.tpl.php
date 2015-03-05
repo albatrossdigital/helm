@@ -16,16 +16,18 @@
     
     
     <?php if(!$hidden): ?>
-      <div  class="thumbnail" ng-repeat="(key, file) in files['<?php print $field_name; ?>']" title="{{file.name}}">
+      <div class="thumbnail" ng-repeat="(key, file) in files['<?php print $field_name; ?>']" title="{{file.name}}">
         <div thumbnails></div>
         <a href class="thumbnail-title" ng-click="edit(file.fid)">{{file.name}}</a>
           <button type="button" class="btn btn-default btn-xs thumbnail-edit" ng-click="edit(file.fid, '<?php print $field_name; ?>', key)"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></button>
           <button type="button" class="btn btn-danger btn-xs thumbnail-remove" ng-click="remove('<?php print $field_name; ?>', key)"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
       </div>
-      <div class="thumbnail drop-zone">
-        <div><span class="glyphicon glyphicon-download" aria-hidden="true"></span> Drop files</div>
-        <div class="or">or</div>
-        <button class="btn btn-primary media-select" id="<?php print $field_name; ?>_select" ng-click="select('<?php print $field_name; ?>', $event)"><span class="glyphicon glyphicon-picture" aria-hidden="true"></span> Select</button>
+      <div ng-controller="upload">
+        <div ng-class="{'upload-active': uploading}" class="thumbnail drop-zone" nv-file-drop="" uploader="uploader">
+          <div><span class="glyphicon glyphicon-download" aria-hidden="true"></span> Drop files</div>
+          <div class="or">or</div>
+          <button class="btn btn-primary media-select" id="<?php print $field_name; ?>_select" ng-click="select('<?php print $field_name; ?>', $event)"><span class="glyphicon glyphicon-picture" aria-hidden="true"></span> Select</button>
+        </div>
       </div>
     <?php else: ?>
       <button class="btn btn-primary media-select" id="<?php print $field_name; ?>_select" ng-click="select('<?php print $field_name; ?>', $event)"><span class="glyphicon glyphicon-picture" aria-hidden="true"></span> Select</button>
@@ -36,9 +38,11 @@
   
   <div class="clearfix"></div>
 </div> 
+
 <?php /*
+  <script src="http://soar-current.local/sites/all/libraries/angular-media-app/app/bower_components/jquery/dist/jquery.js"></script>
   <!-- endbuild -->
-  <!--<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>-->
+  <!--<script src="http://soar-current.local/sites/all/libraries/angular-media-app/app/http://soar-current.local/sites/all/libraries/angular-media-app/app/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>-->
 
   <!-- build:js js/libraries.min.js -->
   <!-- bower:js -->
@@ -72,4 +76,10 @@
   <!-- Directives -->
   <script src="http://soar-current.local/sites/all/libraries/angular-media-app/app/js/directives/thumbnailDir.js"></script>
   <script src="http://soar-current.local/sites/all/libraries/angular-media-app/app/js/directives/editFormDir.js"></script>
-  <!-- endbuild --> */ ?>
+
+
+
+  <script src="http://soar-current.local/sites/all/libraries/angular-media-app/dist/js/libraries.min.js"></script>
+  <script src="http://soar-current.local/sites/all/libraries/angular-media-app/dist/js/app.min.js"></script>
+
+  */ ?>
