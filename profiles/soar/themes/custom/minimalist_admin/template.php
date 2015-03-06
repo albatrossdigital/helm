@@ -64,18 +64,13 @@ function minimalist_admin_js_alter(&$js) {
  }
 }
 
-
-function minimalist_admin_form_alter(&$form, &$form_state, $form_id) {
-  //dpm($form);
-  //dpm($form_id);
-}
-
 /**
  * Implements hook_form_alter().
  * Sets up minimalist node edit form.
  */
-function minimalist_admin_form_page_node_form_alter(&$form, &$form_state) {
-  $form['title']['#attributes']['placeholder'] = t('Enter title');
-  $form['field_subtitle'][LANGUAGE_NONE][0]['value']['#attributes']['placeholder'] = t('Enter subtitle');
-  //dpm($form);
+function minimalist_admin_form_alter(&$form, &$form_state, $form_id) {
+  if (strpos($form_id, '_node_form')) {
+    $form['title']['#attributes']['placeholder'] = t('Enter title');
+    $form['field_subtitle'][LANGUAGE_NONE][0]['value']['#attributes']['placeholder'] = t('Enter subtitle');
+  }
 }
