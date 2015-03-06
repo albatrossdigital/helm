@@ -87,7 +87,8 @@ angular.module('app.flickr', [
                     $scope.active.source = data.photo.urls.url[0]._content;
                     $scope.active.user = data.photo.owner.realname ? data.photo.owner.realname : data.photo.owner.username;
                     $scope.active.userLink = 'https://www.flickr.com/people/'+ data.photo.owner.nsid;
-                    $scope.active.title = $scope.active.user + ' on Flickr';
+                    $scope.active.attribution = $scope.active.user + ' on Flickr';
+                    $scope.active.title = data.photo.title._content;
                     $scope.active.license = data.photo.license;
                     $scope.active.licenseMeta = $scope.licenses.licenses.license[data.photo.license];
                     
@@ -114,6 +115,7 @@ angular.module('app.flickr', [
             $scope.submit = function($event) {
               $scope.queue = {total: $scope.selected.length, completed: 0, files: []};
               angular.forEach($scope.selected, function(item, key) {
+                console.log('item', item);
                 var file = new CoreFile(item);
                 
                 file.$save(function(data) {

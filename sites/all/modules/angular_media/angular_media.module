@@ -56,7 +56,6 @@ function angular_media_library() {
     'js' => array(
       $path . 'js/libraries.min.js' => array(),
       $path . 'js/app.min.js' => array(),
-      //$path . 'js/vendor/jcrop.min.js' => array(),
       drupal_get_path('module', 'angular_media') . '/js/angular-media.js' => array(),
     ),
     'css' => array(
@@ -483,7 +482,6 @@ function angular_media_form_alter(&$form, &$form_state, $form_id) {
     );
     $form[$fieldName] = $element;
 
-
     //@todo: this is hacky
     $form['#validate'][] = 'angular_media_field_widget_form_validate';
     $form['#submit'][] = 'angular_media_field_widget_form_validate';
@@ -568,5 +566,5 @@ function template_preprocess_angular_media_app(&$variables) {
   $variables['fieldName'] = $settings['fieldName'];
   $variables['settings'] = json_encode($settings, JSON_HEX_QUOT);
 
-  dpm($settings);
+  dpm($variables);
 }

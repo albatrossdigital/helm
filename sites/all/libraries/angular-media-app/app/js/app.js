@@ -63,6 +63,7 @@ angular.module('app', [
           Array.prototype.push.apply($rootScope.files[$rootScope.settings[$rootScope.activeField].addlFieldName], files);
         }
         jQuery('#'+$rootScope.activeField+'_media').trigger('change');
+        console.log('elem', jQuery('#'+$rootScope.activeField+'_media').val());
         $state.go('base');
       }
 
