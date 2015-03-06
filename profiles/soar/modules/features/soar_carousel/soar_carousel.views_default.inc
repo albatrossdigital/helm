@@ -202,16 +202,6 @@ function soar_carousel_views_default_views() {
     'image_style' => 'soar_carousel_image',
     'image_link' => '',
   );
-  /* Contextual filter: Fieldable pane: Current revision ID */
-  $handler->display->display_options['arguments']['vid']['id'] = 'vid';
-  $handler->display->display_options['arguments']['vid']['table'] = 'fieldable_panels_panes';
-  $handler->display->display_options['arguments']['vid']['field'] = 'vid';
-  $handler->display->display_options['arguments']['vid']['relationship'] = 'field_soar_carousel_slide_fieldable_panels_pane';
-  $handler->display->display_options['arguments']['vid']['default_action'] = 'empty';
-  $handler->display->display_options['arguments']['vid']['default_argument_type'] = 'fixed';
-  $handler->display->display_options['arguments']['vid']['summary']['number_of_records'] = '0';
-  $handler->display->display_options['arguments']['vid']['summary']['format'] = 'default_summary';
-  $handler->display->display_options['arguments']['vid']['summary_options']['items_per_page'] = '25';
   /* Filter criterion: Filter invalid images */
   $handler->display->display_options['filters']['field_soar_carousel_s_img_width']['id'] = 'field_soar_carousel_s_img_width';
   $handler->display->display_options['filters']['field_soar_carousel_s_img_width']['table'] = 'field_data_field_soar_carousel_s_img';
@@ -222,6 +212,18 @@ function soar_carousel_views_default_views() {
 
   /* Display: Content Area (9 Column Width) */
   $handler = $view->new_display('panel_pane', 'Content Area (9 Column Width)', 'panel_pane_1');
+  $handler->display->display_options['defaults']['arguments'] = FALSE;
+  /* Contextual filter: Fieldable pane: Fieldable panel pane UUID */
+  $handler->display->display_options['arguments']['uuid']['id'] = 'uuid';
+  $handler->display->display_options['arguments']['uuid']['table'] = 'fieldable_panels_panes';
+  $handler->display->display_options['arguments']['uuid']['field'] = 'uuid';
+  $handler->display->display_options['arguments']['uuid']['relationship'] = 'field_soar_carousel_slide_fieldable_panels_pane';
+  $handler->display->display_options['arguments']['uuid']['default_action'] = 'empty';
+  $handler->display->display_options['arguments']['uuid']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['uuid']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['uuid']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['uuid']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['uuid']['limit'] = '0';
   $handler->display->display_options['allow']['use_pager'] = 0;
   $handler->display->display_options['allow']['items_per_page'] = 0;
   $handler->display->display_options['allow']['offset'] = 0;
@@ -232,13 +234,13 @@ function soar_carousel_views_default_views() {
   $handler->display->display_options['allow']['exposed_form'] = 0;
   $handler->display->display_options['allow']['fields_override'] = 0;
   $handler->display->display_options['argument_input'] = array(
-    'vid' => array(
+    'uuid' => array(
       'type' => 'context',
-      'context' => 'entity:fieldable_panels_pane.vid',
+      'context' => 'entity:fieldable_panels_pane.uuid',
       'context_optional' => 0,
       'panel' => '0',
       'fixed' => '',
-      'label' => 'Fieldable pane: Current revision ID',
+      'label' => 'Fieldable pane: Fieldable panel pane UUID',
     ),
   );
   $handler->display->display_options['link_to_view'] = '0';

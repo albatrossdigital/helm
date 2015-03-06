@@ -87,6 +87,9 @@ function soar_carousel_panelizer_defaults() {
       'view_settings' => 'fields',
       'header_type' => 'none',
       'view_mode' => 'full',
+      'context' => array(
+        0 => 'panelizer',
+      ),
     );
     $pane->cache = array();
     $pane->style = array(
