@@ -5,20 +5,13 @@ core = 7.x
 
 ; Panels and Chaos Tools Magic
 
-projects[ctools][version] = 1.4
+projects[ctools][version] = 1.6
 projects[ctools][subdir] = contrib
-projects[ctools][patch][2280875] = http://drupal.org/files/issues/ctools-icon-text-renderer-2280875-5.patch
-projects[ctools][patch][581670] = http://drupal.org/files/fix-autocomplete-581670.patch
-projects[ctools][patch][2312505] = http://drupal.org/files/issues/ctools-views-pane-more-link-2312505-1.patch
-projects[ctools][patch][1978378] = http://www.drupal.org/files/ctools-page-title-check-plained-twice-1978378-1.patch
-projects[ctools][patch][1565782] = http://www.drupal.org/files/1565782-obey-view-display-defaults-5.patch
-projects[ctools][patch][2012188] = http://www.drupal.org/files/issues/2012188-9-ctools_entity_field_content_type_admin_title.patch
-projects[ctools][patch][2055785] = http://drupal.org/files/issues/Modal-window-top-and-left-style-values-2055785-3.patch
+projects[ctools][patch][2416589] = http://www.drupal.org/files/issues/ctools-illegal-offset-views-add-contextual-links-2416589-1.patch
+projects[ctools][patch][2119357] = http://www.drupal.org/files/issues/2119357-6_0.patch
 
-projects[panels][version] = 3.4
+projects[panels][version] = 3.5
 projects[panels][subdir] = contrib
-projects[panels][patch][2283719] = http://drupal.org/files/issues/panels-icon-text-renderer-2283719-1.patch
-projects[panels][patch][2280797] = http://drupal.org/files/issues/panels-ipe-keyboard-focus-2280797-2.patch
 
 projects[panels_breadcrumbs][version] = 2.2
 projects[panels_breadcrumbs][subdir] = contrib
@@ -26,10 +19,12 @@ projects[panels_breadcrumbs][subdir] = contrib
 projects[panelizer][version] = 3.1
 projects[panelizer][subdir] = contrib
 projects[panelizer][patch][1623536] = http://drupal.org/files/issues/array-to-object-on-update-1623536-26.patch
+projects[panelizer][patch][2416505] = http://www.drupal.org/files/issues/panelizer-search_api-2416505-3.patch
 
 projects[fieldable_panels_panes][version] = 1.5
 projects[fieldable_panels_panes][subdir] = contrib
 projects[fieldable_panels_panes][patch][2283263] = http://drupal.org/files/issues/fieldable_panels_panes-n2283263-5.patch
+projects[fieldable_panels_panes][patch][2256503] = http://www.drupal.org/files/issues/fieldable_panels_panes-n2256503-12-backport-fpp15.patch
 
 projects[pm_existing_pages][version] = 1.4
 projects[pm_existing_pages][subdir] = contrib
@@ -39,7 +34,7 @@ projects[fape][subdir] = contrib
 
 ; Views Magic
 
-projects[views][version] = 3.8
+projects[views][version] = 3.10
 projects[views][subdir] = contrib
 projects[views][patch][2037469] = http://drupal.org/files/views-exposed-sorts-2037469-1.patch
 
@@ -62,7 +57,7 @@ projects[pathauto][patch][936222] = http://drupal.org/files/issues/pathauto-pers
 projects[token][version] = 1.5
 projects[token][subdir] = contrib
 
-projects[entity][version] = 1.5
+projects[entity][version] = 1.6
 projects[entity][subdir] = contrib
 
 projects[libraries][version] = 2.2
@@ -89,8 +84,9 @@ projects[link][subdir] = contrib
 
 projects[apps][version] = 1.0-beta20
 projects[apps][subdir] = contrib
+projects[apps][patch][2430915] = https://www.drupal.org/files/issues/apps-drush-default-apps-2430915-1.patch
 
-projects[features][version] = 2.2
+projects[features][version] = 2.3
 projects[features][subdir] = contrib
 
 projects[strongarm][version] = 2.0
@@ -108,7 +104,7 @@ projects[defaultcontent][subdir] = contrib
 projects[defaultcontent][patch][1754428] = http://drupal.org/files/1754428-allow-node-export-alter.patch
 projects[defaultcontent][patch][1757782] = http://drupal.org/files/1757782-cannot-import-menu-hierarchy-8.patch
 
-projects[migrate][version] = "2.5"
+projects[migrate][version] = "2.7"
 projects[migrate][type] = "module"
 projects[migrate][subdir] = "contrib"
 
