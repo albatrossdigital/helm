@@ -30,3 +30,7 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 .cke_bottom:hover {
   /*background: #eee;*/
 }
+
+.cke_dialog_background_cover {
+  background-color: #000 !important;
+}
