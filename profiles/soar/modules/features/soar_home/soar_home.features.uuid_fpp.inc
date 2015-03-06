@@ -11,13 +11,13 @@ function soar_home_uuid_features_default_fpps() {
   $fpps = array();
 
   $fpps[] = array(
-    'timestamp' => 1423619073,
+    'timestamp' => 1425600054,
     'title' => '',
     'log' => '',
     'bundle' => 'soar_carousel',
     'link' => 0,
     'path' => '',
-    'reusable' => 0,
+    'reusable' => 1,
     'admin_title' => 'Home page carousel',
     'admin_description' => '',
     'category' => 'Reusable Content',
@@ -50,12 +50,12 @@ function soar_home_uuid_features_default_fpps() {
     'field_basic_text_text' => array(
       'und' => array(
         0 => array(
-          'value' => '<p><img alt="" height="267" src="http://placehold.it/400x263" width="400" /></p>
+          'value' => '<p><img alt="" height="363" src="http://placehold.it/600x363" width="600" /></p>
 
 <h3 class="image-caption"><a href="http://albatrossdigital.com/">Albatross Digital</a></h3>
 ',
           'format' => 'filtered_html',
-          'safe_value' => '<p><img alt="" height="267" src="http://placehold.it/400x263" width="400" /></p>
+          'safe_value' => '<p><img alt="" height="363" src="http://placehold.it/600x363" width="600" /></p>
 
 <a href="http://albatrossdigital.com/">Albatross Digital</a>',
         ),
