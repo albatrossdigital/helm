@@ -66,8 +66,7 @@
     transform: rotate(360deg); } }
 
 .angular-media-field .thumbnails {
-  display: inline;
-  margin-left: -10px; }
+  display: inline; }
 .angular-media-field .thumbnail, .angular-media-field .placeholder-thumbnail {
   position: relative; }
   .angular-media-field .thumbnail .btn-action, .angular-media-field .placeholder-thumbnail .btn-action {

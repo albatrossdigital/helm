@@ -240,7 +240,6 @@ angular.module('app.core', [
     //$scope.externalFile = 'asdf';
     
     file.$save(function(data) {
-      console.log('NEW FILE', data);
       $rootScope.addFiles([data]);
     });
 

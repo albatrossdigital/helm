@@ -15,10 +15,11 @@ angular.module('app.core')
     // @todo: Do this with angular.extend()
     //var fieldName = params.fieldName != undefined ? params.fieldName : $rootScope.fieldName;
     $rootScope.activeField = params.fieldName;
+    $rootScope.files[params.fieldName] = params.files != undefined ? params.files : $rootScope.files;
+    params.files = undefined;
+
     var settings = {}
-    console.log('params', params);
     angular.extend(settings, $rootScope.settings.defaults, params);
-    console.log('extended params', settings);
 /*
     $rootScope.settings[fieldName].apiUrl = params.apiUrl != undefined ? params.apiUrl : $rootScope.apiUrl;
     $rootScope.settings[fieldName].cardinality = params.cardinality != undefined ? parseInt(params.cardinality) : $rootScope.cardinality;
@@ -28,11 +29,10 @@ angular.module('app.core')
     $rootScope.settings[fieldName].cropRatio = params.cropRatio != undefined ? params.cropRatio : undefined;
     $rootScope.settings[fieldName].allowedSchemes = params.allowedSchemes != undefined ? params.allowedSchemes : undefined;
     $rootScope.settings[fieldName].addlFieldName = params.addlFieldName != undefined ? params.addlFieldName : undefined;
-    $rootScope.files[fieldName] = params.files != undefined ? params.files : $rootScope.files;
+    
 */
     // Merge in tab data
     //var enabledTabs = params.tabs;
-    //console.log('et',enabledTabs);
     var tabs = [];
     angular.forEach(settings.tabs, function(tab, key) {
       if ($rootScope.tabs[tab] != undefined) {
@@ -42,22 +42,15 @@ angular.module('app.core')
     settings.tabs = tabs;
     settings.tabs.slice().reverse();
 
+
     $rootScope.settings[settings.fieldName] = settings;
+
     console.log('settings', $rootScope.settings);
   }
 
 
 
   // Deal with drop to upload
-  /*$timeout(function() {
-    var uploader = $scope.uploader = new FileUploader({
-      url: $rootScope.settings[$rootScope.activeField].apiUrl + 'upload',
-      autoUpload: true
-    });
-  });
-*/
-//$timeout(function() {
-  console.log(FileUploader);
   var uploader = $scope.uploader = new FileUploader({
     url: '/api/angular-media/upload',
     autoUpload: true
@@ -69,7 +62,6 @@ angular.module('app.core')
     $scope.uploading = true;
   };
   uploader.onSuccessItem = function(fileItem, response, status, headers) {
-    console.info('onSuccessItem', fileItem, response, status, headers);
     $scope.selected.push(response);
     fileItem = response;
     if ($scope.file == undefined) {
@@ -77,7 +69,6 @@ angular.module('app.core')
       $scope.activeKey = 0;
     }
   };
-//});
   
 
   $scope.remove = function(fieldName, key) {

@@ -5136,7 +5136,28 @@ button.close {
     font-weight: bold; }
 
 .page-header .title {
-  color: #0072bc; }
+  color: #0072bc;
+  text-transform: uppercase;
+  font-size: 1.7em;
+  font-weight: bold; }
+
+#main > .container, #content {
+  width: 100% !important; }
+  #main > .container .vertical-tabs-panes, #content .vertical-tabs-panes {
+    top: 0; }
+    #main > .container .vertical-tabs-panes fieldset, #content .vertical-tabs-panes fieldset {
+      padding: 0; }
+      #main > .container .vertical-tabs-panes fieldset .panel-heading, #content .vertical-tabs-panes fieldset .panel-heading {
+        top: 0; }
+        #main > .container .vertical-tabs-panes fieldset .panel-heading .fieldset-title, #content .vertical-tabs-panes fieldset .panel-heading .fieldset-title {
+          display: block; }
+    #main > .container .vertical-tabs-panes .panel-heading, #main > .container .vertical-tabs-panes .panel-body, #content .vertical-tabs-panes .panel-heading, #content .vertical-tabs-panes .panel-body {
+      padding: 10px; }
+  #main > .container fieldset, #content fieldset {
+    width: 100%; }
+
+.page-node-add #content, .page-node-edit #content {
+  width: 100% !important; }
 
 .button {
   display: inline-block;
@@ -5518,6 +5539,8 @@ fieldset .panel-body {
 
 .node-form {
   position: relative; }
+  .node-form > div {
+    width: 70%; }
   .node-form .form-actions {
     position: absolute;
     top: -8rem;
@@ -5542,19 +5565,3 @@ fieldset .panel-body {
 
 .page-node-add #content, .page-node-edit #content {
   width: 100% !important; }
-  .page-node-add #content .vertical-tabs-panes, .page-node-edit #content .vertical-tabs-panes {
-    top: 0; }
-    .page-node-add #content .vertical-tabs-panes fieldset, .page-node-edit #content .vertical-tabs-panes fieldset {
-      padding: 0; }
-      .page-node-add #content .vertical-tabs-panes fieldset .panel-heading, .page-node-edit #content .vertical-tabs-panes fieldset .panel-heading {
-        top: 0; }
-        .page-node-add #content .vertical-tabs-panes fieldset .panel-heading .fieldset-title, .page-node-edit #content .vertical-tabs-panes fieldset .panel-heading .fieldset-title {
-          display: block; }
-    .page-node-add #content .vertical-tabs-panes .panel-heading, .page-node-add #content .vertical-tabs-panes .panel-body, .page-node-edit #content .vertical-tabs-panes .panel-heading, .page-node-edit #content .vertical-tabs-panes .panel-body {
-      padding: 10px; }
-.page-node-add .node-form > div, .page-node-edit .node-form > div {
-  width: 70%; }
-.page-node-add .page-header .title, .page-node-edit .page-header .title {
-  text-transform: uppercase;
-  font-size: 1.7em;
-  font-weight: bold; }
