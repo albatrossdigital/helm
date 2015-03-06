@@ -13,6 +13,16 @@
 //}
 
 
+/**
+ *
+ * Implements template_prerocess_page().
+ */
+function soar_base_preprocess_page(&$vars) {
+
+  // If panels arent being used at all.
+  $vars['no_panels'] = !(module_exists('page_manager') && page_manager_get_current_page());
+}
+
 
 /**
  * Implements hook_css_alter().

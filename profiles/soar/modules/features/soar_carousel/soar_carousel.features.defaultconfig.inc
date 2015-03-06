@@ -11,7 +11,6 @@ function soar_carousel_defaultconfig_features() {
   return array(
     'soar_carousel' => array(
       'field_default_fields' => 'field_default_fields',
-      'strongarm' => 'strongarm',
       'user_default_permissions' => 'user_default_permissions',
     ),
   );
@@ -401,41 +400,6 @@ You\'re media will be scaled to 900px by 500px by default. Think about editing y
 ');
 
   return $fields;
-}
-
-/**
- * Implements hook_defaultconfig_strongarm().
- */
-function soar_carousel_defaultconfig_strongarm() {
-  $export = array();
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'panelizer_defaults_fieldable_panels_pane_soar_carousel';
-  $strongarm->value = array(
-    'status' => 1,
-    'view modes' => array(
-      'default' => array(
-        'status' => 1,
-        'default' => 1,
-        'choice' => 0,
-      ),
-      'full' => array(
-        'status' => 1,
-        'default' => 1,
-        'choice' => 0,
-      ),
-      'triptych' => array(
-        'status' => 1,
-        'default' => 1,
-        'choice' => 0,
-      ),
-    ),
-  );
-  $export['panelizer_defaults_fieldable_panels_pane_soar_carousel'] = $strongarm;
-
-  return $export;
 }
 
 /**

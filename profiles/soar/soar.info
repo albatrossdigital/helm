@@ -216,9 +216,9 @@ dependencies[] = tablefield
 
 
 dependencies[] = panopoly_core
-dependencies[] = panopoly_theme
-dependencies[] = panopoly_magic
-dependencies[] = panopoly_widgets
+;dependencies[] = panopoly_theme
+;dependencies[] = panopoly_magic
+;dependencies[] = panopoly_widgets
 
 
 files[] = soar.profile

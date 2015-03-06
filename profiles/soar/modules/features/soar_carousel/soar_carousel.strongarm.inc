@@ -23,13 +23,18 @@ function soar_carousel_strongarm() {
         'choice' => 0,
       ),
       'full' => array(
-        'status' => 1,
-        'default' => 1,
+        'status' => 0,
+        'default' => 0,
         'choice' => 0,
       ),
       'triptych' => array(
         'status' => 1,
         'default' => 1,
+        'choice' => 0,
+      ),
+      'token' => array(
+        'status' => 0,
+        'default' => 0,
         'choice' => 0,
       ),
     ),

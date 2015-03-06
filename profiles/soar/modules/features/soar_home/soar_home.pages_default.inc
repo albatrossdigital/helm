@@ -65,7 +65,7 @@ function soar_home_default_page_manager_pages() {
     'relationships' => array(),
   );
   $display = new panels_display();
-  $display->layout = 'soar_full_page';
+  $display->layout = 'soar_home_page';
   $display->layout_settings = array();
   $display->panel_settings = array(
     'style_settings' => array(
@@ -93,32 +93,8 @@ function soar_home_default_page_manager_pages() {
   $display->content = array();
   $display->panels = array();
     $pane = new stdClass();
-    $pane->pid = 'new-624e523b-c89c-496e-a20c-62f38b088a5a';
-    $pane->panel = 'contentmain';
-    $pane->type = 'views_panes';
-    $pane->subtype = 'soar_carousel-panel_pane_2';
-    $pane->shown = TRUE;
-    $pane->access = array();
-    $pane->configuration = array(
-      'view_settings' => 'fields',
-      'header_type' => 'none',
-      'view_mode' => 'full',
-      'arguments' => array(
-        'uuid' => '505af91d-8d63-42da-bf46-14d3eaac7473',
-      ),
-    );
-    $pane->cache = array();
-    $pane->style = array();
-    $pane->css = array();
-    $pane->extras = array();
-    $pane->position = 0;
-    $pane->locks = array();
-    $pane->uuid = '624e523b-c89c-496e-a20c-62f38b088a5a';
-    $display->content['new-624e523b-c89c-496e-a20c-62f38b088a5a'] = $pane;
-    $display->panels['contentmain'][0] = 'new-624e523b-c89c-496e-a20c-62f38b088a5a';
-    $pane = new stdClass();
     $pane->pid = 'new-b4612167-283b-4322-ab40-89ade4172849';
-    $pane->panel = 'contentmain';
+    $pane->panel = 'bottom';
     $pane->type = 'views_panes';
     $pane->subtype = 'news-panel_pane_2';
     $pane->shown = TRUE;
@@ -151,14 +127,14 @@ function soar_home_default_page_manager_pages() {
     );
     $pane->css = array();
     $pane->extras = array();
-    $pane->position = 1;
+    $pane->position = 0;
     $pane->locks = array();
     $pane->uuid = 'b4612167-283b-4322-ab40-89ade4172849';
     $display->content['new-b4612167-283b-4322-ab40-89ade4172849'] = $pane;
-    $display->panels['contentmain'][1] = 'new-b4612167-283b-4322-ab40-89ade4172849';
+    $display->panels['bottom'][0] = 'new-b4612167-283b-4322-ab40-89ade4172849';
     $pane = new stdClass();
     $pane->pid = 'new-a69675fe-714f-432a-b8e1-ef343c55108c';
-    $pane->panel = 'sidebar';
+    $pane->panel = 'topleft';
     $pane->type = 'panels_mini';
     $pane->subtype = 'page_sidebar_right_complex_';
     $pane->shown = TRUE;
@@ -170,6 +146,7 @@ function soar_home_default_page_manager_pages() {
     $pane->cache = array();
     $pane->style = array(
       'settings' => NULL,
+      'style' => 'default',
     );
     $pane->css = array();
     $pane->extras = array();
@@ -177,7 +154,26 @@ function soar_home_default_page_manager_pages() {
     $pane->locks = array();
     $pane->uuid = 'a69675fe-714f-432a-b8e1-ef343c55108c';
     $display->content['new-a69675fe-714f-432a-b8e1-ef343c55108c'] = $pane;
-    $display->panels['sidebar'][0] = 'new-a69675fe-714f-432a-b8e1-ef343c55108c';
+    $display->panels['topleft'][0] = 'new-a69675fe-714f-432a-b8e1-ef343c55108c';
+    $pane = new stdClass();
+    $pane->pid = 'new-caf83360-fe4b-431b-a344-b5adaa25fd0e';
+    $pane->panel = 'topright';
+    $pane->type = 'fieldable_panels_pane';
+    $pane->subtype = 'uuid:505af91d-8d63-42da-bf46-14d3eaac7473';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array(
+      'view_mode' => 'full',
+    );
+    $pane->cache = array();
+    $pane->style = array();
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 0;
+    $pane->locks = array();
+    $pane->uuid = 'caf83360-fe4b-431b-a344-b5adaa25fd0e';
+    $display->content['new-caf83360-fe4b-431b-a344-b5adaa25fd0e'] = $pane;
+    $display->panels['topright'][0] = 'new-caf83360-fe4b-431b-a344-b5adaa25fd0e';
   $display->hide_title = PANELS_TITLE_FIXED;
   $display->title_pane = '0';
   $handler->conf['display'] = $display;
