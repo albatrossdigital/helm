@@ -132,7 +132,7 @@ module.exports = function(grunt) {
       }
     },
     uglify: {
-      foundation: {
+      bootstrap: {
         options: {
           preserveComments: 'some',
           mangle: false
@@ -144,7 +144,7 @@ module.exports = function(grunt) {
             '<%= globalConfig.bowerPath.bootJs %>affix.js',
             '<%= globalConfig.bowerPath.bootJs %>alert.js',
             '<%= globalConfig.bowerPath.bootJs %>button.js',
-            '<%= globalConfig.bowerPath.bootJs %>carousel.js',
+            'js/bootstrap/carousel-compatibility.js',
             '<%= globalConfig.bowerPath.bootJs %>collapse.js',
             '<%= globalConfig.bowerPath.bootJs %>dropdown.js',
             '<%= globalConfig.bowerPath.bootJs %>tooltip.js',
@@ -155,28 +155,28 @@ module.exports = function(grunt) {
         }
       }
     },
-    concat: {
-      dist: {
-        options: {
-          // Pass in the new jquery val
-          process: function(src, filepath) {
-            if(filepath.indexOf('bootstrap') > 0) {
-              // Inject new jquery version
-              src = src.replace(/jQuery/g, 'jqboot');
-            }
-            return src;
-          },
-        },
-        files: {
-          'js/bootstrap-full.min.js': [
-            'bower_components/jquery/dist/jquery.min.js',
-            'js/no-conflict.js',
-            'js/custom-bootstrap.min.js',
-            'js/attach-no-conflict.js'
-          ],
-        },
-      },
-    },
+    // concat: {
+    //   dist: {
+    //     options: {
+    //       // Pass in the new jquery val
+    //       process: function(src, filepath) {
+    //         if(filepath.indexOf('bootstrap') > 0) {
+    //           // Inject new jquery version
+    //           src = src.replace(/jQuery/g, 'jqboot');
+    //         }
+    //         return src;
+    //       },
+    //     },
+    //     files: {
+    //       'js/bootstrap-full.min.js': [
+    //         'bower_components/jquery/dist/jquery.min.js',
+    //         'js/no-conflict.js',
+    //         'js/custom-bootstrap.min.js',
+    //         'js/attach-no-conflict.js'
+    //       ],
+    //     },
+    //   },
+    // },
             
     stripmq: {
       options: {

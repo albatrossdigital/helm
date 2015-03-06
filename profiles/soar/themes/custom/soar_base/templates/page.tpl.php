@@ -85,7 +85,7 @@
 <div id="page-wrapper" class="row-offcanvas row-offcanvas-right"><div id="page">
 
    <!-- Page Header -->
-  <header class="navbar navbar-default <?php if ($hide_site_name && $hide_site_slogan && !$logo && !$main_menu && !$secondary_menu) { print ' element-invisible'; } ?>">
+  <header class="navbar navbar-default <?php if (!$logo && !$main_menu && !$secondary_menu) { print ' element-invisible'; } ?>">
     <div class="container">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle visible-xs" data-toggle="offcanvas">
@@ -96,10 +96,10 @@
         </button>
 
         <?php if ($site_name || $site_slogan): ?>
-          <div id="site-name-slogan" class="brand navbar-brand <?php if ($hide_site_name && $hide_site_slogan) { print ' element-invisible'; } ?>">
+          <div id="site-name-slogan" class="brand navbar-brand">
 
             <?php if ($site_name): ?>
-              <a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home" id="site-name" class="<?php if ($hide_site_name) { print ' element-invisible'; } ?>">
+              <a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home" id="site-name">
                 <span><?php print $site_name; ?></span>
               </a>
             <?php endif; ?>
@@ -129,7 +129,7 @@
           }
         ?>
         <?php print theme('links__system_main_menu', array(
-          'links' => $main_menu_expanded,
+          'links' => $main_menu,
           'attributes' => $pri_attributes,
           'heading' => array(
             'text' => t('Main menu'),
@@ -192,7 +192,7 @@
       <div id="top-content">
         <div class="column container">
           <a id="main-content"></a>
-          <?php if (($no_panels || $always_show_page_title) && $title): ?>
+          <?php if ($no_panels && $title): ?>
             <h1 id="page-title" class="title">
               <?php print $title; ?>
             </h1>

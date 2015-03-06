@@ -4,7 +4,7 @@ screenshot = images/screenshot.png
 
 core = 7.x
 engine = phptemplate
-base theme = kalatheme
+base theme = radix
 
 ; This section controls the CSS files for your theme. There are 3 different
 ; things you can do with a "stylesheets" line:
@@ -40,6 +40,7 @@ scripts[] = js/vendor/custom.modernizr.js
 ; Use the Gruntfile to exclude scripts from this minified file
 ; in the "Uglify" grunt task
 scripts[] = js/custom-bootstrap.min.js
+
 
 ; Theme scripts.
 ; This file is empty, just uncomment this line and start editing!
