@@ -18,11 +18,7 @@
       var reg = new RegExp("/" + window.location.host + "/");
       $("a").each(function() {
         if (!reg.test(this.href)) {
-          $(this).click(function(event) {
-            event.preventDefault();
-            event.stopPropagation();
-            window.open(this.href, "_blank");
-          });
+          $(this).attr('target', '_blank');
         }
       });
 
