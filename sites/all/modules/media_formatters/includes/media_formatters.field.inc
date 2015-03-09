@@ -85,11 +85,11 @@ function media_formatters_field_formatter_info() {
         'image_style_md' => 'default',
         'image_style_lg' => 'default',
         'image_style_lightbox' => '',
-        'class' => '',
+        'class' => 'col-sm-4',
         'click_format' => 'lightbox',
         'autoplay' => TRUE,
-        'v_class' => '',
-        'play_class' => 'button icon-play',
+        'v_class' => 'embed-responsive-16by9',
+        'play_class' => 'btn btn-primary fa fa-play-circle',
         'file_view_mode' => 'default',
       ),
     ),
@@ -490,7 +490,7 @@ function media_formatters_field_formatter_view($entity_type, $entity, $field, $i
           'is_hidden' => (!empty($settings['thumbnail_num']) && $delta+1 > (int)$settings['thumbnail_num']) ? TRUE : FALSE,
           'path' => image_style_url($settings['image_style'], $item['uri']),
           'path_lightbox' => image_style_url($settings['image_style_lightbox'], $item['uri']),
-          'gallery' => $instance['field_name'],
+          'gallery' => _media_formatters_get_gallery_id($instance),
           'class' => $settings['class'],
           'title' => $item['title'],
           'alt' => $item['alt'],
@@ -551,6 +551,13 @@ function media_formatters_field_formatter_view($entity_type, $entity, $field, $i
 
 
 /******************************* FORMATTER VIEW FUNCTIONS ***************************** */
+
+/**
+ * Helper builds gallery id.
+ */
+function _media_formatters_get_gallery_id($instance) {
+  return $instance['entity_type']  . '_' . $instance['field_name'] . '_' . $instance['id'];
+}
 
 /**
  * Formatter view for lazysizes.
@@ -629,7 +636,7 @@ function _media_formatters_view_video_click_to_play($entity_type, $entity, $fiel
         $options = array(
           'img' => $markup,
           'path_lightbox' => $item['metadata']['oembed']['original_url'],
-          'gallery' => $instance['field_name'],
+          'gallery' => _media_formatters_get_gallery_id($instance),
           'class' => $settings['light_class'],
           'title' => $item['title'],
           'alt' => $item['alt'],
@@ -663,7 +670,7 @@ function _media_formatters_view_flexible_media($entity_type, $entity, $field, $i
         $options = array(
           'is_hidden' => TRUE,
           'path_lightbox' => image_style_url($settings['image_style_lightbox'], $item['uri']),
-          'gallery' => $instance['field_name'],
+          'gallery' => _media_formatters_get_gallery_id($instance),
           'class' => $settings['class'],
           'title' => $item['title'],
         );
@@ -682,7 +689,7 @@ function _media_formatters_view_flexible_media($entity_type, $entity, $field, $i
             'is_hidden' => FALSE,
             'img' => $markup,
             'path_lightbox' => image_style_url($settings['image_style_lightbox'], $item['uri']),
-            'gallery' => $instance['field_name'],
+            'gallery' => _media_formatters_get_gallery_id($instance),
             'class' => $settings['class'],
             'title' => $item['title'],
           );
