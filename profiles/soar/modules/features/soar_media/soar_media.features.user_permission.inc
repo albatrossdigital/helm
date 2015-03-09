@@ -15,6 +15,7 @@ function soar_media_user_default_permissions() {
     'name' => 'access media browser',
     'roles' => array(
       'administrator' => 'administrator',
+      'authenticated user' => 'authenticated user',
     ),
     'module' => 'media',
   );
@@ -24,6 +25,7 @@ function soar_media_user_default_permissions() {
     'name' => 'add media from remote sources',
     'roles' => array(
       'administrator' => 'administrator',
+      'editor' => 'editor',
     ),
     'module' => 'media_internet',
   );
@@ -73,6 +75,7 @@ function soar_media_user_default_permissions() {
     'name' => 'delete any audio files',
     'roles' => array(
       'administrator' => 'administrator',
+      'editor' => 'editor',
     ),
     'module' => 'file_entity',
   );
@@ -82,6 +85,7 @@ function soar_media_user_default_permissions() {
     'name' => 'delete any document files',
     'roles' => array(
       'administrator' => 'administrator',
+      'editor' => 'editor',
     ),
     'module' => 'file_entity',
   );
@@ -91,6 +95,7 @@ function soar_media_user_default_permissions() {
     'name' => 'delete any image files',
     'roles' => array(
       'administrator' => 'administrator',
+      'editor' => 'editor',
     ),
     'module' => 'file_entity',
   );
@@ -100,6 +105,7 @@ function soar_media_user_default_permissions() {
     'name' => 'delete any video files',
     'roles' => array(
       'administrator' => 'administrator',
+      'editor' => 'editor',
     ),
     'module' => 'file_entity',
   );
@@ -107,28 +113,40 @@ function soar_media_user_default_permissions() {
   // Exported permission: 'delete own audio files'.
   $permissions['delete own audio files'] = array(
     'name' => 'delete own audio files',
-    'roles' => array(),
+    'roles' => array(
+      'administrator' => 'administrator',
+      'editor' => 'editor',
+    ),
     'module' => 'file_entity',
   );
 
   // Exported permission: 'delete own document files'.
   $permissions['delete own document files'] = array(
     'name' => 'delete own document files',
-    'roles' => array(),
+    'roles' => array(
+      'administrator' => 'administrator',
+      'editor' => 'editor',
+    ),
     'module' => 'file_entity',
   );
 
   // Exported permission: 'delete own image files'.
   $permissions['delete own image files'] = array(
     'name' => 'delete own image files',
-    'roles' => array(),
+    'roles' => array(
+      'administrator' => 'administrator',
+      'editor' => 'editor',
+    ),
     'module' => 'file_entity',
   );
 
   // Exported permission: 'delete own video files'.
   $permissions['delete own video files'] = array(
     'name' => 'delete own video files',
-    'roles' => array(),
+    'roles' => array(
+      'administrator' => 'administrator',
+      'editor' => 'editor',
+    ),
     'module' => 'file_entity',
   );
 
@@ -137,6 +155,7 @@ function soar_media_user_default_permissions() {
     'name' => 'download any audio files',
     'roles' => array(
       'administrator' => 'administrator',
+      'editor' => 'editor',
     ),
     'module' => 'file_entity',
   );
@@ -146,6 +165,7 @@ function soar_media_user_default_permissions() {
     'name' => 'download any document files',
     'roles' => array(
       'administrator' => 'administrator',
+      'editor' => 'editor',
     ),
     'module' => 'file_entity',
   );
@@ -155,6 +175,7 @@ function soar_media_user_default_permissions() {
     'name' => 'download any image files',
     'roles' => array(
       'administrator' => 'administrator',
+      'editor' => 'editor',
     ),
     'module' => 'file_entity',
   );
@@ -164,6 +185,7 @@ function soar_media_user_default_permissions() {
     'name' => 'download any video files',
     'roles' => array(
       'administrator' => 'administrator',
+      'editor' => 'editor',
     ),
     'module' => 'file_entity',
   );
@@ -171,28 +193,40 @@ function soar_media_user_default_permissions() {
   // Exported permission: 'download own audio files'.
   $permissions['download own audio files'] = array(
     'name' => 'download own audio files',
-    'roles' => array(),
+    'roles' => array(
+      'administrator' => 'administrator',
+      'editor' => 'editor',
+    ),
     'module' => 'file_entity',
   );
 
   // Exported permission: 'download own document files'.
   $permissions['download own document files'] = array(
     'name' => 'download own document files',
-    'roles' => array(),
+    'roles' => array(
+      'administrator' => 'administrator',
+      'editor' => 'editor',
+    ),
     'module' => 'file_entity',
   );
 
   // Exported permission: 'download own image files'.
   $permissions['download own image files'] = array(
     'name' => 'download own image files',
-    'roles' => array(),
+    'roles' => array(
+      'administrator' => 'administrator',
+      'editor' => 'editor',
+    ),
     'module' => 'file_entity',
   );
 
   // Exported permission: 'download own video files'.
   $permissions['download own video files'] = array(
     'name' => 'download own video files',
-    'roles' => array(),
+    'roles' => array(
+      'administrator' => 'administrator',
+      'editor' => 'editor',
+    ),
     'module' => 'file_entity',
   );
 
@@ -201,6 +235,7 @@ function soar_media_user_default_permissions() {
     'name' => 'edit any audio files',
     'roles' => array(
       'administrator' => 'administrator',
+      'editor' => 'editor',
     ),
     'module' => 'file_entity',
   );
@@ -210,6 +245,7 @@ function soar_media_user_default_permissions() {
     'name' => 'edit any document files',
     'roles' => array(
       'administrator' => 'administrator',
+      'editor' => 'editor',
     ),
     'module' => 'file_entity',
   );
@@ -219,6 +255,7 @@ function soar_media_user_default_permissions() {
     'name' => 'edit any image files',
     'roles' => array(
       'administrator' => 'administrator',
+      'editor' => 'editor',
     ),
     'module' => 'file_entity',
   );
@@ -228,6 +265,7 @@ function soar_media_user_default_permissions() {
     'name' => 'edit any video files',
     'roles' => array(
       'administrator' => 'administrator',
+      'editor' => 'editor',
     ),
     'module' => 'file_entity',
   );
@@ -235,28 +273,40 @@ function soar_media_user_default_permissions() {
   // Exported permission: 'edit own audio files'.
   $permissions['edit own audio files'] = array(
     'name' => 'edit own audio files',
-    'roles' => array(),
+    'roles' => array(
+      'administrator' => 'administrator',
+      'editor' => 'editor',
+    ),
     'module' => 'file_entity',
   );
 
   // Exported permission: 'edit own document files'.
   $permissions['edit own document files'] = array(
     'name' => 'edit own document files',
-    'roles' => array(),
+    'roles' => array(
+      'administrator' => 'administrator',
+      'editor' => 'editor',
+    ),
     'module' => 'file_entity',
   );
 
   // Exported permission: 'edit own image files'.
   $permissions['edit own image files'] = array(
     'name' => 'edit own image files',
-    'roles' => array(),
+    'roles' => array(
+      'administrator' => 'administrator',
+      'editor' => 'editor',
+    ),
     'module' => 'file_entity',
   );
 
   // Exported permission: 'edit own video files'.
   $permissions['edit own video files'] = array(
     'name' => 'edit own video files',
-    'roles' => array(),
+    'roles' => array(
+      'administrator' => 'administrator',
+      'editor' => 'editor',
+    ),
     'module' => 'file_entity',
   );
 
@@ -283,6 +333,7 @@ function soar_media_user_default_permissions() {
     'name' => 'view own files',
     'roles' => array(
       'administrator' => 'administrator',
+      'anonymous user' => 'anonymous user',
       'authenticated user' => 'authenticated user',
     ),
     'module' => 'file_entity',
