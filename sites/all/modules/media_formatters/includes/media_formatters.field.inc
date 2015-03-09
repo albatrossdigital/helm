@@ -63,7 +63,7 @@ function media_formatters_field_formatter_info() {
         'click_format' => 'inline',
         'autoplay' => TRUE,
         'v_class' => 'embed-responsive-16by9',
-        'play_class' => 'button icon-play',
+        'play_class' => 'btn btn-primary fa fa-play-circle',
         'light_class' => 'col-xs-12',
         'image_style_xs' => 'default',
         'image_style_sm' => 'default',

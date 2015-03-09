@@ -37,3 +37,18 @@ img[data-sizes="auto"] {
   width: 100%;
 }
 
+/* click to play */
+
+.click-to-play-placeholder + .btn {
+  width: 1.4em;
+  height: 1.4em;
+  font-size: 2.5em;  
+  text-align: center;
+  line-height: 1.4em;
+  position: absolute;
+  top: 50%;
+  margin-top: -0.7px;
+  left: 50%;
+  margin-left: -0.7px;
+  padding: 0;
+}
