@@ -14,7 +14,7 @@ function media_formatters_libraries_info() {
     'name' => 'lazysizes',
     'files' => array(
       'js' => array(
-        'lazysizes.min.js',
+        'lazysizes.js',
       ),
     ),
   );
@@ -23,7 +23,7 @@ function media_formatters_libraries_info() {
     'name' => 'Ekko Lightbox',
     'files' => array(
       'js' => array(
-        'dist/ekko-lightbox.min.js',
+        'dist/ekko-lightbox.js',
       ),
       'css' => array(
         'dist/ekko-lightbox.min.css',
@@ -93,17 +93,7 @@ function media_formatters_theme($existing, $type, $theme, $path) {
         'placeholder' => '',
         'play_class' => 'button-play',
         'content' => '',
-        'id' => 'clicktoplay',
-      ),
-    ),
-    'media_formatters_clicktoplay_modal' => array(
-      'template' => $path . 'clicktoplay-modal',
-      'variables' => array(
-        'placeholder' => '',
-        'play_class' => 'button-play',
-        'content' => '',
-        'class' => '',
-        'id' => 'clicktoplay',
+        'v_class' => ''
       ),
     ),
   );
@@ -129,8 +119,8 @@ function template_preprocess_image_lazysizes(&$variables) {
   $variables['alt'] = !empty($item['alt']) ? $item['alt'] : NULL;
 
   $dimensions = array(
-    'width' => $item['width'],
-    'height' => $item['height']
+    'width' => $item['metadata']['width'],
+    'height' => $item['metadata']['height']
   );
 
   // attribution field (based on title)
@@ -196,6 +186,6 @@ function template_preprocess_image_lazysizes(&$variables) {
 function template_preprocess_image_lightbox(&$variables) {
   // Add the js
   libraries_load_files(libraries_load('ekko-lightbox'));
+  drupal_add_css(drupal_get_path('module', 'media_formatters') . '/css/media-formatters.css');
   drupal_add_js(drupal_get_path('module', 'media_formatters') . '/js/bootstrap-lightbox.js', array('scope' => 'footer'));
 }
-

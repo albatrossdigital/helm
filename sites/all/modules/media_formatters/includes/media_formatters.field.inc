@@ -62,9 +62,15 @@ function media_formatters_field_formatter_info() {
       'settings'  => array(
         'click_format' => 'inline',
         'autoplay' => TRUE,
-        'class' => '',
+        'v_class' => 'embed-responsive-16by9',
         'play_class' => 'button icon-play',
-        'image_style' => 'default',
+        'light_class' => 'col-xs-12',
+        'image_style_xs' => 'default',
+        'image_style_sm' => 'default',
+        'image_style_md' => 'default',
+        'image_style_lg' => 'default',
+        'image_style' => '',
+        'show_attribution' => TRUE,
       ),
     ),
     'flexible_media' => array(
@@ -79,9 +85,10 @@ function media_formatters_field_formatter_info() {
         'image_style_md' => 'default',
         'image_style_lg' => 'default',
         'image_style_lightbox' => '',
+        'class' => '',
         'click_format' => 'lightbox',
         'autoplay' => TRUE,
-        'class' => '',
+        'v_class' => '',
         'play_class' => 'button icon-play',
         'file_view_mode' => 'default',
       ),
@@ -163,32 +170,22 @@ function media_formatters_field_formatter_settings_form($field, $instance, $view
 
     case 'bootstrap_lightbox':
       $element = _media_formatters_form_bootstrap_lightbox($field, $instance, $view_mode, $form, $form_state, $settings);
-      $element['class'] = array(
-        '#title' => t('Class'),
-        '#type' => 'textfield',
-        '#size' => 20,
-        '#default_value' => $settings['class'],
-      );
       break;
 
     case 'video_click_to_play':
       $element = _media_formatters_form_video_click_to_play($field, $instance, $view_mode, $form, $form_state, $settings);
       $image_styles = image_style_options(FALSE, PASS_THROUGH);
-      $element['image_style'] = array(
-        '#title' => t('Thumbnail image style'),
-        '#type' => 'select',
-        '#default_value' => $settings['image_style'],
-        '#empty_option' => t('None (use original image)'),
-        '#options' => _media_formatters_image_style_options(),
-      );
+      $element['image_before'] = _media_formatters_hack_fieldset_before('Image Placeholder Settings');
+      $element = array_merge($element, _media_formatters_form_lazysizes($field, $instance, $view_mode, $form, $form_state, $settings));
+      $element['image_after'] = _media_formatters_hack_fieldset_after();
       break;
 
     case 'flexible_media':
-      $element['image'] = _media_formatters_form_lazysizes($field, $instance, $view_mode, $form, $form_state, $settings);
-      array_merge($element['image'], _media_formatters_form_bootstrap_lightbox($field, $instance, $view_mode, $form, $form_state, $settings));
-      $element['image']['#title'] = t('Image Settings');
-      $element['image']['#type'] = 'fieldset';
-      $element['image']['image_style_lightbox'] = array(
+
+      $element['image_before'] = _media_formatters_hack_fieldset_before('Image Settings');
+      $element = array_merge($element, _media_formatters_form_lazysizes($field, $instance, $view_mode, $form, $form_state, $settings));
+
+      $element['image_style_lightbox'] = array(
         '#title' => t('Lightbox image style'),
         '#type' => 'select',
         '#default_value' => $settings['image_style_lightbox'],
@@ -196,24 +193,52 @@ function media_formatters_field_formatter_settings_form($field, $instance, $view
         '#options' => _media_formatters_image_style_options(),
         '#description' => t('The large image style used the lightbox. Set to None to not show a lightbox.'),    
       );
-      $element['video_click_to_play'] = _media_formatters_form_video_click_to_play($field, $instance, $view_mode, $form, $form_state, $settings);
-      $element['video_click_to_play']['#title'] = t('Video Settings');
-      $element['video_click_to_play']['#type'] = 'fieldset';
-      $element['file'] = array();
-      $element['file']['#title'] = t('File Settings');
-      $element['file']['#type'] = 'fieldset';
-      $element['file']['file_view_mode'] = array(
+      $element['class'] = array(
+        '#title' => t('Class'),
+        '#type' => 'textfield',
+        '#size' => 20,
+        '#default_value' => $settings['class'],
+        '#description' => t('The class for the lightbox thumb items. Ex: col-xs-12 or col-sm-4.  See the !docs for more.', array('!docs' => l('Ekko lightbox documentation', 'http://ashleydw.github.io/lightbox/'))),
+      );
+      $element['image_after'] = _media_formatters_hack_fieldset_after();
+
+      $element['video_before'] = _media_formatters_hack_fieldset_before('Video Settings');
+      $element = array_merge($element, _media_formatters_form_video_click_to_play($field, $instance, $view_mode, $form, $form_state, $settings));
+      $element['video_after'] = _media_formatters_hack_fieldset_after();
+
+      $element['file_before'] = _media_formatters_hack_fieldset_before('File Settings');
+      $element['file_view_mode'] = array(
         '#title'   => t('View mode'),
         '#type'    => 'select',
         '#options' => file_entity_view_mode_labels(),
         '#default_value' => $settings['file_view_mode'],
         // Never empty, so no #empty_option
       );
+      $element['file_after'] = _media_formatters_hack_fieldset_after();
       break;
   }
  
   return $element;
 }
+
+/**
+ * hook_field_formatter_settings_form doesn't allow fieldsets in these settings forms
+ * without setting #parent on all children see: 
+ * https://api.drupal.org/api/drupal/modules!field_ui!field_ui.api.php/function/hook_field_formatter_settings_form/7#comment-48048
+ */
+function _media_formatters_hack_fieldset_before($title) {
+  return array('#markup' => '<fieldset class="form-wrapper panel panel-default" id="edit-image"><legend class="panel-heading"><div class="panel-title fieldset-legend">' . t($title) . '</div></legend><div class="panel-body fieldset-wrapper">');
+}
+
+/**
+ * hook_field_formatter_settings_form doesn't allow fieldsets in these settings forms
+ * without setting #parent on all children see: 
+ * https://api.drupal.org/api/drupal/modules!field_ui!field_ui.api.php/function/hook_field_formatter_settings_form/7#comment-48048
+ */
+function _media_formatters_hack_fieldset_after() {
+  return array('#markup' => '</div></fieldset>');
+}
+
 
 /**
  * Implements hook_field_formatter_settings_summary().
@@ -315,9 +340,9 @@ function _media_formatters_form_lazysizes($field, $instance, $view_mode, $form, 
     '#default_value' => $settings['link_field'],
     '#options' => _media_formatters_fields('link_field', array('' => t('- None -'))),
   );
+  dpm($settings);
   return $element;
 }
-
 
 /**
  * Bootstrap lightbox form.
@@ -358,6 +383,13 @@ function _media_formatters_form_bootstrap_lightbox($field, $instance, $view_mode
     '#field_suffix' => t(' thumbnails'),
     '#description' => t('Leave blank to display all thumbnails'),
   );
+  $element['class'] = array(
+    '#title' => t('Class'),
+    '#type' => 'textfield',
+    '#size' => 20,
+    '#default_value' => $settings['class'],
+    '#description' => t('The class for the lightbox thumb items. Ex: col-xs-12 or col-sm-4.  See the !docs for more.', array('!docs' => l('Ekko lightbox documentation', 'http://ashleydw.github.io/lightbox/'))),
+  );
   return $element;
 }
 
@@ -382,16 +414,22 @@ function _media_formatters_form_video_click_to_play($field, $instance, $view_mod
     '#default_value' => $settings['autoplay'],
     '#description' => t('Attempt to autoplay the video when clicked. Currently only works with Youtube.'),
   );
-  $element['class'] = array(
-    '#title' => t('Class'),
+  $element['v_class'] = array(
+    '#title' => t('Responsive Class'),
     '#type' => 'textfield',
-    '#default_value' => $settings['class'],
-    '#description' => t('Additonal class to go on the video when played. For modals, this can be used to adjust the size of the modal (and video, because it is wrapped in flex-video). See the !docs.', array('!docs' => l('Foundation reveal docs under Advanced', 'http://foundation.zurb.com/docs/components/reveal.html'))),
+    '#default_value' => $settings['v_class'],
+    '#description' => t('The responsive class for the video. Ex: embed-responsive-16by9 or embed-responsive-4by3.  See the !docs for more.', array('!docs' => l('Bootstrap documentation', 'http://getbootstrap.com/components/#responsive-embed'))),
   );
   $element['play_class'] = array(
     '#title' => t('Play button class(es)'),
     '#type' => 'textfield',
     '#default_value' => $settings['play_class'],
+  );
+  $element['light_class'] = array(
+    '#title' => t('Lightbox thumbnail Class'),
+    '#type' => 'textfield',
+    '#default_value' => $settings['light_class'],
+    '#description' => t('The class for the lightbox thumb items. Ex: col-xs-12 or col-sm-4.  See the !docs for more.', array('!docs' => l('Ekko lightbox documentation', 'http://ashleydw.github.io/lightbox/'))),
   );
   return $element;
 }
@@ -462,6 +500,7 @@ function media_formatters_field_formatter_view($entity_type, $entity, $field, $i
         $element[$delta] = array(
           '#markup' => $markup,
         );
+        $display['combine_fields'] = TRUE;
         break;
 
       case 'video_click_to_play':
@@ -474,7 +513,7 @@ function media_formatters_field_formatter_view($entity_type, $entity, $field, $i
         break;
 
       case 'flexible_media':
-        $markup = _media_formatters_view_flexible_media($entity_type, $entity, $field, $instance, $langcode, $item, $display, $settings);
+        $markup = _media_formatters_view_flexible_media($entity_type, $entity, $field, $instance, $langcode, $item, $display, $settings, $delta);
         $element[$delta] = array(
           '#markup' => $markup,
         );
@@ -485,7 +524,7 @@ function media_formatters_field_formatter_view($entity_type, $entity, $field, $i
 
 
   // Boostrap lightbox
-  if ($display['type'] == 'bootstrap_lightbox') {
+  if (!empty($display['combine_fields'])) {
     $element[0]['#prefix'] = '<div class="row lightbox-gallery-wrapper">';
     $element[(count($element) - 1)]['#suffix'] = '</div>';
     $element = array($element);
@@ -537,10 +576,7 @@ function _media_formatters_view_lazysizes($entity_type, $entity, $field, $instan
 /**
  * Formatter view for video click to play.
  */
-function _media_formatters_view_video_click_to_play($entity_type, $entity, $field, $instance, $langcode, $item, $display, $settings){
-  $element[$delta] = array(
-    '#markup' => $markup,
-  );
+function _media_formatters_view_video_click_to_play($entity_type, $entity, $field, $instance, $langcode, $item, &$display, $settings){
 
   if (
     !empty($item['metadata']['oembed'])
@@ -555,34 +591,39 @@ function _media_formatters_view_video_click_to_play($entity_type, $entity, $fiel
     // Get the output of the thumbnail from the oembed thumbnail field
     else {
       $item['attributes']['src'] = $item['metadata']['oembed']['thumbnail_url'];
+
+      $item['attributes']['class'] = array('embed-responsive-item');
       $markup = theme('html_tag', array('element' => array(
         '#tag' => 'img',
-        '#attributes' => $item['attributes'],
+        '#attributes' => array_merge($item['attributes'], array()),
       )));
     }
     // Now build out the tags
     if (!empty($markup)) {
-      // Click to play
-      $element[$delta] = array(
-        '#markup' => $markup,
-      );
-      if ($settings['format'] == 'clicktoplay') {
+
+      if ($settings['format'] == 'inline') {
         $content = $item['metadata']['oembed']['html'];
-        $content = $settings['autoplay'] ? str_replace('oembed"', 'oembed&autoplay=1"', $content) : $content;
-        $element[$delta] = array(
-          '#theme' => 'media_formatters_clicktoplay_' . $settings['format'],
-          '#placeholder' => $markup,
-          '#play_class' => $settings['play_class'],
-          '#content' => htmlentities($content),
-          '#class' => $settings['class'],
-          '#id' => 'file-' . $item['fid'],
-          //@todo: render this field (in the future--give them the option?)
-          //$item['attributes']['data-clicktoplay-content'] = drupal_render(field_view_value($entity_type, $entity, $field['field_name'], $item, array(
-          //  'type' => 'file_rendered',
-          //)));
+
+        // Add responsive tag to item
+        if(strpos($content, 'class="')) {
+          $content = str_replace('class="', 'class="embed-responsive-item ', $content);
+        }
+        else {
+          $content = str_replace('<iframe ', '<iframe class="embed-responsive-item" ', $content);
+        }
+
+        $content = $settings['autoplay'] 
+                 ? str_replace('oembed"', 'oembed&autoplay=1"', $content) 
+                 : $content;
+
+        $options = array(
+          'placeholder' => $markup,
+          'play_class' => $settings['play_class'],
+          'content' => htmlentities($content),
+          'v_class' => $settings['v_class']
         );
-        // @todo: this shouldn't be necessary. Would prefer to use a render array
-        $markup = drupal_render($element[$delta]);
+        
+        $markup = theme('media_formatters_clicktoplay_inline', $options);
       }
       // Lightbox
       else {
@@ -590,20 +631,22 @@ function _media_formatters_view_video_click_to_play($entity_type, $entity, $fiel
           'img' => $markup,
           'path_lightbox' => $item['metadata']['oembed']['original_url'],
           'gallery' => $instance['field_name'],
-          'class' => $settings['class'],
+          'class' => $settings['light_class'],
           'title' => $item['title'],
           'alt' => $item['alt'],
         );
         $markup = theme('image_lightbox', $options);
+        $display['combine_fields'] = TRUE;
       }
     }
   }
-  // Gracefully degrade to a normal File Render.
-  if (empty($element[$delta])) {
+
+    // Gracefully degrade to a normal File Render.
+  if (empty($markup)) {
     // render as normal
-    $markup = field_view_value($entity_type, $entity, $field['field_name'], $item, array(
+    $markup = drupal_render(field_view_value($entity_type, $entity, $field['field_name'], $item, array(
       'type' => 'file_rendered',
-    ));
+    )));
   }
 
   return $markup;
@@ -612,9 +655,10 @@ function _media_formatters_view_video_click_to_play($entity_type, $entity, $fiel
 /**
  * Formatter view for flexible media.
  */
-function _media_formatters_view_flexible_media($entity_type, $entity, $field, $instance, $langcode, $item, $display, $settings) {
+function _media_formatters_view_flexible_media($entity_type, $entity, $field, $instance, $langcode, $item, &$display, $settings, $delta) {
   switch ($item['type']) {
     case 'image':
+
       // Hidden image (for galleries)
       if (!empty($settings['image_style_lightbox']) && $delta > 0) {
         $options = array(
@@ -624,6 +668,7 @@ function _media_formatters_view_flexible_media($entity_type, $entity, $field, $i
           'class' => $settings['class'],
           'title' => $item['title'],
         );
+        $display['combine_fields'] = TRUE;
         $markup = theme('image_lightbox', $options);
       }
       // All other images use lazysizes
@@ -642,6 +687,7 @@ function _media_formatters_view_flexible_media($entity_type, $entity, $field, $i
             'class' => $settings['class'],
             'title' => $item['title'],
           );
+          $display['combine_fields'] = TRUE;
           $markup = theme('image_lightbox', $options);
         }
       }

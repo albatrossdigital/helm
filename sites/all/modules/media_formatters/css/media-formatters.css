@@ -1,4 +1,5 @@
-/* CSS for attribution box on images */
+/* Lazy sized images */
+
 .image-lazysize {
   position: relative;
 }
@@ -27,5 +28,12 @@ img[data-sizes="auto"] {
 .image-lazysize .image-attribution:hover .image-attribution-text {
   display: inline;
   font-size: .9em;
+}
+
+/* Ekko lightbox images */
+
+[data-toggle="lightbox"] img { 
+  display: block; 
+  width: 100%;
 }
 

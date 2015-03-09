@@ -10,8 +10,10 @@ Drupal.behaviors.boostrap_lightbox = {
 // End Drupal wrapper
 
 $('*[data-toggle="lightbox"]:not(.ekko-processed)').on('click', function(event) {
-    event.preventDefault();
-    return $(this).ekkoLightbox();
+  $(this).ekkoLightbox();
+  event.preventDefault();
+  event.stopImmediatePropagation();
+  return false;
 }).addClass('ekko-processed');
 
 // Begin Drupal wrapper  
