@@ -15,13 +15,14 @@
           });
         }
       };
+
+      // Open external links in new window
       var reg = new RegExp("/" + window.location.host + "/");
       $("a").each(function() {
         if (!reg.test(this.href)) {
           $(this).attr('target', '_blank');
         }
       });
-
 
       $('[data-toggle="offcanvas"]').click(function () {
         $('.row-offcanvas').toggleClass('active')
