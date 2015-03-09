@@ -134,6 +134,23 @@ function angular_media_file_access() {
   return TRUE;
 }
 
+/**
+ * Alters an oEmbed response.
+ *
+ * @param array $response
+ *   oEmbed response data.
+ */
+function angular_media_oembed_response_alter(&$response) {
+  if ($response['provider'] == 'default:youtube' && !empty($response['thumbnail_url'])) {
+    $regex = '/(.*?(img\.youtube\.com|i\.ytimg\.com)\/vi\/(.*?)\/)/i';
+    preg_match($regex, $response['thumbnail_url'], $matches);
+    // If we have a match, lets add the max res version of the thumb
+    if(count($matches) > 0) {
+      $response['thumbnail_url'] = $matches[1] . 'maxresdefault.jpg';
+    }
+  }
+}
+
 
 /**
  * Verifies the token for this request.
