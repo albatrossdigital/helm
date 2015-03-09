@@ -340,7 +340,6 @@ function _media_formatters_form_lazysizes($field, $instance, $view_mode, $form, 
     '#default_value' => $settings['link_field'],
     '#options' => _media_formatters_fields('link_field', array('' => t('- None -'))),
   );
-  dpm($settings);
   return $element;
 }
 
