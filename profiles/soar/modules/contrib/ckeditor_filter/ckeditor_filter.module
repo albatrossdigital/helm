@@ -105,7 +105,6 @@ function _ckeditor_filter_process_recursive($e, $elements, $special_cases, $attr
       _ckeditor_filter_process_attributes($e, $all_attributes, $attributes);
       // process styles
       _ckeditor_filter_process_styles($e, $styles_regex);
-      dpm($e);
     }
     // recurse to sibling
     if(method_exists($e, 'next_sibling')) {
