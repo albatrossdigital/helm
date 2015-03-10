@@ -1,0 +1,9 @@
+name = CKEditor Filter
+description = Simple implementation of a WYSIWYG filter
+package = Input filters
+core = 7.x
+
+dependencies[] = simplehtmldom
+
+files[] = ckeditor_filter.module
+

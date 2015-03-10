@@ -1,0 +1,358 @@
+<?php
+
+/**
+ * @file
+ * Provides an input filter that allows site administrators configure which
+ * HTML elements, attributes and style properties are allowed.
+ */
+
+/**
+* Implements hook_filter_info().
+*/
+function ckeditor_filter_filter_info() {
+  $filters = array();
+  $defaults = module_invoke_all('ckeditor_filter_defaults');
+  $filters['ckeditor_filter'] = array(
+    'title' => t('Ckeditor filter'),
+    'description' => t('Simple wysiwyg filter allowing for html WE want.'), 
+    'process callback' => '_ckeditor_filter_process',
+    'settings callback' => 'ckeditor_filter_filter_ckeditor_filter_settings',
+    // Allow other modules to declare default tags and replacement markup.
+    'default settings' => $defaults,
+    'tips callback' => '_ckeditor_filter_tips'
+  );
+  return $filters;
+}
+
+/**
+ * Process callback for filter.
+ */
+function _ckeditor_filter_process($text, $filter) {
+  $settings = $filter->settings;
+
+  if(!isset($settings['valid_elements']) || !isset($settings['valid_attributes']) || !isset($settings['valid_styles'])) {
+    return;
+  }
+  // Mega strip
+  $special_cases = ckeditor_filter_get_elements_blacklist();
+
+  // grab dom object
+  $html = new simple_html_dom();
+  $html->load($text);
+
+  // just make sure simple_html worked
+  if (method_exists($html, 'find')) {
+    // grab attributes
+    $attributes = explode(',', $settings['valid_attributes']);
+    $styles = explode(',', $settings['valid_styles']);
+    // grab regex for styles
+    $styles_regex = _ckeditor_filter_styles_regex_builder($styles);
+    // there are styles so add to allowed attributes
+    if(!empty($styles_regex)) {
+      array_push($attributes, 'style');
+    }
+
+    // @TODO account for wildcards
+
+    // grab root html element
+    $root = $html->find('root', 0);
+    // call recursive handler to run through tree
+    _ckeditor_filter_process_recursive(
+      $root, 
+      explode(',', $settings['valid_elements']),
+      $special_cases,
+      $attributes,
+      $styles_regex
+    );
+    return $root->outertext;
+  }
+
+  return $text;
+}
+
+/**
+ * Builds regex
+ * http://stackoverflow.com/questions/12412388/regex-to-remove-all-styles-but-leave-color-and-background-color-if-they-exist
+ */
+function _ckeditor_filter_styles_regex_builder($styles) {
+  if(!empty($styles)) { 
+    $regex = '/(?:';
+    foreach($styles as $style) {
+      $regex .= '(?!(?:|[^$]*[;\s])' . $style . '\s*:[^$;]*)';
+    }
+    $regex .= '[^$]*$|';
+    foreach($styles as $style) {
+      $regex .= '(?=(?:|[^$]*[;\s])(' . $style . '\s*:[^$;]*))?';
+    }
+    return $regex . '[^$]*$)/i';
+  }
+  return FALSE;
+}
+
+/**
+ * Recursive call to process html block
+ */
+function _ckeditor_filter_process_recursive($e, $elements, $special_cases, $attributes, $styles_regex) {
+  // we have an element
+  if(!empty($e)) {
+    // if the tag isn't in our elements, clear
+    if($e->tag != 'root') {
+      _ckeditor_filter_process_elements($e, $elements, $special_cases);
+    }
+    // we have attributes
+    if($all_attributes = $e->getAllAttributes()) {
+      // process attributes
+      _ckeditor_filter_process_attributes($e, $all_attributes, $attributes);
+      // process styles
+      _ckeditor_filter_process_styles($e, $styles_regex);
+      dpm($e);
+    }
+    // recurse to sibling
+    if(method_exists($e, 'next_sibling')) {
+      _ckeditor_filter_process_recursive(
+        $e->next_sibling(), 
+        $elements, 
+        $special_cases, 
+        $attributes, 
+        $styles_regex
+      );
+    }
+    // recurse to first child
+    if(method_exists($e, 'first_child')) {
+      _ckeditor_filter_process_recursive(
+        $e->first_child(), 
+        $elements, 
+        $special_cases, 
+        $attributes, 
+        $styles_regex
+      );
+    }
+  }
+}
+
+/**
+ * Runs element against defined values, and blacklist
+ */
+function _ckeditor_filter_process_elements(&$e, $elements, $special_cases) {
+  // test against <script>, <style>, ect
+  if(in_array($e->tag, $special_cases)) {
+    $e->outertext = '';
+    $e->attributes = array();
+  }
+  // check against out allowed tags
+  else if(!in_array($e->tag, $elements)) {
+    $e->tag = 'root';
+    $e->attributes = array();
+  } 
+}
+
+/**
+ * Runs html attribute against defined values
+ */
+function _ckeditor_filter_process_attributes(&$e, $all_attributes, $attributes) {
+  // diff has un-allowed
+  $delete_attrs = array_diff(array_keys($all_attributes), $attributes);
+  if(!empty($delete_attrs)) {
+    // remove un-allowed
+    foreach($delete_attrs as $attr) {
+      $e->removeAttribute($attr);
+    }
+  }
+}
+
+/**
+ * Runs style values against defined values
+ */
+function _ckeditor_filter_process_styles(&$e, $styles_regex) {
+  // deal with styles
+  if($e->style) {
+    // we have some styles allowed
+    if(!empty($styles_regex)) {
+      // match
+      preg_match($styles_regex, $e->style, $matches);
+      $matches = array_filter($matches);
+      // always matches 1, so must have more for actual hits
+      if(count($matches) >= 2) {
+        array_shift($matches);
+        $e->style = implode(';', $matches) . ';';
+        return;
+      }
+    }
+    // clear
+    $e->removeAttribute('style');
+  }
+}
+
+
+/**
+ * Tips callback for tag filter.
+ */
+function _ckeditor_filter_tips($filter, $format, $long = FALSE) {
+  $tips = '';
+  if (user_access('administer filters')) {
+    $tips .= ' ' . l(t('Configure format.'), 'admin/config/content/formats/' . $format->format);
+    return $tips;
+  }
+}
+
+/**
+ * Implements hook_filter_FILTER_settings
+ *
+ * @ingroup forms
+ */
+function ckeditor_filter_filter_ckeditor_filter_settings($form, $form_state, $filter, $format, $defaults) {
+
+  $settings = $filter->settings;
+  $settings += $defaults;
+
+  // carry over settings for other formats
+  $filterform = array();
+
+  // *** valid elements ***
+  $valid_elements = $settings['valid_elements'];
+  $valid_elements_rows = min(20, max(5, substr_count($valid_elements, "\n") + 2));
+
+  // show blacklisted elements in description
+  $elements_blacklist = ckeditor_filter_get_elements_blacklist();//wysiwyg_filter_get_elements_blacklist();
+  foreach ($elements_blacklist as $i => $element) {
+    $elements_blacklist[$i] = '<' . $element . '>';
+  }
+
+  $filterform['valid_elements'] = array(
+      '#type' => 'textarea',
+      '#title' => t('Valid HTML elements'),
+      '#default_value' => $valid_elements,
+      '#cols' => 60,
+      '#rows' => $valid_elements_rows,
+      '#description' => t('<p>
+  This option allows you to specify which HTML elements allowed.
+  </p>
+  <ul>
+    <li>The following elements cannot be whitelisted due to security reasons, to prevent users from breaking site layout and/or to avoid posting invalid HTML. Forbidden elements: %elements-blacklist.</li>
+  </ul>', array(
+        '%elements-blacklist' => implode(' ', $elements_blacklist),
+      )),
+  );
+
+    // *** valid attributes ***
+  $valid_attributes = $settings['valid_attributes'];
+  $valid_attributes_rows = min(20, max(5, substr_count($valid_attributes, "\n") + 2));
+
+  $filterform['valid_attributes'] = array(
+      '#type' => 'textarea',
+      '#title' => t('Valid element attributes'),
+      '#default_value' => $valid_attributes,
+      '#cols' => 60,
+      '#rows' => $valid_attributes_rows,
+      '#description' => t('<p>
+  This option allows you to specify which element attributes allowed.  Note: to use inline styles, &quot;style&quot; must be included here.
+  </p>'),
+  );
+
+  // *** valid styles ***
+  $valid_styles = $settings['valid_styles'];
+  $valid_styles_rows = min(20, max(5, substr_count($valid_styles, "\n") + 2));
+
+  // *** Style properties ***
+  $filterform['valid_styles'] = array(
+    '#type' => 'textarea',
+    '#title' => t('Valid Style properties'),
+    '#default_value' => $valid_styles,
+    '#cols' => 60,
+    '#rows' => $valid_styles_rows,
+    '#description' => '<p>' . t('This section allows you to select which style properties can be used for HTML styles where the &quot;style&quot; attribute has been allowed. The <em>WYSIWYG Filter</em> will strip out style properties (and their values) not explicitly enabled here.') . '</p>',
+  );
+  
+  return $filterform;
+}
+
+/*
+ * Implements hook_form_FORM_ID_alter
+ * 
+ * add validate and submit handlers
+ */
+function ckeditor_filter_form_filter_admin_format_form_alter(&$form, &$form_state, $form_id) {
+  $form['#validate'][] = 'ckeditor_filter_settings_validate';
+}
+
+
+/**
+ * Validate filter settings form.
+ *
+ * @ingroup forms
+ */
+function ckeditor_filter_settings_validate($form, &$form_state) {
+  $values =& $form_state['values']['filters']['ckeditor_filter']['settings'];
+
+  // boolean for errors being thrown
+  $errors_thrown = false;
+
+  // *** validate valid_elements ***
+  // Check elements against hardcoded backlist.
+  $elements_blacklist = ckeditor_filter_get_elements_blacklist();
+  $valid_elements = trim($values['valid_elements']);
+  $valid_elements = explode(',', $valid_elements);
+  $forbidden_elements = array();
+  foreach ($valid_elements as $element) {
+    if (in_array($element, $elements_blacklist)) {
+      $forbidden_elements[] = $element;
+    }
+  }
+  if (!empty($forbidden_elements)) {
+    $errors_thrown = true;
+    form_set_error('valid_elements', t('The following elements cannot be allowed: %elements.', array('%elements' => implode(', ', $forbidden_elements))));
+  }
+
+  if(!$errors_thrown) {
+    $form_state['values']['filters']['ckeditor_filter']['settings']['valid_elements'] = trim($values['valid_elements']);
+  }
+}
+
+/**
+ * Get HTML elements blacklist.
+ */
+function ckeditor_filter_get_elements_blacklist() {
+  return array(
+    'applet',
+    'area',
+    'base',
+    'basefont',
+    'body',
+    'button',
+    'embed',
+    'form',
+    'frame',
+    'frameset',
+    'head',
+    'html',
+    'input',
+    'isindex',
+    'label',
+    'link',
+    'map',
+    'meta',
+    'noframes',
+    'noscript',
+    'object',
+    'optgroup',
+    'option',
+    'param',
+    'script',
+    'select',
+    'style',
+    'textarea',
+    'title',
+  );
+}
+
+
+/**
+ * Call hook for default filters 
+ */
+function ckeditor_filter_ckeditor_filter_defaults() {
+  return array(
+    'valid_elements' => 'p,a,div,span,h2,h3,h4,h5,h6,section,article,strong,b,i,em,cite,blockquote,small,sub,sup,code,pre,ul,ol,li,dl,dt,dd,table,tbody,thead,th,tr,td,img,caption,br',
+    'valid_attributes' => 'href,src,target,width,height,colspan,span,alt,name,title,class,id,style',
+    'valid_styles' => 'text-align,float,margin'
+  );
+}
