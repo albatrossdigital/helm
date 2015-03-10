@@ -135,6 +135,7 @@ function soar_input_formats_ckeditor_profile_defaults() {
             'desc' => 'Plugin for Angular Media Browser',
             'path' => '%base_path%sites/all/modules/angular_media/plugins/angularMedia/',
             'buttons' => FALSE,
+            'active' => 0,
           ),
           'widgetbootstrap' => array(
             'name' => 'widgetbootstrap',

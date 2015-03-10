@@ -16,19 +16,39 @@ function soar_input_formats_filter_default_formats() {
     'name' => 'Filtered HTML',
     'cache' => 1,
     'status' => 1,
-    'weight' => -10,
+    'weight' => 0,
     'filters' => array(
-      'soar_wysiwyg_filter' => array(
-        'weight' => 0,
+      'image_resize_filter' => array(
+        'weight' => -49,
         'status' => 1,
         'settings' => array(
-          'valid_elements' => 'p,a,div,span,h2,h3,h4,h5,h6,section,article,iframe,object,embed,strong,b,i,em,cite,pre,blockquote,small,sub,sup,code,ul,ol,li,dl,dt,dd,table,thead,tbody,th,tr,td,img,caption,mediawrapper,br',
-          'valid_attributes' => 'href,src,target,width,height,colspan,span,alt,name,title,class,id,data-options',
+          'link' => 0,
+          'link_class' => '',
+          'link_rel' => '',
+          'image_locations' => array(
+            'local' => 'local',
+            'remote' => 0,
+          ),
+        ),
+      ),
+      'filter_url' => array(
+        'weight' => -46,
+        'status' => 1,
+        'settings' => array(
+          'filter_url_length' => 72,
+        ),
+      ),
+      'ckeditor_filter' => array(
+        'weight' => -45,
+        'status' => 1,
+        'settings' => array(
+          'valid_elements' => 'p,a,div,span,h2,h3,h4,h5,h6,section,article,strong,b,i,em,cite,blockquote,small,sub,sup,code,pre,ul,ol,li,dl,dt,dd,table,tbody,thead,th,tr,td,img,caption,br',
+          'valid_attributes' => 'href,src,target,width,height,colspan,span,alt,name,title,class,id,style',
           'valid_styles' => 'text-align,float,margin',
         ),
       ),
       'filter_htmlcorrector' => array(
-        'weight' => 10,
+        'weight' => -41,
         'status' => 1,
         'settings' => array(),
       ),
@@ -41,8 +61,21 @@ function soar_input_formats_filter_default_formats() {
     'name' => 'Full HTML',
     'cache' => 1,
     'status' => 1,
-    'weight' => -9,
+    'weight' => 1,
     'filters' => array(
+      'image_resize_filter' => array(
+        'weight' => 0,
+        'status' => 1,
+        'settings' => array(
+          'link' => 0,
+          'link_class' => '',
+          'link_rel' => '',
+          'image_locations' => array(
+            'local' => 'local',
+            'remote' => 0,
+          ),
+        ),
+      ),
       'filter_htmlcorrector' => array(
         'weight' => 10,
         'status' => 1,
