@@ -85,7 +85,7 @@ function media_formatters_field_formatter_info() {
         'image_style_md' => 'default',
         'image_style_lg' => 'default',
         'image_style_lightbox' => '',
-        'class' => 'col-sm-4',
+        'class' => 'col-sm-12',
         'click_format' => 'lightbox',
         'autoplay' => TRUE,
         'v_class' => 'embed-responsive-16by9',
