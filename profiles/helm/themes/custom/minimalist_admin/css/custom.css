@@ -5578,7 +5578,10 @@ label.label-help:after {
       font-weight: bold;
       max-width: 100%;
       height: 1.2em;
-      padding: 0; }
+      padding: 0;
+      color: #000; }
+      .node-form .form-item-title input:placeholder, .node-form .field-name-field-subtitle input:placeholder {
+        color: #333333; }
     .node-form .form-item-title.field-name-field-subtitle input, .node-form .field-name-field-subtitle.field-name-field-subtitle input {
       font-size: 2em;
       font-weight: normal;

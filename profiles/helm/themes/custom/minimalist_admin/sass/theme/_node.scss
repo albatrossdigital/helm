@@ -30,6 +30,11 @@
       max-width: 100%;
       height: 1.2em;
       padding: 0;
+      color: $black;
+
+      &:placeholder {
+        color: $text-color;
+      }
     }
     
     &.field-name-field-subtitle input {
