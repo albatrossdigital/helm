@@ -1,0 +1,6 @@
+name = Soar Core
+description = Core hooks, UI tweaks and helper functions for the Soar family of distributions
+core = 7.x
+
+
+
