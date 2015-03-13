@@ -13,10 +13,10 @@
  * (1) http://ckeditor.com/builder
  *     Visit online builder to build CKEditor from scratch.
  *
- * (2) http://ckeditor.com/builder/730dda2f9cd2562721c1b5537cad1b63
+ * (2) http://ckeditor.com/builder/6c942f98b23367b61db5358a076418fb
  *     Visit online builder to build CKEditor, starting with the same setup as before.
  *
- * (3) http://ckeditor.com/builder/download/730dda2f9cd2562721c1b5537cad1b63
+ * (3) http://ckeditor.com/builder/download/6c942f98b23367b61db5358a076418fb
  *     Straight download link to the latest version of CKEditor (Optimized) with the same setup as before.
  *
  * NOTE:
@@ -25,7 +25,7 @@
  */
 
 var CKBUILDER_CONFIG = {
-	skin: 'moono',
+	skin: 'minimalist',
 	preset: 'standard',
 	ignore: [
 		'.bender',
@@ -51,6 +51,7 @@ var CKBUILDER_CONFIG = {
 	plugins : {
 		'a11yhelp' : 1,
 		'about' : 1,
+		'autogrow' : 1,
 		'basicstyles' : 1,
 		'blockquote' : 1,
 		'clipboard' : 1,
@@ -67,7 +68,6 @@ var CKBUILDER_CONFIG = {
 		'image' : 1,
 		'image2' : 1,
 		'indentlist' : 1,
-		'leaflet' : 1,
 		'link' : 1,
 		'list' : 1,
 		'maximize' : 1,
@@ -86,6 +86,9 @@ var CKBUILDER_CONFIG = {
 		'tabletools' : 1,
 		'toolbar' : 1,
 		'undo' : 1,
+		'widgetbootstrap' : 1,
+		'widgetcommon' : 1,
+		'widgettemplatemenu' : 1,
 		'wsc' : 1,
 		'wysiwygarea' : 1
 	},

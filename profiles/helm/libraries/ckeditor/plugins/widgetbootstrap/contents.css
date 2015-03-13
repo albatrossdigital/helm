@@ -32,17 +32,10 @@
   width: 33.3%;
 }
 
-.col-md-6 .cke_widget_wrapper,
-.col-md-3 .cke_widget_wrapper,
-.col-md-9 .cke_widget_wrapper,
-.col-md-4 .cke_widget_wrapper {
-  max-width: 100%;
-}
-
-
 /* Custom styles */
 .col-md-6 img,
 .col-md-3 img,
+.col-md-4 img,
 .col-md-9 img {
   display: block;
   max-width: 100%;
