@@ -10,29 +10,17 @@ angular.module('app.core')
 .controller('thumbnails', function($scope, $rootScope, $state, $stateParams, $timeout, FileUploader){
   // set rootscope settings
   $scope.init = function(params) {
-    //$rootScope.appUrl = params.appUrl != undefined ? params.appUrl : '';
-
-    // @todo: Do this with angular.extend()
-    //var fieldName = params.fieldName != undefined ? params.fieldName : $rootScope.fieldName;
     $rootScope.activeField = params.fieldName;
     $rootScope.files[params.fieldName] = params.files != undefined ? params.files : $rootScope.files;
     params.files = undefined;
 
     var settings = {}
     angular.extend(settings, $rootScope.settings.defaults, params);
-/*
-    $rootScope.settings[fieldName].apiUrl = params.apiUrl != undefined ? params.apiUrl : $rootScope.apiUrl;
-    $rootScope.settings[fieldName].cardinality = params.cardinality != undefined ? parseInt(params.cardinality) : $rootScope.cardinality;
-    $rootScope.settings[fieldName].multiple = $rootScope.cardinality != 1;
-    //$rootScope.settings[fieldName].tabs = params.tabs != undefined ? params.tabs : $rootScope.tabs;
-    $rootScope.settings[fieldName].allowedTypes = params.allowedTypes != undefined ? params.allowedTypes : undefined;
-    $rootScope.settings[fieldName].cropRatio = params.cropRatio != undefined ? params.cropRatio : undefined;
-    $rootScope.settings[fieldName].allowedSchemes = params.allowedSchemes != undefined ? params.allowedSchemes : undefined;
-    $rootScope.settings[fieldName].addlFieldName = params.addlFieldName != undefined ? params.addlFieldName : undefined;
-    
-*/
+
+    // multiple is based on cardinality
+    settings.multiple = (parseInt(settings.cardinality) != 1) ? true : false;
+
     // Merge in tab data
-    //var enabledTabs = params.tabs;
     var tabs = [];
     angular.forEach(settings.tabs, function(tab, key) {
       if ($rootScope.tabs[tab] != undefined) {

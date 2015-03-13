@@ -5,6 +5,8 @@
  * Implementation of angular_media.module.
  */
 
+define('ANGULAR_MEDIA_TOKEN_KEY', 'angular_media');
+
 include_once 'angular_media.features.inc';
 include_once 'includes/angular_media.field.inc';
 
@@ -224,6 +226,13 @@ function angular_media_callback_upload() {
 function angular_media_callback_file($fid = NULL) {
   watchdog('angular_media', 'file $_GET <pre>%f</pre>', array('%f' => print_r($_GET,1)));
 
+  // Check the token to avoid CSRF attacks
+  $token = $_REQUEST['token'];//empty($_GET['token']) ? $_GET['token'] : $_POST['token'];
+  if (empty($token) || !drupal_valid_token($token, ANGULAR_MEDIA_TOKEN_KEY)) {
+    watchdog('angular_media', 'CSRF ATTACK! <pre>%f</pre>');
+    return FALSE;
+  }
+
   if (!empty($_GET['fid'])) {
     $file = file_load($_GET['fid']);
     watchdog('angular_media', 'file loaded <pre>%f</pre>', array('%f' => print_r($file,1)));
@@ -233,13 +242,19 @@ function angular_media_callback_file($fid = NULL) {
     watchdog('angular_media', 'file post <pre>%f</pre>', array('%f' => print_r($file,1)));
     
     // Copy file over from url (flickr)
-    if (!empty($_GET['url'])) {
+    if (!empty($_GET['url']) && empty($_GET['fid'])) {
+      if (!file_entity_access('create')) {
+        return FALSE;
+      }
       $file = angular_media_file_url_to_object($_GET['url'], $_GET['filename']);
       watchdog('angular_media', 'file copy from url <pre>%f</pre>', array('%f' => print_r($file,1)));
     }
 
     // Copy file over from external url (fetch)
     if (!empty($_REQUEST['external'])) {
+      if (!file_entity_access('create')) {
+        return FALSE;
+      }
       // Save the remote file
       $provider = media_internet_get_provider($_REQUEST['external']);
       // Providers decide if they need to save locally or somewhere else.
@@ -249,6 +264,9 @@ function angular_media_callback_file($fid = NULL) {
 
     // Process crop
     if (!empty($_GET['crop'])) {
+      if (!file_entity_access('update', $file)) {
+        return FALSE;
+      }
       $crop = json_decode($_GET['crop']);
       $crop = (array)$crop;
       $file = angular_media_process_crop($file, $crop);
@@ -293,7 +311,7 @@ function angular_media_simplify_file($file) {
   if ($file->type == 'image') {
     // Append unique suffix to prevent these images from being cached locally
     $suffix = '&' . time();
-    $file->url = file_create_url($file->uri);
+    $file->url = file_create_url($file->uri) . '?a' . $suffix;
     $file->thumbUrl =  image_style_url('media_thumbnail', $file->uri) . $suffix;
     $file->previewUrl = image_style_url('media_preview', $file->uri) . $suffix;
     $file->cropUrl = image_style_url('media_crop', $file->uri) . $suffix;
@@ -389,8 +407,7 @@ function angular_media_process_crop($src, $crop) {
   if (!$crop['overwrite']) {
     
     if ($orig_uri = file_unmanaged_copy($src->uri, $src->uri)) {
-      $filename = basename($orig_uri);
-      $filename = substr($filename, 0, strrpos($filename,'.'));
+      $filename = $src->filename;
       $filename = t('Crop !filename', array('!filename' => $filename));
       $orig = clone $src;
       $orig->fid = 0;
@@ -406,9 +423,12 @@ function angular_media_process_crop($src, $crop) {
     }
   }
 
-  if (_angular_media_crop_resize(drupal_realpath($src->uri), $crop, $scale, drupal_realpath($src->uri))) {
+  $scale = NULL;
+  $src_uri = drupal_realpath($src->uri);
+
+  if (_angular_media_crop_resize($src_uri, $crop, $scale, $src_uri)) {
     // Remove cached versions of the cropped image.
-    image_path_flush($src->uri);
+    image_path_flush($src_uri);
   }
 
   return $src;
@@ -429,8 +449,9 @@ function _angular_media_crop_resize($src, $crop = NULL, $scale = NULL, $dst = NU
       $coord = $scaler * $coord;
     }
 
-    $result = $result && image_crop($image, $crop['coords'][0], $crop['coords'][1], $crop['coords'][4], $crop['coords'][5]);    
-    $result = $result && image_save($image, $dst ? $dst : $src);
+    $result = $result && image_crop($image, $crop['coords'][0], $crop['coords'][1], $crop['coords'][4], $crop['coords'][5]);
+
+    $result = $result && image_save($image, $dst);
     return $result;
   }
 
@@ -549,6 +570,7 @@ function angular_media_theme() {
 function template_preprocess_angular_media_app(&$variables) {
   $settings = $variables['settings'];
   $settings['apiUrl'] = url('api/angular-media') . '/';
+  $settings['token'] = drupal_get_token(ANGULAR_MEDIA_TOKEN_KEY);
 
   // Add settings from variables
   foreach (array('flickrKey', 'flickrSearch') as $key) {
@@ -560,6 +582,7 @@ function template_preprocess_angular_media_app(&$variables) {
     $settings['tabs'] = angular_media_tabs();
   }
 
+  // Add additional values;
   if (empty($settings['flickrKey'])) {
     unset($settings['tabs']['flickr']);
   }
@@ -582,6 +605,4 @@ function template_preprocess_angular_media_app(&$variables) {
 
   $variables['fieldName'] = $settings['fieldName'];
   $variables['settings'] = json_encode($settings, JSON_HEX_QUOT);
-
-  dpm($variables);
 }

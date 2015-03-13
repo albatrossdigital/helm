@@ -1,8 +1,0 @@
-{
-  "name": "Flight Subtheme",
-  "dependencies": {
-    "bootstrap-sass-official": "~3.3.1",
-    "bourbon": "v3.2.3",
-    "fontawesome": "4.2.0"
-  }
-}

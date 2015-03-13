@@ -56,8 +56,6 @@ angular.module('app', [
 
       // Adds the files to the individual fields.  Called from the various browsers.
       $rootScope.addFiles = function(files) {
-        console.log(files);
-        console.log($rootScope.activeField);
         Array.prototype.push.apply($rootScope.files[$rootScope.activeField], files);
         if ($rootScope.settings[$rootScope.activeField].addlFieldName != undefined && $rootScope.files[$rootScope.settings[$rootScope.activeField].addlFieldName] != undefined) {
           Array.prototype.push.apply($rootScope.files[$rootScope.settings[$rootScope.activeField].addlFieldName], files);

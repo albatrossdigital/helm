@@ -107,7 +107,7 @@ function helm_install() {
   variable_set('jquery_update_jquery_admin_version', '1.7');
 
   // Enable the admin theme.
-  $admin_theme = 'helm_admin';
+  $admin_theme = 'minimalist_admin';
   db_update('system')
     ->fields(array('status' => 1))
     ->condition('type', 'theme')
@@ -129,7 +129,7 @@ function helm_install() {
     ->condition('name', 'helm_config')
     ->execute();
 
-  // Note: Text formats are added as part of the helm_input_formats feature
+  // Note: Text formats are added as part of the wysiwyg_input_formats feature
   // We want to revert this feature to get the helm profile as the default CKEditor profile for Rich Text formats.
-  //features_revert(array('helm_input_formats'));
+  //features_revert(array('wysiwyg_input_formats'));
 }

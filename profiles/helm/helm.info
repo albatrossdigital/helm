@@ -42,7 +42,7 @@ dependencies[] = libraries
 dependencies[] = advagg
 dependencies[] = simplehtmldom
 dependencies[] = menu_trail_by_path
-dependencies[] = json2
+; dependencies[] = json2
 
 
 
@@ -53,7 +53,6 @@ dependencies[] = admin_menu_toolbar
 dependencies[] = admin_select
 dependencies[] = admin_views
 dependencies[] = ckeditor
-dependencies[] = ckeditor_media
 dependencies[] = module_filter
 dependencies[] = filter_perms
 dependencies[] = menu_block
@@ -65,7 +64,6 @@ dependencies[] = panels_mini
 dependencies[] = fences
 dependencies[] = panels_extra_styles
 ; dependencies[] = quickedit
-
 
 
 ; Soar - Contrib - Field UI and Content Types
@@ -81,23 +79,17 @@ dependencies[] = pathauto_persist
 dependencies[] = redirect
 dependencies[] = googleanalytics
 dependencies[] = metatag
-
 dependencies[] = metatag_opengraph
 dependencies[] = share42
-
 
 
 ; Soar - Contrib - Media
 dependencies[] = media
 dependencies[] = file_entity
-dependencies[] = media_internet
+dependencies[] = angular_media
+; dependencies[] = media_internet
 dependencies[] = oembed
-dependencies[] = focal_point
-dependencies[] = plupload
-dependencies[] = multiform
-dependencies[] = media_bulk_upload
 dependencies[] = ckeditor
-dependencies[] = ckeditor_media
 dependencies[] = ckeditor_widgets
 dependencies[] = image_resize_filter
 
@@ -105,8 +97,7 @@ dependencies[] = image_resize_filter
 
 ; Soar - Contrib - Views addons
 dependencies[] = draggableviews
-; @todo: bootstrap replacement?
-;dependencies[] = views_foundation
+; @todo: bootstrap_foundation ?
 
 
 ; Soar - Contrib - Devel
@@ -116,11 +107,10 @@ dependencies[] = devel
 ; Soar - Contrib - Standard Features
 ;dependencies[] = helm_core
 dependencies[] = helm_date_formats
-dependencies[] = helm_input_formats
+dependencies[] = ckeditor_filter
 dependencies[] = helm_page
 dependencies[] = helm_media
 ;dependencies[] = helm_permissions
-dependencies[] = helm_wysiwyg_filter
 
 
 
