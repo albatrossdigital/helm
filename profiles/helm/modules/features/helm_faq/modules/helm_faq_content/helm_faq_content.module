@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Soar FAQ Content feature.
+ */
+
+include_once 'helm_faq_content.features.inc';

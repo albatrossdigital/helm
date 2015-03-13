@@ -1,0 +1,85 @@
+<?php
+/**
+ * @file
+ * Code for the Soar Home feature.
+ */
+
+include_once 'helm_home.features.inc';
+
+/**
+ * Implementation of hook_ctools_plugin_directory()
+ */
+function helm_home_ctools_plugin_directory($module, $plugin) {
+  return 'plugins/' . $plugin;
+}
+
+/**
+ * Implements hook_features_post_restore()
+ *
+ * @param string $op
+ *   The operation that is triggered: revert, rebuild, disable, enable
+ * @param array $items
+ *   The items handled by the operation.
+ */
+function helm_home_features_post_restore($op, $items) {
+
+  // Do we run content import?
+  $run_content = $op == 'rebuild'
+              && !empty($items)
+              && isset($items['helm_home'])
+              && !variable_get('helm_home_panel_pane');
+
+  watchdog('Soar Home', 'go: @op  items: @items run content? @run_content', array(
+    '@op' => $op,
+    '@items' => $items,
+    '@run_content' => $run_content
+  ));
+
+  if($run_content) {
+    watchdog('Soar Home', 'Running content import');
+    module_load_include('install', 'helm_home');
+    _helm_home_install_content();
+  }
+}
+
+/**
+ * Allows to modify the export object of an entity.
+ *
+ * @param string $entity_type
+ *   The entity type to export.
+ * @param object $export
+ *   The for the export modified entity.
+ * @param object $entity
+ *   The original entity.
+ */
+function helm_home_uuid_entity_features_export_render_alter($entity_type, &$export, $entity) {
+  $run_alter = $entity_type == 'fieldable_panels_pane' 
+            && $export->bundle == 'soar_carousel';
+  if($run_alter) {
+    watchdog('Soar Home', 'Running export alter');
+    // Unset the field_collection, since the UUID export doesn't work
+    $export->field_soar_carousel_slide['und'] = array();
+    // Unset the panelizer settings, to avoid errors.
+    unset($export->panelizer);
+  }
+}
+
+/**
+ * Fired before a panels display is rendered.
+ *
+ * Last chance to modify the panels display or add output before the keyword
+ * substitution runs and the panels display is rendered.
+ *
+ * @param panels_display $panels_display
+ *   The panels display that will be rendered.
+ * @param stdClass $renderer
+ *   The renderer object that will be used to render.
+ *
+ * @return string
+ *   Additional output to add before the panels display.
+ */
+// function helm_home_panels_pre_render($panels_display, $renderer) {
+//   dpm($panels_display);
+//   dpm($renderer);
+// }
+

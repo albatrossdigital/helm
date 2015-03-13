@@ -1,7 +1,0 @@
-<?php
-/**
- * @file
- * Code for the Soar News Default feature.
- */
-
-include_once 'soar_news_default.features.inc';

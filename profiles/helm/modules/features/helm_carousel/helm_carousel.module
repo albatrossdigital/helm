@@ -1,0 +1,48 @@
+<?php
+/**
+ * @file
+ * Code for the soar-carousel feature.
+ */
+
+include_once 'helm_carousel.features.inc';
+/**
+ * @file
+ * soar-carousel Module file
+ */
+
+/**
+ * Implements hook_entity_info_alter().
+ *
+ * Defines the field-able pane for bootstrap carousels
+ * @link( Bootstrap JS, http://getbootstrap.com/javascript/)
+ */
+function helm_carousel_entity_info_alter(&$entity_info) {
+
+  $entity_info['fieldable_panels_pane']['view modes']['triptych'] = array(
+    'label' => t('Triptych View'),
+    'custom settings' => TRUE,
+  );
+
+  // Fieldable panel pane bundle to support Bootstrap carousels:
+  $entity_info['fieldable_panels_pane']['bundles']['helm_carousel'] = array(
+    'label' => t('Carousel'),
+    'pane category' => t('Soar Carousel'),
+    'pane top level' => FALSE,
+    'admin' => array(
+      'path' => 'admin/structure/fieldable-panels-panes/manage/%fieldable_panels_panes_type',
+      'bundle argument' => 4,
+      'real path' => 'admin/structure/fieldable-panels-panes/manage/soar-carousel',
+      'access arguments' => array('administer fieldable panels panes'),
+    ),
+  );
+
+}
+
+
+/**
+ * Implements themplate_preprocess_views_bootstrap_carousel_plugin_style().
+ */
+function helm_carousel_preprocess_views_bootstrap_carousel_plugin_style(&$vars) {
+  // Add touch events.
+  drupal_add_js(drupal_get_path('module', 'helm_carousel') . '/helm_carousel.min.js');
+}

@@ -1,0 +1,178 @@
+<?php
+/**
+ * @file
+ * Code for the Soar Page Display feature.
+ */
+
+include_once 'helm_page_display.features.inc';
+
+
+/**
+ * Implementation of hook_ctools_plugin_directory()
+ */
+function helm_page_display_ctools_plugin_directory($module, $plugin) {
+  return 'plugins/' . $plugin;
+}
+
+
+/** 
+ * Implementation of hook_entity_info_alter().
+ */
+function helm_page_display_entity_info_alter(&$entity_info) {
+  // Example Widget.
+  $entity_info['fieldable_panels_pane']['bundles']['twitter_feed'] = array(
+    'label' => t('Twitter Feed'),
+    'pane category' => t('Social'),
+    'pane top level' => TRUE,
+    'admin' => array(
+      'path' => 'admin/structure/fieldable-panels-panes/manage/%fieldable_panels_panes_type',
+      'bundle argument' => 4,
+      'real path' => 'admin/structure/fieldable-panels-panes/manage/twitter_feed',
+      'access arguments' => array('administer fieldable panels panes'),
+    ),
+  );
+}
+
+function helm_page_display_entity_edit_form_alter(&$form, &$form_state, $form_id) {
+  dpm($form);
+}
+
+
+/**
+ * Implements hook_theme().
+ */
+function helm_page_display_theme() {
+  return array(
+    'soar_leveled_menu_block' => array(
+      'template' => 'templates/soar-leveled-menu-block',
+      'variables' => array()
+    ),
+    'menu_tree__nav_stacked' => array(
+      'render element' => 'tree',
+    ),
+  );
+}
+
+/**
+ * Menu tree into bootstrap nav stacked
+ */
+function theme_menu_tree__nav_stacked($vars) {
+  return '<ul class="nav nav-pills nav-stacked">' . $vars['tree']['#children'] . '</ul>';
+}
+
+/**
+ * Alters menu item to be a back button
+ */
+function _helm_page_display_child_menu_back_button($menu_item) {
+
+  $menu_item['#below'] = array();
+  $menu_item['#attributes'] = array(
+    'data-menu-back' => $menu_item['#original_link']['depth']
+  );
+  $set_zero = array(
+    'has_children', 'plid', 'mlid', 'p1', 'p2', 'p3', 'p4', 'p5', 'p6'
+  );
+  foreach ($set_zero as  $value) {
+    $menu_item['#original_link'][$value] = 0;
+  }
+  $menu_item['#title'] = 'Back';
+
+  return $menu_item;
+}
+
+/**
+ * Rescursive function cycles through menu and splits 
+ * into parent/children levels
+ */
+function _helm_page_display_child_menu_recurse($current_menu, &$menus, &$active, $parent = FALSE) {
+
+  $count = count($menus) + 1;
+  $menu_level = 'level-' . $count;
+
+  // init menu array
+  $menus[$menu_level] = array();
+
+  // run through menu items
+  foreach($current_menu as $key => $value) {
+    $menus[$menu_level][$key] = $value;
+
+    if(is_array($value)) {
+      
+      // children
+      $children = !empty($value['#below']);
+
+      // Try to grab the parent if it doesn't exist
+      if(!isset($parent) && !empty($value['#original_link'])) {
+        $parent = menu_link_load($value['#original_link']['plid']);
+      }
+      // active item, record level
+      if(!empty($value['#attributes']) && in_array('active', $value['#attributes']['class'])) {
+        $active = ($children) ? $value['#original_link']['depth'] + 1 : $value['#original_link']['depth'];
+      }
+      // we have children, so recurse
+      if($children) {
+        _helm_page_display_child_menu_recurse($value['#below'], $menus, $active, $value);
+        $menus[$menu_level][$key]['#below'] = array();
+      }
+      // End of the line
+      else {
+        // Check for active trails on last level
+        $active_trail = !empty($value['#attributes']) && in_array('active-trail', $value['#attributes']['class']);
+        if(empty($active) && $active_trail) {
+          $active = $value['#original_link']['depth'];
+        }
+      }
+    }
+  }
+    // We have a parent, so add back button, set title
+  if($parent) {
+    // We have to load the render-able version
+    if(!isset($parent['#original_link'])) {
+      $parent_array = menu_tree_data(array($parent));
+      $parent_array = menu_tree_output($parent_array);
+      $parent = array_shift($parent_array);
+    }
+    $menus[$menu_level]['#menu_title'] = $parent['#title'];
+    $menus[$menu_level]['back'] = _helm_page_display_child_menu_back_button($parent);
+  }
+  // No parent so title is main menu, init array
+  else {
+    $menus[$menu_level]['#menu_title'] = t('Main Menu');
+    $menus[$menu_level]['back'] = array();
+  }
+
+  // Adds our theme
+  array_unshift($menus[$menu_level]['#theme_wrappers'][0], 'menu_tree__nav_stacked');  
+}
+
+
+/**
+ * Implements hook_preprocess_menu_block_wrapper()
+ */
+function helm_page_display_preprocess_menu_block_wrapper(&$vars) {
+  if((int) $vars['delta'] === 1) {
+
+
+    // Add resources
+    $path = drupal_get_path('module', 'helm_page_display');
+    drupal_add_css($path . '/css/soar-dynamic-menu.css');
+    drupal_add_js($path . '/js/soar-dynamic-menu.js');
+
+    // Set variables
+    $menus = array();
+    $active = 0;
+    // Recurse through menu, adding all children menus as children
+    _helm_page_display_child_menu_recurse($vars['content'], $menus, $active, FALSE);
+    
+    if(!empty($menus)) {
+      $vars['content'] = $menus;
+      $vars['count'] = count($menus);
+      $vars['active'] = $active;
+      $vars['classes_array'][] = 'level-' . $active . '-active';
+      $vars['classes_array'][] = 'level-count-' . $vars['count'];
+    }
+    // Set our theme
+    $vars['theme_hook_suggestions'][] = 'soar_leveled_menu_block';
+  }
+}
+

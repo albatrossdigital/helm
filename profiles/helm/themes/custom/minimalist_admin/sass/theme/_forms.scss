@@ -1,0 +1,121 @@
+
+
+fieldset {
+  .panel-body {
+    display: block;
+  }
+}
+
+.radio input[type="radio"], .radio-inline input[type="radio"], .checkbox input[type="checkbox"], .checkbox-inline input[type="checkbox"] {
+  position: relative;
+  margin-left: 0;
+}
+
+// Horizontal radios
+
+.ui-buttonset {
+
+  .radio, .checkbox {
+    label {
+      padding-left: 4px;
+    }
+  } 
+
+  .radio + .radio, .checkbox + .checkbox {
+    margin-top: 0;
+    margin-left: 15px;  
+  }
+
+  // & > .radio:last-child, 
+  // & > .checkbox:last-child {
+  //   margin-bottom: 10px;
+  // }
+}
+
+// image upload
+
+.form-managed-file {
+  & > div:only-child {
+    float: none;
+  }
+
+  input {
+    display: inline-block;
+    width: auto;
+  }
+
+  button {
+    margin-left: 10px;
+
+    & ~ div {
+      margin-top: 10px;
+    }
+  }
+}
+
+
+// Autocomplete
+
+.form-autocomplete {
+  max-width: 100%!important;
+
+  .form-text {
+    width: 100%!important;
+  }
+}
+
+// Views exposed form
+
+.views-exposed-form .views-exposed-widget .form-submit {
+  margin-top: 1.25em;
+}
+
+
+// Bootstrap Multiselect
+
+.multiselect.form-control {
+  text-align: left;
+
+  span {
+    padding-right: 10px;
+  }
+
+  .caret {
+    right: 7px;
+    position: absolute;
+    line-height: 16px;
+    display: block;
+    top: 15px;
+  }
+}
+
+.multiselect-container>li>a>label {
+  padding-left: 0;
+}
+
+// Add help icon to titles with help text
+label.label-help:after {
+  font-family: FontAwesome;
+  content: "\f059";
+  color: $gray-light;
+  font-size: .8em;
+}
+
+
+//*
+//* Responsive
+//* --------------------------------------------------
+//*
+
+@media screen and (min-width: $screen-sm-min) {
+
+  .form-control {
+    width: auto;
+    min-width: 200px;
+  }
+
+  .form-autocomplete {
+    max-width: 33%!important;
+  }
+}
+
