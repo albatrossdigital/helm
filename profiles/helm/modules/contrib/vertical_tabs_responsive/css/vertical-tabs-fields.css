@@ -1,0 +1,8 @@
+.vertical-tabs-panes textarea,
+.vertical-tabs-panes input[type="text"] {
+  width: 100%;
+}
+
+.vertical-tabs-panes select {
+  width: 100% !important;
+}

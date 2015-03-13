@@ -1,0 +1,135 @@
+<?php
+/**
+ * @file
+ * The module file for ckeditor_widgets module.
+ */
+
+/**
+ * Implementation of hook_menu().
+ */
+function ckeditor_widgets_menu() {
+  $items['admin/config/content/ckeditor_widgets'] = array(
+    'title' => 'CKEditor Widgets',
+    'description' => 'Configure CKEditor Widgets Insert Template dropdown',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('ckeditor_widgets_settings_form'),
+    'access arguments' => array('administer ckeditor'),
+    'file' => 'ckeditor_widgets.admin.inc',
+  );
+  return $items;
+}
+
+
+/**
+ * Hook to register the CKEditor plugin - it would appear in the plugins list on the profile setting page.
+ */
+function ckeditor_widgets_ckeditor_plugin() {
+  return array(
+    'widgetcommon' => array(
+      // Name of the plugin used to write it.
+      'name' => 'widgetcommon',
+      // Description of the plugin - it would be displayed in the plugins management section of profile settings.
+      'desc' => t('Plugin to add common widgets'),
+      // The full path to the CKEditor plugins directory, with the trailing slash.
+      'path' => drupal_get_path('module', 'ckeditor_widgets') . '/plugins/widgetcommon/',
+      'buttons' => array(
+        'widgetcommonBox' => array(
+          'icon' => 'icons/widgetcommonBox.png',
+          'label' => 'Insert box',
+        ),
+        'widgetcommonQuotebox' => array(
+          'icon' => 'icons/widgetcommonQuotebox.png',
+          'label' => 'Insert quote box',
+        ),
+
+      )
+    ),
+    'widgetbootstrap' => array(
+      // Name of the plugin used to write it.
+      'name' => 'widgetbootstrap',
+      // Description of the plugin - it would be displayed in the plugins management section of profile settings.
+      'desc' => t('Plugin to add widgets based on Bootstrap elements'),
+      // The full path to the CKEditor plugins directory, with the trailing slash.
+      'path' => drupal_get_path('module', 'ckeditor_widgets') . '/plugins/widgetbootstrap/',
+      'buttons' => array(
+        'widgetbootstrapLeftCol' => array(
+          'icon' => 'icons/widgetbootstrapLeftCol.png',
+          'label' => 'Insert left column box',
+        ),
+        'widgetbootstrapRightCol' => array(
+          'icon' => 'icons/widgetbootstrapRightCol.png',
+          'label' => 'Insert right column box',
+        ),
+        'widgetbootstrapTwoCol' => array(
+          'icon' => 'icons/widgetbootstrapTwoCol.png',
+          'label' => 'Insert two column box',
+        ),
+        'widgetbootstrapThreeCol' => array(
+          'icon' => 'icons/widgetbootstrapThreeCol.png',
+          'label' => 'Insert three column box',
+        ),
+        'widgetbootstrapAlert' => array(
+          'icon' => 'icons/widgetbootstrapAlert.png',
+          'label' => 'Insert alert box',
+        ),
+        'widgetbootstrapAccordion' => array(
+          'icon' => 'icons/widgetbootstrapAccordion.png',
+          'label' => 'Insert accordion box',
+        ),
+      )
+    ),
+    'widgettemplatemenu' => array(
+      // Name of the plugin used to write it.
+      'name' => 'widgettemplatemenu',
+      // Description of the plugin - it would be displayed in the plugins management section of profile settings.
+      'desc' => t('Plugin for adding an Insert Template dropdown menu'),
+      // The full path to the CKEditor plugins directory, with the trailing slash.
+      'path' => drupal_get_path('module', 'ckeditor_widgets') . '/plugins/widgettemplatemenu/',
+      'buttons' => array(
+        'oembed' => array(
+          'icon' => 'extraIcons/oembed.png',
+          'label' => 'Insert media',
+        ),
+        'codeSnippet' => array(
+          'icon' => 'extraIcons/codesnippet.png',
+          'label' => 'Insert code snippet',
+        ),
+        'leaflet' => array(
+          'icon' => 'extraIcons/leaflet.png',
+          'label' => 'Insert leaflet map',
+        ),
+        'FontAwesome' => array(
+          'icon' => 'extraIcons/fontawesome.png',
+          'label' => 'Insert Font Awesome icon',
+        ),
+        'WidgetTemplateMenu' => array(
+          'icon' => 'icons/widgettemplatemenu.png',
+          'label' => 'Add Template Menu',
+        ),
+      )
+    ),
+  );
+}
+
+
+
+/**
+ * Hook to extend/change the ckeditor settings.
+ */
+function ckeditor_widgets_ckeditor_settings_alter(&$settings, $conf) {
+  // Change the ckeditor config path.
+  $var = variable_get('ckeditor_widgets_buttons', FALSE);
+  if ($var !== FALSE) {
+    $items = array();
+    foreach ($var as $key => $value) {
+      if ($value != FALSE) {
+        $items[] = $key;
+      }
+    }
+    $settings['widgettemplatemenuButtons'] = implode(',', $items);
+  }
+  $height = variable_get('ckeditor_widgets_height', FALSE);
+  if ($height) {
+    $settings['height'] = $height;
+  }
+}

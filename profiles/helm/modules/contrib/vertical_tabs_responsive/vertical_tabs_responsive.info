@@ -1,0 +1,13 @@
+name = Vertical Tabs Responsive
+description = Responsifies vertical tabs in admin pages.
+package = Administration
+core = 7.x
+
+configure = admin/config/user-interface/vertical_tabs_responsive
+
+; Information added by Drupal.org packaging script on 2015-03-03
+version = "7.x-1.0-beta3"
+core = "7.x"
+project = "vertical_tabs_responsive"
+datestamp = "1425401282"
+

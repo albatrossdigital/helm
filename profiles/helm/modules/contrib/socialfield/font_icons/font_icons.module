@@ -1,0 +1,26 @@
+<?php
+
+/**
+ * Implements hook_page_alter().
+ */
+function font_icons_page_alter(&$page) {
+	libraries_load('fontello');
+}
+
+/**
+* Implements hook_libraries_info().
+*
+* For defining external libraries.
+*/
+function font_icons_libraries_info() {
+  $libraries['fontello'] = array(
+    'name' => 'Fontello library',
+    'version' => '1.0',
+  	'files' => array(
+		  'css' => array(
+	    	'css/fontello.css'
+	    ),
+	  ),
+  );
+  return $libraries;
+}

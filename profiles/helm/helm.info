@@ -1,5 +1,5 @@
-name = "Soar"
-description = "A bare-bones distribution with Twitter Bootstrap, Panels and the new Edit module."
+name = "Helm"
+description = "The base distro to get you making beautiful websites with Drupal"
 version = VERSION
 core = "7.x"
 

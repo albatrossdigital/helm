@@ -1,0 +1,14 @@
+;$Id: 
+name = Media Formatters
+description = Easily control the behavior and display of media, including modals and lazysizes.
+core = 7.x
+dependencies[] = libraries
+dependencies[] = file_entity
+files[] = includes/media_formatters.field.module
+
+; Information added by Drupal.org packaging script on 2015-03-13
+version = "7.x-1.0-alpha1"
+core = "7.x"
+project = "media_formatters"
+datestamp = "1426235882"
+

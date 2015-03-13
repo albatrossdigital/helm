@@ -1,0 +1,12 @@
+name = Font icons
+description = Loads fontello icons.
+core = 7.x
+
+dependencies[] = libraries
+
+; Information added by Drupal.org packaging script on 2014-12-04
+version = "7.x-1.4"
+core = "7.x"
+project = "socialfield"
+datestamp = "1417710812"
+

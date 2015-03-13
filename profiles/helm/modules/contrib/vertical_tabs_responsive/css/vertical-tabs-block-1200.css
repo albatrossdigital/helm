@@ -1,0 +1,31 @@
+@media all and (min-width: 1200px) and (max-width: 5000px) {
+
+  body #content {
+    width: 70%;
+  }
+
+  body .vertical-tabs-panes {
+    position: absolute;
+    top: 62px;
+    right: 0px;
+    width: 28%;
+  }
+}
+
+/* In mobile screen sizes, both containers must be full width so javascript code must not have effect. */
+@media all and (max-width: 1199px) {
+
+  body #content {
+    width: initial !important;
+    margin-left: initial !important;
+  }
+
+  body .vertical-tabs-panes {
+    width: initial !important;
+    margin-left: initial !important;
+  }
+
+  .switch-vtr {
+    display: none;
+  }
+}

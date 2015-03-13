@@ -1,0 +1,608 @@
+<?php
+
+/**
+ * @file
+ * Implementation of angular_media.module.
+ */
+
+define('ANGULAR_MEDIA_TOKEN_KEY', 'angular_media');
+
+include_once 'angular_media.features.inc';
+include_once 'includes/angular_media.field.inc';
+
+// Load all Field module hooks for File.
+//module_load_include('inc', 'angular_media', 'angular_media.field');
+
+/**
+ * Implements hook_libraries_info().
+ *
+ * For defining external libraries.
+ */
+function angular_media_libraries_info() {
+
+  $libraries['angular-media-app'] = array(
+    'name' => 'Simple library',
+    'files' => array(
+      'js' => array(
+        'dist/js/vendor/libraries.min.js',
+        'dist/js/app.min.js',
+      ),
+      'css' => array(
+        'dist/css/app.min.css',
+        'dist/css/libraries.min.css',
+      ),
+    ),
+  );
+
+  return $libraries;
+}
+
+/**
+ * Returns the path to the JS app.
+ */
+function angular_media_app_path() {
+  $library = libraries_load('angular-media-app');
+  return $library['library path'] . '/dist/';
+}
+
+/**
+ * Implements hook_library().
+ */
+function angular_media_library() {
+  // Library One.
+  $path = angular_media_app_path();
+  $libraries['angular-media-app'] = array(
+    'title' => 'Angular Media app',
+    'website' => 'http://albatrossdigital.com',
+    'version' => '0.1',
+    'js' => array(
+      $path . 'js/libraries.min.js' => array(),
+      $path . 'js/app.min.js' => array(),
+      drupal_get_path('module', 'angular_media') . '/js/angular-media.js' => array(),
+    ),
+    'css' => array(
+      $path . 'css/app.min.css' => array('weight' => 1),
+    ),
+  );
+  //dpm($libraries);
+  return $libraries;
+}
+
+/**
+ * Implements hook_menu().
+ */
+function angular_media_menu() {
+  
+  $items['admin/config/media/angular-media'] = array(
+    'type' => MENU_NORMAL_ITEM,
+    'title' => 'Angular Media',
+    'description' => 'Set up default settings for angular media dialogs',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('angular_media_admin_form'),
+    'access arguments' => array('administer site configuration'),
+    'file' => 'includes/angular_media.admin.inc',
+  );
+
+  $items['api/angular-media/upload'] = array(
+    'title' => 'Handles uploads',
+    'page callback' => 'angular_media_callback_upload',
+    'type' => MENU_CALLBACK,
+    'access callback' => 'angular_media_upload_access',
+    'access arguments' => array('access content'),
+  );
+
+  $items['api/angular-media/file'] = array(
+    'title' => 'Handles uploads',
+    'page callback' => 'angular_media_callback_file',
+    'page arguments' => array(3),
+    'type' => MENU_CALLBACK,
+    'access callback' => 'angular_media_file_access',
+    'access arguments' => array('access content'),
+  );
+
+  $items['angular_media-test'] = array(
+    'title' => 'Test Plupload',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('angular_media_test'),
+    // @todo: change this to something appropriate, not sure what.
+    'access arguments' => array('Administer site configuration'),
+    'type' => MENU_CALLBACK,
+  );
+
+  return $items;
+}
+
+/**
+ * Verifies the token for this request.
+ */
+function angular_media_upload_access() {
+  // @todo;
+  return TRUE;
+  /*
+  foreach (func_get_args() as $permission) {
+    if (!user_access($permission)) {
+      return FALSE;
+    }
+  }
+  return !empty($_REQUEST['angular_media_token']) && drupal_valid_token($_REQUEST['angular_media_token'], 'angular_media-handle-uploads');
+  */
+}
+
+/**
+ * Verifies the token for this request.
+ */
+function angular_media_file_access() {
+  // @todo;
+  return TRUE;
+}
+
+/**
+ * Alters an oEmbed response.
+ *
+ * @param array $response
+ *   oEmbed response data.
+ */
+function angular_media_oembed_response_alter(&$response) {
+  if ($response['provider'] == 'default:youtube' && !empty($response['thumbnail_url'])) {
+    $regex = '/(.*?(img\.youtube\.com|i\.ytimg\.com)\/vi\/(.*?)\/)/i';
+    preg_match($regex, $response['thumbnail_url'], $matches);
+    // If we have a match, lets add the max res version of the thumb
+    if(count($matches) > 0) {
+      $response['thumbnail_url'] = $matches[1] . 'maxresdefault.jpg';
+    }
+  }
+}
+
+
+/**
+ * Verifies the token for this request.
+ */
+function angular_media_tabs() {
+  return array(
+    'upload' => 'Upload',
+    'site' => 'Site Files',
+    'me' => 'My Files',
+    'flickr' => 'Flickr',
+    //'page' => 'Page' // This is hidden, only used for CKEditor
+  );
+}
+
+
+/**
+ * Verifies the token for this request.
+ */
+function angular_media_cropRatios() {
+  return array(
+    'free' => 'Freeform',
+    '1/1' => '1:1 (Square)',
+    '4/3' => '4:3 (Picture)',
+    '16/9' => '16:9 (Widescreen)',
+    'none' => 'No cropping'
+  );
+}
+
+/**
+ * Returns the path to the angular_media library.
+ */
+/*function _angular_media_library_path() {
+  return variable_get('angular_media_library_path', module_exists('libraries') ? libraries_get_path('angular_media') : 'sites/all/libraries/angular_media');
+}*/
+
+
+/**
+ * Callback that handles and saves uploaded files.
+ *
+ * This will respond to the URL on which plupoad library will upload files.
+ */
+function angular_media_callback_upload() {
+
+  watchdog('angular_media', 'upload: $_FILES sent to server <pre>%f</pre>', array('%f' => print_r($_FILES,1)));
+
+  $destination = 'public://'; //@todo
+  $validators = array();
+  $fieldName = 'files';
+
+  // Manually construct $_FILES['files'] for Drupal's file_save_upload()
+  $_FILES['files'] = array();
+  $_FILES['files']['name'][$fieldName] = $_FILES['file']['name'];
+  $_FILES['files']['type'][$fieldName] = $_FILES['file']['type'];
+  $_FILES['files']['tmp_name'][$fieldName] = $_FILES['file']['tmp_name'];
+  $_FILES['files']['error'][$fieldName] = $_FILES['file']['error'];
+  $_FILES['files']['size'][$fieldName] = $_FILES['file']['size'];
+
+  $file = file_save_upload($fieldName, $validators, $destination, FILE_EXISTS_RENAME);
+  watchdog('angular_media', 'file uploaded <pre>%f</pre>', array('%f' => print_r($file,1)));
+
+  drupal_json_output(angular_media_simplify_file($file));
+  exit;
+}
+
+
+/**
+ * Callback to retrieve (GET) or save (POST) updates.
+ *
+ * This will respond to the URL on which plupoad library will upload files.
+ */
+function angular_media_callback_file($fid = NULL) {
+  watchdog('angular_media', 'file $_GET <pre>%f</pre>', array('%f' => print_r($_GET,1)));
+
+  // Check the token to avoid CSRF attacks
+  $token = $_REQUEST['token'];//empty($_GET['token']) ? $_GET['token'] : $_POST['token'];
+  if (empty($token) || !drupal_valid_token($token, ANGULAR_MEDIA_TOKEN_KEY)) {
+    watchdog('angular_media', 'CSRF ATTACK! <pre>%f</pre>');
+    return FALSE;
+  }
+
+  if (!empty($_GET['fid'])) {
+    $file = file_load($_GET['fid']);
+    watchdog('angular_media', 'file loaded <pre>%f</pre>', array('%f' => print_r($file,1)));
+  }
+
+  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    watchdog('angular_media', 'file post <pre>%f</pre>', array('%f' => print_r($file,1)));
+    
+    // Copy file over from url (flickr)
+    if (!empty($_GET['url']) && empty($_GET['fid'])) {
+      if (!file_entity_access('create')) {
+        return FALSE;
+      }
+      $file = angular_media_file_url_to_object($_GET['url'], $_GET['filename']);
+      watchdog('angular_media', 'file copy from url <pre>%f</pre>', array('%f' => print_r($file,1)));
+    }
+
+    // Copy file over from external url (fetch)
+    if (!empty($_REQUEST['external'])) {
+      if (!file_entity_access('create')) {
+        return FALSE;
+      }
+      // Save the remote file
+      $provider = media_internet_get_provider($_REQUEST['external']);
+      // Providers decide if they need to save locally or somewhere else.
+      // This method returns a file object
+      $file = $provider->save();
+    }
+
+    // Process crop
+    if (!empty($_GET['crop'])) {
+      if (!file_entity_access('update', $file)) {
+        return FALSE;
+      }
+      $crop = json_decode($_GET['crop']);
+      $crop = (array)$crop;
+      $file = angular_media_process_crop($file, $crop);
+      watchdog('angular_media', 'file crop <pre>%f</pre>', array('%f' => print_r($crop,1)));
+    }
+
+    // Update file fields
+    if (isset($file)) {
+      if (!empty($_GET['name'])) {
+        $file->name = $_GET['name'];
+      }
+      if (!empty($_GET['alt'])) {
+        $file->alt = $_GET['alt'];
+        $file->field_file_image_alt_text[LANGUAGE_NONE][0]['value'] = $file->alt;
+      }
+      $file->title = !empty($_GET['title']) ? $_GET['title'] : '';
+      $file->field_file_image_title_text[LANGUAGE_NONE][0]['value'] = $file->title;
+      $file->field_media_source[LANGUAGE_NONE][0]['title'] = !empty($_GET['attribution']) ? $_GET['attribution'] : '';
+      $file->field_media_source[LANGUAGE_NONE][0]['url'] = !empty($_GET['source']) ? $_GET['source'] : '';
+      if (!empty($_GET['licence'])) {
+        $file->field_media_license[LANGUAGE_NONE][0]['licence'] = $_GET['licence'];
+      }
+
+      $file = file_save($file);
+      watchdog('angular_media', 'file saved <pre>%f</pre>', array('%f' => print_r($file,1)));
+    }
+    else {
+      // @todo: err
+    }
+    
+  }
+
+  drupal_json_output(angular_media_simplify_file($file));
+  exit;
+}
+
+/**
+ * Clean up file and add thumbnail url.
+ */
+function angular_media_simplify_file($file) {
+  $file = (object)$file;
+  if ($file->type == 'image') {
+    // Append unique suffix to prevent these images from being cached locally
+    $suffix = '&' . time();
+    $file->url = file_create_url($file->uri) . '?a' . $suffix;
+    $file->thumbUrl =  image_style_url('media_thumbnail', $file->uri) . $suffix;
+    $file->previewUrl = image_style_url('media_preview', $file->uri) . $suffix;
+    $file->cropUrl = image_style_url('media_crop', $file->uri) . $suffix;
+  }
+  if (!empty($file->field_media_source)) {
+    $file->source = $file->field_media_source[LANGUAGE_NONE][0]['url'];
+    $file->attribution = $file->field_media_source[LANGUAGE_NONE][0]['title'];
+  }
+  if (!empty($file->field_media_license)) {
+    $file->license = $file->field_media_license[LANGUAGE_NONE][0]['licence'];
+  }
+  $file->name = $file->filename;
+  return $file;
+}
+
+/**
+ * Returns a file object which can be passed to file_save().
+ *
+ * @param string $uri
+ *   A string containing the URI, path, or filename.
+ *
+ * @return boolean
+ *   A file object, or FALSE on error.
+ *
+ * @todo Replace with calls to this function with file_uri_to_object() when
+ * http://drupal.org/node/685818 is fixed in core.
+ */
+function angular_media_file_uri_to_object($uri) {
+  global $user;
+  $uri = file_stream_wrapper_uri_normalize($uri);
+  $wrapper = file_stream_wrapper_get_instance_by_uri($uri);
+  $file = new StdClass();
+  $file->uid = $user->uid;
+  $file->filename = drupal_basename($uri);
+  $file->uri = $uri;
+  $file->filemime = file_get_mimetype($uri);
+  // This is gagged because some uris will not support it.
+  $file->filesize = @filesize($uri);
+  $file->timestamp = REQUEST_TIME;
+  $file->status = FILE_STATUS_PERMANENT;
+  return $file;
+}
+
+/**
+ * Upload a file from a URL.
+ *
+ * This will copy a file from a remote location and store it locally.
+ *
+ * @see media_parse_to_uri()
+ * @see media_parse_to_file()
+ */
+function angular_media_file_url_to_object($remote_uri, $filename) {
+  // Much of this is copied from media_internet.module
+  // Coppies the remote file locally.
+  //@TODO: we should follow redirection here an save the final filename, not just the basename.
+  global $user;
+  $local_filename = $filename;
+  $local_filename = file_munge_filename($local_filename, variable_get('file_extensions'), FALSE);
+  $local_uri = file_stream_wrapper_uri_normalize('temporary://' . $local_filename);
+  if (!@copy($remote_uri, $local_uri)) {
+    throw new Exception('Unable to add file ' . $remote_uri);
+    return;
+  }
+  // Make the current fileObject point to the local_uri, not the remote one.
+  $file = file_uri_to_object($local_uri);
+  $scheme = variable_get('file_default_scheme', 'public') . '://';
+  $uri = file_stream_wrapper_uri_normalize($scheme . $file->filename);
+  // Now to its new home.
+  $file = file_move($file, $uri, FILE_EXISTS_RENAME);
+  // Add metadata
+  $file->filemime = file_get_mimetype($uri);
+  $file->filename = drupal_basename($uri);
+  $file->uid = $user->uid;
+  $file->filesize = @filesize($uri);
+  $file->timestamp = REQUEST_TIME;
+  $file->status = FILE_STATUS_PERMANENT;
+
+  if (!$file->fid) {
+    form_set_error('url', 'Unknown error: unable to add file, please check URL / Embed code and try again ' . $embed_code);
+    return;
+  }
+
+  return $file;
+}
+
+
+/**
+ * Performs a crop on a file
+ */
+function angular_media_process_crop($src, $crop) {
+ 
+  // If we're not overwriting, create a copy
+  if (!$crop['overwrite']) {
+    
+    if ($orig_uri = file_unmanaged_copy($src->uri, $src->uri)) {
+      $filename = $src->filename;
+      $filename = t('Crop !filename', array('!filename' => $filename));
+      $orig = clone $src;
+      $orig->fid = 0;
+      $orig->uri = $orig_uri;
+      $orig->filename = $filename;
+      $orig->status = 1;
+      $orig = file_save($orig);
+      file_usage_add($orig, 'angular_media', 'file', $src->fid);
+      $src = $orig;
+    }
+    else {
+      return false;
+    }
+  }
+
+  $scale = NULL;
+  $src_uri = drupal_realpath($src->uri);
+
+  if (_angular_media_crop_resize($src_uri, $crop, $scale, $src_uri)) {
+    // Remove cached versions of the cropped image.
+    image_path_flush($src_uri);
+  }
+
+  return $src;
+}
+
+
+/**
+ * Crop the image and resize it
+ */
+function _angular_media_crop_resize($src, $crop = NULL, $scale = NULL, $dst = NULL) {
+  $image = image_load($src);
+  if ($image) {
+    $result = TRUE;
+
+    $info = image_get_info($src);
+    $scaler = $info['width'] / $crop['width'];
+    foreach ($crop['coords'] as &$coord) {
+      $coord = $scaler * $coord;
+    }
+
+    $result = $result && image_crop($image, $crop['coords'][0], $crop['coords'][1], $crop['coords'][4], $crop['coords'][5]);
+
+    $result = $result && image_save($image, $dst);
+    return $result;
+  }
+
+  return FALSE;
+}
+
+
+
+
+/**
+ * Implements hook_ckeditor_plugin().
+ * CKEditor integration
+ */
+function angular_media_ckeditor_plugin() {
+  $plugins = array();
+  $plugins['angularMedia'] = array(
+    'name' => 'angularMedia',
+    'desc' => t('Plugin for Angular Media Browser'),
+    'path' => drupal_get_path('module', 'angular_media') . '/plugins/angularMedia/',
+  );
+  return $plugins;
+}
+
+
+/**
+ * Implements hook_form_alter().
+ * Add the Angular Media field for CKEditor.
+ */
+function angular_media_form_alter(&$form, &$form_state, $form_id) {
+  // @todo: other entity types...
+  if ($form_id === 'page_node_form' || $form_id === 'taxonomy_form_term') {
+    $fieldName = 'media_ckeditor';
+
+    $options = array(
+      'hidden' => 1,
+      'cardinality' => 9999,
+      'fieldName' => $fieldName,
+      'files' => array(),
+      'cropRatio' =>  variable_get('angular_media_ckeditor_cropRatio', 'free'),
+      'addlFieldName' => variable_get('angular_media_ckeditor_field_image', ''),
+      'tabs' => variable_get('angular_media_ckeditor_tabs_image', array('upload', 'file', 'flickr')),
+    );
+
+    $path = angular_media_app_path();
+    $form[$fieldName]['#attached'] = array(
+      // @todo: make libraries_load work
+      //'libraries_load' => array(
+      //  array('angular_media', 'angular-media-app'),
+      //)
+      'js' => array(
+        $path . 'js/libraries.min.js' => array(),
+        $path . 'js/app.min.js' => array(),
+        //$path . 'js/vendor/jcrop.min.js' => array('weight' => 10),
+        drupal_get_path('module', 'angular_media') . '/js/angular-media.js' => array(),
+      ),
+      'css' => array(
+        $path . 'css/app.min.css' => array(),
+      ),
+    );
+    $element = array(
+      '#type' => 'textfield',
+      //'#title' => $instance['label'],
+      //'#required' => $instance['required'],
+      '#suffix' => theme('angular_media_app', array('settings' => $options)),
+      '#attributes' => array('style' => 'display:none'),
+    );
+    $form[$fieldName] = $element;
+
+    //@todo: this is hacky
+    $form['#validate'][] = 'angular_media_field_widget_form_validate';
+    $form['#submit'][] = 'angular_media_field_widget_form_validate';
+    $form['angular_media_fields'] = isset($form['angular_media_fields']) ? $form['angular_media_fields'] : array('#type' => 'value', '#value' => array());
+    $form['angular_media_fields']['#value'][] = $fieldName;
+
+  }
+}
+
+
+
+/**
+ * Implements hook_theme().
+ */
+function angular_media_theme() {
+  //$path = drupal_get_path('module', 'angular_media');
+  return array(
+    'angular_media_app' => array(
+      'template' => 'templates/app',
+      'variables' => array(
+        //'app_path' => url(angular_media_app_path()),
+        //'api_path' => url('services/rest'),
+        'appUrl' => url(angular_media_app_path()),
+        'style' => 'thumbnails',
+        'hidden' => FALSE,
+        'settings' => array(
+          'fieldName' => '',
+          'addlFieldName' => '',
+          'files' => array(),
+          'cardinality' => 1,
+          'tabs' => NULL,
+          'allowedTypes' => NULL,
+          'cropRatio' => NULL,
+          'allowedSchemes' => NULL,
+          'apiUrl' => '',
+          'flickrKey' => NULL,
+          'flickrSearch' => NULL,
+        )
+        
+      )
+    ),
+  );
+}
+
+/**
+ * Implements hook_theme_preprocess().
+ */
+function template_preprocess_angular_media_app(&$variables) {
+  $settings = $variables['settings'];
+  $settings['apiUrl'] = url('api/angular-media') . '/';
+  $settings['token'] = drupal_get_token(ANGULAR_MEDIA_TOKEN_KEY);
+
+  // Add settings from variables
+  foreach (array('flickrKey', 'flickrSearch') as $key) {
+    $settings[$key] = !empty($settings[$key]) ? $settings[$key] : variable_get('angular_media_'.$key, NULL);
+  }
+
+  // Determine which tabs can be shown
+  if (!count($settings['tabs']) || empty($settings['tabs'][0])) {
+    $settings['tabs'] = angular_media_tabs();
+  }
+
+  // Add additional values;
+  if (empty($settings['flickrKey'])) {
+    unset($settings['tabs']['flickr']);
+  }
+
+  // Some variables are not needed in $settings
+  foreach (array('style', 'hidden') as $key) {
+    if (!empty($settings[$key])) {
+      $variables[$key] = $settings[$key];
+      unset($settings[$key]);
+    }
+  }
+
+  // Cleanup Drupal select output
+  foreach (array('tabs', 'allowedTypes', 'allowedSchemes') as $key) {
+    if (!empty($settings[$key])) {
+      $settings[$key] = array_filter($settings[$key]);
+      $settings[$key] = !empty($settings[$key]) ? array_keys($settings[$key]) : array();
+    }
+  }
+
+  $variables['fieldName'] = $settings['fieldName'];
+  $variables['settings'] = json_encode($settings, JSON_HEX_QUOT);
+}
