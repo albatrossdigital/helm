@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * soar_webform_display.strongarm.inc
+ * helm_webform_display.strongarm.inc
  */
 
 /**
  * Implements hook_strongarm().
  */
-function soar_webform_display_strongarm() {
+function helm_webform_display_strongarm() {
   $export = array();
 
   $strongarm = new stdClass();

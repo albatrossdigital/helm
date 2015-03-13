@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * soar_webform_display.features.inc
+ * helm_webform_display.features.inc
  */
 
 /**
  * Implements hook_ctools_plugin_api().
  */
-function soar_webform_display_ctools_plugin_api($module = NULL, $api = NULL) {
+function helm_webform_display_ctools_plugin_api($module = NULL, $api = NULL) {
   if ($module == "panelizer" && $api == "panelizer") {
     return array("version" => "1");
   }

@@ -121,28 +121,29 @@ function helm_page_field_default_field_instances() {
     ),
     'widget' => array(
       'active' => 1,
-      'module' => 'media',
+      'module' => 'angular_media',
       'settings' => array(
-        'allowed_schemes' => array(
+        'allowedSchemes' => array(
           'oembed' => 0,
-          'public' => 'public',
+          'public' => 0,
           'youtube' => 0,
         ),
-        'allowed_types' => array(
+        'allowedTypes' => array(
           'audio' => 0,
           'document' => 0,
           'image' => 0,
           'video' => 0,
         ),
-        'browser_plugins' => array(
-          'media_default--media_browser_1' => 0,
-          'media_default--media_browser_my_files' => 0,
-          'media_internet' => 0,
+        'cropRatio' => 'free',
+        'style' => 'thumbnails',
+        'tabs' => array(
+          'flickr' => 0,
+          'me' => 0,
+          'site' => 0,
           'upload' => 0,
-          'youtube' => 0,
         ),
       ),
-      'type' => 'media_generic',
+      'type' => 'file_angular_media',
       'weight' => 4,
     ),
   );

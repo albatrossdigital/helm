@@ -14,7 +14,7 @@ function helm_home_uuid_features_default_fpps() {
     'timestamp' => 1425600054,
     'title' => '',
     'log' => '',
-    'bundle' => 'soar_carousel',
+    'bundle' => 'helm_carousel',
     'link' => 0,
     'path' => '',
     'reusable' => 1,
@@ -26,7 +26,7 @@ function helm_home_uuid_features_default_fpps() {
     'created' => 1418259041,
     'uuid' => '505af91d-8d63-42da-bf46-14d3eaac7473',
     'language' => 'und',
-    'field_soar_carousel_slide' => array(
+    'field_helm_carousel_slide' => array(
       'und' => array(),
     ),
     'rdf_mapping' => array(),

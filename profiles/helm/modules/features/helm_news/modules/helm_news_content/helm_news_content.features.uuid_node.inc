@@ -210,7 +210,7 @@ function helm_news_content_uuid_features_default_content() {
             'shown' => 1,
             'access' => array(),
             'configuration' => array(
-              'format' => 'soar_date_formats_date_short',
+              'format' => 'helm_date_formats_date_short',
               'context' => 'panelizer',
               'override_title' => 1,
               'override_title_text' => '',
@@ -585,7 +585,7 @@ function helm_news_content_uuid_features_default_content() {
             'shown' => 1,
             'access' => array(),
             'configuration' => array(
-              'format' => 'soar_date_formats_date_short',
+              'format' => 'helm_date_formats_date_short',
               'context' => 'panelizer',
               'override_title' => 1,
               'override_title_text' => '',
@@ -880,7 +880,7 @@ function helm_news_content_uuid_features_default_content() {
             'shown' => 1,
             'access' => array(),
             'configuration' => array(
-              'format' => 'soar_date_formats_date_short',
+              'format' => 'helm_date_formats_date_short',
               'context' => 'panelizer',
               'override_title' => 1,
               'override_title_text' => '',
@@ -1255,7 +1255,7 @@ function helm_news_content_uuid_features_default_content() {
             'shown' => 1,
             'access' => array(),
             'configuration' => array(
-              'format' => 'soar_date_formats_date_short',
+              'format' => 'helm_date_formats_date_short',
               'context' => 'panelizer',
               'override_title' => 1,
               'override_title_text' => '',
@@ -1550,7 +1550,7 @@ function helm_news_content_uuid_features_default_content() {
             'shown' => 1,
             'access' => array(),
             'configuration' => array(
-              'format' => 'soar_date_formats_date_short',
+              'format' => 'helm_date_formats_date_short',
               'context' => 'panelizer',
               'override_title' => 1,
               'override_title_text' => '',
@@ -1925,7 +1925,7 @@ function helm_news_content_uuid_features_default_content() {
             'shown' => 1,
             'access' => array(),
             'configuration' => array(
-              'format' => 'soar_date_formats_date_short',
+              'format' => 'helm_date_formats_date_short',
               'context' => 'panelizer',
               'override_title' => 1,
               'override_title_text' => '',

@@ -1,6 +1,6 @@
 (function ($) {
 
-Drupal.behaviors.soar_faq_view = {
+Drupal.behaviors.helm_faq_view = {
   attach: function (context, settings) {
 
     var $sidebar = $('.view-faq-home.view-display-id-block_1');

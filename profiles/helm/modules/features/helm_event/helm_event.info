@@ -51,6 +51,6 @@ features[variable][] = node_options_event
 features[variable][] = node_preview_event
 features[variable][] = node_submitted_event
 features_exclude[dependencies][registration] = registration
-features_exclude[dependencies][soar_page] = soar_page
+features_exclude[dependencies][helm_page] = helm_page
 features_exclude[field_instance][node-event-field_registration] = node-event-field_registration
 mtime = 1424162730

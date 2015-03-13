@@ -1,4 +1,4 @@
-export old=soar_input_formats
+export old=helm_input_formats
 export new=helm_input_formats
  
 

@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * soar_event.views_default.inc
+ * helm_event.views_default.inc
  */
 
 /**
  * Implements hook_views_default_views().
  */
-function soar_event_views_default_views() {
+function helm_event_views_default_views() {
   $export = array();
 
   $view = new view();

@@ -11,7 +11,7 @@ function helm_event_display_default_page_manager_pages() {
   $page = new stdClass();
   $page->disabled = FALSE; /* Edit this to true to make a default page disabled initially */
   $page->api_version = 1;
-  $page->name = 'soar_events';
+  $page->name = 'helm_events';
   $page->task = 'page';
   $page->admin_title = 'Helm Events';
   $page->admin_description = '';
@@ -26,9 +26,9 @@ function helm_event_display_default_page_manager_pages() {
   $handler = new stdClass();
   $handler->disabled = FALSE; /* Edit this to true to make a default handler disabled initially */
   $handler->api_version = 1;
-  $handler->name = 'page_soar_events__panel_context_b722176a-bc6d-453c-abe3-027d4e0a5e60';
+  $handler->name = 'page_helm_events__panel_context_b722176a-bc6d-453c-abe3-027d4e0a5e60';
   $handler->task = 'page';
-  $handler->subtask = 'soar_events';
+  $handler->subtask = 'helm_events';
   $handler->handler = 'panel_context';
   $handler->weight = 0;
   $handler->conf = array(
@@ -43,7 +43,7 @@ function helm_event_display_default_page_manager_pages() {
     'relationships' => array(),
   );
   $display = new panels_display();
-  $display->layout = 'soar_full_page';
+  $display->layout = 'helm_full_page';
   $display->layout_settings = array();
   $display->panel_settings = array(
     'style_settings' => array(
@@ -109,7 +109,7 @@ function helm_event_display_default_page_manager_pages() {
   $display->title_pane = 'new-7ef2cff5-8ca4-4525-9c23-fac2a186f023';
   $handler->conf['display'] = $display;
   $page->default_handlers[$handler->name] = $handler;
-  $pages['soar_events'] = $page;
+  $pages['helm_events'] = $page;
 
   return $pages;
 

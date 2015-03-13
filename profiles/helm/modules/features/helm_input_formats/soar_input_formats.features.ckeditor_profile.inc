@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * soar_input_formats.features.ckeditor_profile.inc
+ * helm_input_formats.features.ckeditor_profile.inc
  */
 
 /**
  * Implements hook_ckeditor_profile_defaults().
  */
-function soar_input_formats_ckeditor_profile_defaults() {
+function helm_input_formats_ckeditor_profile_defaults() {
   $data = array(
     'Advanced' => array(
       'name' => 'Advanced',

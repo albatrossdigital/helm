@@ -13,7 +13,7 @@ function helm_carousel_views_default_views() {
   $view = new view();
   $view->name = 'home_triptych';
   $view->description = 'Displays a carousel panels pane as a simple triptych';
-  $view->tag = 'soar_home';
+  $view->tag = 'helm_home';
   $view->base_table = 'field_collection_item';
   $view->human_name = 'Panels Pane Triptych';
   $view->core = 7;
@@ -144,7 +144,7 @@ function helm_carousel_views_default_views() {
   $view = new view();
   $view->name = 'helm_carousel';
   $view->description = 'Displays Carousel Panels Pane as Bootstrap Carousel';
-  $view->tag = 'soar_home';
+  $view->tag = 'helm_home';
   $view->base_table = 'field_collection_item';
   $view->human_name = 'Panels Carousel';
   $view->core = 7;

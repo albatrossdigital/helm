@@ -199,7 +199,7 @@ function helm_home_default_page_manager_pages() {
     'name' => 'simple_home',
   );
   $display = new panels_display();
-  $display->layout = 'soar_full_page';
+  $display->layout = 'helm_full_page';
   $display->layout_settings = array();
   $display->panel_settings = array(
     'style_settings' => array(
