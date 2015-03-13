@@ -88,12 +88,12 @@ dependencies[] = metatag_opengraph
 dependencies[] = media
 dependencies[] = file_entity
 dependencies[] = angular_media
-; dependencies[] = media_internet
+dependencies[] = media_formatters
 dependencies[] = oembed
 dependencies[] = ckeditor
 dependencies[] = ckeditor_widgets
 dependencies[] = image_resize_filter
-
+; dependencies[] = media_internet
 
 
 ; Soar - Contrib - Views addons
@@ -106,7 +106,7 @@ dependencies[] = devel
 
 
 ; Soar - Contrib - Standard Features
-;dependencies[] = helm_core
+dependencies[] = helm_core
 dependencies[] = helm_date_formats
 dependencies[] = ckeditor_filter
 dependencies[] = helm_page
