@@ -27,10 +27,10 @@ dependencies[] = toolbar
 
 
 ; **************************************
-; * Soar-specific modules below
+; * Helm-specific modules below
 ; **************************************
 
-; Soar - Contrib - Foundation
+; Helm - Contrib - Foundation
 dependencies[] = entity
 dependencies[] = entityreference
 dependencies[] = ctools
@@ -46,7 +46,7 @@ dependencies[] = menu_trail_by_path
 
 
 
-; Soar - Contrib - User Interface
+; Helm - Contrib - User Interface
 dependencies[] = jquery_update
 dependencies[] = admin_menu
 dependencies[] = admin_menu_toolbar
@@ -68,14 +68,14 @@ dependencies[] = helm_input_formats
 ; dependencies[] = quickedit
 
 
-; Soar - Contrib - Field UI and Content Types
+; Helm - Contrib - Field UI and Content Types
 dependencies[] = field_group
 dependencies[] = email
 dependencies[] = select_or_other
 dependencies[] = link
 
 
-; Soar - Contrib - SEO
+; Helm - Contrib - SEO
 dependencies[] = pathauto
 dependencies[] = pathauto_persist
 dependencies[] = redirect
@@ -84,7 +84,7 @@ dependencies[] = metatag
 dependencies[] = metatag_opengraph
 
 
-; Soar - Contrib - Media
+; Helm - Contrib - Media
 dependencies[] = media
 dependencies[] = file_entity
 dependencies[] = angular_media
@@ -96,17 +96,18 @@ dependencies[] = image_resize_filter
 ; dependencies[] = media_internet
 
 
-; Soar - Contrib - Views addons
+; Helm - Contrib - Views addons
 dependencies[] = draggableviews
 ; @todo: bootstrap_foundation ?
 
 
-; Soar - Contrib - Devel
+; Helm - Contrib - Devel
 dependencies[] = devel
 
 
-; Soar - Contrib - Standard Features
+; Helm - Contrib - Standard Features
 dependencies[] = helm_core
+dependencies[] = helm_layouts
 dependencies[] = helm_date_formats
 dependencies[] = ckeditor_filter
 dependencies[] = helm_page
@@ -115,7 +116,7 @@ dependencies[] = helm_media
 
 
 
-; Soar - Contrib - Optional Features
+; Helm - Contrib - Optional Features
 ;dependencies[] = helm_news
 ;dependencies[] = helm_events
 ;dependencies[] = helm_webform
@@ -171,11 +172,6 @@ dependencies[] = fape
 ;DUPE dependencies[] = page_manager
 ;DUPE dependencies[] = panels_ipe
 ;DUPE dependencies[] = views
-
-; Panopoly theme
-
-;DUPE dependencies[] = panels
-dependencies[] = radix_layouts
 
 ; Panolpoly widgets
 

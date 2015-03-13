@@ -81,7 +81,7 @@ regions[footer_bottom] = footer_bottom
 ; features[] = secondary_menu
 
 ; Panel Layouts
-plugins[panels][layouts] = layouts
+;plugins[panels][layouts] = layouts
 
 ; Theme settings:
 
