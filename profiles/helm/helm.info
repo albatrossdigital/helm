@@ -39,10 +39,10 @@ dependencies[] = views_ui
 dependencies[] = features
 dependencies[] = strongarm
 dependencies[] = libraries
-dependencies[] = advagg
 dependencies[] = simplehtmldom
 dependencies[] = menu_trail_by_path
 ; dependencies[] = json2
+; dependencies[] = advagg
 
 
 
@@ -57,12 +57,14 @@ dependencies[] = module_filter
 dependencies[] = filter_perms
 dependencies[] = menu_block
 dependencies[] = menu_firstchild
+dependencies[] = vertical_tabs_responsive
 dependencies[] = page_manager
 dependencies[] = panels
 dependencies[] = panels_ipe
 dependencies[] = panels_mini
 dependencies[] = fences
 dependencies[] = panels_extra_styles
+dependencies[] = helm_input_formats
 ; dependencies[] = quickedit
 
 
@@ -80,7 +82,6 @@ dependencies[] = redirect
 dependencies[] = googleanalytics
 dependencies[] = metatag
 dependencies[] = metatag_opengraph
-dependencies[] = share42
 
 
 ; Soar - Contrib - Media

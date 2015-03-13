@@ -1,7 +1,7 @@
-name = Soar FAQ Categories
+name = Helm FAQ Categories
 description = Default FAQ Categories
 core = 7.x
-package = Soar Content
+package = Helm Content
 dependencies[] = soar_faq
 dependencies[] = taxonomy
 dependencies[] = uuid

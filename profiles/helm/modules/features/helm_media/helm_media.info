@@ -1,7 +1,7 @@
-name = Soar Media
+name = Helm Media
 description = Sets up a rich media experience
 core = 7.x
-package = Soar
+package = Helm
 project = helm_media
 dependencies[] = ctools
 dependencies[] = features

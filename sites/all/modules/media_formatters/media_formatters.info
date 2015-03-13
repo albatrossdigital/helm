@@ -1,7 +1,0 @@
-;$Id: 
-name = Media Formatters
-description = Easily control the behavior and display of media, including modals and lazysizes.
-core = 7.x
-dependencies[] = libraries
-dependencies[] = file_entity
-files[] = includes/media_formatters.field.module

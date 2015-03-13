@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Code for the Soar FAQ Display feature.
+ * Code for the Helm FAQ Display feature.
  */
 
 include_once 'helm_faq_display.features.inc';

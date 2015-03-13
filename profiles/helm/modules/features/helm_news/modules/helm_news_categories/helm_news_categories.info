@@ -1,7 +1,7 @@
-name = Soar News Categories
+name = Helm News Categories
 description = Adds default News Categories
 core = 7.x
-package = Soar Content
+package = Helm Content
 dependencies[] = taxonomy
 dependencies[] = uuid
 dependencies[] = uuid_features

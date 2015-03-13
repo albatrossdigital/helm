@@ -255,15 +255,14 @@ function media_wysiwyg_pre_render_text_format($element) {
     return $element;
   }
 
-  $tagmap = array();
+  $field = &$element['value'];
+  $settings = array(
+    'field' => $field['#id'],
+  );
 
-  foreach (array('value', 'summary') as $column) {
-    if (isset($element[$column])) {
-      $tagmap = _media_wysiwyg_generate_tagMap($element[$column]['#value']);
-    }
-  }
+  $tagmap = _media_wysiwyg_generate_tagMap($field['#value']);
 
-  if (!empty($tagmap)) {
+  if (isset($tagmap)) {
     drupal_add_js(array('tagmap' => $tagmap), 'setting');
   }
   return $element;

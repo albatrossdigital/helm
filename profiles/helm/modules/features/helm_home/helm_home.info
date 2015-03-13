@@ -1,7 +1,7 @@
-name = Soar Home
+name = Helm Home
 description = Default home page
 core = 7.x
-package = Soar
+package = Helm
 dependencies[] = ctools
 dependencies[] = entity
 dependencies[] = field_collection

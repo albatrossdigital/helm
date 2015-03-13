@@ -26,7 +26,7 @@ function helm_carousel_entity_info_alter(&$entity_info) {
   // Fieldable panel pane bundle to support Bootstrap carousels:
   $entity_info['fieldable_panels_pane']['bundles']['helm_carousel'] = array(
     'label' => t('Carousel'),
-    'pane category' => t('Soar Carousel'),
+    'pane category' => t('Helm Carousel'),
     'pane top level' => FALSE,
     'admin' => array(
       'path' => 'admin/structure/fieldable-panels-panes/manage/%fieldable_panels_panes_type',

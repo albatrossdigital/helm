@@ -1,5 +1,5 @@
-name = "Soar Date Formats"
-package = "Soar"
+name = "Helm Date Formats"
+package = "Helm"
 php = "5.2.4"
 project = "helm_date_formats"
 

@@ -1,7 +1,7 @@
-name = Soar Event Display
+name = Helm Event Display
 description = Display elements for Events
 core = 7.x
-package = Soar Display
+package = Helm Display
 dependencies[] = date_ical
 dependencies[] = date_views
 dependencies[] = page_manager

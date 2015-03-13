@@ -17,7 +17,7 @@ Drupal.flexible.fixHeight = function() {
 Drupal.behaviors.flexibleAdmin = {
   attach: function(context) {
     // Show/hide layout manager button
-    $('#panels-flexible-toggle-layout:not(.panels-flexible-processed)', context)
+    $('input#panels-flexible-toggle-layout:not(.panels-flexible-processed)', context)
       .addClass('panels-flexible-processed')
       .click(function() {
         $('.panel-flexible-admin')

@@ -1,7 +1,7 @@
-name = Soar Landing Page
+name = Helm Landing Page
 description = Creates a landing pages that displays teasers of child items
 core = 7.x
-package = Soar
+package = Helm
 project = helm_landingpage
 apps[screenshots][] = app/screenshot.png
 apps[logo] = app/logo.png

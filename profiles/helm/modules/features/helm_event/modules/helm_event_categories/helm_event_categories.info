@@ -1,7 +1,7 @@
-name = Soar Event Categories
+name = Helm Event Categories
 description = Adds default Event Categories
 core = 7.x
-package = Soar Content
+package = Helm Content
 dependencies[] = soar_event
 dependencies[] = taxonomy
 dependencies[] = uuid

@@ -169,12 +169,7 @@ class ctools_context_required {
 
   function select($contexts, $context) {
     if (!is_array($contexts)) {
-      if (is_object($contexts) && $contexts instanceof ctools_context) {
-        $contexts = array($contexts->id => $contexts);
-      }
-      else {
-        $contexts = array($contexts);
-      }
+      $contexts = array($contexts);
     }
 
     // If we had requested a $context but that $context doesn't exist
@@ -333,15 +328,13 @@ function _ctools_context_selector($contexts, $required, $default, $num = 0) {
       $title = $num ? t('Context %count', array('%count' => $num)) : t('Context');
     }
 
-    $form = array(
+    return array(
       '#type' => 'select',
       '#options' => $options,
       '#title' => $title,
       '#default_value' => $default,
     );
   }
-
-  return $form;
 }
 
 /**
@@ -1594,9 +1587,7 @@ function ctools_access_add_restrictions($settings, $contexts) {
       $required_context = isset($plugin['required context']) ? $plugin['required context'] : array();
       $context = isset($test['context']) ? $test['context'] : array();
       $contexts = ctools_context_select($contexts, $required_context, $context);
-      if ($contexts !== FALSE) {
-        $function($test['settings'], $contexts);
-      }
+      $function($test['settings'], $contexts);
     }
   }
 }

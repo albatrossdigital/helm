@@ -169,10 +169,9 @@ function _ckeditor_filter_process_styles(&$e, $styles_regex) {
     if(!empty($styles_regex)) {
       // match
       preg_match($styles_regex, $e->style, $matches);
-      $matches = array_filter($matches);
       // always matches 1, so must have more for actual hits
-      if(count($matches) >= 2) {
-        array_shift($matches);
+      array_shift($matches);
+      if(!empty($matches)) {
         $e->style = implode(';', $matches) . ';';
         return;
       }
@@ -244,7 +243,7 @@ function ckeditor_filter_filter_ckeditor_filter_settings($form, $form_state, $fi
       '#cols' => 60,
       '#rows' => $valid_attributes_rows,
       '#description' => t('<p>
-  This option allows you to specify which element attributes allowed.  Note: to use inline styles, &quot;style&quot; must be included here.
+  This option allows you to specify which element attributes allowed.
   </p>'),
   );
 
@@ -351,7 +350,7 @@ function ckeditor_filter_get_elements_blacklist() {
 function ckeditor_filter_ckeditor_filter_defaults() {
   return array(
     'valid_elements' => 'p,a,div,span,h2,h3,h4,h5,h6,section,article,strong,b,i,em,cite,blockquote,small,sub,sup,code,pre,ul,ol,li,dl,dt,dd,table,tbody,thead,th,tr,td,img,caption,br',
-    'valid_attributes' => 'href,src,target,width,height,colspan,span,alt,name,title,class,id,style',
+    'valid_attributes' => 'href,src,target,width,height,colspan,span,alt,name,title,class,id',
     'valid_styles' => 'text-align,float,margin'
   );
 }

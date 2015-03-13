@@ -20,16 +20,6 @@ class FeedsResult {}
 abstract class FeedsPlugin extends FeedsConfigurable implements FeedsSourceInterface {
 
   /**
-   * Constructor.
-   *
-   * Initialize class variables.
-   */
-  protected function __construct($id) {
-    parent::__construct($id);
-    $this->source_config = $this->sourceDefaults();
-  }
-
-  /**
    * Returns the type of plugin.
    *
    * @return string
@@ -218,6 +208,21 @@ abstract class FeedsPlugin extends FeedsConfigurable implements FeedsSourceInter
       }
     }
     return $result;
+  }
+
+  /**
+   * Implements FeedsConfigurable::dependencies().
+   */
+  public function dependencies() {
+    $dependencies = parent::dependencies();
+
+    // Find out which module provides this plugin.
+    $plugin_info = $this->pluginDefinition();
+    if (isset($plugin_info['module'])) {
+      $dependencies[$plugin_info['module']] = $plugin_info['module'];
+    }
+
+    return $dependencies;
   }
 }
 

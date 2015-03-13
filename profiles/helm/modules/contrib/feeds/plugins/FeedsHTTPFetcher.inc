@@ -27,6 +27,14 @@ class FeedsHTTPFetcherResult extends FeedsFetcherResult {
   protected $timeout;
 
   /**
+   *
+   * Whether to ignore SSL validation errors.
+   *
+   * @var bool
+   */
+  protected $acceptInvalidCert;
+
+  /**
    * Constructor.
    */
   public function __construct($url = NULL) {
@@ -39,7 +47,7 @@ class FeedsHTTPFetcherResult extends FeedsFetcherResult {
   public function getRaw() {
     if (!isset($this->raw)) {
       feeds_include_library('http_request.inc', 'http_request');
-      $result = http_request_get($this->url, NULL, NULL, NULL, $this->timeout);
+      $result = http_request_get($this->url, NULL, NULL, $this->acceptInvalidCert, $this->timeout);
       if (!in_array($result->code, array(200, 201, 202, 203, 204, 205, 206))) {
         throw new Exception(t('Download of @url failed with code !code.', array('@url' => $this->url, '!code' => $result->code)));
       }
@@ -56,6 +64,17 @@ class FeedsHTTPFetcherResult extends FeedsFetcherResult {
   public function setTimeout($timeout) {
     $this->timeout = $timeout;
   }
+
+  /**
+   * Sets the accept invalid certificates option.
+   *
+   * @param bool $accept_invalid_cert
+   *   Whether to accept invalid certificates.
+   */
+  public function setAcceptInvalidCert($accept_invalid_cert) {
+    $this->acceptInvalidCert = (bool) $accept_invalid_cert;
+  }
+
 }
 
 /**
@@ -74,6 +93,7 @@ class FeedsHTTPFetcher extends FeedsFetcher {
     $fetcher_result = new FeedsHTTPFetcherResult($source_config['source']);
     // When request_timeout is empty, the global value is used.
     $fetcher_result->setTimeout($this->config['request_timeout']);
+    $fetcher_result->setAcceptInvalidCert($this->config['accept_invalid_cert']);
     return $fetcher_result;
   }
 
@@ -123,6 +143,7 @@ class FeedsHTTPFetcher extends FeedsFetcher {
       'designated_hub' => '',
       'request_timeout' => NULL,
       'auto_scheme' => 'http',
+      'accept_invalid_cert' => FALSE,
     );
   }
 
@@ -175,6 +196,12 @@ class FeedsHTTPFetcher extends FeedsFetcher {
       '#element_validate' => array('element_validate_integer_positive'),
       '#maxlength' => 3,
       '#size'=> 30,
+    );
+    $form['advanced']['accept_invalid_cert'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Accept invalid SSL certificates'),
+      '#description' => t('<strong>IMPORTANT:</strong> This setting will force cURL to completely ignore all SSL errors. This is a <strong>major security risk</strong> and should only be used during development.'),
+      '#default_value' => $this->config['accept_invalid_cert'],
     );
 
     return $form;

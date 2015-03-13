@@ -340,7 +340,7 @@ class FeedsEnclosure extends FeedsElement {
    *   If file object could not be created.
    */
   public function getFile($destination) {
-
+    $file = NULL;
     if ($this->getValue()) {
       // Prepare destination directory.
       file_prepare_directory($destination, FILE_MODIFY_PERMISSIONS | FILE_CREATE_DIRECTORY);
@@ -385,7 +385,7 @@ class FeedsEnclosure extends FeedsElement {
       }
 
       // We couldn't make sense of this enclosure, throw an exception.
-      if (!isset($file)) {
+      if (!$file) {
         throw new Exception(t('Invalid enclosure %enclosure', array('%enclosure' => $this->getValue())));
       }
     }

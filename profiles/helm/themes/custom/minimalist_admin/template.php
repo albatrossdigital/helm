@@ -69,18 +69,26 @@ function minimalist_admin_js_alter(&$js) {
  * Sets up minimalist node edit form.
  */
 function minimalist_admin_form_alter(&$form, &$form_state, $form_id) {
+  $path = path_to_theme();  
+
   if (strpos($form_id, '_node_form')) {
     $form['title']['#attributes']['placeholder'] = t('Enter title');
     $form['field_subtitle'][LANGUAGE_NONE][0]['value']['#attributes']['placeholder'] = t('Enter subtitle');
   }
 
+  // Add Boostrap multiselect
   if (function_exists('libraries_get_path')) {
-    $path = libraries_get_path('bootstrap-multiselect');
+    $library_path = libraries_get_path('bootstrap-multiselect');
     if ($path) {
-      $form['#attached']['js'][$path . '/dist/js/bootstrap-multiselect.js'] = array();
-      $form['#attached']['js'][path_to_theme() . '/js/bootstrap-multiselect.js'] = array();
-      $form['#attached']['css'][$path . '/dist/css/bootstrap-multiselect.css'] = array();
+      $form['#attached']['js'][$library_path . '/dist/js/bootstrap-multiselect.js'] = array();
+      $form['#attached']['js'][$path . '/js/bootstrap-multiselect.js'] = array();
+      $form['#attached']['css'][$library_path . '/dist/css/bootstrap-multiselect.css'] = array();
     }
   }
-  dpm($form['#attached']);
+
+
+  // Including necessary files to responsify.
+  // @todo: make this work to remove vertical_tabs_responsive module dependence
+  //$form['#attached']['js'][] = $path . '/js/vertical-tabs-custom.js';
+
 }

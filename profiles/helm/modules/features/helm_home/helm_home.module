@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Code for the Soar Home feature.
+ * Code for the Helm Home feature.
  */
 
 include_once 'helm_home.features.inc';
@@ -29,14 +29,14 @@ function helm_home_features_post_restore($op, $items) {
               && isset($items['helm_home'])
               && !variable_get('helm_home_panel_pane');
 
-  watchdog('Soar Home', 'go: @op  items: @items run content? @run_content', array(
+  watchdog('Helm Home', 'go: @op  items: @items run content? @run_content', array(
     '@op' => $op,
     '@items' => $items,
     '@run_content' => $run_content
   ));
 
   if($run_content) {
-    watchdog('Soar Home', 'Running content import');
+    watchdog('Helm Home', 'Running content import');
     module_load_include('install', 'helm_home');
     _helm_home_install_content();
   }
@@ -56,7 +56,7 @@ function helm_home_uuid_entity_features_export_render_alter($entity_type, &$expo
   $run_alter = $entity_type == 'fieldable_panels_pane' 
             && $export->bundle == 'soar_carousel';
   if($run_alter) {
-    watchdog('Soar Home', 'Running export alter');
+    watchdog('Helm Home', 'Running export alter');
     // Unset the field_collection, since the UUID export doesn't work
     $export->field_soar_carousel_slide['und'] = array();
     // Unset the panelizer settings, to avoid errors.

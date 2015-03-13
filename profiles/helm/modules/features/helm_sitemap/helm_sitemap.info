@@ -1,7 +1,7 @@
-name = Soar Sitemap
+name = Helm Sitemap
 description = Installs and sets up basic configuration for the XML Sitemap module
 core = 7.x
-package = Soar
+package = Helm
 version = 7.x-2.0
 project = helm_sitemap
 dependencies[] = ctools

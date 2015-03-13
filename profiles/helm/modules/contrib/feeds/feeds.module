@@ -281,7 +281,7 @@ function feeds_menu() {
     'access callback' => 'feeds_page_access',
     'file' => 'feeds.pages.inc',
   );
-  $items['import/%'] = array(
+  $items['import/%feeds_importer'] = array(
     'title callback' => 'feeds_importer_title',
     'title arguments' => array(1),
     'page callback' => 'drupal_get_form',
@@ -290,12 +290,12 @@ function feeds_menu() {
     'access arguments' => array('import', 1),
     'file' => 'feeds.pages.inc',
   );
-  $items['import/%/import'] = array(
+  $items['import/%feeds_importer/import'] = array(
     'title' => 'Import',
     'type' => MENU_DEFAULT_LOCAL_TASK,
     'weight' => -10,
   );
-  $items['import/%/delete-items'] = array(
+  $items['import/%feeds_importer/delete-items'] = array(
     'title' => 'Delete items',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('feeds_delete_tab_form', 1),
@@ -304,7 +304,7 @@ function feeds_menu() {
     'file' => 'feeds.pages.inc',
     'type' => MENU_LOCAL_TASK,
   );
-  $items['import/%/unlock'] = array(
+  $items['import/%feeds_importer/unlock'] = array(
     'title' => 'Unlock',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('feeds_unlock_tab_form', 1),
@@ -313,7 +313,7 @@ function feeds_menu() {
     'file' => 'feeds.pages.inc',
     'type' => MENU_LOCAL_TASK,
   );
-  $items['import/%/template'] = array(
+  $items['import/%feeds_importer/template'] = array(
     'page callback' => 'feeds_importer_template',
     'page arguments' => array(1),
     'access callback' => 'feeds_access',
@@ -377,14 +377,19 @@ function feeds_admin_paths() {
  * Menu loader callback.
  */
 function feeds_importer_load($id) {
-  return feeds_importer($id);
+  try {
+    return feeds_importer($id)->existing();
+  }
+  catch (FeedsNotExistingException $e) {}
+  catch (InvalidArgumentException $e) {}
+
+  return FALSE;
 }
 
 /**
  * Title callback.
  */
-function feeds_importer_title($id) {
-  $importer = feeds_importer($id);
+function feeds_importer_title(FeedsImporter $importer) {
   return $importer->config['name'];
 }
 
@@ -426,8 +431,12 @@ function feeds_access($action, $param) {
     return FALSE;
   }
 
+  $importer_id = FALSE;
   if (is_string($param)) {
     $importer_id = $param;
+  }
+  elseif ($param instanceof FeedsImporter) {
+    $importer_id = $param->id;
   }
   elseif ($param->type) {
     $importer_id = feeds_get_importer_id($param->type);
@@ -709,6 +718,70 @@ function feeds_field_extra_fields() {
     }
   }
   return $extras;
+}
+
+/**
+ * Implements hook_features_pipe_COMPONENT_alter() for component "feeds_importer".
+ *
+ * Automatically adds dependencies when a Feed importer is selected in Features.
+ */
+function feeds_features_pipe_feeds_importer_alter(&$pipe, $data, &$export) {
+  foreach ($data as $importer_id) {
+    if ($importer = feeds_importer_load($importer_id)) {
+      $export['dependencies'] = array_merge($export['dependencies'], $importer->dependencies());
+    }
+  }
+}
+
+/**
+ * Implements hook_system_info_alter().
+ *
+ * Goes through a list of all modules that provide Feeds plugins and makes them
+ * required if there are any importers using those plugins.
+ */
+function feeds_system_info_alter(array &$info, $file, $type) {
+  if ($type !== 'module' || !module_hook($file->name, 'feeds_plugins')) {
+    return;
+  }
+
+  // Don't make Feeds require itself, otherwise you can't disable Feeds until
+  // all importers are deleted.
+  if ($file->name === 'feeds' || !function_exists('ctools_include')) {
+    return;
+  }
+
+  // Get the plugins that belong to the current module.
+  ctools_include('plugins');
+  $module_plugins = array();
+  foreach (ctools_get_plugins('feeds', 'plugins') as $plugin_id => $plugin) {
+    if ($file->name === $plugin['module']) {
+      $module_plugins[$plugin_id] = TRUE;
+    }
+  }
+
+  // Check if any importers are using any plugins from the current module.
+  foreach (feeds_importer_load_all(TRUE) as $importer) {
+    $configuration = $importer->getConfig();
+
+    foreach (array('fetcher', 'parser', 'processor') as $plugin_type) {
+      $plugin_key = $configuration[$plugin_type]['plugin_key'];
+      if (isset($module_plugins[$plugin_key])) {
+        $info['required'] = TRUE;
+        break 2;
+      }
+    }
+  }
+
+  if (empty($info['required'])) {
+    return;
+  }
+
+  if (module_exists('feeds_ui') && user_access('administer feeds')) {
+    $info['explanation'] = t('Feeds is currently using this module for one or more <a href="@link">importers</a>.', array('@link' => url('admin/structure/feeds')));
+  }
+  else {
+    $info['explanation'] = t('Feeds is currently using this module for one or more importers.');
+  }
 }
 
 /**

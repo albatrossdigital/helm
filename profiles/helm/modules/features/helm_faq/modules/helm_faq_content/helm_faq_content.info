@@ -1,7 +1,7 @@
-name = Soar FAQ Content
+name = Helm FAQ Content
 description = Default content for FAQs that can be disabled
 core = 7.x
-package = Soar Content
+package = Helm Content
 dependencies[] = ctools
 dependencies[] = features
 dependencies[] = soar_faq

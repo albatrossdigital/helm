@@ -1,7 +1,7 @@
 ; App manifest file
 ; See https://groups.drupal.org/open-app-standard/oas#manifest
 
-name = Soar Home
+name = Helm Home
 description = Panels-based homepage with a carousel
 color = #B27636
 version = 1.0-alpha1

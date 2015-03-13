@@ -1,7 +1,7 @@
 <?php
 // Plugin definition
 $plugin = array(
-  'title' => t('Soar Teaser'),
+  'title' => t('Helm Teaser'),
   'icon' => 'soar-teaser.png',
   'category' => t('Radix'),
   'theme' => 'soar_teaser',

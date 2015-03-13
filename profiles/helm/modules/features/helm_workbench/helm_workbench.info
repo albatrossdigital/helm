@@ -1,7 +1,7 @@
-name = Soar Workbench
+name = Helm Workbench
 description = Enables the Workbench suite of content moderation modules and sets permissions
 core = 7.x
-package = Soar
+package = Helm
 project = helm_workbench
 dependencies[] = features
 dependencies[] = scheduler

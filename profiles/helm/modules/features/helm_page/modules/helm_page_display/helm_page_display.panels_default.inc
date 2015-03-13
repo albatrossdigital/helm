@@ -14,7 +14,7 @@ function helm_page_display_default_panels_mini() {
   $mini->disabled = FALSE; /* Edit this to true to make a default mini disabled initially */
   $mini->api_version = 1;
   $mini->name = 'page_sidebar_right';
-  $mini->category = 'Soar Page';
+  $mini->category = 'Helm Page';
   $mini->admin_title = 'Page Sidebar Right';
   $mini->admin_description = 'Common sidebar content';
   $mini->requiredcontexts = array();

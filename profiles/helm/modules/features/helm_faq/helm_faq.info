@@ -1,7 +1,7 @@
-name = Soar FAQ
+name = Helm FAQ
 description = FAQ content type for the Q and A section
 core = 7.x
-package = Soar
+package = Helm
 dependencies[] = color_field
 dependencies[] = ctools
 dependencies[] = defaultconfig

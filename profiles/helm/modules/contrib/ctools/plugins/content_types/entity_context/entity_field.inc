@@ -118,8 +118,6 @@ function ctools_entity_field_content_type_render($subtype, $conf, $panel_args, $
   $field_settings = array(
     'label' => $label,
     'type' => $conf['formatter'],
-    // Pass all entity field panes settings to field display settings.
-    'pane_settings' => $conf,
   );
 
   // Get the field output, and the title.
@@ -129,19 +127,33 @@ function ctools_entity_field_content_type_render($subtype, $conf, $panel_args, $
 
   $all_values = field_get_items($entity_type, $entity, $field_name, $language);
   if (!is_array($all_values)) {
-    // Do not render if the field is empty.
-    return;
+    $all_values = array();
   }
 
   // Reverse values.
   if (isset($conf['delta_reversed']) && $conf['delta_reversed']) {
-    $all_values = array_reverse($all_values, TRUE);
+    $all_values = array_reverse($all_values);
   }
 
   if (isset($conf['delta_limit'])) {
+    $delta_limit = $conf['delta_limit'];
     $offset = intval($conf['delta_offset']);
-    $limit = !empty($conf['delta_limit']) ? $conf['delta_limit'] : NULL;
-    $all_values = array_slice($all_values, $offset, $limit, TRUE);
+    $total = count($all_values);
+
+    if ($delta_limit == 0) {
+      $delta_limit = $total - $offset;
+    }
+
+    $new_values = array();
+    for ($i = 0; $i < $delta_limit; $i++) {
+      $new_delta = $offset + $i;
+
+      if (isset($all_values[$new_delta])) {
+        $new_values[] = $all_values[$new_delta];
+      }
+    }
+
+    $all_values = $new_values;
   }
 
   $clone = clone $entity;
@@ -251,21 +263,10 @@ function ctools_entity_field_content_type_formatter_styles_submit($form, &$form_
 }
 
 /**
- * Returns the administrative title for a type.
- */
+* Returns the administrative title for a type.
+*/
 function ctools_entity_field_content_type_admin_title($subtype, $conf, $context) {
   list($bundle, $field_name) = explode(':', $subtype);
   ctools_include('fields');
-  if (is_object($context) && isset($context->identifier)) {
-    $identifier = $context->identifier;
-  }
-  else {
-    $type = 'ctools_entity_field_content_type_admin_title';
-    $message = t('Context is missing for field: @name', array('@name' => $subtype));
-    $variables = array($subtype, $conf, $context);
-    watchdog($type, $message, $variables, $severity = WATCHDOG_NOTICE);
-    $identifier = t('Unknown');
-  }
-
-  return t('"@s" @field', array('@s' => $identifier, '@field' => ctools_field_label($field_name)));
+  return t('"@s" @field', array('@s' => $context->identifier, '@field' => ctools_field_label($field_name)));
 }

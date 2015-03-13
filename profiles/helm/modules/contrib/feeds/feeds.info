@@ -38,9 +38,11 @@ files[] = tests/feeds_mapper_field.test
 files[] = tests/feeds_mapper_file.test
 files[] = tests/feeds_mapper_path.test
 files[] = tests/feeds_mapper_profile.test
+files[] = tests/feeds_mapper_unique.test
 files[] = tests/feeds_mapper.test
 files[] = tests/feeds_mapper_config.test
 files[] = tests/feeds_fetcher_file.test
+files[] = tests/feeds_mapper_format_config.test
 files[] = tests/feeds_fetcher_http.test
 files[] = tests/feeds_processor_entity.test
 files[] = tests/feeds_processor_node.test
@@ -48,6 +50,7 @@ files[] = tests/feeds_processor_term.test
 files[] = tests/feeds_processor_user.test
 files[] = tests/feeds_scheduler.test
 files[] = tests/feeds_mapper_link.test
+files[] = tests/feeds_mapper_summary.test
 files[] = tests/feeds_mapper_taxonomy.test
 files[] = tests/http_request.test
 files[] = tests/parser_csv.test
@@ -61,9 +64,9 @@ files[] = views/feeds_views_handler_field_source.inc
 files[] = views/feeds_views_handler_filter_severity.inc
 
 
-; Information added by drush on 2014-12-03
+; Information added by drush on 2015-03-13
 version = "7.x-1.x-dev"
 core = "7.x"
 project = "feeds"
-datestamp = "1417594609"
+datestamp = "1426238233"
 

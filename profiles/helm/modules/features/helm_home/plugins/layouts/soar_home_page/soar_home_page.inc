@@ -1,7 +1,7 @@
 <?php
 // Plugin definition
 $plugin = array(
-  'title' => t('Soar Home Page'),
+  'title' => t('Helm Home Page'),
   'icon' => 'soar-home-page.png',
   'category' => t('Radix'),
   'theme' => 'soar_home_page',

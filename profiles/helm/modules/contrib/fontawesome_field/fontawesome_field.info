@@ -1,6 +1,0 @@
-name = Font Awesome Field
-description = Creates a field type for the Font Awesome library
-version = 7.x-1.x
-core = 7.x
-
-;dependencies[] = fontawesome

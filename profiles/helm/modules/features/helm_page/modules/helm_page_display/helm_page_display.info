@@ -1,7 +1,7 @@
-name = Soar Page Display
-description = Display layer for the Soar Pages feature
+name = Helm Page Display
+description = Display layer for the Helm Pages feature
 core = 7.x
-package = Soar
+package = Helm
 dependencies[] = menu_block
 dependencies[] = page_manager
 dependencies[] = panelizer

@@ -1,7 +1,7 @@
-name = Soar Event Register
+name = Helm Event Register
 description = Add registrations to Events
 core = 7.x
-package = Soar
+package = Helm
 dependencies[] = ctools
 dependencies[] = entity
 dependencies[] = entityreference

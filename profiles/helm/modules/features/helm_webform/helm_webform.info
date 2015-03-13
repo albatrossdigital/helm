@@ -1,7 +1,7 @@
-name = Soar Webform
+name = Helm Webform
 description = Sets some additional settings for the webform content type
 core = 7.x
-package = Soar
+package = Helm
 project = helm_webform
 dependencies[] = ctools
 dependencies[] = features

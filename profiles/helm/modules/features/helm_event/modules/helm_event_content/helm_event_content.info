@@ -1,7 +1,7 @@
-name = Soar Event Content
+name = Helm Event Content
 description = Default Event content
 core = 7.x
-package = Soar Content
+package = Helm Content
 dependencies[] = ctools
 dependencies[] = features
 dependencies[] = registration

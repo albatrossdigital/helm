@@ -27,6 +27,15 @@ class FeedsEntityProcessorTest extends FeedsWebTestCase {
     // Create an importer configuration.
     $this->createImporterConfiguration('Syndication', 'syndication');
     $this->setPlugin('syndication', 'FeedsEntityProcessorEntity_test');
+    $this->addMappings('syndication',
+      array(
+        0 => array(
+          'source' => 'guid',
+          'target' => 'guid',
+          'unique' => TRUE,
+        ),
+      )
+    );
   }
 
   /**
@@ -46,11 +55,39 @@ class FeedsEntityProcessorTest extends FeedsWebTestCase {
     ));
 
     // Run import.
-    $this->createFeedNode();
+    $this->importURL('syndication', $GLOBALS['base_url'] . '/' . drupal_get_path('module', 'feeds') . '/tests/feeds/developmentseed.rss2');
 
-    // Assert 10 items aggregated after creation of the node.
+    // Assert 10 items created.
     $this->assertText('Created 10 test entity');
     $this->assertEqual(10, db_query("SELECT COUNT(*) FROM {entity_test}")->fetchField());
+
+    // Enable skip missing test entities and import updated feed file.
+    $this->setSettings('syndication', 'FeedsEntityProcessorEntity_test', array('update_non_existent' => 'skip'));
+    $missing_url = $GLOBALS['base_url'] . '/' . drupal_get_path('module', 'feeds') . '/tests/feeds/developmentseed_missing.rss2';
+    $this->importURL('syndication', $missing_url);
+    $this->assertText('There are no new test entity');
+    $this->assertEqual(10, db_query("SELECT COUNT(*) FROM {entity_test}")->fetchField());
+
+    // Now delete all items.
+    $this->drupalPost('import/syndication/delete-items', array(), 'Delete');
+    $this->assertText('Deleted 10 test entity');
+    $this->assertEqual(0, db_query("SELECT COUNT(*) FROM {entity_test}")->fetchField());
+
+    // Import again, to reset entity counts.
+    $this->importURL('syndication', $GLOBALS['base_url'] . '/' . drupal_get_path('module', 'feeds') . '/tests/feeds/developmentseed.rss2');
+    $this->assertText('Created 10 test entity');
+    $this->assertEqual(10, db_query("SELECT COUNT(*) FROM {entity_test}")->fetchField());
+
+    // Change settings to delete non-existent entities from feed.
+    $this->setSettings('syndication', 'FeedsEntityProcessorEntity_test', array('update_non_existent' => 'delete'));
+    $this->importURL('syndication', $missing_url);
+    $this->assertText('Removed 1 test entity');
+    $this->assertEqual(9, db_query("SELECT COUNT(*) FROM {entity_test}")->fetchField());
+
+    // Now delete all items.
+    $this->drupalPost('import/syndication/delete-items', array(), 'Delete');
+    $this->assertText('Deleted 9 test entity');
+    $this->assertEqual(0, db_query("SELECT COUNT(*) FROM {entity_test}")->fetchField());
   }
 
 }

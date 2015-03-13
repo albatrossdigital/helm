@@ -5583,6 +5583,3 @@ label.label-help:after {
       font-size: 2em;
       font-weight: normal;
       height: 1.2em; }
-
-.page-node-add #content, .page-node-edit #content {
-  width: 100% !important; }

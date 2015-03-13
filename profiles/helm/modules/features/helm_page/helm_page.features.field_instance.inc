@@ -69,7 +69,7 @@ function helm_page_field_default_field_instances() {
         'summary_rows' => 5,
       ),
       'type' => 'text_textarea_with_summary',
-      'weight' => 2,
+      'weight' => 3,
     ),
     'widget_type' => 'text_textarea_with_summary',
   );
@@ -108,6 +108,7 @@ function helm_page_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'node',
+    'fences_wrapper' => 'div',
     'field_name' => 'field_attachment',
     'label' => 'Attachments',
     'required' => 0,
@@ -125,121 +126,85 @@ function helm_page_field_default_field_instances() {
         'allowed_schemes' => array(
           'oembed' => 0,
           'public' => 'public',
+          'youtube' => 0,
         ),
         'allowed_types' => array(
           'audio' => 0,
           'document' => 0,
-          'image' => 'image',
+          'image' => 0,
           'video' => 0,
         ),
         'browser_plugins' => array(
           'media_default--media_browser_1' => 0,
           'media_default--media_browser_my_files' => 0,
-          'media_inkfilepicker' => 0,
           'media_internet' => 0,
           'upload' => 0,
+          'youtube' => 0,
         ),
-        'manualcrop_crop_info' => 1,
-        'manualcrop_default_crop_area' => 1,
-        'manualcrop_enable' => FALSE,
-        'manualcrop_inline_crop' => 0,
-        'manualcrop_instant_crop' => FALSE,
-        'manualcrop_instant_preview' => 1,
-        'manualcrop_maximize_default_crop_area' => 0,
-        'manualcrop_require_cropping' => array(),
-        'manualcrop_styles_list' => array(),
-        'manualcrop_styles_mode' => 'include',
-        'manualcrop_thumblist' => 0,
-        'progress_indicator' => 'throbber',
       ),
       'type' => 'media_generic',
-      'weight' => 32,
+      'weight' => 4,
     ),
   );
 
-  // Exported field_instance: 'node-page-field_picture'
-  $field_instances['node-page-field_picture'] = array(
+  // Exported field_instance: 'node-page-field_media'
+  $field_instances['node-page-field_media'] = array(
     'bundle' => 'page',
-    'default_value' => array(),
     'deleted' => 0,
     'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'hidden',
-        'module' => 'foundation_formatters',
-        'settings' => array(
-          'edit' => array(
-            'editor' => 'form',
-          ),
-          'hide_if_field' => 'field_media',
-          'image_style' => 'large',
-          'image_style_large' => '',
-          'image_style_medium' => '',
-          'image_style_retina' => '',
-          'image_style_small' => '',
-          'link_field' => '',
-          'placeholder_dimensions' => '',
-          'placeholder_text' => '',
-          'quickedit' => array(
-            'editor' => 'form',
-          ),
-        ),
-        'type' => 'image_super',
-        'weight' => 1,
-      ),
-      'featured' => array(
         'label' => 'above',
+        'module' => 'file',
         'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
+        'type' => 'file_default',
+        'weight' => 5,
       ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 11,
+        'weight' => 0,
       ),
     ),
     'entity_type' => 'node',
-    'field_name' => 'field_picture',
-    'label' => 'Picture',
+    'fences_wrapper' => 'div',
+    'field_name' => 'field_media',
+    'label' => 'Media',
     'required' => 0,
     'settings' => array(
-      'alt_field' => 0,
-      'default_image' => 0,
-      'file_directory' => 'pictures',
-      'file_extensions' => 'png gif jpg jpeg',
+      'description_field' => 0,
+      'file_directory' => '',
+      'file_extensions' => 'jpg jpeg gif png',
       'max_filesize' => '',
-      'max_resolution' => '',
-      'min_resolution' => '',
-      'title_field' => 0,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
       'active' => 1,
-      'module' => 'media',
+      'module' => 'angular_media',
       'settings' => array(
-        'allowed_schemes' => array(
-          'oembed' => 0,
+        'allowedSchemes' => array(
+          'oembed' => 'oembed',
           'public' => 'public',
+          'youtube' => 0,
         ),
-        'allowed_types' => array(
+        'allowedTypes' => array(
           'audio' => 0,
           'document' => 0,
           'image' => 'image',
-          'video' => 0,
+          'video' => 'video',
         ),
-        'browser_plugins' => array(
-          'media_default--media_browser_1' => 'media_default--media_browser_1',
-          'media_default--media_browser_my_files' => 'media_default--media_browser_my_files',
-          'media_inkfilepicker' => 'media_inkfilepicker',
-          'media_internet' => 0,
-          'upload' => 'upload',
+        'cropRatio' => '16/9',
+        'style' => 'placeholder',
+        'tabs' => array(
+          'flickr' => 0,
+          'me' => 0,
+          'site' => 0,
+          'upload' => 0,
         ),
-        'progress_indicator' => 'throbber',
       ),
-      'type' => 'media_generic',
-      'weight' => 3,
+      'type' => 'file_angular_media',
+      'weight' => 2,
     ),
   );
 
@@ -308,7 +273,7 @@ function helm_page_field_default_field_instances() {
   // Included for use with string extractors like potx.
   t('Attachments');
   t('Body');
-  t('Picture');
+  t('Media');
   t('Subtitle');
 
   return $field_instances;

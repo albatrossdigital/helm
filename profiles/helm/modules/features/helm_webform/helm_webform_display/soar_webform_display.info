@@ -1,7 +1,7 @@
-name = Soar Webform Display
+name = Helm Webform Display
 description = Manages the display of webform nodes
 core = 7.x
-package = Soar
+package = Helm
 dependencies[] = ctools
 dependencies[] = soar_webform
 dependencies[] = panelizer

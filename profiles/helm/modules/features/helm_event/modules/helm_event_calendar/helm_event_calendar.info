@@ -1,7 +1,7 @@
-name = Soar Event Calendar
+name = Helm Event Calendar
 description = An interactive event calendar with FullCalendar
 core = 7.x
-package = Soar Display
+package = Helm Display
 dependencies[] = date_ical
 dependencies[] = fullcalendar
 dependencies[] = list

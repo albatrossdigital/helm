@@ -37,6 +37,14 @@ function file_feeds_processor_targets_alter(&$targets, $entity_type, $bundle_nam
           'real_target' => $name,
         );
       }
+      elseif ($info['type'] === 'file') {
+        $targets[$name . ':description'] = array(
+          'name' => t('@label: Description', array('@label' => $instance['label'])),
+          'callback' => 'file_feeds_set_target',
+          'description' => t('The description of the @label field.', array('@label' => $instance['label'])),
+          'real_target' => $name,
+        );
+      }
     }
   }
 }
@@ -98,6 +106,7 @@ function file_feeds_set_target($source, $entity, $target, array $values) {
     switch ($sub_field) {
       case 'alt':
       case 'title':
+      case 'description':
         $field[LANGUAGE_NONE][$delta][$sub_field] = $v;
         break;
 

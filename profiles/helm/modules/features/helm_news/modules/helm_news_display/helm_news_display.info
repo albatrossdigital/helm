@@ -1,7 +1,7 @@
-name = Soar News Display
-description = Display layer for the Soar News feature
+name = Helm News Display
+description = Display layer for the Helm News feature
 core = 7.x
-package = Soar
+package = Helm
 dependencies[] = page_manager
 dependencies[] = soar_news
 dependencies[] = soar_page_display

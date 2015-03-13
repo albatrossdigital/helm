@@ -1,7 +1,7 @@
 ; App manifest file
 ; See https://groups.drupal.org/open-app-standard/oas#manifest
 
-name = Soar Events
+name = Helm Events
 description = Add a listing of upcoming events
 color = #DF7BAA
 version = 1.0-alpha1

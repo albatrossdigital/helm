@@ -32,7 +32,7 @@ function helm_carousel_image_default_styles() {
   // Exported image style: helm_carousel_image.
   $styles['helm_carousel_image'] = array(
     'name' => 'helm_carousel_image',
-    'label' => 'Soar Slide Image',
+    'label' => 'Helm Slide Image',
     'effects' => array(
       2 => array(
         'label' => 'Scale and crop',
@@ -55,7 +55,7 @@ function helm_carousel_image_default_styles() {
   // Exported image style: helm_carousel_image_promo.
   $styles['helm_carousel_image_promo'] = array(
     'name' => 'helm_carousel_image_promo',
-    'label' => 'Soar Carousel Image - Promo (1200x666)',
+    'label' => 'Helm Carousel Image - Promo (1200x666)',
     'effects' => array(
       3 => array(
         'label' => 'Scale',

@@ -1,7 +1,7 @@
-name = Soar Carousel
+name = Helm Carousel
 description = Views bootstrap carousel
 core = 7.x
-package = Soar
+package = Helm
 version = 7.x-1.0-alpha18
 project = helm_carousel
 dependencies[] = ctools

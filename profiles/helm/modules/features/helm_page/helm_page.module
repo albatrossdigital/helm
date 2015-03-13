@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Code for the Soar Page feature.
+ * Code for the Helm Page feature.
  */
 
 include_once 'helm_page.features.inc';

@@ -11,7 +11,7 @@
  * by the system that includes this file.
  */
 $plugin = array(
-  'title' => t('Existing node'),
+  'title' => t('Node'),
   'single' => TRUE,
   'defaults' => array(
     'nid' => '',
@@ -20,6 +20,7 @@ $plugin = array(
     'identifier' => '',
     'build_mode' => 'teaser',
   ),
+  'title' => t('Existing node'),
   'icon' => 'icon_node.png',
   'description' => t('Add a node from your site as content.'),
   'category' => t('Custom'),

@@ -112,7 +112,7 @@ function _helm_home_install_content() {
       }
       // Set marker
       variable_set('helm_home_panel_pane', $pane->uuid);
-      watchdog('Soar Home', 'Imported default content for helm_home');
+      watchdog('Helm Home', 'Imported default content for helm_home');
     }
   }
 }
@@ -138,6 +138,6 @@ function helm_home_uninstall() {
     $pane_shallow =  array_shift($result['fieldable_panels_pane']);
     variable_del('helm_home_panel_pane');
     entity_delete('fieldable_panels_pane', $pane_shallow->fpid);
-    watchdog('Soar Home', 'Deleted default content for helm_home');
+    watchdog('Helm Home', 'Deleted default content for helm_home');
   }
 }

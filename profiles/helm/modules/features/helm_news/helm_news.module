@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Code for the Soar News feature.
+ * Code for the Helm News feature.
  */
 
 include_once 'helm_news.features.inc';

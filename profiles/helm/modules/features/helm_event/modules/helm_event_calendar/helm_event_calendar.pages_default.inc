@@ -13,7 +13,7 @@ function helm_event_calendar_default_page_manager_pages() {
   $page->api_version = 1;
   $page->name = 'helm_event_calendar';
   $page->task = 'page';
-  $page->admin_title = 'Soar Event Calendar';
+  $page->admin_title = 'Helm Event Calendar';
   $page->admin_description = '';
   $page->path = 'calendar';
   $page->access = array();

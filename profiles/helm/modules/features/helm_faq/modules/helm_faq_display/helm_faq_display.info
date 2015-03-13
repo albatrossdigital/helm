@@ -1,7 +1,7 @@
-name = Soar FAQ Display
-description = Create Panels and Views for Soar FAQ
+name = Helm FAQ Display
+description = Create Panels and Views for Helm FAQ
 core = 7.x
-package = Soar Display
+package = Helm Display
 dependencies[] = defaultconfig
 dependencies[] = entity
 dependencies[] = panelizer

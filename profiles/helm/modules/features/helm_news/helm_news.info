@@ -1,7 +1,7 @@
-name = Soar News
+name = Helm News
 description = Creates the Article content type and related views
 core = 7.x
-package = Soar
+package = Helm
 dependencies[] = node
 dependencies[] = soar_page
 dependencies[] = taxonomy

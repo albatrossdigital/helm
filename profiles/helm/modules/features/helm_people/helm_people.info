@@ -1,7 +1,7 @@
-name = Soar People
+name = Helm People
 description = Creates a Person content type and related view for staff listings
 core = 7.x
-package = Soar
+package = Helm
 project = helm_people
 dependencies[] = ctools
 dependencies[] = ds

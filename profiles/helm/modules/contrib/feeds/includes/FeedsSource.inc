@@ -87,8 +87,14 @@ class FeedsState {
   public $created;
   public $updated;
   public $deleted;
+  public $unpublished;
   public $skipped;
   public $failed;
+
+  /**
+   * IDs of entities to be removed.
+   */
+  public $removeList;
 
   /**
    * Constructor, initialize variables.
@@ -99,6 +105,7 @@ class FeedsState {
     $this->created =
     $this->updated =
     $this->deleted =
+    $this->unpublished =
     $this->skipped =
     $this->failed = 0;
   }
@@ -296,7 +303,7 @@ class FeedsSource extends FeedsConfigurable {
       'period' => $period,
       'periodic' => TRUE,
     );
-    if ($period == FEEDS_SCHEDULE_NEVER) {
+    if ($period == FEEDS_SCHEDULE_NEVER && $this->progressImporting() === FEEDS_BATCH_COMPLETE) {
       JobScheduler::get('feeds_source_import')->remove($job);
     }
     elseif ($this->progressImporting() === FEEDS_BATCH_COMPLETE) {
@@ -790,6 +797,14 @@ class FeedsSource extends FeedsConfigurable {
    */
   protected function releaseLock() {
     lock_release("feeds_source_{$this->id}_{$this->feed_nid}");
+  }
+
+  /**
+   * Implements FeedsConfigurable::dependencies().
+   */
+  public function dependencies() {
+    $dependencies = parent::dependencies();
+    return array_merge($dependencies, $this->importer()->dependencies());
   }
 
 }

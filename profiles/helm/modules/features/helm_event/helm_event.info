@@ -1,7 +1,7 @@
-name = Soar Event
+name = Helm Event
 description = An Event content type and listing
 core = 7.x
-package = Soar
+package = Helm
 dependencies[] = ctools
 dependencies[] = date
 dependencies[] = defaultconfig
