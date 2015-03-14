@@ -7,7 +7,7 @@ api = "2"
 ; *********************************************************************************
 ; @todo Take an inventory of modules downloaded by not installed by core profile
 
-projects[admin_menu][version] = "3.0-rc4"
+projects[admin_menu][version] = "3.0-rc5"
 projects[admin_menu][subdir] = "contrib"
 
 projects[admin_select][version] = "1.5"
@@ -19,7 +19,7 @@ projects[email_registration][subdir] = "contrib"
 projects[filter_perms][version] = "1.0"
 projects[filter_perms][subdir] = "contrib"
 
-projects[ctools][version] = "1.5"
+projects[ctools][version] = "1.6"
 projects[ctools][subdir] = "contrib"
 
 projects[menu_trail_by_path][version] = "2.0"
@@ -28,7 +28,7 @@ projects[menu_trail_by_path][subdir] = "contrib"
 projects[devel][version] = "1.5"
 projects[devel][subdir] = "devel"
 
-projects[features][version] = "2.2"
+projects[features][version] = "2.4"
 projects[features][subdir] = "contrib"
 
 projects[email][version] = "1.3"
@@ -46,13 +46,13 @@ projects[select_or_other][subdir] = "contrib"
 projects[field_collection][version] = "1.0-beta8"
 projects[field_collection][subdir] = "contrib"
 
-projects[entity][version] = "1.5"
+projects[entity][version] = "1.6"
 projects[entity][subdir] = "contrib"
 
 projects[libraries][version] = "2.2"
 projects[libraries][subdir] = "contrib"
 
-projects[module_filter][version] = "1.8"
+projects[module_filter][version] = "2.0"
 projects[module_filter][subdir] = "contrib"
 
 projects[pathauto][version] = "1.2"
@@ -64,7 +64,7 @@ projects[redirect][subdir] = "contrib"
 projects[strongarm][version] = "2.0"
 projects[strongarm][subdir] = "contrib"
 
-projects[token][version] = "1.5"
+projects[token][version] = "1.6"
 projects[token][subdir] = "contrib"
 
 projects[metatag][version] = "1.4"
@@ -76,16 +76,16 @@ projects[google_analytics][subdir] = "contrib"
 projects[simplehtmldom][version] = "1.12"
 projects[simplehtmldom][subdir] = "contrib"
 
-projects[draggableviews][version] = "2.0"
+projects[draggableviews][version] = "2.1"
 projects[draggableviews][subdir] = "contrib"
 
-projects[views][version] = "3.8"
+projects[views][version] = "3.10"
 projects[views][subdir] = "contrib"
 
 projects[views_bulk_operations][version] = "3.2"
 projects[views_bulk_operations][subdir] = "contrib"
 
-projects[admin_views][version] = "1.3"
+projects[admin_views][version] = "1.4"
 projects[admin_views][subdir] = "contrib"
 
 projects[date][version] = "2.8"
@@ -142,7 +142,7 @@ projects[media][subdir] = "contrib"
 projects[creative_commons][version] = "1.0"
 projects[creative_commons][subdir] = "contrib"
 
-projects[jquery_update][version] = "2.4"
+projects[jquery_update][version] = "2.5"
 projects[jquery_update][subdir] = "contrib"
 
 projects[fences][version] = 1.0
