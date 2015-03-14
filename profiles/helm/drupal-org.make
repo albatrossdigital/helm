@@ -118,6 +118,12 @@ projects[media_formatters][subdir] = "contrib"
 projects[angular_media][version] = "1.0-alpha1"
 projects[angular_media][subdir] = "contrib"
 
+projects[views_data_export][version] = "3.0-beta8"
+projects[views_data_export][subdir] = "contrib"
+
+projects[views_data_export_json][version] = "1.0-beta1"
+projects[views_data_export_json][subdir] = "contrib"
+
 projects[ckeditor][version] = "1.16"
 projects[ckeditor][subdir] = "contrib"
 
@@ -257,8 +263,8 @@ projects[defaultconfig][patch][1861054] = http://drupal.org/files/fix-defaultcon
 
 ; Panopoly theme
 
-projects[radix_layouts][version] = 3.3
-projects[radix_layouts][subdir] = contrib
+;projects[radix_layouts][version] = 3.3
+;projects[radix_layouts][subdir] = contrib
 
 
 ; Panolpoly widgets
