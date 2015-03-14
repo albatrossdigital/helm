@@ -16,7 +16,7 @@ function helm_input_formats_filter_default_formats() {
     'name' => 'Filtered HTML',
     'cache' => 1,
     'status' => 1,
-    'weight' => -10,
+    'weight' => 0,
     'filters' => array(
       'ckeditor_filter' => array(
         'weight' => 0,
@@ -41,7 +41,7 @@ function helm_input_formats_filter_default_formats() {
     'name' => 'Full HTML',
     'cache' => 1,
     'status' => 1,
-    'weight' => -9,
+    'weight' => 1,
     'filters' => array(
       'filter_htmlcorrector' => array(
         'weight' => 10,
@@ -57,7 +57,7 @@ function helm_input_formats_filter_default_formats() {
     'name' => 'HTML Code',
     'cache' => 1,
     'status' => 1,
-    'weight' => -7,
+    'weight' => 2,
     'filters' => array(),
   );
 
@@ -67,7 +67,7 @@ function helm_input_formats_filter_default_formats() {
     'name' => 'Plain text',
     'cache' => 1,
     'status' => 1,
-    'weight' => -8,
+    'weight' => 3,
     'filters' => array(
       'filter_html_escape' => array(
         'weight' => 0,
