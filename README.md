@@ -24,7 +24,7 @@ drush site-install -y helm
 ```
 
 Alternatively, you can use the download from our Drupal page. You will need to manually run a Drush make file to add 
-libraries that have not been [Whitelisted](@todo).
+libraries that have not been [Whitelisted](http://drupal.org/packaging-whitelist).
 
 
 Who?
