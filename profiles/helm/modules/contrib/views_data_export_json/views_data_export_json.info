@@ -1,0 +1,14 @@
+name = Views Data Export - JSON
+description = "Plugin to support exporting to json using Views Data Export"
+
+package = Views
+core = 7.x
+
+dependencies[] = views_data_export
+
+; Information added by drupal.org packaging script on 2013-10-04
+version = "7.x-1.0-beta1"
+core = "7.x"
+project = "views_data_export_json"
+datestamp = "1380903321"
+
