@@ -24,7 +24,8 @@ drush site-install -y helm
 ```
 
 Alternatively, you can use the download from our Drupal page. You will need to manually run a Drush make file to add 
-libraries that have not been [Whitelisted](http://drupal.org/packaging-whitelist).
+libraries that have not been [Whitelisted](http://drupal.org/packaging-whitelist). Refer to the 
+[profile README.md](https://github.com/albatrossdigital/helm-drops-7/blob/master/profiles/helm/README.md) for more details.
 
 
 Who?
