@@ -150,23 +150,39 @@ function helm_news_display_panelizer_defaults() {
     $pane->pid = 'new-620c9c74-fc1b-4b88-91b5-f5010b93e22e';
     $pane->panel = 'contentmain';
     $pane->type = 'entity_field';
-    $pane->subtype = 'node:field_picture';
+    $pane->subtype = 'node:field_media';
     $pane->shown = TRUE;
     $pane->access = array();
     $pane->configuration = array(
       'label' => 'hidden',
-      'formatter' => 'image',
+      'formatter' => 'flexible_media',
       'delta_limit' => 0,
       'delta_offset' => '0',
       'delta_reversed' => FALSE,
       'formatter_settings' => array(
         'image_link' => '',
-        'image_style' => 'large',
+        'image_style' => 'default',
         'quickedit' => array(
           'editor' => 'form',
         ),
+        'file_view_mode' => 'default',
+        'autoplay' => 1,
+        'link_field' => '',
+        'show_src' => 1,
+        'show_attribution' => 1,
+        'image_style_xs' => 'default',
+        'image_style_sm' => 'default',
+        'image_style_md' => 'default',
+        'image_style_lg' => 'default',
+        'image_style_lightbox' => 'formatter_large__1140_x_1140_',
+        'class' => 'col-sm-12',
+        'v_class' => 'embed-responsive-16by9',
+        'play_class' => 'btn btn-primary fa fa-play-circle',
+        'light_class' => '',
       ),
       'context' => 'panelizer',
+      'override_title' => 0,
+      'override_title_text' => '',
     );
     $pane->cache = array();
     $pane->style = array(
@@ -449,7 +465,7 @@ function helm_news_display_panelizer_defaults() {
     $pane->pid = 'new-e34b8ac5-e704-4394-9450-b72b7d105d67';
     $pane->panel = 'sidebar';
     $pane->type = 'entity_field';
-    $pane->subtype = 'node:field_picture';
+    $pane->subtype = 'node:field_media';
     $pane->shown = TRUE;
     $pane->access = array();
     $pane->configuration = array(

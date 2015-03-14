@@ -2,7 +2,7 @@
 // Plugin definition
 $plugin = array(
   'title' => t('Helm Home Page'),
-  'icon' => 'soar-home-page.png',
+  'icon' => 'helm-home-page.png',
   'category' => t('Radix'),
   'theme' => 'helm_home_page',
   'regions' => array(

@@ -44,7 +44,7 @@ function helm_news_content_uuid_features_default_content() {
       ),
     ),
   ),
-  'field_picture' => array(
+  'field_media' => array(
     'und' => array(
       0 => array(
         'uid' => 1,
@@ -247,7 +247,7 @@ function helm_news_content_uuid_features_default_content() {
             'did' => 12,
             'panel' => 'contentmain',
             'type' => 'entity_field',
-            'subtype' => 'node:field_picture',
+            'subtype' => 'node:field_media',
             'shown' => 1,
             'access' => array(),
             'configuration' => array(
@@ -531,7 +531,7 @@ function helm_news_content_uuid_features_default_content() {
             'did' => 10,
             'panel' => 'sidebar',
             'type' => 'entity_field',
-            'subtype' => 'node:field_picture',
+            'subtype' => 'node:field_media',
             'shown' => 1,
             'access' => array(),
             'configuration' => array(
@@ -714,7 +714,7 @@ function helm_news_content_uuid_features_default_content() {
       ),
     ),
   ),
-  'field_picture' => array(
+  'field_media' => array(
     'und' => array(
       0 => array(
         'uid' => 1,
@@ -917,7 +917,7 @@ function helm_news_content_uuid_features_default_content() {
             'did' => 12,
             'panel' => 'contentmain',
             'type' => 'entity_field',
-            'subtype' => 'node:field_picture',
+            'subtype' => 'node:field_media',
             'shown' => 1,
             'access' => array(),
             'configuration' => array(
@@ -1201,7 +1201,7 @@ function helm_news_content_uuid_features_default_content() {
             'did' => 10,
             'panel' => 'sidebar',
             'type' => 'entity_field',
-            'subtype' => 'node:field_picture',
+            'subtype' => 'node:field_media',
             'shown' => 1,
             'access' => array(),
             'configuration' => array(
@@ -1384,7 +1384,7 @@ function helm_news_content_uuid_features_default_content() {
       ),
     ),
   ),
-  'field_picture' => array(
+  'field_media' => array(
     'und' => array(
       0 => array(
         'uid' => 1,
@@ -1587,7 +1587,7 @@ function helm_news_content_uuid_features_default_content() {
             'did' => 12,
             'panel' => 'contentmain',
             'type' => 'entity_field',
-            'subtype' => 'node:field_picture',
+            'subtype' => 'node:field_media',
             'shown' => 1,
             'access' => array(),
             'configuration' => array(
@@ -1871,7 +1871,7 @@ function helm_news_content_uuid_features_default_content() {
             'did' => 10,
             'panel' => 'sidebar',
             'type' => 'entity_field',
-            'subtype' => 'node:field_picture',
+            'subtype' => 'node:field_media',
             'shown' => 1,
             'access' => array(),
             'configuration' => array(

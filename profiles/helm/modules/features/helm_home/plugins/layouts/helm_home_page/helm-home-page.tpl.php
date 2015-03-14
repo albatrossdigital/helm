@@ -10,7 +10,7 @@
  */
 ?>
 
-<div class="panel-display soar-home-page clearfix container <?php if (!empty($classes)) { print $classes; } ?><?php if (!empty($class)) { print $class; } ?>" <?php if (!empty($css_id)) { print "id=\"$css_id\""; } ?>>
+<div class="panel-display helm-home-page clearfix container <?php if (!empty($classes)) { print $classes; } ?><?php if (!empty($class)) { print $class; } ?>" <?php if (!empty($css_id)) { print "id=\"$css_id\""; } ?>>
   <div class="row layout-top">
     <div class="col-md-6 home-top-left panel-panel">
       <div class="panel-panel-inner">

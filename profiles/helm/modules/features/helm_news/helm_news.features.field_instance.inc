@@ -180,8 +180,8 @@ function helm_news_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-article-field_picture'
-  $field_instances['node-article-field_picture'] = array(
+  // Exported field_instance: 'node-article-field_media'
+  $field_instances['node-article-field_media'] = array(
     'bundle' => 'article',
     'deleted' => 0,
     'description' => 'Upload an image to go with this article.',
@@ -220,7 +220,7 @@ function helm_news_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'node',
-    'field_name' => 'field_picture',
+    'field_name' => 'field_media',
     'label' => 'Image',
     'required' => 0,
     'settings' => array(
