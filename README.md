@@ -2,7 +2,7 @@
 Helm
 ====
 
-Make beautiful, modern websites. For visitors, content authors and administrators.
+Make beautiful, modern Drupal websites. For visitors, content authors and administrators.
 
 
 Highlights
