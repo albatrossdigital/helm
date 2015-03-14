@@ -1,0 +1,600 @@
+//*******************************
+
+// Typography
+
+//*****************************
+
+h1, .h1 {
+  font-family: Fira sans;
+  font-weight: $medium-weight;
+  font-size: 56px;
+  line-height: 1.2em;
+  color: #000000;
+  opacity: .87;
+  margin-top: 0;
+  margin-bottom: .3em;
+  max-width: 660px;
+}
+
+h2, .h2 {
+  font-family: Fira sans;
+  font-weight: $light-weight;
+  font-size: 36px;
+  line-height: 1.2em;
+  color: #000000;
+  opacity: .54;
+  margin-top: 0;
+  margin: 1em 0 .5em 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  padding-bottom: .1em;
+  max-width: 660px;
+}
+
+h3, .h3 {
+  font-family: Fira sans;
+  font-weight: $medium-weight;
+  font-size: 26px;
+  line-height: 1.4em;
+  color: #000000;
+  opacity: .87;
+  margin-top: 0;
+  margin: 0 0 .25em 0;
+
+  a {
+    color: #000000;
+
+    &:hover {
+      color: #000000;
+      text-decoration: none;
+      border-bottom: 2px solid $brand-primary;
+    }
+  }
+}
+
+h4, .h4 {
+  font-family: Fira sans;
+  font-weight: $regular-weight;
+  font-size: 20px;
+  line-height: 1.4em;
+  color: #000000;
+  opacity: .87;
+  margin: 0 0 .25em 0;
+
+  a {
+    color: #000000;
+
+    &:hover {
+      color: #000000;
+      text-decoration: none;
+      border-bottom: 2px solid $brand-primary;
+    }
+  }
+}
+
+h5, .h5 {
+  font-family: Fira sans;
+  font-weight: $medium-weight;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 16px;
+  line-height: 1.5em;
+  color: #000000;
+  opacity: .54;
+  margin: 0 0 1em 0;
+}
+
+h6, .h6 {
+  font-family: Fira sans;
+  font-weight: $regular-weight;
+  font-size: 16px;
+  line-height: 1.5em;
+  color: #000000;
+  opacity: .54;
+  margin: 0;
+}
+
+p, .p {
+  font-family: Fira sans;
+  font-weight: $regular-weight;
+  font-size: 18px;
+  line-height: 1.5em;
+  color: #000000;
+  opacity: .87;
+  margin: 0 0 1.5em 0;
+  max-width: 660px;
+}
+
+#content ul {
+  font-family: Fira sans;
+  font-weight: $regular-weight;
+  font-size: 16px;
+  line-height: 1.5em;
+  margin: 0 0 1.5em 0;
+  max-width: 660px
+}
+
+.btn {
+  font-family: Fira sans;
+  font-weight: $regular-weight;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 16px;
+  line-height: 1.5em;
+  color: #ffffff;
+  margin: 1em 0 0 0;
+  padding: .75em 2em;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0px -4px 0px rgba(0, 0, 0, 0.2);
+  border-radius: 1px;
+}
+
+label {
+  font-family: Fira sans;
+  font-weight: $medium-weight;
+  font-size: 16px;
+  line-height: 1.5em;
+  color: #000000;
+  opacity: .87;
+  margin: 0 0 .3em 0;
+}
+
+.panel {
+  box-shadow: inset 0px -2px 0px rgba(0, 0, 0, 0.2);
+  border-radius: 0;
+  margin-bottom: 3em;
+
+}
+
+.panel-title {
+  font-family: Fira sans;
+  font-weight: $regular-weight;
+  font-size: 20px;
+  line-height: 1.4em;
+  color: $gray-darker;
+  opacity: .87;
+}
+
+
+.panel-heading {
+  background-color: $brand-secondary-alt;
+  border-radius: 0;
+  font-family: Fira sans;
+  font-weight: $regular-weight;
+  font-size: 16px;
+  line-height: 1.4em;
+  box-shadow: inset 0px -1px 0px rgba(0, 0, 0, 0.1);
+}
+
+.panel-body {
+  background-color: $brand-secondary-highlight;
+  font-family: Fira sans;
+  font-weight: $regular-weight;
+  font-size: 16px;
+  line-height: 1.5em;
+  color: $gray-darker;
+  box-shadow: inset 0px -1px 0px rgba(0, 0, 0, 0.1);
+}
+
+.table {
+  font-family: Fira sans;
+  font-weight: $regular-weight;
+  font-size: 16px;
+  line-height: 1.5em;
+  color: #000000;
+  opacity: .87;
+}
+
+
+// Modify margins
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+  &.no-margin {
+    margin-bottom: 0;
+    margin-top: 0;
+  }
+  &.no-margin-top {
+    margin-top: 0;
+  }
+  &.no-margin-bottom {
+    margin-bottom: 0;
+  }
+  &.large-margin-bottom {
+    margin-bottom: $line-height-computed * 1.5;
+  }
+  &.larger-margin-bottom {
+    margin-bottom: $line-height-computed * 2;
+  }
+}
+
+// Don't want margins on first / last children
+section, .content {
+  & > h1,
+  & > h2,
+  & > h3,
+  & > h4,
+  & > h5,
+  & > p {
+    &:first-child {
+      margin-top: 0;
+    }
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+p.heading {
+  color: $gray;
+}
+
+//*******************************
+
+// Links
+
+//*****************************
+
+a.action-link {
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+//*******************************
+
+// Media / images
+
+//*****************************
+
+img {
+  display: inline-block;
+  max-width: 100%;
+  height: auto;
+}
+
+//*******************************
+
+// Buttons
+
+//*****************************
+
+// buttons with icons
+
+.btn-icon {
+  width: 100%;
+  i {
+    line-height: 1.3em;
+  }
+}
+
+//*******************************
+
+// Dropdowns
+
+//*****************************
+
+// Force dropdown open
+.stay-open + ul {
+  position: relative;
+  float: none;
+  display: block;
+  margin-bottom: 5px;
+  clear: left;
+  z-index: 900;
+}
+
+//*******************************
+
+// Icons
+
+//*****************************
+
+a {
+  i.fa {
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+
+i.fa {
+  margin-right: 0.4em;
+}
+
+.icon-right {
+  text-align: left;
+  i.fa {
+    float: right;
+    margin-right: 0;
+  }
+}
+
+//*******************************
+
+// Social
+
+//*****************************
+
+.social-icons {
+  i {
+    margin-right: 0;
+  }
+  ul > li {
+    padding: 0;
+  }
+  a {
+    color: $gray;
+    display: block;
+    &, i {
+      font-size: 1.05em;
+      height: 18px;
+      overflow: hidden;
+      text-align: center;
+      width: 25px;
+    }
+    &:hover {
+      text-decoration: none;
+    }
+    &.facebook:hover {
+      color: $blue-facebook;
+    }
+    &.twitter:hover {
+      color: $blue-twitter;
+    }
+    &.pinterest:hover {
+      color: $red-pinterest;
+    }
+    &.youtube:hover {
+      color: $red-youtube;
+    }
+    &.flickr:hover {
+      color: $pink-flickr;
+    }
+  }
+}
+
+//*******************************
+
+// Ratings
+
+//*****************************
+
+.rating-box {
+  margin-bottom: $line-height-computed;
+}
+
+.rating a.star {
+  font-family: FontAwesome;
+  font-weight: normal;
+  font-style: normal;
+  display: inline-block;
+  &:hover, &:active, &.active {
+    &:before {
+      content: "\f005";
+    }
+  }
+  &:hover {
+    color: $link-color;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  &:before {
+    content: "\f006";
+    padding-right: 5px;
+  }
+}
+
+//*******************************
+
+// Blocks
+
+//*****************************
+
+body {
+  background-color: #ffffff;
+}
+
+.block {
+  .block-title {
+    font-size: $font-size-h3;
+    margin-top: 0;
+  }
+}
+
+
+.category {
+  margin-bottom: 1.25em;
+
+  a {
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+}
+
+.top-category {
+  margin-top: .75em;
+}
+
+.navbar {
+  margin-bottom: 0;
+}
+
+.btn-circle {
+  margin-top: -.5em;
+  padding-bottom: 1.5em;
+}
+
+.jumbotron {
+  padding: 2em 1em 1em;
+  margin-bottom: 3em;
+}
+
+.navbar {
+  min-height: 72px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #dddddd;
+  box-shadow: 0px 1px 1px #e0e0e0;
+}
+
+.navbar-brand {
+  font-size: 24px;
+  font-weight: 400;
+  padding: 30px 15px;
+  color: $gray-darker;
+}
+
+.navbar-default .navbar-nav {
+  font-size: 16px;
+  font-family: Fira sans;
+  padding-top: 20px;
+}
+
+.search-bar {
+  padding-bottom: 2em;
+}
+
+.featured-news {
+  padding: 1em 1em 2em 1em;
+  max-width: 540px;
+}
+
+.teaser-news {
+  padding: 1em 1em 2em 1em;
+}
+
+.teaser {
+  border-bottom: 1px solid #e0e0e0;
+  padding: 1em 0 1.5em 0;
+}
+
+.featured-img {
+  padding-bottom: 1em;
+}
+
+.featured-tile {
+  padding: 0 1em;
+}
+
+
+.nav-pills {
+  border-radius: 0;
+  border-left: 4px solid $brand-primary;
+  margin: 0 0 3em 0;
+
+  li {
+    font-family:  Fira sans;
+    font-size: 16px;
+    font-weight: $regular-weight;
+    
+    a {
+      color: $gray-darker;
+      padding: .5em 1em;
+      margin: 0;
+
+      &:hover {
+        color: $brand-primary;
+        text-decoration: none;
+        border-radius: 0;
+        background-color: #fafafa;
+      }
+
+      &.active {
+        background-color: #cacaca;
+      }
+    }
+  }
+}
+
+.nav-pills {
+  &.widget {
+    margin: 0;
+    color: $gray-darker;
+    padding: 1em;
+    border: 1px solid #dddddd;
+    box-shadow: 0px 1px 2px #cccccc;
+
+    li {
+      font-family:  Fira sans;
+      font-size: 16px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: $regular-weight;
+      
+      a {
+        margin: 0 0 2px 0;
+        padding: 1em;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        box-shadow: inset 0px -2px 1px rgba(0, 0, 0, 0.2);
+        border-radius: 4px;
+        background-color: #525252;
+        color: #fafafa;
+
+        &:hover {
+          text-decoration: none;
+          background-color: #424242;
+        }
+        &:active {
+          text-decoration: none;
+          background-color: #999999;
+        }
+      }
+    }
+  }
+}
+
+.paper {
+  background-color: #fafafa;
+  padding: 1em .5em;
+  box-shadow: inset 0px -1px 0px rgba(0, 0, 0, 0.2);
+  border-radius: 0;
+  border: 1px solid #eeeeee;
+  margin: 0 0 4em 0;
+}
+
+.widget-content {
+  padding: 3em 2em;
+}
+
+.body-content {
+  padding: 0 6em;
+}
+
+.forms {
+  padding: 1em;
+}
+
+.form-control {
+  max-width: 660px;
+}
+
+//*******************************
+
+// Nodes
+
+//*****************************
+
+.node-teaser {
+  border-bottom: 1px solid $gray-lighter;
+  padding-bottom: 35px;
+  margin-bottom: 35px;
+  .field-name-body > p:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.views-teaser-list .node-teaser:last-child {
+  border-bottom: 0;
+}
+
+//*******************************
+
+// Catalog
+
+//*****************************
+
+.catalog {
+  .availability {
+    color: $brand-success;
+  }
+}

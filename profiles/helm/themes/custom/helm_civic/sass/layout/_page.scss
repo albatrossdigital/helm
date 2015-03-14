@@ -1,0 +1,40 @@
+// Define new media query
+
+meta.before-menu {
+  font-family: "/#{$small-to-menu}/";
+  max-width: upper-bound($menu-range);
+}
+
+meta.past-menu {
+  font-family: "/#{$past-menu}/";
+  min-width: $menu-break-plus;
+}
+
+html body.admin-menu {
+  margin-top: 0px !important;
+  & > .page {
+    margin-top: rem-calc(30);
+  }
+}
+
+html, body {
+  max-width: 100% Z;
+}
+
+// *
+// * Media Queries
+// *
+// ******************************************************
+
+@include respond($medium-up) {
+  // sticky footer
+  //+sticky-footer(rem-calc(310), ".page", "#footer-push", ".l-footer")
+}
+
+
+@include respond($past-menu) {
+  .move-left > .inner-wrap {
+    @include translate3d(0, 0, 0);
+  }
+  //+sticky-footer(rem-calc(245), ".page", "#footer-push", ".l-footer")
+}

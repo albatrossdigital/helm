@@ -1,0 +1,60 @@
+// Views exposed widgets
+// ------------------------------------------------------
+
+.views-exposed-form label {
+  font-weight: $font-weight-bold;
+}
+
+// core actions
+.views-exposed-widgets {
+  @include expand-row;
+  .views-exposed-widget {
+    @include column-padding;
+  }
+  .views-submit-button,
+  .views-reset-button {
+    padding-top: 0;
+  }
+}
+
+.views-submit-button button {
+  @include button-size($button-sml);
+}
+
+.views-reset-button button {
+  @include undo-button;
+  line-height: 2.3;
+}
+
+// Views grouping
+// ------------------------------------------------------
+
+.views-content > h3,
+.grouping-content > h2 {
+  margin-bottom: $header-bottom-margin * 1.5;
+}
+
+// *
+// * Media Queries
+// *
+// ******************************************************
+
+@include respond($small-only) {
+  // Views exposed widgets
+  // ------------------------------------------------------
+  // force 100%
+  .views-exposed-widgets {
+    & > [class*='views-widget-filter-'] {
+      width: 100% !important;
+    }
+  }
+}
+
+
+@include respond($medium-up) {
+  // Views exposed widgets
+  // ------------------------------------------------------
+  .views-reset-button button {
+    margin-left: -$column-gutter / 2;
+  }
+}
