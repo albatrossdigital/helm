@@ -133,9 +133,35 @@ function helm_input_formats_ckeditor_profile_defaults() {
           'angularMedia' => array(
             'name' => 'angularMedia',
             'desc' => 'Plugin for Angular Media Browser',
-            'path' => '%base_path%sites/all/modules/angular_media/plugins/angularMedia/',
+            'path' => '%base_path%profiles/helm/modules/contrib/angular_media/plugins/angularMedia/',
             'buttons' => FALSE,
-            'active' => 1,
+          ),
+          'autogrow' => array(
+            'name' => 'autogrow',
+            'desc' => 'Auto Grow plugin',
+            'path' => '%editor_path%/plugins/autogrow/',
+            'buttons' => FALSE,
+            'default' => 'f',
+            'active' => 0,
+          ),
+          'counter' => array(
+            'name' => 'counter',
+            'desc' => 'Plugin to count symbols, symbols without blanks and words',
+            'path' => '%plugin_dir%counter/',
+            'buttons' => FALSE,
+            'default' => 'f',
+          ),
+          'drupalbreaks' => array(
+            'name' => 'drupalbreaks',
+            'desc' => 'Plugin for inserting Drupal teaser and page breaks.',
+            'path' => '%plugin_dir%drupalbreaks/',
+            'buttons' => array(
+              'DrupalBreak' => array(
+                'label' => 'DrupalBreak',
+                'icon' => 'images/drupalbreak.png',
+              ),
+            ),
+            'default' => 't',
           ),
           'widgetbootstrap' => array(
             'name' => 'widgetbootstrap',
@@ -219,7 +245,7 @@ function helm_input_formats_ckeditor_profile_defaults() {
     'CKEditor Global Profile' => array(
       'name' => 'CKEditor Global Profile',
       'settings' => array(
-        'skin' => 'moono',
+        'skin' => 'minimalist',
         'ckeditor_path' => '%l/ckeditor',
         'ckeditor_local_path' => '',
         'ckeditor_plugins_path' => '%m/plugins',
@@ -308,6 +334,7 @@ function helm_input_formats_ckeditor_profile_defaults() {
             'desc' => 'Media Browser for File Upload/Browsing',
             'path' => '%base_path%profiles/soar/modules/contrib/ckeditor_media/plugins/mediaBrowser/',
             'buttons' => FALSE,
+            'active' => 0,
           ),
           'widgetbootstrap' => array(
             'name' => 'widgetbootstrap',
