@@ -31,3 +31,16 @@ Who?
 ----
 
 Helm is conceived, developed, designed, and maintained by [Albatross Digital](http://albatrossdigital.com).
+
+#### Open-source contributions born from Helm:
+* Drupal module: [Angular Media](https://www.drupal.org/project/angular_media)
+* Drupal module: [Media Formatters](https://www.drupal.org/project/media_formatters)
+* Drupal module: [CKEditor Widgets](https://www.drupal.org/project/ckeditor_widgets)
+* Drupal module: [CKEditor Filter](https://www.drupal.org/project/ckeditor_filter)
+* Drupal module: [Social Stream](https://www.drupal.org/project/social_stream)
+* Drupal sandbox module: [Social Field Widgets](https://www.drupal.org/sandbox/jlyon/socialfield_widgets)
+* Drupal theme: [Minimalist Admin](https://www.drupal.org/project/minimalist_admin)
+* CKEditor Plugin: [Bootstrap Widgets](http://ckeditor.com/addon/widgetbootstrap)
+* CKEditor Plugin: [Common Widgets](http://ckeditor.com/addon/widgetcommon)
+* CKEditor Plugin: [Template Menu](http://ckeditor.com/addon/widgettemplatemenu)
+* CKEditor Theme: [CKEditor Template Menu](http://ckeditor.com/addon/widgettemplatemenu)
