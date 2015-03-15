@@ -1,0 +1,23 @@
+
+@import "base/init";
+
+@import "regions/header";
+@import "regions/main";
+
+@import "modules/button";
+@import "modules/features";
+@import "modules/field-group";
+@import "modules/media";
+@import "modules/media-module";
+@import "modules/panels";
+@import "modules/permissions";
+@import "modules/views";
+@import "modules/workbench";
+@import "modules/wysiwyg";
+
+@import "theme/admin";
+@import "theme/forms";
+@import "theme/tables";
+@import "theme/node";
+// @todo: make this work to remove vertical_tabs_responsive module dependence
+//@import "theme/vertical-tabs";

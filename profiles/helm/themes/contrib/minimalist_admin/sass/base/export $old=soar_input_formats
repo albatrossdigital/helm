@@ -1,0 +1,10 @@
+export $old=soar_input_formats
+export $new=helm_input_formats
+ 
+mv $old $new
+cd $new
+ 
+rename "s/${old}/${new}/g;" *
+perl -pi -w -e "s/${old}/${new}/g;" *
+ 
+cd ../

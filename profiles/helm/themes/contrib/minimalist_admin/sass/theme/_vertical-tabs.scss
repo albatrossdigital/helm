@@ -1,0 +1,128 @@
+/* Most of this css code is originally from vertical_tabs_responsive. */
+body .vertical-tabs-panes {
+  margin: 0;
+  padding: 0;
+  border: 1px solid #bfbfbf;
+  background-color: #f7f7f7;
+}
+
+body .vertical-tabs-panes .fieldset-title,
+body .vertical-tabs-panes .summary {
+  white-space: nowrap;
+}
+
+body .vertical-tabs-panes>fieldset {
+  background: none;
+  padding: 22px 18px 22px 18px;
+  border: 0px;
+  margin: 0px;
+  border-top: 1px solid #bfbfbf;
+}
+
+body .vertical-tabs-panes>fieldset>legend {
+  background: initial;
+  float: left;
+  width: 100%;
+  /* SEVEN THEME TWEAK */
+  position: relative;
+  top: -18px;
+}
+
+body .vertical-tabs-panes>fieldset:first-child {
+  border-top: 0px;
+}
+
+body .vertical-tabs-panes fieldset .summary {
+  display: none;
+}
+
+body .vertical-tabs-panes fieldset:not(.collapsed),
+body .vertical-tabs-panes fieldset:not(.collapsed) legend {
+  background-color: #ececec;
+}
+
+body .vertical-tabs-panes .fieldset-wrapper {
+  padding-top: 18px;
+}
+
+body .vertical-tabs-panes .form-type-select {
+  display: inline-block;
+}
+
+/* Don't let content fieldsets overflow it's container. */
+body #content fieldset {
+  min-width: 97%;
+  width: 97%;
+}
+
+/* We have to reset fieldsets inside vertical tabs because they are inside content div too. */
+body .vertical-tabs-panes fieldset {
+  min-width: initial !important;
+  width: initial !important;
+}
+
+
+// fields
+.vertical-tabs-panes textarea,
+.vertical-tabs-panes input[type="text"] {
+  width: 100%;
+}
+
+.vertical-tabs-panes select {
+  width: 100% !important;
+}
+
+
+// button
+.switch-vtr h3 {
+  text-align: center;
+  margin: 10px 0px 10px 0px;
+  font-weight: 600;
+}
+
+
+/* -------------- Responsive media queries -------------------------------- */
+@media all and (min-width: 992px) and (max-width: 5000px) {
+
+  body #content {
+    width: 70%;
+  }
+
+  body .vertical-tabs-panes {
+    position: absolute;
+    top: 62px;
+    right: 0px;
+    width: 28%;
+  }
+}
+
+/* In mobile screen sizes, both containers must be full width so javascript code must not have effect. */
+@media all and (max-width: 991px) {
+
+  body #content {
+    width: initial !important;
+    margin-left: initial !important;
+  }
+
+  body .vertical-tabs-panes {
+    width: initial !important;
+    margin-left: initial !important;
+  }
+
+  .switch-vtr {
+    display: none;
+  }
+}
+
+
+
+
+
+// Override vertical_tabs_responsive
+.page-node-add,
+.page-node-edit {
+  
+  #content {
+    width: 100% !important;
+  }
+}
