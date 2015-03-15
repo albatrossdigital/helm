@@ -75,6 +75,7 @@ function helm_page_strongarm() {
   $strongarm->value = array(
     0 => 'status',
     1 => 'revision',
+    2 => 'moderation',
   );
   $export['node_options_page'] = $strongarm;
 

@@ -1,6 +1,5 @@
-; Helm make file for d.o. usage
-core = "7.x"
 api = "2"
+core = "7.x"
 
 ; *********************************************************************************
 ; * Modules
@@ -203,8 +202,8 @@ projects[feeds][download][branch] = "7.x-1.x"
 ; *********************************************************************************
 
 
-;projects[panopoly_core][version] = 1.14
-;projects[panopoly_core][subdir] = panopoly
+projects[panopoly_core][version] = 1.14
+projects[panopoly_core][subdir] = panopoly
 
 projects[panopoly_theme][version] = 1.14
 projects[panopoly_theme][subdir] = panopoly
