@@ -31,3 +31,11 @@ files[] = fieldable_panels_panes.info.inc
 
 ; Inline Entity Form integration.
 files[] = includes/FieldablePanelsPaneInlineEntityFormController.class.php
+
+
+; Information added by drush on 2015-03-16
+version = "7.x-1.5+22-dev"
+core = "7.x"
+project = "fieldable_panels_panes"
+datestamp = "1426545878"
+
