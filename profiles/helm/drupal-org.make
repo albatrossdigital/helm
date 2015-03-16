@@ -202,16 +202,10 @@ projects[feeds][download][branch] = "7.x-1.x"
 ; *********************************************************************************
 
 
-projects[panopoly_core][version] = 1.14
+projects[panopoly_core][version] = 1.18
 projects[panopoly_core][subdir] = panopoly
 
-projects[panopoly_theme][version] = 1.14
-projects[panopoly_theme][subdir] = panopoly
-
-projects[panopoly_magic][version] = 1.14
-projects[panopoly_magic][subdir] = panopoly
-
-projects[panopoly_widgets][version] = 1.14
+projects[panopoly_widgets][version] = 1.18
 projects[panopoly_widgets][subdir] = panopoly
 
 

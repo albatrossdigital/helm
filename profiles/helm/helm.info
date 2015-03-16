@@ -164,15 +164,6 @@ dependencies[] = transliteration
 dependencies[] = views_autocomplete_filters
 dependencies[] = views_content
 
-; Panopoly magic
-
-;DUPE dependencies[] = ctools
-dependencies[] = fape
-;DUPE dependencies[] = features
-;DUPE dependencies[] = page_manager
-;DUPE dependencies[] = panels_ipe
-;DUPE dependencies[] = views
-
 ; Panolpoly widgets
 
 ;DUPE dependencies[] = ctools
@@ -203,9 +194,7 @@ dependencies[] = tablefield
 
 
 dependencies[] = panopoly_core
-;dependencies[] = panopoly_theme
-;dependencies[] = panopoly_magic
-;dependencies[] = panopoly_widgets
+dependencies[] = panopoly_widgets
 
 
 files[] = helm.profile
