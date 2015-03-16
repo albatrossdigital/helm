@@ -70,11 +70,14 @@ function ctools_argument_entity_id_context($arg = NULL, $conf = NULL, $empty = F
     if ($match) {
       $id = $preg_matches[1];
     }
-    if (is_numeric($id)) {
+    if (isset($id) && is_numeric($id)) {
       return ctools_context_create('entity:' . $entity_type, $id);
     }
     return FALSE;
   }
+
+  // Trim spaces and other garbage.
+  $arg = trim($arg);
 
   $entity = entity_load($entity_type, array($arg));
   if (!$entity) {
