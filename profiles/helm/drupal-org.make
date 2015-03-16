@@ -18,9 +18,6 @@ projects[email_registration][subdir] = "contrib"
 projects[filter_perms][version] = "1.0"
 projects[filter_perms][subdir] = "contrib"
 
-projects[ctools][version] = "1.6"
-projects[ctools][subdir] = "contrib"
-
 projects[menu_trail_by_path][version] = "2.0"
 projects[menu_trail_by_path][subdir] = "contrib"
 
@@ -77,12 +74,6 @@ projects[simplehtmldom][subdir] = "contrib"
 
 projects[draggableviews][version] = "2.1"
 projects[draggableviews][subdir] = "contrib"
-
-projects[views][version] = "3.10"
-projects[views][subdir] = "contrib"
-
-projects[views_bulk_operations][version] = "3.2"
-projects[views_bulk_operations][subdir] = "contrib"
 
 projects[admin_views][version] = "1.4"
 projects[admin_views][subdir] = "contrib"
@@ -165,6 +156,12 @@ projects[socialfield][subdir] = "contrib"
 projects[social_stream][version] = "1.0-alpha3"
 projects[social_stream][subdir] = "contrib"
 
+projects[uuid][version] = 1.0-alpha6
+projects[uuid][subdir] = contrib
+
+projects[views_bootstrap][version] = "3.1"
+projects[views_bootstrap][subdir] = contrib
+
 ; +++++ Modules Dev/specific revisions +++++
 ; @todo
 ; * Best practice is to point to specific git commits.
@@ -197,6 +194,25 @@ projects[feeds][download][branch] = "7.x-1.x"
 ;projects[socialfield_widgets][download][url] = "http://git.drupal.org/sandbox/jlyon/socialfield_widgets.git"
 ;projects[socialfield_widgets][download][branch] = "7.x-1.x"
 
+; From Mar 16 2015
+; Fieldable panel panes UUID export
+; Possibly not needed see: https://www.drupal.org/node/2421809 ... need to evaluate
+projects[uuid_features][type] = module
+projects[uuid_features][subdir] = contrib
+projects[uuid_features][download][type] = git
+projects[uuid_features][download][revision] = f0e01172040c6bcc3a464c31a28eb0dd0b02a630
+projects[uuid_features][download][branch] = 7.x-1.x
+projects[uuid_features][patch][2222727] = https://www.drupal.org/files/issues/uuid_features-adding-export_render_alter-call-2222727-45.patch
+
+; From Mar 16 2015
+; Fieldable panel panes UUID export
+projects[fieldable_panels_panes][type] = module
+projects[fieldable_panels_panes][subdir] = contrib
+projects[fieldable_panels_panes][download][type] = git
+projects[fieldable_panels_panes][download][revision] = 629449f3d848929fe54d1578bf79bec32b4aa40d
+projects[fieldable_panels_panes][download][branch] = 7.x-1.x
+
+
 ; *********************************************************************************
 ; * Panopoly Distro
 ; *********************************************************************************
@@ -204,9 +220,12 @@ projects[feeds][download][branch] = "7.x-1.x"
 
 projects[panopoly_core][version] = 1.18
 projects[panopoly_core][subdir] = panopoly
+projects[panopoly_core][patch][2453509] = https://www.drupal.org/files/issues/panopoly_core-remove-makefile.patch
 
 projects[panopoly_widgets][version] = 1.18
 projects[panopoly_widgets][subdir] = panopoly
+projects[panopoly_widgets][patch][2453509] = https://www.drupal.org/files/issues/panopoly_widgets-remove-makefile.patch
+projects[panopoly_widgets][patch][2453529] = https://www.drupal.org/files/issues/panopoly_widgets-remove-media-requirements.patch
 
 
 ; *********************************************************************************
@@ -215,6 +234,12 @@ projects[panopoly_widgets][subdir] = panopoly
 
 
 ; panels_core
+; -----------------------------------
+
+projects[ctools][version] = 1.6
+projects[ctools][subdir] = contrib
+projects[ctools][patch][2416589] = http://www.drupal.org/files/issues/ctools-illegal-offset-views-add-contextual-links-2416589-1.patch
+projects[ctools][patch][2119357] = http://www.drupal.org/files/issues/2119357-6_0.patch
 
 projects[panels][version] = 3.5
 projects[panels][subdir] = contrib
@@ -225,11 +250,7 @@ projects[panels_breadcrumbs][subdir] = contrib
 projects[panelizer][version] = 3.1
 projects[panelizer][subdir] = contrib
 projects[panelizer][patch][1623536] = http://drupal.org/files/issues/array-to-object-on-update-1623536-26.patch
-
-projects[fieldable_panels_panes][subdir] = contrib
-projects[fieldable_panels_panes][download][type] = git
-projects[fieldable_panels_panes][download][revision] = 629449f3d848929fe54d1578bf79bec32b4aa40d
-projects[fieldable_panels_panes][download][branch] = 7.x-1.x
+projects[panelizer][patch][2416505] = http://www.drupal.org/files/issues/panelizer-search_api-2416505-3.patch
 
 projects[pm_existing_pages][version] = 1.4
 projects[pm_existing_pages][subdir] = contrib
@@ -237,14 +258,28 @@ projects[pm_existing_pages][subdir] = contrib
 projects[fape][version] = 1.2
 projects[fape][subdir] = contrib
 
+; Views Magic
+
+projects[views][version] = 3.10
+projects[views][subdir] = contrib
+projects[views][patch][2037469] = http://drupal.org/files/views-exposed-sorts-2037469-1.patch
+
 projects[views_autocomplete_filters][version] = 1.1
 projects[views_autocomplete_filters][subdir] = contrib
 projects[views_autocomplete_filters][patch][2277453] = http://drupal.org/files/issues/ViewsAutocompleteFilters-no_results_on_some_environments-2277453-1.patch
-projects[views_autocomplete_filters][patch][2374709] = http://drupal.org/files/issues/views_autocomplete_filters-cache-2374709-2.patch
-projects[views_autocomplete_filters][patch][2317351] = http://drupal.org/files/issues/views_autocomplete_filters-content-pane-2317351-4.patch
+projects[views_autocomplete_filters][patch][2374709] = http://www.drupal.org/files/issues/views_autocomplete_filters-cache-2374709-2.patch
+projects[views_autocomplete_filters][patch][2317351] = http://www.drupal.org/files/issues/views_autocomplete_filters-content-pane-2317351-4.patch
+
+projects[views_bulk_operations][version] = 3.2
+projects[views_bulk_operations][subdir] = contrib
+projects[views_bulk_operations][patch][2192775] = http://drupal.org/files/issues/views-bulk-operations-2192775-1_0.patch
+
+; The Usual Suspects
 
 projects[transliteration][version] = 3.2
 projects[transliteration][subdir] = contrib
+
+; Field modules
 
 projects[defaultconfig][version] = 1.0-alpha9
 projects[defaultconfig][subdir] = contrib
@@ -253,24 +288,30 @@ projects[defaultconfig][patch][2043307] = http://drupal.org/files/defaultconfig_
 projects[defaultconfig][patch][2008178] = http://drupal.org/files/defaultconfig-rebuild-filters-2008178-4_0.patch
 projects[defaultconfig][patch][1861054] = http://drupal.org/files/fix-defaultconfig_rebuild_all.patch
 
+projects[defaultcontent][version] = 1.0-alpha9
+projects[defaultcontent][subdir] = contrib
+projects[defaultcontent][patch][1754428] = http://drupal.org/files/1754428-allow-node-export-alter.patch
+projects[defaultcontent][patch][1757782] = http://drupal.org/files/1757782-cannot-import-menu-hierarchy-8.patch
 
-; Panolpoly widgets
+; Recommended Modules
+
+projects[distro_update][version] = 1.0-beta4
+projects[distro_update][subdir] = contrib
+
+projects[features_override][version] = 2.0-rc2
+projects[features_override][subdir] = contrib
+
+
+; panels_widgets
+; -----------------------------------
+
+; Panopoly - Contrib - Fields
 
 projects[tablefield][version] = 2.3
 projects[tablefield][subdir] = contrib
 
 projects[simple_gmap][version] = 1.2
 projects[simple_gmap][subdir] = contrib
-
-projects[media_youtube][version] = 2.x-dev
-projects[media_youtube][subdir] = contrib
-projects[media_youtube][download][type] = git
-projects[media_youtube][download][revision] = d0377b3
-projects[media_youtube][download][branch] = 7.x-2.x
-
-projects[media_vimeo][version] = 2.0
-projects[media_vimeo][subdir] = contrib
-
 
 
 ; *********************************************************************************
