@@ -7,9 +7,9 @@ test_dependencies[] = entity
 hidden = TRUE
 
 
-; Information added by drush on 2015-03-14
+; Information added by drush on 2015-03-16
 version = "7.x-1.x-dev"
 core = "7.x"
 project = "feeds"
-datestamp = "1426295962"
+datestamp = "1426545889"
 
