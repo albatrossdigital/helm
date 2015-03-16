@@ -216,10 +216,8 @@ projects[panopoly_widgets][subdir] = panopoly
 
 ; panels_core
 
-projects[panels][version] = 3.4
+projects[panels][version] = 3.5
 projects[panels][subdir] = contrib
-projects[panels][patch][2283719] = http://drupal.org/files/issues/panels-icon-text-renderer-2283719-1.patch
-projects[panels][patch][2280797] = http://drupal.org/files/issues/panels-ipe-keyboard-focus-2280797-2.patch
 
 projects[panels_breadcrumbs][version] = 2.2
 projects[panels_breadcrumbs][subdir] = contrib
@@ -228,9 +226,10 @@ projects[panelizer][version] = 3.1
 projects[panelizer][subdir] = contrib
 projects[panelizer][patch][1623536] = http://drupal.org/files/issues/array-to-object-on-update-1623536-26.patch
 
-projects[fieldable_panels_panes][version] = 1.5
 projects[fieldable_panels_panes][subdir] = contrib
-projects[fieldable_panels_panes][patch][2283263] = http://drupal.org/files/issues/fieldable_panels_panes-n2283263-5.patch
+projects[fieldable_panels_panes][download][type] = git
+projects[fieldable_panels_panes][download][revision] = 629449f3d848929fe54d1578bf79bec32b4aa40d
+projects[fieldable_panels_panes][download][branch] = 7.x-1.x
 
 projects[pm_existing_pages][version] = 1.4
 projects[pm_existing_pages][subdir] = contrib
