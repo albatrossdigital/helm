@@ -70,7 +70,7 @@ class PanelsPaneController extends DrupalDefaultEntityController {
 
     switch ($op) {
       case 'create':
-        return user_access('create fieldable ' . $entity);
+        return user_access('create fieldable ' . $entity->bundle);
 
       case 'view':
         ctools_include('context');
