@@ -64,6 +64,7 @@ dependencies[] = panels_mini
 dependencies[] = fences
 dependencies[] = panels_extra_styles
 dependencies[] = helm_input_formats
+dependencies[] = gravatar
 ; dependencies[] = quickedit
 
 
@@ -111,7 +112,7 @@ dependencies[] = helm_date_formats
 dependencies[] = ckeditor_filter
 dependencies[] = helm_page
 dependencies[] = helm_media
-;dependencies[] = helm_permissions
+dependencies[] = helm_users
 
 
 

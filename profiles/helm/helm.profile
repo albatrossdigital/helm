@@ -37,19 +37,19 @@ if (!function_exists("system_form_install_select_profile_form_alter")) {
  * Implements hook_appstore_stores_info().
  */
 function helm_apps_servers_info() {
- $info =  drupal_parse_info_file(dirname(__file__) . '/openatrium.info');
+ //$info =  drupal_parse_info_file(dirname(__file__) . '/openatrium.info');
  return array(
    'helm' => array(
      'title' => 'Soar',
      'description' => "Apps for the Soar distribution",
      // @CHANGE this to -stable for stable releases.
-     'manifest' => 'http://apps.albatrossdigital.com/app/query/helm',
+     'manifest' => 'http://workhorse.albatrossdigital.com/apps.json',
      'profile' => 'helm',
      'profile_version' => isset($info['version']) ? $info['version'] : '7.x-1.x-dev',
      'server_name' => !empty($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : '',
      'server_ip' => !empty($_SERVER['SERVER_ADDR']) ? $_SERVER['SERVER_ADDR'] : '',
    ),
-   'openatrium' => array(
+   /*'openatrium' => array(
      'title' => 'OpenAtrium',
      'description' => "Apps for the OpenAtrium distribution",
      // @CHANGE this to -stable for stable releases.
@@ -58,7 +58,7 @@ function helm_apps_servers_info() {
      'profile_version' => isset($info['version']) ? $info['version'] : '7.x-2.x-dev',
      'server_name' => !empty($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : '',
      'server_ip' => !empty($_SERVER['SERVER_ADDR']) ? $_SERVER['SERVER_ADDR'] : '',
-   ),
+   ),*/
  );
 }
 

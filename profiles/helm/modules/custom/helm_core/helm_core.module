@@ -38,17 +38,51 @@ function helm_core_menu_alter(&$items) {
   if (!empty($items['node/%node/clone/%clone_token'])) {
     $items['node/%node/clone/%clone_token']['type'] = MENU_LOCAL_TASK;
   }
+
+  // Overwrite default apps page
+  $items['admin/apps']['page callback'] = 'helm_core_apps_marketplace_callback';
+
+  // @todo: make this work
+  // Hide the Manage Fields tab
+  if (module_exists('panelizer') && !module_exists('ds')) {
+    $items['admin/structure/types/manage/%node_type/display']['type'] = MENU_CALLBACK;
+  }
+
+  // Add a helper panels menu item
+  $items['admin/structure/types/manage/%node_type/panels'] = array(
+    'title' => t('Manage Panel Content'),
+    'page callback' => 'helm_core_content_panels_callback',
+    'type' => MENU_NORMAL_ITEM,
+    'page_arguments' => 4,
+    //@todo: 'access_callback' =>
+  );
+
+  //dpm($items);
 }
 
 
 /**
+ * Page callback replacement for admin/apps.
+ **/
+function helm_core_apps_marketplace_callback() {
+  drupal_goto('admin/apps/helm');
+}
+
+/**
+ * Page callback redirect node panels menu item.
+ **/
+function helm_core_content_panels_callback($type) {
+  drupal_goto('admin/config/content/panelizer/node/'. $type .'.page_manager/content');
+}
+
+/**
  * Implements hook_apps_app_modules_enabled.
  */
-function helm_core_apps_app_modules_enabled($app) {
-  if (!empty($app['something'])) {
-    mymodule_something($app);
-  }
-}
+//function helm_core_apps_app_modules_enabled($app) {
+//  if (!empty($app['something'])) {
+//    mymodule_something($app);
+//  }
+//}
 
 /**
  * Blank callback wrapper for the homepage.

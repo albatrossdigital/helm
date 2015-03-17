@@ -90,7 +90,7 @@ projects[entityreference_prepopulate][subdir] = "contrib"
 projects[image_resize_filter][version] = "1.14"
 projects[image_resize_filter][subdir] = "contrib"
 
-projects[menu_block][version] = "2.4"
+projects[menu_block][version] = "2.5"
 projects[menu_block][subdir] = "contrib"
 
 projects[menu_firstchild][version] = "1.1"
@@ -155,6 +155,9 @@ projects[socialfield][subdir] = "contrib"
 
 projects[social_stream][version] = "1.0-alpha3"
 projects[social_stream][subdir] = "contrib"
+
+projects[gravatar][version] = "1.1"
+projects[gravatar][subdir] = "contrib"
 
 projects[uuid][version] = 1.0-alpha6
 projects[uuid][subdir] = contrib
