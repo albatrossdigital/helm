@@ -1,7 +1,0 @@
-<?php
-/**
- * @file
- * Code for the Angular 311 feature.
- */
-
-include_once 'angular_311.features.inc';
