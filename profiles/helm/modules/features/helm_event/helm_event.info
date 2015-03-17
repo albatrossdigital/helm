@@ -9,7 +9,6 @@ dependencies[] = entityreference
 dependencies[] = features
 dependencies[] = field_group
 dependencies[] = file
-dependencies[] = foundation_formatters
 dependencies[] = image
 dependencies[] = list
 dependencies[] = media

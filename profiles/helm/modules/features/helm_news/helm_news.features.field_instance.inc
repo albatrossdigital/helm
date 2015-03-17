@@ -106,8 +106,10 @@ function helm_news_field_default_field_instances() {
     ),
     'widget' => array(
       'active' => 1,
-      'module' => 'media',
+      'module' => 'angular_media',
       'settings' => array(
+        'allowedSchemes' => array(),
+        'allowedTypes' => array(),
         'allowed_schemes' => array(
           'oembed' => 0,
           'public' => 'public',
@@ -127,8 +129,13 @@ function helm_news_field_default_field_instances() {
           'upload' => 0,
           'youtube' => 0,
         ),
+        'cropRatio' => array(
+          0 => 'free',
+        ),
+        'style' => 'thumbnails',
+        'tabs' => array(),
       ),
-      'type' => 'media_generic',
+      'type' => 'file_angular_media',
       'weight' => 43,
     ),
   );
@@ -184,7 +191,7 @@ function helm_news_field_default_field_instances() {
   $field_instances['node-article-field_media'] = array(
     'bundle' => 'article',
     'deleted' => 0,
-    'description' => 'Upload an image to go with this article.',
+    'description' => '',
     'display' => array(
       'default' => array(
         'label' => 'hidden',
@@ -220,45 +227,41 @@ function helm_news_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'node',
+    'fences_wrapper' => 'div',
     'field_name' => 'field_media',
     'label' => 'Image',
     'required' => 0,
     'settings' => array(
-      'alt_field' => TRUE,
-      'default_image' => 0,
+      'description_field' => 0,
       'file_directory' => 'field/image',
       'file_extensions' => 'png gif jpg jpeg',
       'max_filesize' => '',
-      'max_resolution' => '',
-      'min_resolution' => '',
-      'title_field' => '',
       'user_register_form' => FALSE,
     ),
     'widget' => array(
       'active' => 1,
-      'module' => 'media',
+      'module' => 'angular_media',
       'settings' => array(
-        'allowed_schemes' => array(
+        'allowedSchemes' => array(
           'oembed' => 0,
-          'public' => 'public',
-          'vimeo' => 0,
-          'youtube' => 0,
+          'public' => 0,
         ),
-        'allowed_types' => array(
+        'allowedTypes' => array(
           'audio' => 0,
           'document' => 0,
           'image' => 'image',
-          'video' => 0,
+          'video' => 'video',
         ),
-        'browser_plugins' => array(
-          'media_default--media_browser_1' => 'media_default--media_browser_1',
-          'media_default--media_browser_my_files' => 'media_default--media_browser_my_files',
-          'media_internet' => 0,
-          'upload' => 'upload',
-          'youtube' => 0,
+        'cropRatio' => 'free',
+        'style' => 'placeholder',
+        'tabs' => array(
+          'flickr' => 0,
+          'me' => 0,
+          'site' => 0,
+          'upload' => 0,
         ),
       ),
-      'type' => 'media_generic',
+      'type' => 'file_angular_media',
       'weight' => -1,
     ),
   );
@@ -269,7 +272,6 @@ function helm_news_field_default_field_instances() {
   t('Body');
   t('Category');
   t('Image');
-  t('Upload an image to go with this article.');
 
   return $field_instances;
 }

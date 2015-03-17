@@ -1,7 +1,7 @@
 name = Helm News Default
 description = Provides default news content
 core = 7.x
-package = Helm
+package = Helm Content
 dependencies[] = ctools
 dependencies[] = features
 dependencies[] = file
