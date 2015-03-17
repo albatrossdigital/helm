@@ -162,6 +162,10 @@ projects[uuid][subdir] = contrib
 projects[views_bootstrap][version] = "3.1"
 projects[views_bootstrap][subdir] = contrib
 
+projects[apps][version] = "1.0-beta20"
+projects[apps][subdir] = contrib
+
+
 ; +++++ Modules Dev/specific revisions +++++
 ; @todo
 ; * Best practice is to point to specific git commits.
