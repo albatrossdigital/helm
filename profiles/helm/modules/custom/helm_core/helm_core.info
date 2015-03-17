@@ -1,6 +1,0 @@
-name = Helm Core
-description = Core hooks, UI tweaks and helper functions for the Helm family of distributions
-core = 7.x
-
-
-

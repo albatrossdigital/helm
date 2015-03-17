@@ -1,6 +1,0 @@
-name = Helm Layouts
-description = Creates page layouts for helm
-core = 7.x
-package = Helm
-dependencies[] = panels
-

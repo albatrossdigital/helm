@@ -1,7 +1,0 @@
-<?php
-/**
- * @file
- * Code for the helm_people feature.
- */
-
-include_once 'helm_people.features.inc';

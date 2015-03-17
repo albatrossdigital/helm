@@ -1,9 +1,0 @@
-export old=helm_input_formats
-export new=helm_input_formats
- 
-
- 
-rename "s/${old}/${new}/g;" *
-perl -pi -w -e "s/${old}/${new}/g;" *
- 
-cd ../
