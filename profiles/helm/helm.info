@@ -112,7 +112,7 @@ dependencies[] = helm_date_formats
 dependencies[] = ckeditor_filter
 dependencies[] = helm_page
 dependencies[] = helm_media
-dependencies[] = helm_users
+dependencies[] = helm_user
 
 
 
