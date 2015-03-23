@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Helm Deploy Client feature.
+ */
+
+include_once 'helm_deploy_client.features.inc';
