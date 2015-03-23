@@ -1,0 +1,19 @@
+Search API Autocomplete 1.1 (05/24/2014):
+-----------------------------------------
+- #2229613 by das-peter: Fixed search submit while suggestions are displayed.
+- #2062969 by queenvictoria, das-peter: Fixed AJAX errors on click or return.
+- #2195657 by drunken monkey: Added a note about permissions to README.txt.
+- #2147555 by drunken monkey: Improved error handling.
+- #2134675 by Julian Maurice, drunken monkey: Added
+  hook_search_api_autocomplete_suggestions_alter().
+- #2121135 by eugene.ilyin, drunken monkey: Added minimum key length option.
+- #1357954 by drunken monkey: Clarified documentation.
+- #2079951 by drunken monkey: Fixed concatenation of words when there is a
+  trailing space.
+- #2023947 by drunken monkey: Fixed behavior when user input contains trailing
+  whitespace.
+- #2012710 by drunken monkey: Fixed $reset parameter for load functions.
+
+Search API Autocomplete 1.0 (04/22/2013):
+-----------------------------------------
+First stable release of the Search API Autocomplete project.

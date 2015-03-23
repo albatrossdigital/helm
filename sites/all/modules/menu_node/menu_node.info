@@ -1,0 +1,14 @@
+name = Menu Node API
+description = Manages relationships between node ids and menu items.
+dependencies[] = menu
+core = 7.x
+files[] = menu_node.install
+files[] = menu_node.module
+files[] = tests/menu_node.test
+
+; Information added by drupal.org packaging script on 2013-06-06
+version = "7.x-1.2"
+core = "7.x"
+project = "menu_node"
+datestamp = "1370477152"
+
