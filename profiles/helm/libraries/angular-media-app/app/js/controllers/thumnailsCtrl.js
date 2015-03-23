@@ -7,38 +7,71 @@
 
 angular.module('app.core')
 
-.controller('thumbnails', function($scope, $rootScope, $state, $stateParams, FileUploader){
+.controller('thumbnails', function($scope, $rootScope, $state, $stateParams, $timeout, FileUploader){
   // set rootscope settings
   $scope.init = function(params) {
-    //$rootScope.appUrl = params.appUrl != undefined ? params.appUrl : '';
-    $rootScope.apiUrl = params.apiUrl != undefined ? params.apiUrl : '';
-    $rootScope.cardinality = params.cardinality != undefined ? parseInt(params.cardinality) : $rootScope.cardinality;
-    $rootScope.multiple = $rootScope.cardinality != 1;
-    $rootScope.files = params.files != undefined ? params.files : $rootScope.files;
-    $rootScope.tabs = params.tabs != undefined ? params.files : $rootScope.tabs;
-    $rootScope.tabs.slice().reverse();
-    $rootScope.fieldName = params.fieldName != undefined ? params.fieldName : $rootScope.fieldName;
-  console.log('params', params);
+    $rootScope.activeField = params.fieldName;
+    $rootScope.files[params.fieldName] = params.files != undefined ? params.files : $rootScope.files;
+    params.files = undefined;
+
+    var settings = {}
+    angular.extend(settings, $rootScope.settings.defaults, params);
+
+    // multiple is based on cardinality
+    settings.multiple = (parseInt(settings.cardinality) != 1) ? true : false;
+
+    // Merge in tab data
+    var tabs = [];
+    angular.forEach(settings.tabs, function(tab, key) {
+      if ($rootScope.tabs[tab] != undefined) {
+        tabs.push($rootScope.tabs[tab]);
+      }
+    });
+    settings.tabs = tabs;
+    settings.tabs.slice().reverse();
+
+
+    $rootScope.settings[settings.fieldName] = settings;
+
+    console.log('settings', $rootScope.settings);
   }
 
 
 
   // Deal with drop to upload
   var uploader = $scope.uploader = new FileUploader({
-      url: $rootScope.apiUrlUpload + 'upload',
-      autoUpload: true
+    url: '/api/angular-media/upload',
+    autoUpload: true
   });
+  uploader.onAfterAddingFile = function(fileItem) {
+    fileItem.showThumb = fileItem.file.type.indexOf('image') != -1 ? true : false;
+  };
+  uploader.onBeforeUploadItem = function(item) {   
+    $scope.uploading = true;
+  };
+  uploader.onSuccessItem = function(fileItem, response, status, headers) {
+    $scope.selected.push(response);
+    fileItem = response;
+    if ($scope.file == undefined) {
+      $scope.file = fileItem;
+      $scope.activeKey = 0;
+    }
+  };
+  
 
-  $scope.remove = function(key) {
-    $rootScope.files.splice(key, 1);
+  $scope.remove = function(fieldName, key) {
+    $rootScope.files[fieldName].splice(key, 1);
   }
 
-  $scope.edit = function(fid) {
-    console.log('edit', fid);
+  $scope.edit = function(fid, fieldName, key) {
+    $rootScope.activeField = fieldName;
+    $rootScope.activeKey = key;
     $state.go('modal.edit', {fid: fid});
   }
 
-  $scope.select = function($event) {
+  $scope.select = function(fieldName, $event) {
+    $rootScope.activeField = fieldName;
+    $rootScope.activeKey = undefined;
     $state.go('modal.upload');
     $event.preventDefault();
   }

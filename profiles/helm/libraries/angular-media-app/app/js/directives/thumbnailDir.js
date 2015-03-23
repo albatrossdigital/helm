@@ -5,15 +5,13 @@
 // 
 angular.module('app.core')
 
-.directive('thumbnail', function() {
+.directive('thumbnails', function() {
   return {
     restrict: 'A',
     templateUrl: appUrl + 'views/thumbnail.html',
     link: function($scope, $element, $attrs) {
-      console.log('thumb scope', $scope);
       if ($scope.file != undefined && ($scope.file.filemime != undefined || $scope.file.mime != undefined)) {
         var mime = $scope.file.mime != undefined ? $scope.file.mime.split('/') : $scope.file.filemime.split('/');
-        console.log('mime',mime);
         $scope.fileType = mime[1];
       }
       $scope.class = $attrs.class;

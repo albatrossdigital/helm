@@ -5,41 +5,79 @@
 // 
 angular.module('app.core')
 
-.directive('editForm', function() {
+.directive('editForm', function($rootScope, CoreFile) {
   return {
     restrict: 'A',
     templateUrl: appUrl + 'views/editForm.html',
     link: function($scope, $element, $attrs) {
-      console.log('edit form', $scope.file);
 
-      $scope.saveFile = function() {
-        conosle.log($scope.file);
-        //$scope.file.save();
+      if ($scope.file.filemime != undefined) {
+        $scope.croppable = $scope.file.filemime.indexOf('image') != -1 && $rootScope.settings[$rootScope.activeField].cropRatio != 'none';
+      }
+
+      if ($scope.file.$save == undefined && $scope.file.fid != undefined) {
+        $scope.file = CoreFile.load({fid: $scope.file.fid});
+        $scope.croppable = $scope.file.filemime.indexOf('image') != -1 && $rootScope.settings[$rootScope.activeField].cropRatio != 'none';
+      }
+
+      if ($attrs.overwriteOnly != undefined) {
+        $scope.overwriteOnly = true;
+      }
+
+      $scope.startEdit = function($event) {
+        $scope.editing = true;
+        $event.preventDefault();
+      }
+
+      $scope.stopEdit = function($event) {
+        $scope.editing = false;
+        $event.preventDefault();
+      }
+
+
+      $scope.saveFile = function($event) {
+        //console.log($scope.file.attribution);
+        $scope.file.$save();
+        $scope.editing = false;
+        $event.preventDefault();
       }
 
       $scope.startCrop = function($event) {
-        $scope.crop = true;
-        $scope.coords = [];
-        $event.preventDefault();
+        //if ($scope.croppable) {
+          $scope.crop = true;
+          $scope.coords = [];
+        //}
+        $event.preventDefault();        
       }
 
       $scope.stopCrop = function($event) {
         $scope.crop = false;
-        //$event.preventDefault();
+        $event.preventDefault();
       }
 
-      $scope.saveCrop = function() {
-        console.log($scope.coords);
-        var $jcrop = $('.jcrop-holder');
+      $scope.saveCrop = function(overwrite, $event) {
+        var $jcrop = jQuery('.jcrop-holder');
         var params = {
           width: $jcrop.width(),
           height: $jcrop.height(),
-          coords: $scope.coords
+          coords: $scope.coords,
+          overwrite: overwrite
         }
         $scope.file.crop = JSON.stringify(params);
-        $scope.file.$save();
+        $scope.file.$save(function(data) {
+          $scope.file = data;
+          if ($rootScope.activeKey != undefined) {
+            $rootScope.files[$rootScope.activeField][$rootScope.activeKey] = data;
+          }
+        });
 
-        //$event.preventDefault();
+        $scope.crop = false;
+        $event.preventDefault();
+      }
+
+      $scope.close = function($event) {
+        $state.go('base');
+        $event.preventDefault();
       }
 
 

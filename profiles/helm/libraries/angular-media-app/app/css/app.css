@@ -36,14 +36,53 @@
     width: 50%;
     padding: 30px; } }
 
+@-webkit-keyframes spin {
+  from {
+    -webkit-transform: rotate(0deg); }
+
+  to {
+    -webkit-transform: rotate(360deg); } }
+
+@-moz-keyframes spin {
+  from {
+    -moz-transform: rotate(0deg); }
+
+  to {
+    -moz-transform: rotate(360deg); } }
+
+@keyframes spin {
+  from {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg); }
+
+  to {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg); } }
+
 .angular-media-field .thumbnails {
-  display: inline;
-  margin-left: -10px; }
+  display: inline; }
+.angular-media-field .thumbnail, .angular-media-field .placeholder-thumbnail {
+  position: relative; }
+  .angular-media-field .thumbnail .btn-action, .angular-media-field .placeholder-thumbnail .btn-action {
+    display: none;
+    top: 10px;
+    position: absolute; }
+    .angular-media-field .thumbnail .btn-action.thumbnail-edit, .angular-media-field .placeholder-thumbnail .btn-action.thumbnail-edit {
+      left: 10px; }
+    .angular-media-field .thumbnail .btn-action.thumbnail-remove, .angular-media-field .placeholder-thumbnail .btn-action.thumbnail-remove {
+      right: 10px; }
+  .angular-media-field .thumbnail:hover .btn-action, .angular-media-field .placeholder-thumbnail:hover .btn-action {
+    display: block; }
 .angular-media-field .thumbnail {
   width: 110px;
   height: 140px;
   margin: 5px;
-  position: relative;
   float: left; }
   .angular-media-field .thumbnail.active {
     border-color: #E9D24F;
@@ -60,16 +99,6 @@
     display: block;
     font-size: 0.9em;
     padding-top: 5px; }
-  .angular-media-field .thumbnail .btn {
-    display: none;
-    top: 10px;
-    position: absolute; }
-    .angular-media-field .thumbnail .btn.thumbnail-edit {
-      left: 10px; }
-    .angular-media-field .thumbnail .btn.thumbnail-remove {
-      right: 10px; }
-  .angular-media-field .thumbnail:hover .btn {
-    display: block; }
   .angular-media-field .thumbnail .download-icon {
     font-size: 15px;
     color: #ccc; }
@@ -82,10 +111,30 @@
 .angular-media-field .clearfix {
   clear: both; }
 
+.placeholder-thumbnail {
+  min-height: 350px;
+  background-color: #eee !important;
+  border: none !important;
+  text-align: center;
+  font-size: 1.5em; }
+  .placeholder-thumbnail .upload-text {
+    margin-top: 100px; }
+  .placeholder-thumbnail img {
+    max-width: 100%;
+    height: auto;
+    max-height: 500px;
+    margin: 0 auto;
+    width: auto; }
+
 .thumbnail-icon {
   text-align: center;
   position: relative;
   width: 100px; }
+  .thumbnail-icon.icon-lg {
+    width: 100%; }
+  .thumbnail-icon img {
+    max-width: 100%;
+    height: auto; }
   .thumbnail-icon .file-icon {
     font-size: 100px;
     color: #ccc; }
@@ -106,7 +155,9 @@
 .drop-zone, .thumbnail.drop-zone {
   border: 2px dashed #ccc;
   padding: 10px;
-  text-align: center; }
+  text-align: center;
+  position: relative;
+  background-color: rgba(238, 238, 238, 0); }
   .drop-zone .or, .thumbnail.drop-zone .or {
     font-size: 0.8em;
     text-transform: uppercase;
@@ -122,6 +173,42 @@
     text-align: left;
     width: 85%;
     margin: 5px auto; }
+  .drop-zone, .drop-zone > *, .thumbnail.drop-zone, .thumbnail.drop-zone > * {
+    -webkit-transition: background ease-out 0.1s;
+    -moz-transition: background ease-out 0.1s;
+    transition: background ease-out 0.1s; }
+  .drop-zone > *, .thumbnail.drop-zone > * {
+    opacity: 1; }
+  .drop-zone.upload-active, .thumbnail.drop-zone.upload-active {
+    background-color: #eeeeee; }
+    .drop-zone.upload-active > *, .thumbnail.drop-zone.upload-active > * {
+      opacity: 0.5; }
+    .drop-zone.upload-active:before, .thumbnail.drop-zone.upload-active:before {
+      content: "\e031";
+      display: inline-block;
+      font-family: 'Glyphicons Halflings';
+      font-style: normal;
+      font-weight: 400;
+      -webkit-font-smoothing: antialiased;
+      position: absolute;
+      top: 50%;
+      margin-top: -15px;
+      left: 50%;
+      margin-left: -15px;
+      text-align: center;
+      width: 30px;
+      height: 30px;
+      line-height: 30px;
+      font-size: 28px;
+      -webkit-animation: spin 2s infinite linear;
+      -moz-animation: spin 2s infinite linear;
+      animation: spin 2s infinite linear;
+      -webkit-transform-origin: 15px 14px;
+      -moz-transform-origin: 15px 14px;
+      -ms-transform-origin: 15px 14px;
+      -o-transform-origin: 15px 14px;
+      transform-origin: 15px 14px;
+      z-index: 1; }
 
 /*
   form {
@@ -134,85 +221,118 @@
     }
   }
 */
-.edit-form .editable-item {
+.modal-box .modal-close {
+  color: #ccc;
+  right: 10px;
+  position: absolute;
+  z-index: 1010; }
+.modal-box .preview {
+  position: relative;
+  display: block;
+  max-width: 200px; }
+  .modal-box .preview .preview-overlay {
+    top: 20px;
+    position: absolute;
+    display: none;
+    width: 100%;
+    text-align: center; }
+  .modal-box .preview.croppable {
+    cursor: pointer; }
+    .modal-box .preview.croppable:hover img {
+      opacity: 0.5; }
+    .modal-box .preview.croppable:hover .preview-overlay {
+      display: block; }
+.modal-box .edit-form .editable-item {
   height: auto;
   padding: 5px 0; }
-.edit-form .title {
+.modal-box .edit-form .title {
   display: inline-block;
   font-weight: bold;
   padding-top: 5px;
   vertical-align: top;
   min-width: 90px; }
-.edit-form .editable {
+.modal-box .edit-form .editable {
   display: inline-block;
   padding-top: 5px;
   vertical-align: top; }
-
-img.ng-jcrop-image {
-  max-width: 100% !important;
-  max-height: 500px !important;
-  height: auto !important; }
-
-.browser {
-  position: relative;
+.modal-box .edit-form .editable-form {
+  margin-left: 10px; }
+.modal-box .image-crop {
+  max-width: 500px; }
+  .modal-box .image-crop .ng-jcrop {
+    padding-bottom: 40px; }
+    .modal-box .image-crop .ng-jcrop img.ng-jcrop-image {
+      max-width: 100% !important;
+      max-height: 500px !important;
+      height: auto !important;
+      margin: 0 auto; }
+.modal-box .filters, .modal-box .browser {
   margin-top: 10px; }
-  .browser .scroll-wrapper {
+.modal-box .browser {
+  position: relative; }
+  .modal-box .browser .scroll-wrapper {
     width: 800px;
     height: 400px;
     overflow-y: scroll;
     ms-overflow-x: hidden; }
-  .browser .left, .browser .scroll-wrapper.active {
+  .modal-box .browser .left, .modal-box .browser .scroll-wrapper.active {
     width: 540px; }
-  .browser .thumbnail {
+  .modal-box .browser .thumbnail {
     cursor: pointer; }
-  .browser .sidebar {
+  .modal-box .browser .sidebar {
     width: 250px;
     height: 100%;
     position: absolute;
     right: 0;
     top: 0;
     background: white; }
-    .browser .sidebar h3, .browser .sidebar h5 {
+    .modal-box .browser .sidebar h3, .modal-box .browser .sidebar h5 {
       margin: 0; }
-    .browser .sidebar .preview {
+    .modal-box .browser .sidebar .preview {
       text-align: center; }
-      .browser .sidebar .preview img {
+      .modal-box .browser .sidebar .preview img {
         max-height: 200px;
         margin: 0 auto; }
-    .browser .sidebar .bottom-right, .browser .sidebar .bottom-left {
-      position: absolute;
-      bottom: 10px;
-      right: 10px; }
-      .browser .sidebar .bottom-right.bottom-left, .browser .sidebar .bottom-left.bottom-left {
-        left: 10px;
-        right: auto; }
-  .browser.upload .queue {
+  .modal-box .browser.upload .queue {
     margin-top: 5px;
     height: 185px;
     overflow-y: auto;
     margin-left: -30px; }
-    .browser.upload .queue .queue-item {
+    .modal-box .browser.upload .queue .queue-item {
       padding: 7px 5px 7px 30px;
       cursor: pointer; }
-      .browser.upload .queue .queue-item.active {
+      .modal-box .browser.upload .queue .queue-item.active {
         background-color: #F5F5F5; }
-      .browser.upload .queue .queue-item .file-thumb {
+      .modal-box .browser.upload .queue .queue-item .file-thumb {
         float: right;
         margin-left: 5px; }
-      .browser.upload .queue .queue-item .file-name {
+      .modal-box .browser.upload .queue .queue-item .file-name {
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden;
         display: block;
         font-weight: bold; }
-      .browser.upload .queue .queue-item .file-size {
+      .modal-box .browser.upload .queue .queue-item .file-size {
         float: left;
         margin-right: 5px; }
-      .browser.upload .queue .queue-item .progress {
+      .modal-box .browser.upload .queue .queue-item .progress {
         margin: 3px 5px;
         height: 12px; }
-  .browser.upload .file-details {
+  .modal-box .browser.upload .file-details {
     background-color: #F5F5F5;
     padding: 10px;
     border-radius: 3px;
     min-height: 300px; }
+.modal-box .bottom-left, .modal-box .bottom-right {
+  position: absolute;
+  bottom: 10px; }
+  .modal-box .bottom-left.bottom-left, .modal-box .bottom-right.bottom-left {
+    left: 10px; }
+  .modal-box .bottom-left.bottom-right, .modal-box .bottom-right.bottom-right {
+    right: 10px; }
+
+/* Hack to fix issue with how item is added to page via fapi */
+.field-widget-file-angular-media {
+  margin-bottom: 2em; }
+  .field-widget-file-angular-media .form-item {
+    margin-bottom: 0; }

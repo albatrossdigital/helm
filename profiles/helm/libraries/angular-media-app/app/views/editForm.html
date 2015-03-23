@@ -1,48 +1,61 @@
 <div class="row edit-form" ng-if="!crop">
-  <div class="col-md-4 preview">
-    <div thumbnail class="icon-lg"></div>
-    <button class="btn btn-sm" title="crop" ng-if="file.filemime.indexOf('image') != -1" ng-click="startCrop($event)"><span class="glyphicon glyphicon-retweet" aria-hidden="true"></span></button>
+  <div class="col-md-4 preview" ng-class="{croppable: 'croppable'}">
+    <div thumbnails class="icon-lg"></div>
+    <div class="preview-overlay">
+      <button class="btn btn-sm" title="Crop" ng-click="startCrop($event)"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Crop</button>
+    </div>
   </div>
   <div class="col-md-8">
     
-    <form editable-form name="editableForm" onaftersave="saveFile()" ng-if="!crop">
+    <div  ng-if="!crop" class="form">
+ 
       <div class="editable-item">
-        <span class="title">Name: </span>
-        <span editable-text="file.name" e-name="name" e-required>{{file.name}}</span>
-      </div> 
+        <span class="title">File Name: </span>
+        <span ng-show="!editing">{{file.name}}</span>
+        <input ng-show="editing" type="textfield" ng-model="file.name" class="form-control" />
+      </div>
 
       <div class="editable-item">
         <span class="title">Alt Text: </span>
-        <span editable-text="file.alt" e-name="alt" e-required>{{file.alt}}</span>
-      </div>  
+        <span ng-show="!editing">{{file.alt}}</span>
+        <input ng-show="editing" type="textfield" ng-model="file.alt" class="form-control" />
+      </div>
+
+      <div class="editable-item">
+        <span class="title">Title Text: </span>
+        <span ng-show="!editing">{{file.title}}</span>
+        <input ng-show="editing" type="textfield" ng-model="file.title" class="form-control" />
+      </div>
 
       <div class="editable-item">
         <span class="title">Attribution: </span>
-        <span editable-text="file.title" e-name="title">{{file.title}}</span>
+        <span ng-show="!editing">{{file.attribution}}</span>
+        <input ng-show="editing" type="textfield" ng-model="file.attribution" class="form-control" />
       </div>
 
       <div class="editable-item">
         <span class="title">Source: </span>
-        <span editable-text="file.source" e-name="title"><a ng-if="file.source" href="{{file.source}}" target="_blank">{{file.source}}</a></span>
+        <span ng-show="!editing">{{file.source}}</span>
+        <input ng-show="editing" type="textfield" ng-model="file.source" class="form-control" />
       </div>
 
       <div>
         <!-- button to show form -->
-        <button type="button" class="btn btn-default" ng-click="editableForm.$show()" ng-show="!editableForm.$visible">
+        <button type="button" class="btn btn-default" ng-click="startEdit($event)" ng-show="!editing">
           Edit
         </button>
         <!-- buttons to submit / cancel form -->
-        <span ng-show="editableForm.$visible">
-          <button type="submit" class="btn btn-primary" ng-disabled="editableForm.$waiting">
+        <span ng-show="editing">
+          <button type="submit" class="btn btn-primary" ng-click="saveFile($event);">
             Save
           </button>
-          <button type="button" class="btn btn-default" ng-disabled="editableForm.$waiting" ng-click="editableForm.$cancel()">
+          <button type="button" class="btn btn-default" ng-click="stopEdit()">
             Cancel
           </button>
         </span>
       </div>
 
-    </form>
+    </div>
 
   </div>
 </div>
@@ -52,7 +65,8 @@
   <button class="btn btn-danger bottom-left" ng-click="stopCrop($event)">Cancel</button>
 
   <div class="bottom-right">
-    <button class="btn btn-default" ng-click="saveCrop(true)"><span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span> Overwrite</button>
-    <button class="btn btn-primary" ng-click="saveCrop(false)"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Save as Copy</button>
+    <button class="btn btn-default" ng-click="saveCrop(true, $event)" ng-if="!overwriteOnly"><span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span> Overwrite</button>
+    <button class="btn btn-primary" ng-click="saveCrop(false, $event)" ng-if="!overwriteOnly"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Save as Copy</button>
+    <button class="btn btn-primary" ng-click="saveCrop(true, $event)" ng-if="overwriteOnly"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Save</button>
   </div>
 </div>

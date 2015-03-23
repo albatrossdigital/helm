@@ -27,20 +27,20 @@ angular.module('app.core', [
           controller: 'modal',
           onEnter: function($state){
             // Hitting the ESC key closes the modal
-            $(document).on('keyup', function(e){
+            jQuery(document).on('keyup', function(e){
               if(e.keyCode == 27){
-                $(document).off('keyup')
+                jQuery(document).off('keyup')
                 $state.go('base')
               }
             });
 
             // Clicking outside of the modal closes it
-            $(document).on('click', '.modal-backdrop, .modal-holder', function() {
+            jQuery(document).on('click', '.modal-backdrop, .modal-holder', function() {
               $state.go('base');
             });
 
             // Clickin on the modal or it's contents doesn't cause it to close
-            $(document).on('click', '.modal-box, .modal-box *', function(e) {
+            jQuery(document).on('click', '.modal-box, .modal-box *', function(e) {
               e.stopPropagation();
             });
           },
@@ -64,12 +64,20 @@ angular.module('app.core', [
 )
 
 
-.controller('modal', function($scope, $rootScope, $state, $stateParams){
+.controller('modal', function($scope, $rootScope, $state, $stateParams){ 
+  $scope.tabs = $rootScope.settings[$rootScope.activeField].tabs;
   $scope.activeTab = $state.current.controller;
+  
   $scope.loadTab = function(item) {
     $scope.activeTab = item.key;
     $state.go('modal.'+item.key, item.params);
   }
+
+  $scope.close = function($event) {
+    $state.go('base');
+    $event.preventDefault();
+  }
+
 })
 
 
@@ -84,7 +92,6 @@ angular.module('app.core', [
     page: 1,
     person: $stateParams.person
   };
-  console.log($stateParams);
 
   $scope.selected = [];
   $scope.items = [];
@@ -97,7 +104,6 @@ angular.module('app.core', [
       else {
         $scope.items = data;
       }
-      console.log($scope.items);
     });
   }
 
@@ -113,7 +119,7 @@ angular.module('app.core', [
 
   $scope.updateActive = function(item) {
     if (item != undefined) {
-      if ($rootScope.multiple && item.active) {
+      if ($rootScope.settings[$rootScope.activeField].multiple && item.active) {
         item.active = false;
         angular.forEach($scope.selected, function(activeItem, key) {
           if (activeItem.id == item.id) {
@@ -123,16 +129,16 @@ angular.module('app.core', [
       }
       else {
         $scope.active = item;
-        if ($rootScope.multiple) {
+        if ($rootScope.settings[$rootScope.activeField].multiple) {
           item.active = true;
           $scope.active = item;
         }
         else {
           angular.forEach($scope.items, function(activeItem, key) {
-            $scope.items[key].active = activeItem.id == item.id ? true : false;
+            $scope.items[key].active = activeItem.fid == item.fid ? true : false;
           });
         }
-        if ($rootScope.multiple) {
+        if ($rootScope.settings[$rootScope.activeField].multiple) {
           $scope.selected.push(item);
         }
         else {
@@ -140,7 +146,6 @@ angular.module('app.core', [
         }
         CoreFile.load({fid: item.fid}, function(data) {
           $scope.active = data;
-          console.log('corefile data', data);
         });
       }
     }
@@ -148,11 +153,8 @@ angular.module('app.core', [
 
   $scope.submit = function($event) {
     //$scope.filters.page++;
-    console.log($scope.selected);
 
-    Array.prototype.push.apply($rootScope.files, $scope.selected);
-    jQuery('#'+$rootScope.fieldName+'_media').trigger('change');
-    $state.go('base');
+    $rootScope.addFiles($scope.selected);
     $event.preventDefault();
 
     //var newData = Flickr.load($scope.filters);
@@ -171,12 +173,14 @@ angular.module('app.core', [
 
 
 
-.controller('upload', function($scope, $rootScope, $state, $stateParams, FileUploader){
+.controller('upload', function($scope, $rootScope, $state, $stateParams, FileUploader, CoreFile){
   $scope.uploading = false;
+  // Check if we're ons base page
+  $scope.basePage = !$state.current.name ? true : false;
   $scope.selected = [];
 
   var uploader = $scope.uploader = new FileUploader({
-    url: $rootScope.apiUrlUpload + 'upload',
+    url: $rootScope.settings[$rootScope.activeField].apiUrl + 'upload',
     autoUpload: true
   });
   uploader.onAfterAddingFile = function(fileItem) {
@@ -188,8 +192,16 @@ angular.module('app.core', [
   uploader.onSuccessItem = function(fileItem, response, status, headers) {
     console.info('onSuccessItem', fileItem, response, status, headers);
     $scope.selected.push(response);
-    fileItem.details = response;
-    console.log(fileItem);
+    fileItem = response;
+    if ($scope.file == undefined) {
+      $scope.file = fileItem;
+      $scope.activeKey = 0;
+    }
+    // If we're in simple mode, submit
+    if($scope.basePage) {
+      $rootScope.addFiles($scope.selected);   
+      $scope.selected = [];
+    }
   };
   uploader.onCompleteAll = function() {
     console.info('onCompleteAll');
@@ -197,8 +209,8 @@ angular.module('app.core', [
   };
 
   $scope.fileDetails = function(key, file) {
-    if (file.details != undefined && $scope.file != file) {
-      $scope.file = file.details;
+    if (file.fid != undefined && $scope.file != file) {
+      $scope.file = file;
       $scope.activeKey = key;
     }
     else {
@@ -209,17 +221,29 @@ angular.module('app.core', [
 
   $scope.submit = function($event) {
     //$scope.filters.page++;
-    console.log($scope.selected);
-
-    Array.prototype.push.apply($rootScope.files, $scope.selected);
-    jQuery('#'+$rootScope.fieldName+'_media').trigger('change');
+    $rootScope.addFiles($scope.selected);   
     $scope.selected = [];
-    $state.go('base');
 
-    $event.preventDefault();
+    if($event) {
+      $event.preventDefault();
+    }
 
     //var newData = Flickr.load($scope.filters);
     //Array.prototype.push.apply($scope.items, newData);
+  }
+
+  $scope.fetch = function($event) {
+    var file = new CoreFile({
+      external: this.externalFile//'https://www.youtube.com/watch?v=HZEChv1AaOk'//jQuery('#externalFile').val()//$scope.externalFile
+    });
+    //console.log('FILE', $scope.externalFile);
+    //$scope.externalFile = 'asdf';
+    
+    file.$save(function(data) {
+      $rootScope.addFiles([data]);
+    });
+
+    $event.preventDefault();
   }
   
 

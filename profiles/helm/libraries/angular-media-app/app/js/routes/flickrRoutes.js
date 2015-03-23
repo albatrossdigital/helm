@@ -16,7 +16,7 @@ angular.module('app.flickr', [
           controller: function($scope, $rootScope, $state, Flickr, CoreFile){
             $scope.filters = {
               method: 'flickr.photos.search',
-              tags: 'baltimore',
+              tags: $rootScope.settings[$rootScope.activeField].flickrSearch,
               license: '4,5',
               page: 1
             };
@@ -60,18 +60,17 @@ angular.module('app.flickr', [
             
             $scope.updateActive = function(item) {
               if (item != undefined) {
-                if ($rootScope.multiple && item.active) {
+                if ($rootScope.settings[$rootScope.activeField].multiple && item.active) {
                   item.active = false;
                   angular.forEach($scope.selected, function(activeItem, key) {
                     if (activeItem.id == item.id) {
                       $scope.selected.splice(key, 1);
                     }
                   });
-                  console.log($scope.active);
                 }
                 else {
                   $scope.active = item;
-                  if ($rootScope.multiple) {
+                  if ($rootScope.settings[$rootScope.activeField].multiple) {
                     item.active = true;
                   }
                   else {
@@ -88,7 +87,8 @@ angular.module('app.flickr', [
                     $scope.active.source = data.photo.urls.url[0]._content;
                     $scope.active.user = data.photo.owner.realname ? data.photo.owner.realname : data.photo.owner.username;
                     $scope.active.userLink = 'https://www.flickr.com/people/'+ data.photo.owner.nsid;
-                    $scope.active.title = $scope.active.user + ' on Flickr';
+                    $scope.active.attribution = $scope.active.user + ' on Flickr';
+                    $scope.active.title = data.photo.title._content;
                     $scope.active.license = data.photo.license;
                     $scope.active.licenseMeta = $scope.licenses.licenses.license[data.photo.license];
                     
@@ -98,7 +98,7 @@ angular.module('app.flickr', [
                       $scope.active.height = size.height;
                       $scope.active.url = size.source;
 
-                      if ($rootScope.multiple) {
+                      if ($rootScope.settings[$rootScope.activeField].multiple) {
                         $scope.selected.push($scope.active);
                       }
                       else {
@@ -115,6 +115,7 @@ angular.module('app.flickr', [
             $scope.submit = function($event) {
               $scope.queue = {total: $scope.selected.length, completed: 0, files: []};
               angular.forEach($scope.selected, function(item, key) {
+                console.log('item', item);
                 var file = new CoreFile(item);
                 
                 file.$save(function(data) {
@@ -124,10 +125,8 @@ angular.module('app.flickr', [
 
                   // Done processing queue
                   if ($scope.queue.completed >= $scope.queue.total) {
-                    Array.prototype.push.apply($rootScope.files, $scope.queue.files);
-                    jQuery('#'+$rootScope.fieldName+'_media').trigger('change');
+                    $rootScope.addFiles($scope.queue.files);
                     $scope.queue = undefined;
-                    $state.go('base');
                   }
                 });
 

@@ -5,7 +5,6 @@
 // Main Application
 
 //***************************************
-
 (function ($) {
 
 angular.module('app', [
@@ -21,34 +20,50 @@ angular.module('app', [
   'infinite-scroll',
   'angularFileUpload',
   //'ngImgCrop',
-  'xeditable',
+  //'xeditable',
   'ngJcrop'
   //'wu.masonry'
 ])
 
 .run(
-  [          '$rootScope', '$state', '$stateParams', '$window', '$location', '$timeout', 'editableOptions',
-    function ($rootScope,   $state,   $stateParams,   $window,   $location, $timeout, editableOptions) {
+  [          '$rootScope', '$state', '$stateParams', '$window', '$location', '$timeout',
+    function ($rootScope,   $state,   $stateParams,   $window,   $location, $timeout) {
 
-      $rootScope.flickrApiKey = '5202f8e46861f39f55bedfa2374a41d8';
-      $rootScope.apiUrlUpload = 'http://liftoff.local/api/angular-media/';
-      $rootScope.apiUrlBrowse = 'http://liftoff.local/api/angular-media/';
-      $rootScope.appUrl = '';
-      $rootScope.files = [];
-      $rootScope.multiple = false;
-      $rootScope.cardinality = 1; // max number of fields
-      $rootScope.tabs = [
-        {key: 'upload', title: 'Upload'},
-        {key: 'browse', title: 'Site Files', params: {person: 'all'}},
-        {key: 'flickr', title: 'Flickr'}
-      ];
+      $rootScope.settings = {defaults: {}};
+      $rootScope.files = {};
+      $rootScope.settings.defaults.flickrKey = '5202f8e46861f39f55bedfa2374a41d8';
+      //$rootScope.settings.defaults.apiUrl = 'http://liftoff.local/api/angular-media/';
+      // $rootScope.apiUrlUpload = 'http://soar-current.local/api/angular-media';
+      // $rootScope.apiUrlBrowse = 'http://soar-current.local/api/angular-media';
 
-      editableOptions.theme = 'bs3';
+
+      $rootScope.settings.defaults.appUrl = '';
+      $rootScope.settings.defaults.multiple = false;
+      $rootScope.settings.defaults.cardinality = 1; // max number of fields
+      $rootScope.tabs = {
+        upload: {key: 'upload', title: 'Upload'},
+        site: {key: 'browse', title: 'Site Files', params: {person: 'all'}},
+        flickr: {key: 'flickr', title: 'Flickr'}
+        // @todo link: {key: 'link', title: 'Page'}
+        // @todo me: {key: 'browse', title: 'My Files', params: {person: 'all'}}
+      };
+      $rootScope.settings.defaults.tabs = ['upload', 'site', 'flickr'];
 
       // It's very handy to add references to $state and $stateParams to the $rootScope
       // @todo: bad for performance?
       $rootScope.$state = $state;
       $rootScope.$stateParams = $stateParams;
+
+      // Adds the files to the individual fields.  Called from the various browsers.
+      $rootScope.addFiles = function(files) {
+        Array.prototype.push.apply($rootScope.files[$rootScope.activeField], files);
+        if ($rootScope.settings[$rootScope.activeField].addlFieldName != undefined && $rootScope.files[$rootScope.settings[$rootScope.activeField].addlFieldName] != undefined) {
+          Array.prototype.push.apply($rootScope.files[$rootScope.settings[$rootScope.activeField].addlFieldName], files);
+        }
+        jQuery('#'+$rootScope.activeField+'_media').trigger('change');
+        console.log('elem', jQuery('#'+$rootScope.activeField+'_media').val());
+        $state.go('base');
+      }
 
    
       $rootScope.$on('$stateChangeSuccess', 
