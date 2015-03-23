@@ -1,19 +1,19 @@
 <?php
 /**
  * @file
- * helm_event.strongarm.inc
+ * helm_landingpage.strongarm.inc
  */
 
 /**
  * Implements hook_strongarm().
  */
-function helm_event_strongarm() {
+function helm_landingpage_strongarm() {
   $export = array();
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'field_bundle_settings_node__event';
+  $strongarm->name = 'field_bundle_settings_node__landingpage';
   $strongarm->value = array(
     'view_modes' => array(
       'teaser' => array(
@@ -25,111 +25,73 @@ function helm_event_strongarm() {
       'rss' => array(
         'custom_settings' => FALSE,
       ),
-      'token' => array(
-        'custom_settings' => FALSE,
-      ),
-      'revision' => array(
-        'custom_settings' => FALSE,
-      ),
       'ical' => array(
         'custom_settings' => FALSE,
       ),
-      'item_teaser' => array(
+      'token' => array(
         'custom_settings' => FALSE,
-      ),
-      'library_sidebar' => array(
-        'custom_settings' => FALSE,
-      ),
-      'address_and_location' => array(
-        'custom_settings' => FALSE,
-      ),
-      'featured' => array(
-        'custom_settings' => TRUE,
       ),
     ),
     'extra_fields' => array(
       'form' => array(
         'metatags' => array(
-          'weight' => '16',
+          'weight' => '3',
         ),
         'title' => array(
           'weight' => '0',
         ),
         'path' => array(
-          'weight' => '15',
+          'weight' => '1',
         ),
         'redirect' => array(
-          'weight' => '14',
-        ),
-        'flag' => array(
-          'weight' => '10',
-        ),
-        'workbench_access' => array(
-          'weight' => '0',
-        ),
-        'domain' => array(
           'weight' => '2',
         ),
       ),
-      'display' => array(
-        'flag_needs_review' => array(
-          'default' => array(
-            'weight' => '8',
-            'visible' => TRUE,
-          ),
-          'teaser' => array(
-            'weight' => '10',
-            'visible' => FALSE,
-          ),
-        ),
-        'domain' => array(
-          'default' => array(
-            'weight' => '36',
-            'visible' => FALSE,
-          ),
-        ),
-      ),
+      'display' => array(),
     ),
   );
-  $export['field_bundle_settings_node__event'] = $strongarm;
+  $export['field_bundle_settings_node__landingpage'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'menu_options_event';
-  $strongarm->value = array();
-  $export['menu_options_event'] = $strongarm;
+  $strongarm->name = 'menu_options_landingpage';
+  $strongarm->value = array(
+    0 => 'main-menu',
+  );
+  $export['menu_options_landingpage'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'menu_parent_event';
+  $strongarm->name = 'menu_parent_landingpage';
   $strongarm->value = 'main-menu:0';
-  $export['menu_parent_event'] = $strongarm;
+  $export['menu_parent_landingpage'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'node_options_event';
+  $strongarm->name = 'node_options_landingpage';
   $strongarm->value = array(
     0 => 'status',
-    1 => 'revision',
+    1 => 'promote',
+    2 => 'revision',
   );
-  $export['node_options_event'] = $strongarm;
+  $export['node_options_landingpage'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'node_preview_event';
+  $strongarm->name = 'node_preview_landingpage';
   $strongarm->value = '1';
-  $export['node_preview_event'] = $strongarm;
+  $export['node_preview_landingpage'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'node_submitted_event';
-  $strongarm->value = 0;
-  $export['node_submitted_event'] = $strongarm;
+  $strongarm->name = 'node_submitted_landingpage';
+  $strongarm->value = 1;
+  $export['node_submitted_landingpage'] = $strongarm;
 
   return $export;
 }

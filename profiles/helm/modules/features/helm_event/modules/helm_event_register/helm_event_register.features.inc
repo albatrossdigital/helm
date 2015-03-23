@@ -78,7 +78,6 @@ function helm_event_register_default_registration_type() {
     "locked" : "0",
     "weight" : "0",
     "data" : null,
-    "registration_commerce_settings" : null,
     "rdf_mapping" : []
   }');
   $items['default'] = entity_import('registration_type', '{
@@ -87,7 +86,6 @@ function helm_event_register_default_registration_type() {
     "locked" : "0",
     "weight" : "0",
     "data" : null,
-    "registration_commerce_settings" : null,
     "rdf_mapping" : []
   }');
   return $items;

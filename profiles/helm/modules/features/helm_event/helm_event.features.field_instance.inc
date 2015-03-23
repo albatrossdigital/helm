@@ -55,7 +55,7 @@ function helm_event_field_default_field_instances() {
         'summary_rows' => 5,
       ),
       'type' => 'text_textarea_with_summary',
-      'weight' => 3,
+      'weight' => 4,
     ),
     'workbench_access_field' => 0,
   );
@@ -72,7 +72,7 @@ function helm_event_field_default_field_instances() {
         'module' => 'file',
         'settings' => array(),
         'type' => 'file_default',
-        'weight' => 4,
+        'weight' => 5,
       ),
       'featured' => array(
         'label' => 'above',
@@ -101,8 +101,10 @@ function helm_event_field_default_field_instances() {
     ),
     'widget' => array(
       'active' => 1,
-      'module' => 'media',
+      'module' => 'angular_media',
       'settings' => array(
+        'allowedSchemes' => array(),
+        'allowedTypes' => array(),
         'allowed_schemes' => array(
           'oembed' => 0,
           'public' => 'public',
@@ -120,10 +122,15 @@ function helm_event_field_default_field_instances() {
           'media_internet' => 0,
           'upload' => 0,
         ),
+        'cropRatio' => array(
+          0 => 'free',
+        ),
         'progress_indicator' => 'throbber',
+        'style' => 'thumbnails',
+        'tabs' => array(),
       ),
-      'type' => 'media_generic',
-      'weight' => 6,
+      'type' => 'file_angular_media',
+      'weight' => 13,
     ),
   );
 
@@ -146,7 +153,7 @@ function helm_event_field_default_field_instances() {
           'show_repeat_rule' => 'hide',
         ),
         'type' => 'date_default',
-        'weight' => 8,
+        'weight' => 1,
       ),
       'featured' => array(
         'label' => 'above',
@@ -202,12 +209,11 @@ function helm_event_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'hidden',
-        'module' => 'foundation_formatters',
+        'module' => 'entityreference',
         'settings' => array(
-          'path' => 'events',
-          'query' => 'type=[tid]',
+          'link' => FALSE,
         ),
-        'type' => 'taxonomy_link',
+        'type' => 'entityreference_label',
         'weight' => 6,
       ),
       'featured' => array(
@@ -243,7 +249,7 @@ function helm_event_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_buttons',
-      'weight' => 22,
+      'weight' => 3,
     ),
   );
 
@@ -258,7 +264,7 @@ function helm_event_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 34,
+        'weight' => 8,
       ),
       'featured' => array(
         'label' => 'above',
@@ -289,7 +295,7 @@ function helm_event_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 23,
+      'weight' => 7,
     ),
     'workbench_access_field' => 0,
   );
@@ -305,7 +311,7 @@ function helm_event_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 33,
+        'weight' => 7,
       ),
       'featured' => array(
         'label' => 'above',
@@ -336,7 +342,7 @@ function helm_event_field_default_field_instances() {
         'size' => 10,
       ),
       'type' => 'text_textfield',
-      'weight' => 24,
+      'weight' => 6,
     ),
     'workbench_access_field' => 0,
   );
@@ -353,7 +359,7 @@ function helm_event_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 11,
+        'weight' => 4,
       ),
       'featured' => array(
         'label' => 'above',
@@ -385,82 +391,82 @@ function helm_event_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 27,
+      'weight' => 5,
     ),
   );
 
-  // Exported field_instance: 'node-event-field_picture'
-  $field_instances['node-event-field_picture'] = array(
+  // Exported field_instance: 'node-event-field_media'
+  $field_instances['node-event-field_media'] = array(
     'bundle' => 'event',
-    'default_value' => array(),
     'deleted' => 0,
     'description' => '',
     'display' => array(
       'default' => array(
         'label' => 'hidden',
-        'module' => 'image',
+        'module' => 'media_formatters',
         'settings' => array(
-          'image_link' => '',
-          'image_style' => 'large',
+          'autoplay' => TRUE,
+          'class' => 'col-sm-12',
+          'click_format' => 'lightbox',
+          'file_view_mode' => 'default',
+          'image_style' => '',
+          'image_style_lg' => 'default',
+          'image_style_lightbox' => '',
+          'image_style_md' => 'default',
+          'image_style_sm' => 'default',
+          'image_style_xs' => 'default',
+          'link_field' => '',
+          'play_class' => 'btn btn-primary fa fa-play-circle',
+          'show_attribution' => TRUE,
+          'v_class' => 'embed-responsive-16by9',
         ),
-        'type' => 'image',
-        'weight' => 1,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
+        'type' => 'flexible_media',
+        'weight' => 2,
       ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 15,
+        'weight' => 0,
       ),
     ),
-    'ds_extras_field_template' => '',
     'entity_type' => 'node',
-    'field_name' => 'field_picture',
-    'label' => 'Picture',
+    'fences_wrapper' => 'div',
+    'field_name' => 'field_media',
+    'label' => 'Media',
     'required' => 0,
     'settings' => array(
-      'alt_field' => 0,
-      'default_image' => 0,
-      'file_directory' => 'pictures',
-      'file_extensions' => 'png gif jpg jpeg',
+      'description_field' => 0,
+      'file_directory' => '',
+      'file_extensions' => 'txt',
       'max_filesize' => '',
-      'max_resolution' => '',
-      'min_resolution' => '',
-      'title_field' => 0,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
       'active' => 1,
-      'module' => 'media',
+      'module' => 'angular_media',
       'settings' => array(
-        'allowed_schemes' => array(
+        'allowedSchemes' => array(
           'oembed' => 0,
-          'public' => 'public',
+          'public' => 0,
         ),
-        'allowed_types' => array(
+        'allowedTypes' => array(
           'audio' => 0,
           'document' => 0,
           'image' => 'image',
-          'video' => 0,
+          'video' => 'video',
         ),
-        'browser_plugins' => array(
-          'media_default--media_browser_1' => 'media_default--media_browser_1',
-          'media_default--media_browser_my_files' => 'media_default--media_browser_my_files',
-          'media_inkfilepicker' => 'media_inkfilepicker',
-          'media_internet' => 0,
-          'upload' => 'upload',
+        'cropRatio' => 'free',
+        'style' => 'placeholder',
+        'tabs' => array(
+          'flickr' => 0,
+          'me' => 0,
+          'site' => 0,
+          'upload' => 0,
         ),
-        'preview_image_style' => 'thumbnail',
-        'progress_indicator' => 'throbber',
       ),
-      'type' => 'media_generic',
-      'weight' => 32,
+      'type' => 'file_angular_media',
+      'weight' => 18,
     ),
   );
 
@@ -519,9 +525,9 @@ function helm_event_field_default_field_instances() {
   t('Description');
   t('Location');
   t('Main contact');
+  t('Media');
   t('Organizers/performers, lead staff member, with contact information if necessary.  This is only visible to library staff on the backend.');
   t('Phone Number');
-  t('Picture');
   t('Subtitle');
 
   return $field_instances;

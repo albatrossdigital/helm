@@ -5,3 +5,22 @@
  */
 
 include_once 'helm_landingpage.features.inc';
+
+
+/**
+ * Get menu link id for a node.
+ * This is called within the views context.
+ */
+function helm_landingpage_get_mlid_for_node($view, $argument) {
+  if (function_exists('menu_node_get_links')){  
+   $node = node_load(intval(arg(1)));  
+   if (isset($node->menu_node_links)){
+      foreach($node->menu_node_links as $mlid=>$data){  
+         return $mlid;
+      }  
+    }
+  }
+
+}
+
+
