@@ -45,6 +45,9 @@ projects[field_collection][subdir] = "contrib"
 projects[entity][version] = "1.6"
 projects[entity][subdir] = "contrib"
 
+projects[entity_view_mode][version] = "1.0-rc1"
+projects[entity_view_mode][subdir] = "contrib"
+
 projects[libraries][version] = "2.2"
 projects[libraries][subdir] = "contrib"
 
