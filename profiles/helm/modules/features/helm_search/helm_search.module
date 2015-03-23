@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Helm Search feature.
+ */
+
+include_once 'helm_search.features.inc';

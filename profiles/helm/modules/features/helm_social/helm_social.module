@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Helm Social feature.
+ */
+
+include_once 'helm_social.features.inc';
