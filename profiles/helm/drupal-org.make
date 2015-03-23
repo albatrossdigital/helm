@@ -150,9 +150,6 @@ projects[addthis][subdir] = "contrib"
 projects[socialfield][version] = "1.4"
 projects[socialfield][subdir] = "contrib"
 
-projects[socialfield][version] = "1.4"
-projects[socialfield][subdir] = "contrib"
-
 projects[social_stream][version] = "1.0-alpha3"
 projects[social_stream][subdir] = "contrib"
 
@@ -176,7 +173,6 @@ projects[apps][subdir] = contrib
 
 ; From Feb 19, 2014
 ; The official releases for this module are really old (2012)
-projects[oembed][version] = "2.x-dev"
 projects[oembed][subdir] = "contrib"
 projects[oembed][download][type] = "git"
 projects[oembed][download][revision] = "8492b9f"
@@ -185,7 +181,6 @@ projects[oembed][download][branch] = "7.x-1.x"
 ; From Jan 16 2015
 ; Fixes issue with ical_parser module
 ; Adds support for the GenericEntityProccessor (for data module)
-projects[feeds][version] = "2.x-dev"
 projects[feeds][subdir] = "contrib"
 projects[feeds][download][type] = "git"
 projects[feeds][download][revision] = "45152d3"
@@ -193,23 +188,22 @@ projects[feeds][download][branch] = "7.x-1.x"
 
 ; From Mar 13 2015
 ; Sandbox module from @jlyon
-;@todo: No release history was found for the requested project (socialfield_widgets).
-;projects[socialfield_widgets][version] = "2.x-dev"
-;projects[socialfield_widgets][subdir] = "contrib"
-;projects[socialfield_widgets][download][type] = "git"
-;projects[socialfield_widgets][download][revision] = "1264c3f"
-;projects[socialfield_widgets][download][url] = "http://git.drupal.org/sandbox/jlyon/socialfield_widgets.git"
-;projects[socialfield_widgets][download][branch] = "7.x-1.x"
+projects[socialfield_widgets][type] = module
+projects[socialfield_widgets][subdir] = "contrib"
+projects[socialfield_widgets][download][type] = git
+projects[socialfield_widgets][download][branch] = "7.x-1.x"
+projects[socialfield_widgets][download][url] = http://git.drupal.org/sandbox/jlyon/socialfield_widgets.git
+projects[socialfield_widgets][download][revision] = 1264c3f103e7a1da1c9fa1fa9726ba0b7dbda4b9
 
 ; From Mar 16 2015
 ; Fieldable panel panes UUID export
-; Possibly not needed see: https://www.drupal.org/node/2421809 ... need to evaluate
+; Possibly not needed see: http://drupal.org/node/2421809 ... need to evaluate
 projects[uuid_features][type] = module
 projects[uuid_features][subdir] = contrib
 projects[uuid_features][download][type] = git
 projects[uuid_features][download][revision] = f0e01172040c6bcc3a464c31a28eb0dd0b02a630
 projects[uuid_features][download][branch] = 7.x-1.x
-projects[uuid_features][patch][2222727] = https://www.drupal.org/files/issues/uuid_features-adding-export_render_alter-call-2222727-45.patch
+projects[uuid_features][patch][2222727] = http://drupal.org/files/issues/uuid_features-adding-export_render_alter-call-2222727-45.patch
 
 ; From Mar 16 2015
 ; Fieldable panel panes UUID export
@@ -227,12 +221,12 @@ projects[fieldable_panels_panes][download][branch] = 7.x-1.x
 
 projects[panopoly_core][version] = 1.18
 projects[panopoly_core][subdir] = panopoly
-projects[panopoly_core][patch][2453509] = https://www.drupal.org/files/issues/panopoly_core-remove-makefile.patch
+projects[panopoly_core][patch][2453509] = http://drupal.org/files/issues/panopoly_core-remove-makefile.patch
 
 projects[panopoly_widgets][version] = 1.18
 projects[panopoly_widgets][subdir] = panopoly
-projects[panopoly_widgets][patch][2453509] = https://www.drupal.org/files/issues/panopoly_widgets-remove-makefile.patch
-projects[panopoly_widgets][patch][2453529] = https://www.drupal.org/files/issues/panopoly_widgets-remove-media-requirements.patch
+projects[panopoly_widgets][patch][2453509] = http://drupal.org/files/issues/panopoly_widgets-remove-makefile.patch
+projects[panopoly_widgets][patch][2453529] = http://drupal.org/files/issues/panopoly_widgets-remove-media-requirements.patch
 
 
 ; *********************************************************************************
@@ -245,8 +239,8 @@ projects[panopoly_widgets][patch][2453529] = https://www.drupal.org/files/issues
 
 projects[ctools][version] = 1.6
 projects[ctools][subdir] = contrib
-projects[ctools][patch][2416589] = http://www.drupal.org/files/issues/ctools-illegal-offset-views-add-contextual-links-2416589-1.patch
-projects[ctools][patch][2119357] = http://www.drupal.org/files/issues/2119357-6_0.patch
+projects[ctools][patch][2416589] = http://drupal.org/files/issues/ctools-illegal-offset-views-add-contextual-links-2416589-1.patch
+projects[ctools][patch][2119357] = http://drupal.org/files/issues/2119357-6_0.patch
 
 projects[panels][version] = 3.5
 projects[panels][subdir] = contrib
@@ -257,7 +251,7 @@ projects[panels_breadcrumbs][subdir] = contrib
 projects[panelizer][version] = 3.1
 projects[panelizer][subdir] = contrib
 projects[panelizer][patch][1623536] = http://drupal.org/files/issues/array-to-object-on-update-1623536-26.patch
-projects[panelizer][patch][2416505] = http://www.drupal.org/files/issues/panelizer-search_api-2416505-3.patch
+projects[panelizer][patch][2416505] = http://drupal.org/files/issues/panelizer-search_api-2416505-3.patch
 
 projects[pm_existing_pages][version] = 1.4
 projects[pm_existing_pages][subdir] = contrib
@@ -274,8 +268,8 @@ projects[views][patch][2037469] = http://drupal.org/files/views-exposed-sorts-20
 projects[views_autocomplete_filters][version] = 1.1
 projects[views_autocomplete_filters][subdir] = contrib
 projects[views_autocomplete_filters][patch][2277453] = http://drupal.org/files/issues/ViewsAutocompleteFilters-no_results_on_some_environments-2277453-1.patch
-projects[views_autocomplete_filters][patch][2374709] = http://www.drupal.org/files/issues/views_autocomplete_filters-cache-2374709-2.patch
-projects[views_autocomplete_filters][patch][2317351] = http://www.drupal.org/files/issues/views_autocomplete_filters-content-pane-2317351-4.patch
+projects[views_autocomplete_filters][patch][2374709] = http://drupal.org/files/issues/views_autocomplete_filters-cache-2374709-2.patch
+projects[views_autocomplete_filters][patch][2317351] = http://drupal.org/files/issues/views_autocomplete_filters-content-pane-2317351-4.patch
 
 projects[views_bulk_operations][version] = 3.2
 projects[views_bulk_operations][subdir] = contrib

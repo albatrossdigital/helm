@@ -1,0 +1,2 @@
+<h2 class="facebook-title">Join us on <span>facebook</span></h2>
+<iframe src="http://www.facebook.com/plugins/likebox.php?href=<?php print urlencode($url); ?>&amp;width=<?php print $width; ?>&amp;colorscheme=<?php print $color; ?>&amp;show_faces=<?php print $faces; ?>&amp;border_color&amp;stream=<?php print $stream; ?>&amp;header=<?php print $header; ?>&amp;height=<?php print $height; ?>" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:<?php print $width; ?>px; height:<?php print $height; ?>px;" allowTransparency="true"></iframe>
