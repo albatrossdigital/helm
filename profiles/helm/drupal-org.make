@@ -219,11 +219,11 @@ projects[fieldable_panels_panes][download][branch] = 7.x-1.x
 ; *********************************************************************************
 
 
-projects[panopoly_core][version] = 1.18
+projects[panopoly_core][version] = 1.19
 projects[panopoly_core][subdir] = panopoly
 projects[panopoly_core][patch][2453509] = http://drupal.org/files/issues/panopoly_core-remove-makefile.patch
 
-projects[panopoly_widgets][version] = 1.18
+projects[panopoly_widgets][version] = 1.19
 projects[panopoly_widgets][subdir] = panopoly
 projects[panopoly_widgets][patch][2453509] = http://drupal.org/files/issues/panopoly_widgets-remove-makefile.patch
 projects[panopoly_widgets][patch][2453529] = http://drupal.org/files/issues/panopoly_widgets-remove-media-requirements.patch
@@ -237,13 +237,12 @@ projects[panopoly_widgets][patch][2453529] = http://drupal.org/files/issues/pano
 ; panels_core
 ; -----------------------------------
 
-projects[ctools][version] = 1.6
+projects[ctools][version] = 1.7
 projects[ctools][subdir] = contrib
-projects[ctools][patch][2416589] = http://drupal.org/files/issues/ctools-illegal-offset-views-add-contextual-links-2416589-1.patch
-projects[ctools][patch][2119357] = http://drupal.org/files/issues/2119357-6_0.patch
 
 projects[panels][version] = 3.5
 projects[panels][subdir] = contrib
+projects[panels][patch][2448825] = https://www.drupal.org/files/issues/panels-export-indentation-2448825-1.patch
 
 projects[panels_breadcrumbs][version] = 2.2
 projects[panels_breadcrumbs][subdir] = contrib
