@@ -1,7 +1,7 @@
 <?php
 // Plugin definition
 $plugin = array(
-  'title' => t('Helm Teaser'),
+  'title' => t('Teaser'),
   'icon' => 'helm-teaser.png',
   'category' => t('Helm'),
   'theme' => 'helm_teaser',

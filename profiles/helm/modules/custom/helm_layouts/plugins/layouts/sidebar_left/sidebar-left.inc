@@ -1,10 +1,10 @@
 <?php
 // Plugin definition
 $plugin = array(
-  'title' => t('Full Page'),
-  'icon' => 'helm-full-page.png',
+  'title' => t('Sidebar Left'),
+  'icon' => 'helm-sidebar-left.png',
   'category' => t('Helm'),
-  'theme' => 'helm_full_page',
+  'theme' => 'helm_sidebar_left',
   'regions' => array(
     'sidebar' => t('Sidebar'),
     'contentmain' => t('Content'),
