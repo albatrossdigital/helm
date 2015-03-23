@@ -13,6 +13,13 @@
 //}
 
 
+/**
+ * Implements hook_preprocess_page().
+ */
+function minimalist_admin_preprocess_page(&$variables) {
+  $variables['copyright'] = '';
+}
+
 
 /**
  * Implements hook_css_alter().
@@ -48,6 +55,7 @@ function minimalist_admin_css_alter(&$css) {
     //unset($css[$theme_path]);
   //}
   //dpm($css);
+
 }
 
 /**
