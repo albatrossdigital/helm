@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * panopoly_widgets.features.field_base.inc
+ * helm_widgets.features.field_base.inc
  */
 
 /**
  * Implements hook_field_default_field_bases().
  */
-function panopoly_widgets_field_default_field_bases() {
+function helm_widgets_field_default_field_bases() {
   $field_bases = array();
 
   // Exported field_base: 'field_basic_file_file'

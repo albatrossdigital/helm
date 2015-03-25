@@ -1,15 +1,15 @@
 <?php
 /**
  * @file
- * panopoly_widgets.features.defaultconfig.inc
+ * helm_widgets.features.defaultconfig.inc
  */
 
 /**
  * Implements hook_defaultconfig_features().
  */
-function panopoly_widgets_defaultconfig_features() {
+function helm_widgets_defaultconfig_features() {
   return array(
-    'panopoly_widgets' => array(
+    'helm_widgets' => array(
       'user_default_permissions' => 'user_default_permissions',
     ),
   );
@@ -18,7 +18,7 @@ function panopoly_widgets_defaultconfig_features() {
 /**
  * Implements hook_defaultconfig_user_default_permissions().
  */
-function panopoly_widgets_defaultconfig_user_default_permissions() {
+function helm_widgets_defaultconfig_user_default_permissions() {
   $permissions = array();
 
   // Exported permission: 'create fieldable basic_file'.
