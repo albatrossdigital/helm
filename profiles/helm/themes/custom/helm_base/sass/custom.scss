@@ -18,7 +18,7 @@
 // Components
 // -----------------------------------------
 
-@import "components/fontawesome/fontawesome";
+//@import "components/fontawesome/fontawesome";
 @import "components/media";
 @import "components/type";
 
@@ -26,5 +26,6 @@
 // Modules (additional functionality)
 // -----------------------------------------
 
-@import "modules/off-canvas";
 @import "modules/drupal-panels";
+@import "modules/ekko-lightbox";
+@import "modules/off-canvas";
