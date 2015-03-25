@@ -1,0 +1,13 @@
+<?php
+
+/**
+ * @file
+ * An installation file for Helm Widgets
+ */
+
+/**
+ * Implementation of hook_install().
+ */
+function helm_widgets_install() {
+
+}
