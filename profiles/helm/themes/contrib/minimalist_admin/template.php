@@ -72,6 +72,53 @@ function minimalist_admin_js_alter(&$js) {
  }
 }
 
+// /**
+//  * Implements hook_form_alter().
+//  *
+//  * Adds module's css and js files when needed.
+//  */
+// function minimalist_admin_form_alter(&$form, $form_state, $form_id) {
+//   global $base_url;
+
+//   // Prepare arrays if necessary.
+//   if (!isset($form['#attached'])) {
+//     $form['#attached'] = array();
+//   }
+//   if (!isset($form['#groups'])) {
+//     $form['#groups'] = array();
+//   }
+
+//   $all_groups_tab = vertical_tabs_responsive_all_form_groups_are_tabs($form['#groups']);
+//   $all_elem_sp = vertical_tabs_responsive_all_form_root_elements_are_special($form);
+//   $should_resp_vt = vertical_tabs_responsive_should_responsify_vt();
+
+//   if ((!$all_groups_tab && !$all_elem_sp && $should_resp_vt)) {
+//     // Only responsify when needed.
+//     vertical_tabs_responsive_set_attached($form['#attached']);
+//   }
+//   else {
+//     // We reset standart vertical tabs behaviour.
+//     $theme_path = drupal_get_path('theme', variable_get('admin_theme', 'seven'));
+//     $parent_theme = vertical_tabs_responsive_get_first_parent_theme(variable_get('admin_theme', 'seven'));
+
+//     $form['#attached']['js']['misc/vertical-tabs.js'] = $base_url . '/misc/vertical-tabs.js';
+
+//     if (file_exists($theme_path . '/vertical-tabs.css')) {
+//       $form['#attached']['css']['css/vertical-tabs.css'] = $theme_path . '/vertical-tabs.css';
+//     }
+//     elseif (file_exists($theme_path . '/css/vertical-tabs.css')) {
+//       $form['#attached']['css']['css/vertical-tabs.css'] = $theme_path . '/css/vertical-tabs.css';
+//     }
+//     elseif ($parent_theme != '') {
+//       $theme_path = drupal_get_path('theme', $parent_theme);
+//       $form['#attached']['css']['css/vertical-tabs.css'] = $theme_path . '/css/vertical-tabs.css';
+//     }
+//     else {
+//       $form['#attached']['css']['css/vertical-tabs.css'] = $base_url . '/misc/vertical-tabs.css';
+//     }
+//   }
+// }
+
 /**
  * Implements hook_form_alter().
  * Sets up minimalist node edit form.
@@ -79,9 +126,13 @@ function minimalist_admin_js_alter(&$js) {
 function minimalist_admin_form_alter(&$form, &$form_state, $form_id) {
   $path = path_to_theme();  
 
-  if (strpos($form_id, '_node_form')) {
+  if (!empty($form['#node_edit_form'])) {
+
+    // Placeholder text
     $form['title']['#attributes']['placeholder'] = t('Enter title');
     $form['field_subtitle'][LANGUAGE_NONE][0]['value']['#attributes']['placeholder'] = t('Enter subtitle');
+    
+    dpm($form);
   }
 
   // Add Boostrap multiselect
@@ -99,4 +150,28 @@ function minimalist_admin_form_alter(&$form, &$form_state, $form_id) {
   // @todo: make this work to remove vertical_tabs_responsive module dependence
   //$form['#attached']['js'][] = $path . '/js/vertical-tabs-custom.js';
 
+}
+
+
+//
+function minimalist_admin_vertical_tabs($variables) {
+
+  $element = $variables ['element'];
+  // Add required JavaScript and Stylesheet.
+  drupal_add_library('system', 'drupal.vertical-tabs');
+
+  $output = '<h2 class="element-in">' . t('asdasdVertical Tabs') . '</h2>';
+  $output .= '<div class="vertical-tabs-panes">' . $element ['#children'] . '</div>';
+  //dpm($variables);
+  //kpr($variables);
+  //dpm($element);
+  return $output;
+}
+
+function minimalist_admin_field_group_build_pre_render_alter(&$element) {
+  dpm($element);
+}
+
+function minimalist_admin_process_vertical_tabs($element, &$form_state) {
+  dpm($element);
 }
