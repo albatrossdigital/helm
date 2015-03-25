@@ -191,8 +191,8 @@ dependencies[] = tablefield
 ; **************************************
 
 
-dependencies[] = panopoly_core
-dependencies[] = panopoly_widgets
+;dependencies[] = panopoly_core
+;dependencies[] = panopoly_widgets
 
 
 files[] = helm.profile

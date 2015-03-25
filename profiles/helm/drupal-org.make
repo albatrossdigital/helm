@@ -222,14 +222,14 @@ projects[fieldable_panels_panes][download][branch] = 7.x-1.x
 ; *********************************************************************************
 
 
-projects[panopoly_core][version] = 1.19
-projects[panopoly_core][subdir] = panopoly
-projects[panopoly_core][patch][2453509] = https://www.drupal.org/files/issues/2453509-panopoly_core-remove-makefile-7.x-1.19.patch
+;projects[panopoly_core][version] = 1.19
+;projects[panopoly_core][subdir] = panopoly
+;projects[panopoly_core][patch][2453509] = https://www.drupal.org/files/issues/2453509-panopoly_core-remove-makefile-7.x-1.19.patch
 
-projects[panopoly_widgets][version] = 1.19
-projects[panopoly_widgets][subdir] = panopoly
-projects[panopoly_widgets][patch][2453509] = https://www.drupal.org/files/issues/2453509-panopoly_widgets-remove-makefile-7.x-1.19.patch
-projects[panopoly_widgets][patch][2453529] = http://drupal.org/files/issues/panopoly_widgets-remove-media-requirements.patch
+;projects[panopoly_widgets][version] = 1.19
+;projects[panopoly_widgets][subdir] = panopoly
+;projects[panopoly_widgets][patch][2453509] = https://www.drupal.org/files/issues/2453509-panopoly_widgets-remove-makefile-7.x-1.19.patch
+;projects[panopoly_widgets][patch][2453529] = http://drupal.org/files/issues/panopoly_widgets-remove-media-requirements.patch
 
 
 ; *********************************************************************************

@@ -7,7 +7,6 @@ dependencies[] = features
 dependencies[] = file
 dependencies[] = media
 dependencies[] = options
-dependencies[] = panopoly_core
 dependencies[] = helm_news
 dependencies[] = helm_page
 dependencies[] = strongarm

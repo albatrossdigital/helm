@@ -13,7 +13,6 @@ dependencies[] = panelizer
 dependencies[] = panels
 dependencies[] = panels_extra_styles
 dependencies[] = panels_ipe
-dependencies[] = panopoly_core
 dependencies[] = strongarm
 dependencies[] = taxonomy
 dependencies[] = text
