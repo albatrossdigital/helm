@@ -566,6 +566,7 @@ function _media_formatters_view_lazysizes($entity_type, $entity, $field, $instan
   $markup = theme('image_lazysizes', array(
     'item' => $item, 
     'image_style' => $settings['image_style'],
+    'show_attribution' => !empty($settings['show_attribution']) ? $settings['show_attribution'] : NULL,
     'show_src' => !empty($settings['show_src']) ? $settings['show_src'] : NULL,
     'image_style_xs' => $settings['image_style_xs'],
     'image_style_sm' => $settings['image_style_sm'],

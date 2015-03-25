@@ -1,5 +1,5 @@
 <?php if(!$is_hidden): ?>
-  <a href="<?php print $path_lightbox ?>" dat data-toggle="lightbox" data-gallery="<?php print $gallery ?>" data-title="<?php print $title ?>" data-parent=".lightbox-gallery-wrapper" class="<?php print $class ?>">
+  <a href="<?php print $path_lightbox ?>" data-toggle="lightbox" data-gallery="<?php print $gallery ?>" data-title="<?php print $title ?>" data-parent=".lightbox-gallery-wrapper" class="<?php print $class ?>">
     <?php if(!empty($img)): ?>
       <?php print $img ?>
     <?php else: ?>
@@ -7,5 +7,5 @@
     <?php endif; ?>
   </a>
 <?php else: ?>
-  <div data-toggle="lightbox" data-gallery="<?php print $gallery ?>" data-remote="<?php print $path_lightbox ?>" data-title="<?php print $title ?>"></div>
+  <div data-toggle="lightbox" data-gallery="<?php print $gallery ?>" data-remote="<?php print $path_lightbox ?>" data-title="<?php print $title ?>" data-parent=".lightbox-gallery-wrapper"></div>
 <?php endif; ?>
