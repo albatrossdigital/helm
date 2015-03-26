@@ -5600,7 +5600,7 @@ label.label-help:after {
       font-weight: normal;
       height: 1.2em; }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 992px) {
   .node-form > div {
     width: 70%; }
   .node-form .bootstrap-vertical-tabs {
