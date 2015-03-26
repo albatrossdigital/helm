@@ -56,7 +56,6 @@ dependencies[] = module_filter
 dependencies[] = filter_perms
 dependencies[] = menu_block
 dependencies[] = menu_firstchild
-dependencies[] = vertical_tabs_responsive
 dependencies[] = page_manager
 dependencies[] = panels
 dependencies[] = panels_ipe

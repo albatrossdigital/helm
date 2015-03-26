@@ -144,9 +144,6 @@ projects[fences][subdir] = contrib
 projects[panels_extra_styles][version] = 1.1
 projects[panels_extra_styles][subdir] = contrib
 
-projects[vertical_tabs_responsive][version] = "1.0-beta3"
-projects[vertical_tabs_responsive][subdir] = contrib
-
 projects[addthis][version] = "4.0-alpha4"
 projects[addthis][subdir] = "contrib"
 
