@@ -3,16 +3,6 @@
 .node-form {
   position:relative;
 
-  &>div {
-    width: 70%;
-  }
-
-  .form-actions {
-    position: absolute;
-    top: -8rem;
-    right: 0;
-  }
-
   .form-item-title,
   .field-name-field-subtitle {
     margin-bottom: 2em;
@@ -41,6 +31,30 @@
       font-size: 2em;
       font-weight: normal;
       height: 1.2em;
+    }
+  }
+}
+
+
+@media screen and (min-width: $screen-sm-min) {
+  .node-form {
+
+    & > div {
+      width: 70%;
+    }
+
+    .bootstrap-vertical-tabs {
+      position: absolute;
+      padding-left: $grid-gutter-width;
+      right: 0;
+      top: 0;
+      width: 30%;
+    }
+
+    .form-actions {
+      position: absolute;
+      top: -8rem;
+      right: 0;
     }
   }
 }

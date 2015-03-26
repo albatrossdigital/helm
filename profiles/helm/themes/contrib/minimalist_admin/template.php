@@ -120,6 +120,20 @@ function minimalist_admin_js_alter(&$js) {
 // }
 
 /**
+ * Adds a flag to vertical tabs to be rendered as bootstrap tabs
+ */
+
+function minimalist_admin_vertical_tabs_modify(&$form) {
+  // Modify vertical tabs
+  $children = element_children($form);
+  foreach ($children as $key) {
+    if(!empty($form[$key]['#type']) && $form[$key]['#type'] == 'vertical_tabs') {
+      $form[$key]['#modify_tabs'] = TRUE;
+    }
+  }
+}
+
+/**
  * Implements hook_form_alter().
  * Sets up minimalist node edit form.
  */
@@ -131,8 +145,9 @@ function minimalist_admin_form_alter(&$form, &$form_state, $form_id) {
     // Placeholder text
     $form['title']['#attributes']['placeholder'] = t('Enter title');
     $form['field_subtitle'][LANGUAGE_NONE][0]['value']['#attributes']['placeholder'] = t('Enter subtitle');
-    
-    dpm($form);
+
+    // modify vertical tabs 
+    minimalist_admin_vertical_tabs_modify($form);
   }
 
   // Add Boostrap multiselect
@@ -144,34 +159,23 @@ function minimalist_admin_form_alter(&$form, &$form_state, $form_id) {
       $form['#attached']['css'][$library_path . '/dist/css/bootstrap-multiselect.css'] = array();
     }
   }
-
-
-  // Including necessary files to responsify.
-  // @todo: make this work to remove vertical_tabs_responsive module dependence
-  //$form['#attached']['js'][] = $path . '/js/vertical-tabs-custom.js';
-
 }
-
 
 //
 function minimalist_admin_vertical_tabs($variables) {
 
-  $element = $variables ['element'];
-  // Add required JavaScript and Stylesheet.
-  drupal_add_library('system', 'drupal.vertical-tabs');
+  $element = $variables['element'];
+  $output = '<h2 class="element-invisible">' . t('Vertical Tabs') . '</h2>';
 
-  $output = '<h2 class="element-in">' . t('asdasdVertical Tabs') . '</h2>';
-  $output .= '<div class="vertical-tabs-panes">' . $element ['#children'] . '</div>';
-  //dpm($variables);
-  //kpr($variables);
-  //dpm($element);
+  // We're turning these into bootstrap tabs
+  if(!empty($element['#modify_tabs'])) {
+    $output .= '<div class="bootstrap-vertical-tabs panel-group" id="accordion-' . $element['#id'] . '">' . $element ['#children'] . '</div>';
+  }
+  else {
+    // Add required JavaScript and Stylesheet.
+    drupal_add_library('system', 'drupal.vertical-tabs');
+
+    $output .= '<div class="vertical-tabs-panes">' . $element['#children'] . '</div>';
+  }
   return $output;
-}
-
-function minimalist_admin_field_group_build_pre_render_alter(&$element) {
-  dpm($element);
-}
-
-function minimalist_admin_process_vertical_tabs($element, &$form_state) {
-  dpm($element);
 }

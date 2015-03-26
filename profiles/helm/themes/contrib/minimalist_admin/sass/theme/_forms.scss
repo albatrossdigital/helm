@@ -6,9 +6,17 @@ fieldset {
   }
 }
 
+.collapsed.panel {
+  html.js & {
+    border-bottom-width: 1px;
+  }
+}
+
+// Radio styles
+
 .radio input[type="radio"], .radio-inline input[type="radio"], .checkbox input[type="checkbox"], .checkbox-inline input[type="checkbox"] {
   position: relative;
-  margin-left: 0;
+  margin: -0.2em 0.4em 0 0;
 }
 
 // Horizontal radios
