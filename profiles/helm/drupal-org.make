@@ -105,7 +105,7 @@ projects[menu_trail_by_path][subdir] = "contrib"
 projects[pathauto_persist][version] = "1.3"
 projects[pathauto_persist][subdir] = "contrib"
 
-projects[media_formatters][version] = "1.0-alpha1"
+projects[media_formatters][version] = "1.0-alpha2"
 projects[media_formatters][subdir] = "contrib"
 
 projects[angular_media][version] = "1.0-alpha1"
@@ -323,6 +323,9 @@ projects[bootstrap][subdir] = "contrib"
 
 projects[radix][version] = "3.0-rc2"
 projects[radix][subdir] = "contrib"
+
+projects[minimalist_admin][version] = "1.0-alpha2"
+projects[minimalist_admin][subdir] = "contrib"
 
 
 ; *********************************************************************************
