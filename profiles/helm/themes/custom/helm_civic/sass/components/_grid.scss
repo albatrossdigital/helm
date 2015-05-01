@@ -1,0 +1,39 @@
+
+
+.false-container {
+  margin: 0 auto;
+  display: block;
+}
+
+
+// *
+// * Media Queries
+// *
+// ******************************************************
+
+// @include respond($xs-only) {
+//   .false-container  > .row {
+//     padding-left: $grid-gutter-width/2;
+//     padding-right: $grid-gutter-width/2;
+//   }
+// }
+
+@include respond($sm-up) {
+
+  .false-container {
+    width: $container-sm;
+  }
+}
+
+@include respond($md-up) {
+
+  .false-container {
+    width: $container-md;
+  }
+}
+
+@include respond($lg-up) {
+  .false-container {
+    width: $container-lg;
+  }
+}

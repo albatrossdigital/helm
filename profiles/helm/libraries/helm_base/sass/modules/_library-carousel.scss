@@ -1,0 +1,266 @@
+// Style sheet for the flight library carousel
+// ----------------------------------------------------------------------------
+
+// upwards triangle
+@mixin triangle-up($width, $color) {
+  height: 0;
+  width: 0;
+  border-left: $width solid transparent;
+  border-right: $width solid transparent;
+  border-bottom: $width solid $color;
+}
+
+$home-slide-container-height: 290px;
+$home-slide-title-height: 90px;
+
+// sidebar menu fudging
+$sidebar-menu-height: 140px;
+
+// book carousel
+$carousel-count: 4;
+$tab-title-height: 37px;
+$tab-title-tablet-width: 110px;
+$tab-title-width: 126px;
+$tab-title-margin: 10px;
+
+// home page slideshows
+.block-flight-library-carousels {
+  padding-top: 25px !important;
+  ul.image {
+    @include transform(none);
+  }
+}
+
+.nav-tabs {
+  //+sub-nav-a-styles($sub-nav-font-color, 0.7em, $sub-nav-active-bg)
+  margin-bottom: 0;
+  width: 100%;
+  &, li {
+    list-style: none;
+  }
+  & > li {
+    display: inline-block;
+    float: left;
+    z-index: 0;
+    &.active {
+      //position: relative
+      overflow: visible;
+    }
+  }
+  .tab-title, .button {
+    height: $tab-title-height;
+    line-height: $tab-title-height;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+  .tab-title {
+    display: block;
+    position: relative;
+  }
+  .button {
+    border: 0;
+    text-decoration: none;
+    left: 0;
+    bottom: 0;
+    position: absolute;
+  }
+}
+
+.nav-content {
+  position: relative;
+  opactity: 0;
+  @include transition(opacity 0.5s ease-out);
+  &.loaded {
+    opactity: 1;
+  }
+  // vertical centering
+  .page, .caption {
+    font-size: 0;
+    &:before {
+      content: "";
+      display: inline-block;
+      height: 100%;
+      vertical-align: middle;
+    }
+  }
+  .book, .caption-inner {
+    font-size: 16px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .book {
+    text-align: center;
+    width: #{100 / $carousel-count}#{"%"};
+  }
+  div.image {
+    position: relative;
+    display: inline-block;
+    //overflow: hidden
+    margin-bottom: 0;
+    span {
+      display: block;
+      overflow: hidden;
+      opactity: 0;
+      @include transition(opacity 0.5s ease-out);
+      &.loaded {
+        opactity: 1;
+      }
+    }
+    // failsafe for load error
+    img ~ img {
+      display: none !important;
+    }
+  }
+  div.image,
+  .caption,
+  div.image span {
+    max-height: 260px;
+    max-width: 170px;
+  }
+  .caption {
+    display: none;
+    background: rgba($black, 0.85);
+    left: 0;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    min-height: 100%;
+    opactity: 0;
+    @include transition(opacity 0.5s ease);
+    &:hover, &:focus {
+      opactity: 1;
+    }
+    &, * {
+      color: $white;
+      line-height: 1.1em;
+    }
+  }
+  span.loaded ~ .caption {
+    display: inline-block;
+  }
+  .caption-inner {
+    background: $black;
+    padding: $column-gutter / 2;
+    width: 100%;
+  }
+  button {
+    &.prev,
+    &.next {
+      position: absolute;
+      top: 50%;
+      margin-top: -10px;
+      overflow: hidden;
+      border: 0;
+      border-image-width: 0;
+      padding: 0;
+      text-indent: -9000px;
+      background-color: transparent;
+      box-shadow: none;
+      z-index: 10;
+      &:active,
+      &:hover {
+        background-color: transparent;
+        border: 0;
+        border-image-width: 0;
+        outline: 0;
+        box-shadow: none;
+      }
+    }
+  }
+  button.prev {
+    left: 0;
+    //+s-image-hover(arrow-left)
+ 
+  }
+  button.next {
+    right: 0;
+    //+s-image-hover(arrow-right)
+ 
+  }
+}
+
+// *
+// * Media Queries
+// *
+// ******************************************************
+
+// tablet and up
+@include respond($medium) {
+  .nav-tabs {
+    bottom: -(($home-slide-title-height - $tab-title-height) / 2 + $tab-title-height);
+    position: absolute;
+    li {
+      &.active {
+        //position: relative
+        $triangle-height: 15px;
+        .tab-title {
+          &:before {
+            content: "";
+            @include triangle-up($triangle-height, $alert-color);
+            position: absolute;
+            left: 50%;
+            margin-left: -$triangle-height;
+            top: -$triangle-height;
+          }
+        }
+      }
+    }
+    .tab-title {
+      text-align: center;
+      margin-right: $tab-title-margin;
+      width: $tab-title-tablet-width;
+    }
+    .button-wrap a {
+      right: 0;
+      left: auto;
+      margin-bottom: 0;
+      bottom: 0;
+    }
+  }
+  .nav-content {
+    margin: 0 -10px;
+    padding: 0 25px;
+  }
+  .tabbable {
+    .nav-content,
+    .page-container,
+    .page {
+      height: $home-slide-container-height;
+    }
+  }
+}
+
+
+// medium and up
+@include respond($past-menu) {
+  .nav-tabs {
+    .tab-title {
+      font-size: 0.8em !important;
+    }
+    .tab-title {
+      width: $tab-title-width;
+    }
+  }
+}
+
+
+@include respond($large) {
+  // home page slideshows
+  .block-flight-library-carousels {
+    .button-wrap a {
+      right: 0;
+    }
+  }
+}
+
+
+$larger-carousel: "only screen and (min-width: 1100px)";
+
+@include respond($larger-carousel) {
+  // home page slideshows
+  .nav-content {
+    margin: 0 -55px;
+    padding: 0 55px;
+  }
+}

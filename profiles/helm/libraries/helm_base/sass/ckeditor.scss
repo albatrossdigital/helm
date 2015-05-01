@@ -1,0 +1,22 @@
+@import "base/init";
+
+
+// custom ckeditor styles
+body {
+  margin: 20px;
+  background: white;
+}
+
+// wysiwyg template options
+//blockquote
+
+.wysiwyg-dotted {
+  border: 1px dashed #efefef;
+  display: block;
+  padding: 0.5em;
+}
+
+// rows should just be 100%
+.row {
+  max-width: 100% !important;
+}

@@ -1,0 +1,32 @@
+
+<ul class="angular-311-2col slide-left-2 row">
+  <li ng-repeat="item in terms | termsNoParent | orderBy: 'weight'" class="col-sm-6 col-md-4" ng-class="item.tid == active.tid ? 'active' : ''">
+  
+    <div class="row category">
+
+      <div class="col-xs-2 col-md-2">
+        <h4 ng-if="item.field_icon"><a href="" ui-sref="faq({parent: item.tid})" style="background-color: {{item.field_icon.color}}" class="fa {{item.field_icon.icon}}"></a></h4>
+      </div>
+
+      <div class="col-xs-10 col-md-10 top-category">
+        <h4><a href="" ng-click="open(item)">{{item.name}}</a></h4>
+        <div class="animation-wrap">
+          <div class="slidedown" ng-if="active.tid == item.tid">
+            <!-- @todo: ng-repeat="child in terms | filter: { parent: [{id: item.tid}] } |  orderBy: 'weight'" -->
+            <ul class="taxonomy-vocabulary-2col">
+              <li ng-repeat="child in terms | termsByParent:item.tid" >
+                <a main-toggle="slide-left" href="" ui-sref="faq.child({tid: child.tid})">{{child.name}}</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </li>
+</ul>
+
+<div class="animation-wrap slide-left-2">
+  <div class="quickfade" ui-view></div>
+</div>

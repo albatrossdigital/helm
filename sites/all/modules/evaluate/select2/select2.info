@@ -1,0 +1,17 @@
+name = Select 2 integration
+description = Adds integration with the <a herf="http://ivaynberg.github.io/select2" target="_blank">Select2</a> Javascript plugin.
+core = 7.x
+
+package = User interface
+
+configure = admin/config/user-interface/select2_settings
+
+dependencies[] = libraries (>=7.x-2.1)
+dependencies[] = jquery_update (>=7.x-2.4)
+
+; Information added by Drupal.org packaging script on 2015-03-07
+version = "7.x-1.x-dev"
+core = "7.x"
+project = "select2"
+datestamp = "1425738483"
+

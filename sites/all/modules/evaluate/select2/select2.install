@@ -1,0 +1,124 @@
+<?php
+/**
+ * @file
+ * Install, update, and uninstall functions for the Select2 module.
+ */
+
+/**
+ * Implements hook_requirements().
+ */
+function select2_requirements($phase) {
+  $requirements = array();
+
+  if ($phase == 'runtime') {
+
+    $t = get_t();
+
+    $library = libraries_detect('select2');
+
+    $error_type = isset($library['error']) ? drupal_ucfirst($library['error']) : '';
+    $error_message = isset($library['error message']) ? $library['error message'] : '';
+
+    if (module_exists('jquery_update')) {
+
+      $module_list = $modules = drupal_system_listing('/^' . DRUPAL_PHP_FUNCTION_PATTERN . '\.module$/', 'modules', 'name', 0);
+
+      $jqupdate_module = drupal_parse_info_file(drupal_get_path('module', 'jquery_update') . '/jquery_update.info');
+
+      $jqupdate_module_version = $jqupdate_module['version'];
+
+      $jqupdate_module_version = str_replace('7.x-', '', $jqupdate_module_version);
+
+      $vc_result = version_compare($jqupdate_module_version, SELECT2_MIN_JQUPDATE_VERSION, '>=');
+
+      if ($vc_result <= 0) {
+        $requirements['slect2_jqupdate_version'] = array(
+          'title' => $t('Select2: jQuery update'),
+          'value' => $t('@a', array('@a' => $jqupdate_module['version'])),
+          'severity' => REQUIREMENT_ERROR,
+          'description' => $t('You need to install a later version of the !jquery_update. Minimum requred version of jQuery Update is 7.x-!min_jq_update_version.',
+              array(
+                '!jquery_update' => l($t('jQuery update'),
+                                      'https://drupal.org/project/jquery_update',
+                                      array(
+                                        'attributes' => array(
+                                          'target' => '_balnk',
+                                        ),
+                                      )),
+                '!min_jq_update_version' => SELECT2_MIN_JQUPDATE_VERSION,
+              )
+          ),
+        );
+      }
+      else {
+        $requirements['slect2_jqupdate_version'] = array(
+          'title' => $t('Select2: jQuery update'),
+          'severity' => REQUIREMENT_OK,
+          'value' => $jqupdate_module['version'],
+        );
+      }
+
+    }
+
+    if (empty($library['installed'])) {
+      $requirements['select2_plugin'] = array(
+        'title' => $t('Select2 plugin'),
+        'value' => $t('@e: At least @a', array('@e' => $error_type, '@a' => SELECT2_MIN_PLUGIN_VERSION)),
+        'severity' => REQUIREMENT_ERROR,
+        'description' => $t('!error You need to download the !select2, extract the archive and place the select2 directory in the %path directory on your server.',
+          array(
+            '!error' => $error_message,
+            '!select2' => l($t('Select2 plugin'), $library['download url']),
+            '%path' => 'sites/all/libraries')),
+      );
+    }
+    elseif (version_compare($library['version'], SELECT2_MIN_PLUGIN_VERSION, '>=')) {
+      $requirements['select2_plugin'] = array(
+        'title' => $t('Selct2 plugin'),
+        'severity' => REQUIREMENT_OK,
+        'value' => $library['version'],
+      );
+    }
+    else {
+      $requirements['slect2_plugin'] = array(
+        'title' => $t('Select2 plugin'),
+        'value' => $t('At least @a', array('@a' => SELECT2_MIN_PLUGIN_VERSION)),
+        'severity' => REQUIREMENT_ERROR,
+        'description' => $t('You need to download a later version of the !select2 and replace the old version located in the %path directory on your server.',
+          array(
+            '!select2' => l($t('Select2 plugin'), $library['download url']),
+            '%path' => $library['library path'])),
+      );
+    }
+
+    // Need to check jQuery version.
+    if (!select2_check_jq_front_end_version()) {
+      $requirements['slect2_plugin_jq_version'] = array(
+        'title' => $t('Select2 plugin'),
+        'value' => $t('You must use jQuery 1.8.2 or higher for using Select2 plugin.'),
+        'severity' => REQUIREMENT_ERROR,
+        'description' => $t('Set jQuery version 1.8 or higher on !jq_update_config page',
+          array(
+            '!jq_update_config' => l($t('jQuery update settings'), 'admin/config/development/jquery_update'),
+          )
+        ),
+      );
+    }
+
+    if (!select2_check_jq_admin_mode_version()) {
+      $requirements['slect2_plugin_jq_version_admin_mode'] = array(
+        'title' => $t('Select2 plugin'),
+        'value' => $t('You must use jQuery 1.8.2 or higher for using Select2 plugin for administrative pages.'),
+        'severity' => REQUIREMENT_ERROR,
+        'description' => $t('Set jQuery version 1.8 or higher on !jq_update_config page',
+          array(
+            '!jq_update_config' => l($t('jQuery update settings'), 'admin/config/development/jquery_update'),
+          )
+        ),
+      );
+    }
+
+  }
+
+  return $requirements;
+}

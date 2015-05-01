@@ -12,30 +12,7 @@ function helm_faq_taxonomy_default_vocabularies() {
     'faq_category' => array(
       'name' => 'FAQ Category',
       'machine_name' => 'faq_category',
-      'description' => 'Used to organize FAQs',
-      'hierarchy' => 0,
-      'module' => 'taxonomy',
-      'weight' => 0,
-      'rdf_mapping' => array(
-        'rdftype' => array(
-          0 => 'skos:ConceptScheme',
-        ),
-        'name' => array(
-          'predicates' => array(
-            0 => 'dc:title',
-          ),
-        ),
-        'description' => array(
-          'predicates' => array(
-            0 => 'rdfs:comment',
-          ),
-        ),
-      ),
-    ),
-    'faq_tags' => array(
-      'name' => 'FAQ Tags',
-      'machine_name' => 'faq_tags',
-      'description' => 'Used to organize FAQs',
+      'description' => 'Organize FAQ entries',
       'hierarchy' => 0,
       'module' => 'taxonomy',
       'weight' => 0,

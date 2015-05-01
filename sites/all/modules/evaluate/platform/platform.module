@@ -1,0 +1,45 @@
+<?php
+
+/**
+ * @file
+ * Displays the name of the Platform environment you are viewing.
+ *
+ * We do this by adding a div that is fixed to the bottom of the page. We can
+ * read environment variables configured in Platform to find the environment
+ * name and then add the value to Drupal's JavaScript settings array for display
+ * on the site.
+ */
+
+
+/**
+ * Implements hook_page_build().
+ */
+function platform_page_build(&$page) {
+  // Fetch the name of the current Platform environment.
+  $platform_environment = platform_get_environment();
+
+  // Check to ensure we got a value and that it is not master, as we don't want
+  // to show the indicator on non-Platform sites or in the master environment.
+  if (!empty($platform_environment) && $platform_environment != 'master') {
+    // Include the environment name in the JavaScript settings array and attach
+    // the JavaScript and CSS to the page.
+    drupal_add_js(array('environment' => check_plain($platform_environment)), 'setting');
+    drupal_add_js(drupal_get_path('module', 'platform') . '/js/platform.js');
+    drupal_add_css(drupal_get_path('module', 'platform') . '/theme/platform.css');
+  }
+}
+
+/**
+ * Implements hook_preprocess_html().
+ */
+function platform_preprocess_html(&$vars) {
+  // Add the platform-indicator class to the body tag.
+  $vars['classes_array'][] = 'platform-indicator';
+}
+
+/**
+ * Returns the name of the current Platform environment.
+ */
+function platform_get_environment() {
+  return getenv('PLATFORM_ENVIRONMENT');
+}

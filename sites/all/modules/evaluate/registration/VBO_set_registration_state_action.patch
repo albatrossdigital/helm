@@ -1,0 +1,79 @@
+diff --git a/modules/registration_views/registration_views.module b/modules/registration_views/registration_views.module
+index 8f5a221..cd58aed 100644
+--- a/modules/registration_views/registration_views.module
++++ b/modules/registration_views/registration_views.module
+@@ -65,6 +65,74 @@ function registration_views_entity_info_alter(&$entity_info) {
+   $entity_info['registration']['views controller class'] = 'RegistrationViewsController';
+ }
+ 
++/**
++ * Implements hook_action_info().
++ */
++function registration_views_action_info() {
++  return array(
++    'registration_views_set_state_action' => array(
++      'type' => 'registration',
++      'label' => t('Set the Registration State'),
++      'behavior' => array('changes_property'),
++      'configurable' => FALSE,
++      'vbo_configurable' => TRUE,
++      'triggers' => array('any'),
++    ),
++  );
++}
++
++/**
++ * Implements hook_views_bulk_operation_form().
++ *
++ * Provides a configuration form for the VBO dialogue when configuring a view.
++ */
++function registration_views_set_state_action_views_bulk_operations_form($options) {
++  $form = array();
++  $form['default_registration_state'] = array(
++    '#type' => 'select',
++    '#title' => t('Status'),
++    '#options' => registration_get_states_options(),
++    '#default_value' => !empty($options['default_registration_state']) ? $options['default_registration_state'] : '',
++  );
++
++  return $form;
++}
++
++/**
++ * Per-action form for executing a bulk operation.
++ *
++ * Simply adds a form to select what state to set when performing a VBO
++ * set_state_action.
++ */
++function registration_views_set_state_action_form($settings) {
++  $form = array();
++  $form['registration_state'] = array(
++    '#type' => 'select',
++    '#title' => t('Status'),
++    '#options' => registration_get_states_options(),
++    '#default_value' => !empty($settings['settings']['default_registration_state']) ? $settings['settings']['default_registration_state'] : '',
++  );
++
++  return $form;
++}
++
++/**
++ * Submit handler for registration_views_set_state_action_form().
++ */
++function registration_views_set_state_action_submit($form, $form_state) {
++  $return = array();
++  $return['new_state'] = $form_state['values']['registration_state'];
++  return $return;
++}
++
++/**
++ * The actual action to set a Registration's State.
++ */
++function registration_views_set_state_action(&$node, $context) {
++  $context['registration']->state = $context['new_state'];
++  registration_save($context['registration']);
++}
++
+ class RegistrationViewsController extends EntityDefaultViewsController {
+ 
+   public function views_data() {

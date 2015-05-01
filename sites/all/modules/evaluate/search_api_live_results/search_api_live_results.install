@@ -1,0 +1,81 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the Search API live results module.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function search_api_live_results_schema() {
+  $schema['search_api_live_results_search'] = array(
+    'description' => 'Stores live results settings for searches on Search API indexes.',
+    'fields' => array(
+      'id' => array(
+        'description' => 'The primary identifier for a search.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'machine_name' => array(
+        'description' => 'A string identifier for a search.',
+        'type' => 'varchar',
+        'length' => 100,
+        'not null' => TRUE,
+      ),
+      'name' => array(
+        'description' => 'A human-readable name for the search.',
+        'type' => 'varchar',
+        'length' => 50,
+      ),
+      'index_id' => array(
+        'description' => 'The {search_api_index}.machine_name this search belongs to.',
+        'type' => 'varchar',
+        'length' => 50,
+        'not null' => TRUE,
+      ),
+      'type' => array(
+        'description' => 'The type of search, usually a module name.',
+        'type' => 'varchar',
+        'length' => 50,
+        'not null' => TRUE,
+      ),
+      'enabled' => array(
+        'description' => 'A flag indicating whether autocompletion for this search is enabled.',
+        'type' => 'int',
+        'size' => 'tiny',
+        'not null' => TRUE,
+        'default' => 1,
+      ),
+      'options' => array(
+        'description' => 'The options used to configure autocompletion for this search.',
+        'type' => 'text',
+        'serialize' => TRUE,
+        'not null' => TRUE,
+      ),
+      'status' => array(
+        'description' => 'The exportable status of the entity.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0x01,
+        'size' => 'tiny',
+      ),
+      'module' => array(
+        'description' => 'The name of the providing module if the entity has been defined in code.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+      ),
+    ),
+    'primary key' => array('id'),
+    'unique keys' => array(
+      'machine_name' => array('machine_name'),
+    ),
+    'indexes' => array(
+      'enabled' => array('enabled'),
+    ),
+  );
+
+  return $schema;
+}

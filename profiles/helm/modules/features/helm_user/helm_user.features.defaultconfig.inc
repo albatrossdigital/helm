@@ -446,15 +446,6 @@ function helm_user_defaultconfig_user_default_permissions() {
     'module' => 'user',
   );
 
-  // Exported permission: 'use gravatar'.
-  $permissions['use gravatar'] = array(
-    'name' => 'use gravatar',
-    'roles' => array(
-      'authenticated user' => 'authenticated user',
-    ),
-    'module' => 'gravatar',
-  );
-
   // Exported permission: 'view own unpublished content'.
   $permissions['view own unpublished content'] = array(
     'name' => 'view own unpublished content',

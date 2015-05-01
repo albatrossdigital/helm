@@ -1,0 +1,8 @@
+<div ng-repeat="item in items" class="item">
+
+  <h3><a href="{{item.path}}">{{item.title}}</a></h3>
+  <p class="post-date">Posted {{item.created | date:'MM/dd/yyyy, h:mma'}}</p>
+  <div class="field-body" ng-bind-html="item.body"><div>
+
+</div>
+

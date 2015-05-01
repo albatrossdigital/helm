@@ -28,14 +28,14 @@ function helm_search_defaultconfig_user_default_permissions() {
     'module' => 'search_api',
   );
 
-  // Exported permission: 'use search_api_autocomplete for search_api_views_search'.
-  $permissions['use search_api_autocomplete for search_api_views_search'] = array(
-    'name' => 'use search_api_autocomplete for search_api_views_search',
+  // Exported permission: 'use_search_api_live_results'.
+  $permissions['use_search_api_live_results'] = array(
+    'name' => 'use_search_api_live_results',
     'roles' => array(
       'anonymous user' => 'anonymous user',
       'authenticated user' => 'authenticated user',
     ),
-    'module' => 'search_api_autocomplete',
+    'module' => 'search_api_live_results',
   );
 
   return $permissions;

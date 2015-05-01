@@ -34,6 +34,12 @@ function helm_faq_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 0,
       ),
+      'live_results_search' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
       'report_list' => array(
         'label' => 'above',
         'settings' => array(),
@@ -71,7 +77,7 @@ function helm_faq_field_default_field_instances() {
         'summary_rows' => 5,
       ),
       'type' => 'text_textarea_with_summary',
-      'weight' => 2,
+      'weight' => 1,
     ),
   );
 
@@ -89,6 +95,12 @@ function helm_faq_field_default_field_instances() {
         'weight' => 20,
       ),
       'featured' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'live_results_search' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -119,13 +131,13 @@ function helm_faq_field_default_field_instances() {
       'active' => 1,
       'module' => 'options',
       'settings' => array(),
-      'type' => 'options_buttons',
-      'weight' => 7,
+      'type' => 'options_select',
+      'weight' => 2,
     ),
   );
 
-  // Exported field_instance: 'node-faq-field_faq_tags'
-  $field_instances['node-faq-field_faq_tags'] = array(
+  // Exported field_instance: 'node-faq-field_tags'
+  $field_instances['node-faq-field_tags'] = array(
     'bundle' => 'faq',
     'default_value' => NULL,
     'deleted' => 0,
@@ -133,17 +145,12 @@ function helm_faq_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
+        'module' => 'taxonomy',
         'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 21,
+        'type' => 'taxonomy_term_reference_link',
+        'weight' => 22,
       ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'report_list' => array(
+      'live_results_search' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -156,23 +163,21 @@ function helm_faq_field_default_field_instances() {
         'weight' => 0,
       ),
     ),
-    'ds_extras_field_template' => '',
     'entity_type' => 'node',
-    'field_name' => 'field_faq_tags',
-    'label' => 'Keywords',
-    'required' => 0,
+    'field_name' => 'field_tags',
+    'label' => 'Tags',
+    'required' => FALSE,
     'settings' => array(
       'user_register_form' => FALSE,
     ),
     'widget' => array(
-      'active' => 0,
       'module' => 'taxonomy',
       'settings' => array(
         'autocomplete_path' => 'taxonomy/autocomplete',
         'size' => 60,
       ),
       'type' => 'taxonomy_autocomplete',
-      'weight' => 9,
+      'weight' => 3,
     ),
   );
 
@@ -271,7 +276,7 @@ function helm_faq_field_default_field_instances() {
   t('Category');
   t('Color');
   t('Icon');
-  t('Keywords');
+  t('Tags');
 
   return $field_instances;
 }

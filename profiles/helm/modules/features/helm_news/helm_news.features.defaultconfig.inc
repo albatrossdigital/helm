@@ -26,7 +26,7 @@ function helm_news_defaultconfig_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'pathauto_node_article_pattern';
-  $strongarm->value = '';
+  $strongarm->value = 'news/[current-date:helm_date_formats_date_mmddyyyy]/[node:title]';
   $export['pathauto_node_article_pattern'] = $strongarm;
 
   return $export;
@@ -61,7 +61,6 @@ function helm_news_defaultconfig_user_default_permissions() {
   $permissions['delete own article content'] = array(
     'name' => 'delete own article content',
     'roles' => array(
-      'administrator' => 'administrator',
       'editor' => 'editor',
     ),
     'module' => 'node',
@@ -72,7 +71,6 @@ function helm_news_defaultconfig_user_default_permissions() {
     'name' => 'edit any article content',
     'roles' => array(
       'administrator' => 'administrator',
-      'editor' => 'editor',
     ),
     'module' => 'node',
   );
@@ -81,7 +79,6 @@ function helm_news_defaultconfig_user_default_permissions() {
   $permissions['edit own article content'] = array(
     'name' => 'edit own article content',
     'roles' => array(
-      'administrator' => 'administrator',
       'editor' => 'editor',
     ),
     'module' => 'node',

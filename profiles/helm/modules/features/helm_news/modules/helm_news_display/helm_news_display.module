@@ -6,6 +6,22 @@
 
 include_once 'helm_news_display.features.inc';
 
+
+
+/**
+ * Implements hook_entity_info_alter().
+ *
+ * Define custom view modes
+ */
+function helm_news_display_entity_info_alter(&$entity_info) {
+  $entity_info['node']['view modes']['featured'] = array(
+    'label' => t('Featured'),
+    'custom settings' => FALSE,
+  );
+}
+
+
+
 /**
  * Implements hook_panels_pre_render
  */

@@ -49,6 +49,7 @@ function angular_media_app_path() {
  * Implements hook_library().
  */
 function angular_media_library() {
+  // Library One.
   $path = angular_media_app_path();
   $libraries['angular-media-app'] = array(
     'title' => 'Angular Media app',

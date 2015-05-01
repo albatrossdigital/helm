@@ -1,0 +1,3 @@
+<ul class="nav nav-pills nav-stacked {{addlClass}}">
+  <li ng-repeat="item in menu" ui-sref-active="active"><a menu-click main-toggle="slide-left" main-toggle-force="remove" animate-route="{{item.direction}}" ui-sref="{{item.state}}" menu-item><i class="fa {{item.icon}}"></i> {{item.title}}</a></li>
+</ul>

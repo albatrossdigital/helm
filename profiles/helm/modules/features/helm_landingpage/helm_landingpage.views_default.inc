@@ -38,11 +38,11 @@ function helm_landingpage_views_default_views() {
   $handler->display->display_options['fields']['title']['label'] = '';
   $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
-  /* Sort criterion: Menu: Weight */
+  /* Sort criterion: Broken/missing handler */
   $handler->display->display_options['sorts']['weight']['id'] = 'weight';
   $handler->display->display_options['sorts']['weight']['table'] = 'menu_links';
   $handler->display->display_options['sorts']['weight']['field'] = 'weight';
-  /* Contextual filter: Menu: Parent menu link id */
+  /* Contextual filter: Broken/missing handler */
   $handler->display->display_options['arguments']['plid']['id'] = 'plid';
   $handler->display->display_options['arguments']['plid']['table'] = 'menu_links';
   $handler->display->display_options['arguments']['plid']['field'] = 'plid';

@@ -1,0 +1,172 @@
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+  <title>foursquare :: Explore Sample</title>
+
+  
+  
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" id="jquery"></script>
+    <script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.6/mapbox.js'></script>
+    <script type="text/javascript" src="http://maps.stamen.com/js/tile.stamen.js?v1.2.3"></script>
+    <script src="assets/Leaflet.awesome-markers/dist/leaflet.awesome-markers.js"></script>
+
+        <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+
+    <link rel="stylesheet" href="assets/Leaflet.awesome-markers/dist/leaflet.awesome-markers.css">
+
+  <style type="text/css">
+    html { height: 100%; }
+    body { height: 100%; margin: 0; padding: 0; }
+    /* Give our markers a background image */
+    .leaflet-marker-icon {
+      background: url(https://foursquare.com/img/pin-blue.png);
+      padding: 6px;
+      padding-bottom: 17px;
+      top: -6px;
+      left: -6px;
+      }
+    .map {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+
+ 
+
+  
+</head>
+<body>
+  <nav id='menu-ui' class='menu-ui'></nav>
+  <div class="map" id="map"></div>
+
+
+
+
+  <script type="text/javascript">
+  
+  var config = {
+    clientKey: '1CAZ5UW5UDQ2F1EDEHFOULURU4K3RBWWITBOONJ2XLXPD52V',
+    clientSecret: 'GA4DAN4KLI5UM0VJ4BAZAE4SEVLIR0BC5B4UKGNVR2VJXXWN',
+    authUrl: 'https://foursquare.com/',
+    apiUrl: 'https://api.foursquare.com/',
+    lat: 44.5667,
+    lng: -123.2833,
+    query: 'restaurant'
+  };
+
+
+  /* stamen maps */
+  var map = new L.Map('map', {
+      center: new L.LatLng(config.lat, config.lng),
+      zoom: 14,
+      //scrollWheelZoom: false
+  });
+  map.addLayer(new L.StamenTileLayer("watercolor", {
+      detectRetina: true
+  }));
+
+  var layers = document.getElementById('menu-ui');
+  addLayer('Parks', 'foursquare', 14, {query: 'park'});
+  addLayer('Schools', 'foursquare', 14, {query: 'school'});
+  addLayer('Restaurants', 'foursquare', 14, {query: 'restaurant'});
+  addLayer('Entertainment', 'foursquare', 14, {query: 'entertainment'});
+  addLayer('Events', 'drupal', 14, {url: 'api/events.json'});
+  addLayer('Public Transportation', 'mbtiles', 14, {url: 'http://maps.albatrossdigital.com:8888/v2/gtfs_corvallis.json', 'attribution': '<a href="ftp://ftp.ci.corvallis.or.us/pw/Transportation/GoogleTransitFeed/">City of Corvallis GTFS</a>'});
+
+  //L.mapbox.tileLayer('http://maps.albatrossdigital.com:8888/v2/gtfs_corvallis.json').addTo(map);
+  //
+
+  var attr;
+  var activeLayer;
+  function addLayer(name, type, zoom, params) {
+      //layer
+      //    .setZIndex(zIndex)
+      //    .addTo(map);
+
+      // Create a simple layer switcher that
+      // toggles layers on and off.
+      var link = document.createElement('a');
+          link.href = '#';
+          link.className = 'active';
+          link.innerHTML = name;
+
+      link.onclick = function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+
+          if (activeLayer != undefined) {
+            map.removeLayer(activeLayer);
+          }
+          activeLayer = L.layerGroup().addTo(map);
+          if (attr != undefined) {
+            map.removeControl(attr);
+          }
+          attr = L.control.attribution({prefix: false}).addTo('map');
+
+          switch(type) {
+            case 'foursquare':
+              var items = addFoursquareLayer(params.query);
+              attr.addAttribution('<a href="http://foursquare.com">Foursquare</a>');
+              break;
+            case 'drupal':
+              var items = addFoursquareLayer(params.query);
+              attr.addAttribution('This website');
+              break;
+            case 'mbtiles':
+              tile = L.mapbox.tileLayer(params.url).addTo(activeLayer);
+              grid = L.mapbox.gridLayer(params.url).addTo(activeLayer);
+              var items = [tile, grid];
+              attr.addAttribution(params.attribution);
+          }
+          map.setZoom(zoom);
+
+      };
+
+      layers.appendChild(link);
+  }
+
+  function addFoursquareLayer(query) {
+
+    /* Query Foursquare API for venue recommendations near the current location. */
+    $.getJSON(config.apiUrl + 'v2/venues/explore?ll=' + config.lat + ',' + config.lng + '&query=' + query + '&client_id=' + config.clientKey + '&client_secret=' + config.clientSecret +'&v=20140601', {}, function(data) {
+      venues = data['response']['groups'][0]['items'];
+      console.log(venues);
+      /* Place marker for each venue. */
+      for (var i = 0; i < venues.length; i++) {
+        /* Get marker's location */
+        var latLng = new L.LatLng(
+          venues[i]['venue']['location']['lat'],
+          venues[i]['venue']['location']['lng']
+        );
+        /* Build icon for each icon */
+        var fsqIcon = venues[i]['venue']['categories'][0]['icon'];
+        var leafletIcon = L.Icon.extend({
+          options: {
+            iconUrl: fsqIcon['prefix'] + '32' + fsqIcon['suffix'],
+            shadowUrl: null,
+            iconSize: new L.Point(32,32),
+            iconAnchor: new L.Point(16, 41),
+            popupAnchor: new L.Point(0, -51)
+          }
+        });
+        var icon = new leafletIcon();
+        var popup = '<h3>' + venues[i]['venue']['name'] + '</h3>' + venues[i]['venue']['categories'][0].name;
+        if (venues[i]['venue']['contact'].formattedPhone != undefined) {
+          popup += '<br/>' + venues[i]['venue']['contact'].formattedPhone;
+        }
+        var marker = new L.Marker(latLng, {icon: icon})
+          .bindPopup(popup, { closeButton: false })
+          .on('mouseover', function(e) { this.openPopup(); })
+          .on('mouseout', function(e) { this.closePopup(); });
+        activeLayer.addLayer(marker);
+      }
+    })
+  }
+
+  </script>
+</body>
+</html>  
+  

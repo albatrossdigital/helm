@@ -145,24 +145,22 @@ function minimalist_admin_form_alter(&$form, &$form_state, $form_id) {
     // Placeholder text
     $form['title']['#attributes']['placeholder'] = t('Enter title');
     $form['field_subtitle'][LANGUAGE_NONE][0]['value']['#attributes']['placeholder'] = t('Enter subtitle');
+<<<<<<< HEAD
+=======
 
     // modify vertical tabs 
     minimalist_admin_vertical_tabs_modify($form);
   }
+>>>>>>> 02b8b2f1264680770b0ae4139e156ad4d247bb6e
 
-  // Add Boostrap multiselect
-  if (function_exists('libraries_get_path')) {
-    $library_path = libraries_get_path('bootstrap-multiselect');
-    if ($path) {
-      $form['#attached']['js'][$library_path . '/dist/js/bootstrap-multiselect.js'] = array();
-      $form['#attached']['js'][$path . '/js/bootstrap-multiselect.js'] = array();
-      $form['#attached']['css'][$library_path . '/dist/css/bootstrap-multiselect.css'] = array();
-    }
+    // modify vertical tabs 
+    minimalist_admin_vertical_tabs_modify($form);
   }
 }
 
 //
 function minimalist_admin_vertical_tabs($variables) {
+<<<<<<< HEAD
 
   $element = $variables['element'];
   $output = '<h2 class="element-invisible">' . t('Vertical Tabs') . '</h2>';
@@ -175,6 +173,20 @@ function minimalist_admin_vertical_tabs($variables) {
     // Add required JavaScript and Stylesheet.
     drupal_add_library('system', 'drupal.vertical-tabs');
 
+=======
+
+  $element = $variables['element'];
+  $output = '<h2 class="element-invisible">' . t('Vertical Tabs') . '</h2>';
+
+  // We're turning these into bootstrap tabs
+  if(!empty($element['#modify_tabs'])) {
+    $output .= '<div class="bootstrap-vertical-tabs panel-group" id="accordion-' . $element['#id'] . '">' . $element ['#children'] . '</div>';
+  }
+  else {
+    // Add required JavaScript and Stylesheet.
+    drupal_add_library('system', 'drupal.vertical-tabs');
+
+>>>>>>> 02b8b2f1264680770b0ae4139e156ad4d247bb6e
     $output .= '<div class="vertical-tabs-panes">' . $element['#children'] . '</div>';
   }
   return $output;

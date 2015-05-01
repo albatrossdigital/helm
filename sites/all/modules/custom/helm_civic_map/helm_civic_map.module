@@ -1,0 +1,108 @@
+<?php
+/**
+ * @file
+ * Code for the Helm Civic Maps feature.
+ */
+
+include_once 'helm_civic_map.features.inc';
+
+
+
+/**
+ * Implements hook_ctools_plugin_directory().
+ */
+function helm_civic_map_ctools_plugin_directory($owner, $plugin_type) {
+  // Call the various ctools plugin types.
+  $modules = array('panels', 'ctools');
+  if (in_array($owner, $modules) && !empty($plugin_type) && ($plugin_type == 'content_types' || $plugin_type == 'access' || $plugin_type == 'layouts')) {
+    return 'plugins/' . $plugin_type;
+  }
+}
+
+
+/**
+ * Implements hook_library().
+ */
+function helm_civic_map_library() {
+  $js_settings = array('scope' => 'footer', 'weight' => 5, 'external' => TRUE);
+  $libraries['helm-civic-map'] = array(
+    'title' => 'Helm Civic Map',
+    'website' => 'http://albatrossdigital.com',
+    'version' => '0.1',
+    'js' => array(
+      'https://api.tiles.mapbox.com/mapbox.js/v2.1.6/mapbox.js' => $js_settings,
+      'http://maps.stamen.com/js/tile.stamen.js?v1.2.3' => $js_settings,
+      drupal_get_path('module', 'helm_civic_map') . '/js/helm-civic-map.js' => $js_settings,
+    ),
+    'css' => array(
+      array('data'=> 'http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css', 'type' => 'external'),
+      drupal_get_path('module', 'helm_civic_map') . '/css/helm-civic-map.css' => array(),
+    ),
+  );
+  //dpm($libraries);
+  return $libraries;
+}
+
+
+/**
+ * Implements hook_theme().
+ */
+function helm_civic_map_theme() {
+  //$path = drupal_get_path('module', 'helm_civic_map');
+  return array(
+    'helm_civic_map' => array(
+      'template' => 'templates/helm-civic-map',
+      'variables' => array(
+        'type' => 'map',
+        'drupal_events' => url('api/events.json'),
+        'transportation' => 'http://maps.albatrossdigital.com:8888/v2/gtfs_corvallis.json',
+        'lat' => 44.5667,
+        'lng' => -123.2833,
+      )
+    ),
+  );
+}
+
+
+/**
+ * Implements hook_theme_preprocess().
+ */
+function template_preprocess_helm_civic_map(&$variables) {
+  drupal_add_library('helm_civic_map', 'helm-civic-map');
+  /*if ($variables['type'] == 'corner') {
+    $corner_image = array(
+      'path' => drupal_get_path('module', 'helm_civic_map') . '/images/explore.png',
+      'width' => '150',
+      'height' => '',
+      'alt' => 'Preview',
+      'title' => 'Preview',
+    );
+    $variables['corner'] = l(theme('image', $corner_image), 'map', array('html' => TRUE));
+  }*/
+  $settings = array(
+    'lat' => $variables['lat'],
+    'lng' => $variables['lng'],
+    'transportation' => $variables['transportation'],
+    'drupal_events' => $variables['drupal_events'],
+  );
+  drupal_add_js(array('helm_civic_map' => $settings), 'setting');
+}
+
+
+/**
+ * Implements hook_theme_preprocess() for home page panels layout.
+ */
+/*function helm_civic_map_preprocess_helm_home_page(&$variables){
+  $variables['header_map'] = theme('helm_civic_map', array('type' => 'corner'));
+}*/
+
+
+/**
+ * Implements hook_theme_preprocess() for home page panels layout.
+ */
+function helm_civic_map_render_pane() {
+  $block = new stdClass();
+  $block->title = '';
+  $block->content = theme('helm_civic_map');
+  return $block;
+}

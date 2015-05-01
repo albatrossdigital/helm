@@ -1,0 +1,20 @@
+<div class="row">
+  <div class="column-pad"><a class="back-btn" main-toggle="slide-left"><i class="fa fa-angle-left"></i> Back</a></div>
+
+  <div class="col-sm-9">
+
+    <div class="panel-group" ui-view></div>
+
+  </div>
+
+  <div class="col-sm-3">
+    <h5>{{activeParent.name}}</h5>
+    <ul class="nav nav-pills nav-stacked">
+      <li ng-repeat="item in terms | termsByParent:activeParent.tid | orderBy: 'weight'" ng-class="item.tid == activeTerm.tid ? 'active' : ''">
+        <a href="" ui-sref="faq.child({tid: item.tid})">{{item.name}}</a>
+      </li>
+    </ul>
+
+  </div>
+
+</div>

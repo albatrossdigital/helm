@@ -24,7 +24,7 @@ projects[menu_trail_by_path][subdir] = "contrib"
 projects[devel][version] = "1.5"
 projects[devel][subdir] = "devel"
 
-projects[features][version] = "2.4"
+projects[features][version] = "2.5"
 projects[features][subdir] = "contrib"
 
 projects[email][version] = "1.3"
@@ -36,7 +36,7 @@ projects[field_group][subdir] = "contrib"
 projects[link][version] = "1.3"
 projects[link][subdir] = "contrib"
 
-projects[select_or_other][version] = "2.20"
+projects[select_or_other][version] = "2.21"
 projects[select_or_other][subdir] = "contrib"
 
 projects[field_collection][version] = "1.0-beta8"
@@ -45,8 +45,9 @@ projects[field_collection][subdir] = "contrib"
 projects[entity][version] = "1.6"
 projects[entity][subdir] = "contrib"
 
-projects[entity_view_mode][version] = "1.0-rc1"
-projects[entity_view_mode][subdir] = "contrib"
+; look like this doesn't allow for features
+;projects[entity_view_mode][version] = "1.0-rc1"
+;projects[entity_view_mode][subdir] = "contrib"
 
 projects[libraries][version] = "2.2"
 projects[libraries][subdir] = "contrib"
@@ -132,7 +133,7 @@ projects[file_entity][subdir] = "contrib"
 projects[media][version] = "2.0-alpha4"
 projects[media][subdir] = "contrib"
 
-projects[creative_commons][version] = "1.0"
+projects[creative_commons][version] = "1.2"
 projects[creative_commons][subdir] = "contrib"
 
 projects[jquery_update][version] = "2.5"
@@ -144,14 +145,20 @@ projects[fences][subdir] = contrib
 projects[panels_extra_styles][version] = 1.1
 projects[panels_extra_styles][subdir] = contrib
 
+<<<<<<< HEAD
+projects[clean_markup][version] = 2.7
+projects[clean_markup][subdir] = contrib
+
+=======
+>>>>>>> 02b8b2f1264680770b0ae4139e156ad4d247bb6e
 projects[addthis][version] = "4.0-alpha4"
 projects[addthis][subdir] = "contrib"
 
 projects[socialfield][version] = "1.4"
 projects[socialfield][subdir] = "contrib"
 
-projects[social_stream][version] = "1.0-alpha3"
-projects[social_stream][subdir] = "contrib"
+;projects[social_stream][version] = "1.0-alpha3"
+;projects[social_stream][subdir] = "contrib"
 
 projects[gravatar][version] = "1.1"
 projects[gravatar][subdir] = "contrib"
@@ -164,6 +171,10 @@ projects[views_bootstrap][subdir] = contrib
 
 projects[apps][version] = "1.0-beta20"
 projects[apps][subdir] = contrib
+
+projects[user_alert][version] = "1.10"
+projects[user_alert][subdir] = "contrib"
+
 
 
 ; +++++ Modules Dev/specific revisions +++++
@@ -206,12 +217,13 @@ projects[uuid_features][download][branch] = 7.x-1.x
 projects[uuid_features][patch][2222727] = http://drupal.org/files/issues/uuid_features-adding-export_render_alter-call-2222727-45.patch
 
 ; From Mar 16 2015
+; (see https://github.com/albatrossdigital/helm/issues/30)
 ; Fieldable panel panes UUID export
-projects[fieldable_panels_panes][type] = module
-projects[fieldable_panels_panes][subdir] = contrib
-projects[fieldable_panels_panes][download][type] = git
-projects[fieldable_panels_panes][download][revision] = 629449f3d848929fe54d1578bf79bec32b4aa40d
-projects[fieldable_panels_panes][download][branch] = 7.x-1.x
+; projects[fieldable_panels_panes][type] = module
+; projects[fieldable_panels_panes][subdir] = contrib
+; projects[fieldable_panels_panes][download][type] = git
+; projects[fieldable_panels_panes][download][revision] = 629449f3d848929fe54d1578bf79bec32b4aa40d
+; projects[fieldable_panels_panes][download][branch] = 7.x-1.x
 
 
 ; *********************************************************************************
@@ -252,6 +264,13 @@ projects[panelizer][subdir] = contrib
 projects[panelizer][patch][1623536] = http://drupal.org/files/issues/array-to-object-on-update-1623536-26.patch
 projects[panelizer][patch][2416505] = http://drupal.org/files/issues/panelizer-search_api-2416505-3.patch
 
+projects[fieldable_panels_panes][version] = 1.5
+projects[fieldable_panels_panes][subdir] = contrib
+projects[fieldable_panels_panes][patch][2283263] = http://drupal.org/files/issues/fieldable_panels_panes-n2283263-5.patch
+projects[fieldable_panels_panes][patch][2256503] = http://www.drupal.org/files/issues/fieldable_panels_panes-n2256503-12-backport-fpp15.patch
+projects[fieldable_panels_panes][patch][2415427] = https://www.drupal.org/files/issues/fieldable_panels_pane-avoid-reload-2415427-4.patch
+projects[fieldable_panels_panes][patch][2146479] = http://www.drupal.org/files/issues/2146479-admin-menu-map-conflict.patch
+
 projects[pm_existing_pages][version] = 1.4
 projects[pm_existing_pages][subdir] = contrib
 
@@ -260,7 +279,7 @@ projects[fape][subdir] = contrib
 
 ; Views Magic
 
-projects[views][version] = 3.10
+projects[views][version] = 3.11
 projects[views][subdir] = contrib
 projects[views][patch][2037469] = http://drupal.org/files/views-exposed-sorts-2037469-1.patch
 
@@ -307,7 +326,7 @@ projects[features_override][subdir] = contrib
 
 ; Panopoly - Contrib - Fields
 
-projects[tablefield][version] = 2.3
+projects[tablefield][version] = 2.4
 projects[tablefield][subdir] = contrib
 
 projects[simple_gmap][version] = 1.2
@@ -324,7 +343,11 @@ projects[bootstrap][subdir] = "contrib"
 projects[radix][version] = "3.0-rc2"
 projects[radix][subdir] = "contrib"
 
+<<<<<<< HEAD
+projects[minimalist_admin][version] = "1.0-alpha5"
+=======
 projects[minimalist_admin][version] = "1.0-alpha2"
+>>>>>>> 02b8b2f1264680770b0ae4139e156ad4d247bb6e
 projects[minimalist_admin][subdir] = "contrib"
 
 

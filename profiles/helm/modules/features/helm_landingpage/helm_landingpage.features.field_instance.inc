@@ -35,6 +35,12 @@ function helm_landingpage_field_default_field_instances() {
         'type' => 'text_default',
         'weight' => 0,
       ),
+      'live_results_search' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
       'teaser' => array(
         'label' => 'hidden',
         'module' => 'text',
@@ -94,6 +100,12 @@ function helm_landingpage_field_default_field_instances() {
           'v_class' => 'embed-responsive-16by9',
         ),
         'type' => 'flexible_media',
+        'weight' => 0,
+      ),
+      'live_results_search' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
         'weight' => 0,
       ),
       'teaser' => array(

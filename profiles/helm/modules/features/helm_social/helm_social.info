@@ -8,6 +8,7 @@ dependencies[] = features
 dependencies[] = fieldable_panels_panes
 dependencies[] = socialfield
 dependencies[] = socialfield_widgets
+dependencies[] = social_stream
 features[ctools][] = fieldable_panels_panes:fieldable_panels_pane_type:1
 features[defaultconfig][] = strongarm:socialfield_services
 features[defaultconfig][] = user_default_permissions:create fieldable social_networks

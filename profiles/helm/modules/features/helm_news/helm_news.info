@@ -29,6 +29,7 @@ features[field_instance][] = node-article-field_attachment
 features[field_instance][] = node-article-field_category
 features[field_instance][] = node-article-field_media
 features[node][] = article
+features[taxonomy][] = panopoly_categories
 features[variable][] = field_bundle_settings_node__article
 features[variable][] = menu_options_article
 features[variable][] = menu_parent_article

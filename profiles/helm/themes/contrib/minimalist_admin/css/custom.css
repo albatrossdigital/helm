@@ -5151,11 +5151,11 @@ button.close {
   .logo ~ .name {
     font-weight: bold; }
 
-.page-header .title {
-  color: #0072bc;
-  text-transform: uppercase;
-  font-size: 1.7em;
-  font-weight: bold; }
+.page-header {
+  margin: 0;
+  border-bottom: none; }
+  .page-header .title {
+    color: #eeeeee; }
 
 #main > .container, #content {
   width: 100% !important; }

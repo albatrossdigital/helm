@@ -103,7 +103,7 @@ function helm_install() {
   variable_set('user_register', USER_REGISTER_VISITORS_ADMINISTRATIVE_APPROVAL);
 
   // Zurb Foundation needs jQuery 1.7
-  variable_set('jquery_update_jquery_version', '1.8');
+  variable_set('jquery_update_jquery_version', '1.7');
   variable_set('jquery_update_jquery_admin_version', '1.7');
 
   // Enable the admin theme.

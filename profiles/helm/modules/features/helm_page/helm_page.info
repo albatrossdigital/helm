@@ -34,6 +34,7 @@ features[field_base][] = body
 features[field_base][] = field_attachment
 features[field_base][] = field_media
 features[field_base][] = field_subtitle
+features[field_base][] = field_tags
 features[field_instance][] = node-page-body
 features[field_instance][] = node-page-field_attachment
 features[field_instance][] = node-page-field_media

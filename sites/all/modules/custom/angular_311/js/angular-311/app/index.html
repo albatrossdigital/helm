@@ -1,0 +1,143 @@
+<!doctype html>
+<html class="no-js" lang="en" ng-app="app">
+  <head ng-controller="metaInfoCtrl">
+    <meta charset="utf-8">
+    <base href="/" />
+    <meta property="og:image" content="http://FILLME!/images/shareimg.jpg" />
+    <meta property="og:url" content="http://FILLME!" />
+    <meta property="og:title" content="FILLME!" />
+    <meta property="og:description" content="FILLME!" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" ng-attr-content="{{metaDescription()}}" />
+    <meta name="keywords" ng-attr-content="{{metaKeywords()}}" />
+    <title ng-bind="pageTitle();">FILLME!</title>
+    <!-- build:css css/libraries.min.css -->
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="bower_components/afkl-lazy-image/release/lazy-image-style.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <!-- bower:css -->
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css css/app.min.css -->
+    <link rel="stylesheet" href="css/app.css">
+    <!-- endbuild -->
+    <script type="text/javascript">
+  
+    </script>
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'FILLME!', 'auto');
+    </script>
+    <script>
+        Drupal = {
+          'settings' : {
+              'angular_311': {
+
+              }
+          }
+        };
+        appUrl='';apiUrl='http://master-scoikxe636gic.us.platform.sh/';vocabularyVid=2;
+        Drupal.settings.angular_311.api_path = apiUrl;
+        paymentUrl='';paymentUrl="http://workhorse.albatrossdigital.com/payment-callback.php";
+        Drupal.settings.angular_311.payment_path = paymentUrl;
+        trackUrl='';trackUrl="http://dev-tross-markaspot.pantheon.io/georeport/v2";
+        Drupal.settings.angular_311.track_path = trackUrl;
+    </script>
+  </head>
+  <body page-ready>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header pull-left">
+      <a class="navbar-brand" href="#"><i class="fa fa-home"></i></a>
+      
+    </div>
+    <ul class="navbar-nav nav pull-right">
+      <li><a href="#">Springfield 311</a></li>
+    </ul>
+  </div>
+</nav>
+<div class="container">
+<div class="app-wrap">
+  <div class="open-nav">
+    <a menu-click="return-false"><i class="fa fa-arrow-circle-o-left"></i> <span>Navigation</span></a>
+  </div>
+  <div class="app-slider">
+    <div class="row">
+      <div class="col-xs-6 col-sm-12 nav-contain">
+        <div menu></div>
+      </div>
+
+      <div class="col-xs-6 col-sm-12 content-contain">
+        <div class="body-content animation-wrap">
+          <main id="main-311" class="main main-311 transform clearfix" ui-view></main>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+    
+    <!-- build:js js/bootstrap.min.js -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-bindonce/bindonce.js"></script>
+    <script src="js/utilities/scrollTo.js"></script>
+    <script src="bower_components/afkl-lazy-image/release/lazy-image.js"></script>
+    <script src="bower_components/angular-infinite-scroll/src/infinite-scroll.js"></script>
+    <script src="bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/affix.js"></script>
+    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/alert.js"></script>
+    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/button.js"></script>
+    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/carousel.js"></script>
+    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/collapse.js"></script>
+    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/dropdown.js"></script>
+    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/modal.js"></script>
+    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/tooltip.js"></script>
+    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/popover.js"></script>
+    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/scrollspy.js"></script>
+    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/tab.js"></script>
+    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/transition.js"></script>
+    <!-- endbuild -->
+    <!-- build:js js/libraries.min.js -->
+    <!-- bower:js -->
+    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-touch/angular-touch.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/lodash/dist/lodash.compat.js"></script>
+    <script src="bower_components/angular-google-maps/dist/angular-google-maps.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+    
+    <!-- build:js js/app.min.js -->
+    <script src="js/app.js"></script>
+    <!-- Utilities -->
+    <!-- Filters -->
+    <script src="js/filters/termFilter.js"></script>
+    <!-- Routes -->
+    <script src="js/routes/faqRoutes.js"></script>
+    <script src="js/routes/trackRoutes.js"></script>
+    <script src="js/routes/paymentRoutes.js"></script>
+    <!-- Providers -->
+    <script src="js/providers/metaInfo.js"></script>
+    <script src="js/providers/drupalService.js"></script>
+    <script src="js/providers/trackService.js"></script>
+    <script src="js/providers/paymentService.js"></script>
+    <!-- Controllers -->
+    <script src="js/controllers/metaInfoCtrl.js"></script>
+    <!-- Directives -->
+    <script src="js/directives/pageReady.js"></script>
+    <script src="js/directives/menuDir.js"></script>
+    <script src="js/directives/mainToggle.js"></script>
+
+    <!-- endbuild -->
+  </body>
+</html>

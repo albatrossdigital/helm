@@ -1,0 +1,23 @@
+// Non-modular or client styles for .l-header region.
+
+.l-logo {
+  padding-bottom: rem-calc(10);
+  padding-top: rem-calc(10);
+}
+
+
+// *
+// * Media Queries
+// *
+// ******************************************************
+
+
+
+// Mobile only
+// --------------------------------------------------
+
+@media screen and (max-width: $screen-xs-max) {
+  .l-logo {
+    text-align: center;
+  }
+}

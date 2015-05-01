@@ -1,0 +1,13 @@
+; App manifest file
+; See https://groups.drupal.org/open-app-standard/oas#manifest
+
+name = Helm Civic Home
+description = The homepage for the Helm Civic distribution
+color = #B27636
+version = 1.0-alpha1
+author = Albatross Digital
+author_url = http://www.albatrossdigital.com
+machine_name = helm_civic_home
+downloadable = helm_civic_home
+downloadables[helm_home] = https://github.com/albatrossdigital/helm_home/archive/master.zip
+package = Core Apps

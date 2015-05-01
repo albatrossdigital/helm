@@ -1,0 +1,21 @@
+name = Menu Node Views
+description = Enables Views to leverage menu hierarchies when displaying nodes.
+dependencies[] = menu_node
+dependencies[] = views
+core = 7.x
+
+files[] = menu_node_views.module
+files[] = menu_node_views.views.inc
+files[] = includes/menu_node_views_argument_nid.inc
+files[] = includes/menu_node_views_field_link_title.inc
+files[] = includes/menu_node_views_sort_menu.inc
+files[] = includes/menu_node_views_field_description.inc
+files[] = includes/menu_node_views_field_menu_name.inc
+
+
+; Information added by  packaging script on 2013-12-01
+version = "7.x-1.x-dev"
+core = "7.x"
+project = "menu_node_views"
+datestamp = "1385889205"
+

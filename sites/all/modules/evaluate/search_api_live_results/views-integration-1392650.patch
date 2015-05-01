@@ -1,0 +1,65 @@
+diff --git a/search_api_live_results.module b/search_api_live_results.module
+index 5787b62..458dda1 100644
+--- a/search_api_live_results.module
++++ b/search_api_live_results.module
+@@ -6,6 +6,7 @@ define('SEARCH_API_LIVE_RESULTS_METHOD_KEYWORD', 3);
+ 
+ // Include the files with the module-specific implementations.
+ require_once('search_api_live_results.search_api_page.inc');
++require_once('search_api_live_results.search_api_views.inc');
+ 
+ /**
+  * Implements hook_menu().
+@@ -199,14 +200,14 @@ function search_api_live_results_search_api_live_results_types() {
+       'create query' => 'search_api_live_results_pages_query',
+     );
+   }
+-//  if (module_exists('search_api_views')) {
+-//    $types['search_api_views'] = array(
+-//      'name' => t('Search views'),
+-//      'description' => t('Searches provided by the <em>Search views</em> module.'),
+-//      'list searches' => 'search_api_autocomplete_views_searches',
+-//      'create query' => 'search_api_autocomplete_views_query',
+-//    );
+-//  }
++  if (module_exists('search_api_views')) {
++    $types['search_api_views'] = array(
++      'name' => t('Search views'),
++      'description' => t('Searches provided by the <em>Search views</em> module.'),
++      'list searches' => 'search_api_live_results_views_searches',
++      'create query' => 'search_api_live_results_views_query',
++    );
++  }
+ 
+   return $types;
+ }
+diff --git a/search_api_live_results.search_api_views.inc b/search_api_live_results.search_api_views.inc
+index 91ca1bb..b61b39e 100644
+--- a/search_api_live_results.search_api_views.inc
++++ b/search_api_live_results.search_api_views.inc
+@@ -26,13 +26,19 @@ function search_api_live_results_form_views_exposed_form_alter(array &$form, arr
+   if (empty($index->options['fields'])) {
+     return;
+   }
+-  $fields = $index->options['fields'];
++  $fields = $index->getFulltextFields(FALSE);
+   // Add the "Search: Fulltext search" filter as another text field.
+-  $fields['search_api_views_fulltext']['type'] = 'text';
+-  foreach (element_children($form) as $key) {
+-    $element = &$form[$key];
+-    if ($element['#type'] == 'textfield' && !empty($fields[$key]['type']) && search_api_is_text_type($fields[$key]['type'])) {
+-      $search->alterElement($element);
++  $fields[] = 'search_api_views_fulltext';
++  // We need the _entity_views_field_identifier() function to translate Search
++  // API field names into Views identifiers.
++  module_load_include('views.inc', 'entity', 'views/entity');
++  foreach ($fields as $field) {
++    $field = _entity_views_field_identifier($field, array());
++    if (!empty($view->filter[$field]->options['expose']['identifier'])) {
++      $key = $view->filter[$field]->options['expose']['identifier'];
++      if (isset($form[$key]) && $form[$key]['#type'] == 'textfield') {
++        $search->alterElement($form[$key]);
++      }
+     }
+   }
+ }

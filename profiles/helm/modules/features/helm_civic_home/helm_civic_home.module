@@ -1,0 +1,28 @@
+<?php
+/**
+ * @file
+ * Code for the Helm Home feature.
+ */
+
+include_once 'helm_civic_home.features.inc';
+
+/**
+ * Implementation of hook_ctools_plugin_directory()
+ */
+function helm_civic_home_ctools_plugin_directory($module, $plugin) {
+  return 'plugins/' . $plugin;
+}
+
+/**
+ * Return the $header_image url.
+ */
+function helm_civic_home_header_image_url() {
+  return variable_get('helm_civic_home_header_image', drupal_get_path('module', 'helm_civic_home').'/images/helm-civic-home-header.jpg');
+}
+
+/**
+ * Add the $header_image variable.
+ */
+function helm_civic_home_preprocess_helm_home_page(&$variables){
+  $variables['header_image'] = url(helm_civic_home_header_image_url());
+}

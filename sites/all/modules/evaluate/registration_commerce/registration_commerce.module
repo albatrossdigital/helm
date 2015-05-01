@@ -1,0 +1,696 @@
+<?php
+
+/**
+ * @file
+ * Module file for registration_commerce.
+ */
+
+define('REGISTRATION_COMMERCE_FIELD', 'registration_commerce_reg');
+
+/**
+ * Implements hook_entity_property_info().
+ */
+function registration_commerce_entity_property_info() {
+  $info = array();
+  $properties = &$info['registration']['properties'];
+
+  $properties['price'] = array(
+    'label' => t('Price'),
+    'type' => 'struct',
+    'description' => t('The price for this registration.'),
+    'getter callback' => 'registration_commerce_registration_price_get',
+    'computed' => TRUE,
+    'entity views field' => TRUE,
+  );
+
+  $properties['amount'] = array(
+    'label' => t('Amount'),
+    'type' => 'decimal',
+    'description' => t('The decimal amount piece of the Price.'),
+    'getter callback' => 'registration_commerce_registration_amount_get',
+    'computed' => TRUE,
+    'entity views field' => TRUE,
+  );
+
+  $properties['currency'] = array(
+    'label' => t('Currency'),
+    'type' => 'text',
+    'description' => t('The currency piece of the Price.'),
+    'getter callback' => 'registration_commerce_registration_currency_get',
+    'computed' => TRUE,
+    'entity views field' => TRUE,
+  );
+
+  return $info;
+}
+
+/**
+ * Implements hook_menu().
+ */
+function registration_commerce_menu() {
+  $items = array();
+
+  // Add registration to cart.
+  $items['registration/%registration/pay'] = array(
+    'title' => 'Pay for registration',
+    'page callback' => 'registration_commerce_pay_callback',
+    'page arguments' => array(1),
+    'access callback' => 'registration_commerce_pay_page_access',
+    'access arguments' => array(1),
+  );
+
+  $items['admin/structure/registration/registration_types/manage/%registration_type/registration_commerce'] = array(
+    'title' => 'Registration Commerce Settings',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('registration_commerce_registration_type_form', 5),
+    'access callback' => 'registration_commerce_admin_access',
+    'file' => 'includes/registration_commerce.forms.inc',
+    'type' => MENU_LOCAL_TASK,
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function registration_commerce_permission() {
+  $permissions = array();
+
+  $permissions['registration_commerce_administer'] = array(
+    'title' => t('Administer Registration Commerce'),
+    'description' => t("Allows access to the Registration Commerce configuration tab on Registration Types."),
+    'restrict access' => TRUE,
+  );
+  $permissions['registration_commerce_pay_any_registration'] = array(
+    'title' => t('Pay for any registration product'),
+    'description' => t("Allows adding any registration product in a proper status to the user's cart, regardless of who the registration belongs to."),
+  );
+
+  return $permissions;
+}
+
+/**
+ * Access callback for administrative pages.
+ */
+function registration_commerce_admin_access() {
+  return user_access('registration_commerce_administer', $GLOBALS['user']);
+}
+
+/**
+ * Implements hook_commerce_line_item_type_info().
+ *
+ * @see hook_commerce_line_item_type_info()
+ * @see http://www.drupalcommerce.org/specification/info-hooks/checkout
+ */
+function registration_commerce_commerce_line_item_type_info() {
+
+  $line_item_types['registration'] = array(
+    'name' => t('Registration'),
+    'description' => t('Individual registration.'),
+    'product' => TRUE,
+    'add_form_submit_value' => t('Add registration'),
+    'base' => 'registration_commerce_line_item',
+  );
+
+  return $line_item_types;
+}
+
+/**
+ * Base line item definition for the registration line item type.
+ */
+function registration_commerce_line_item_configuration($line_item_type) {
+  $type = $line_item_type['type'];
+  if ($type == 'registration') {
+    // Create the product reference field for the line item type.
+    commerce_product_reference_create_instance('commerce_product', 'commerce_line_item', $type, t('Product'));
+
+    // Create the registration reference field for the line item type.
+    registration_commerce_registration_reference_create_instance(REGISTRATION_COMMERCE_FIELD, 'commerce_line_item', $type, t('Registration'));
+
+    // Look for or add a display path textfield to the product line item type.
+    $field_name = 'commerce_display_path';
+    $field = field_info_field($field_name);
+    $instance = field_info_instance('commerce_line_item', $field_name, $type);
+
+    if (empty($field)) {
+      $field = array(
+        'field_name' => $field_name,
+        'type' => 'text',
+        'cardinality' => 1,
+        'entity_types' => array('commerce_line_item'),
+        'translatable' => FALSE,
+        'locked' => TRUE,
+      );
+      $field = field_create_field($field);
+    }
+
+    if (empty($instance)) {
+      $instance = array(
+        'field_name' => $field_name,
+        'entity_type' => 'commerce_line_item',
+        'bundle' => $type,
+        'label' => t('Display path'),
+        'required' => TRUE,
+        'settings' => array(),
+        'widget' => array(
+          'type' => 'text_textfield',
+          'weight' => 0,
+        ),
+        'display' => array(
+          'display' => array(
+            'label' => 'hidden',
+            'weight' => 0,
+          ),
+        ),
+      );
+      field_create_instance($instance);
+    }
+  }
+}
+
+/**
+ * Implements hook_entity_view().
+ */
+function registration_commerce_entity_view($entity, $type, $view_mode, $langcode) {
+  if ($type == 'registration') {
+    $reg_type = registration_type_load($entity->type);
+    $reg_settings = $reg_type->registration_commerce_settings;
+    if ($reg_settings['enable']) {
+      $wrapper = entity_metadata_wrapper('registration', $entity);
+      $price = $wrapper->price->value();
+      $price_markup = commerce_currency_format($price['amount'], $price['currency_code']);
+      $entity->content['price'] = array(
+        '#type' => 'item',
+        '#weight' => 98,
+        '#title' => t('Price'),
+        '#markup' => $price_markup,
+      );
+      if (registration_commerce_pay_access($entity)) {
+        $uri = entity_uri('registration', $entity);
+        $entity->content['pay_link'] = array(
+          '#weight' => 99,
+          '#markup' => l(t('Add registration to cart'), $uri['path'] . '/pay', array(
+            'attributes' => array('classes' => array('button')),
+          )),
+        );
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function registration_commerce_form_registration_form_alter(&$form, &$form_state, $form_id) {
+  // @todo: check for appropriate triggering
+  $reg_type = registration_type_load($form['#bundle']);
+  $reg_settings = $reg_type->registration_commerce_settings;
+  // If current user has extra permissions, let them opt out of adding to cart &
+  // redirect:
+  if ($reg_settings['enable']) {
+    $form['add_to_cart'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Add registration to cart and redirect to cart'),
+      '#default_value' => isset($form_state['registration']->registration_id) ? FALSE : TRUE,
+      '#weight' => 99,
+      '#access' => user_access('edit any registration'),
+    );
+
+    $form['#submit'][] = 'registration_commerce_registration_submit';
+  }
+}
+
+/**
+ * Custom submit handler for registrations.
+ *
+ * Adds the registration to the cart and redirects if necessary.
+ */
+function registration_commerce_registration_submit($form, &$form_state) {
+  // Only add to cart and redirect if not told to skip it:
+  if (!isset($form_state['values']['add_to_cart']) || (isset($form_state['values']['add_to_cart']) && $form_state['values']['add_to_cart'])) {
+    $registration = $form_state['registration'];
+    if (registration_commerce_add_to_cart($registration)) {
+      $form_state['redirect'] = 'cart';
+    }
+  }
+}
+
+/**
+ * Helper to add a specific registration to the current user's cart.
+ */
+function registration_commerce_add_to_cart($registration) {
+  if (registration_commerce_pay_access($registration)) {
+    $line_item = registration_commerce_line_item_new($registration, $registration->count);
+    return registration_commerce_cart_registration_add($GLOBALS['user']->uid, $line_item);
+  }
+
+  return FALSE;
+}
+
+/**
+ * Access callback to check if current user can pay for a given registration.
+ */
+function registration_commerce_pay_access($registration) {
+  $registration_wrapper = entity_metadata_wrapper('registration', $registration);
+
+  $settings = registration_commerce_get_settings($registration->type);
+
+  if (!isset($settings['enable']) || !$settings['enable']) {
+    return FALSE;
+  }
+
+  $registration_price = $registration_wrapper->price->value();
+  $user = $GLOBALS['user'];
+  // If the registration state is pending payment, the parent event has a price.
+  if ($registration->author_uid == $user->uid || $registration->user_uid == $user->uid) {
+    $user_allowed_to_access = TRUE;
+  }
+  else {
+    $user_allowed_to_access = user_access('registration_commerce_pay_any_registration', $user);
+  }
+  if ($user_allowed_to_access && !empty($settings['purchasable_states'][$registration->state]) && $registration_price['amount'] > 0) {
+    return TRUE;
+  }
+
+  return FALSE;
+}
+
+/**
+ * Access callback to check for payment access based on user.
+ * 
+ * @todo: this is a pretty inflexible behavior, should probably be based on
+ * some kind of permission: sensible behavior requires more thought. Perhaps
+ * an option for "allow anonymous payment" should be set and checked here.
+ */
+function registration_commerce_pay_page_access($registration) {
+  // Require user to be logged in:
+  if (!user_is_logged_in()) {
+    drupal_goto('user/login', array('query' => drupal_get_destination()));
+  }
+
+  return registration_commerce_pay_access($registration);
+}
+
+/**
+ * Page callback for adding a registration to the current user's cart.
+ */
+function registration_commerce_pay_callback($registration) {
+  // Check to see if this registration is already in someone's cart:
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'commerce_line_item')
+    ->entityCondition('bundle', 'registration')
+    // Avoid a false positive on this line item:
+    // ->entityCondition('entity_id', $line_item->line_item_id, '!=')
+    // todo: use wrapper:
+    ->fieldCondition(REGISTRATION_COMMERCE_FIELD, 'target_id', $registration->registration_id, '=')
+    ->addMetaData('account', user_load(1));
+
+  $result = $query->execute();
+  if (!empty($result)) {
+    // A duplicate has been found, get the Cart ID to add to the status message:
+    $first_result = array_shift($result['commerce_line_item']);
+    $extant_line_item = commerce_line_item_load($first_result->line_item_id);
+    drupal_set_message(t('Unable to add this registration to your cart because it is in another cart with an Order ID of @cart_id.', array('@cart_id' => $extant_line_item->order_id)), 'status');
+  }
+  // Now we try to add the item to the cart:
+  elseif (!registration_commerce_add_to_cart($registration)) {
+    drupal_set_message(t('Unable to add this registration to your cart. It may already be in your cart.'), 'status');
+  }
+
+  drupal_goto('cart');
+}
+
+/**
+ * Returns an appropriate title for this line item.
+ */
+function registration_commerce_line_item_title($line_item) {
+  if ($registration = entity_metadata_wrapper('commerce_line_item', $line_item)->{REGISTRATION_COMMERCE_FIELD}->value()) {
+    $registration_wrapper = entity_metadata_wrapper('registration', $registration);
+    $label = entity_label($registration->entity_type, $registration_wrapper->entity->value());
+    return t('Registration for: !title', array('!id' => $registration->registration_id, '!title' => $label));
+  }
+}
+
+/**
+ * Line item manager widget form.
+ * 
+ * Returns the elements necessary to add a registration line item through a line
+ * item manager widget.
+ */
+function registration_commerce_line_item_add_form($element, &$form_state) {
+  $form = array();
+
+  $form['registration_id'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Registration ID'),
+    '#description' => t('Enter the registration id of the registration you want to add to the order.'),
+    // @TODO: Add registration specific autocomplete?
+    // '#autocomplete_path' => 'commerce_product/autocomplete/commerce_product/line_item_product_selector/product',
+    '#size' => 60,
+    '#maxlength' => 255,
+  );
+
+  return $form;
+}
+
+/**
+ * Submit handler to add a line item with a line item manager widget.
+ *
+ * @commerce_line_item $line_item
+ *   The newly created line item object.
+ * @array $element
+ *   The array representing the widget form element.
+ * @array $form_state
+ *   The present state of the form upon the latest submission.
+ * @form $form
+ *   The actual form array.
+ *
+ * @return string
+ *   NULL if all is well or an error message if something goes wrong.
+ */
+function registration_commerce_line_item_add_form_submit(&$line_item, $element, &$form_state, $form) {
+  // Load the selected product.
+  if ($registration = registration_load($element['actions']['registration_id']['#value'])) {
+    // Populate the line item with the product data.
+    registration_commerce_line_item_populate($line_item, $registration);
+  }
+  else {
+    return t('You have entered an invalid registration id.');
+  }
+}
+
+/**
+ * Create a new product line item populated with the proper registration values.
+ *
+ * @registration $registration
+ *   The fully loaded registration referenced by the line item.
+ * @int $quantity
+ *   The quantity to set for the registration.
+ * @int $order_id
+ *   The ID of the order the line item belongs to (if available).
+ *
+ * @return object
+ *   The fully loaded line item populated with the registration data specified.
+ */
+function registration_commerce_line_item_new($registration, $quantity = 1, $order_id = 0) {
+
+  // Create the new line item.
+  $line_item = entity_create('commerce_line_item', array(
+    'type' => 'registration',
+    'order_id' => $order_id,
+    'quantity' => $quantity,
+    'data' => array(),
+  ));
+
+  // Populate it with the registration information.
+  registration_commerce_line_item_populate($line_item, $registration);
+
+  // Return the line item.
+  return $line_item;
+}
+
+/**
+ * Populates a registration line item with the registration and quantity data.
+ *
+ * @line_item $line_item
+ *   The fully loaded line item object, populated by reference.
+ * @commerce_product $product
+ *   The fully loaded registration referenced by the line item.
+ */
+function registration_commerce_line_item_populate($line_item, $registration) {
+
+  $registration_wrapper = entity_metadata_wrapper('registration', $registration);
+  $entity_wrapper = entity_metadata_wrapper($registration->entity_type, $registration_wrapper->entity->value());
+  $product = commerce_product_load(variable_get('registration_commerce_product', FALSE));
+
+  // Set the line item label & SKU to a combo of the host entity type and
+  // entity id:
+  $line_item->line_item_label = t('REG-@entity_type-@entity_id', array('@entity_type' => $registration->entity_type, '@entity_id' => $registration->entity_id));
+
+  // Wrap the line item and product to easily set field information.
+  $line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $line_item);
+
+  // Add the product reference value to the line item for the right language.
+  $line_item_wrapper->commerce_product = $product->product_id;
+
+  // Add the product reference value to the line item for the right language.
+  $line_item_wrapper->{REGISTRATION_COMMERCE_FIELD}->set($registration->registration_id);
+
+  $uri = entity_uri('registration', $registration);
+  $line_item_wrapper->commerce_display_path->set($uri['path']);
+
+  // Set the unit price on the line item object if the product has a value in
+  // its commerce_price field.
+  $price = $registration_wrapper->price->value();
+
+  $line_item_wrapper->commerce_unit_price->set($price);
+  if (!is_null($line_item_wrapper->commerce_unit_price->value())) {
+    // Add the base price to the components array.
+    if (!commerce_price_component_load($line_item_wrapper->commerce_unit_price->value(), 'base_price')) {
+      $line_item_wrapper->commerce_unit_price->data = commerce_price_component_add(
+        $line_item_wrapper->commerce_unit_price->value(),
+        'base_price',
+        $line_item_wrapper->commerce_unit_price->value(),
+        TRUE
+      );
+    }
+  }
+}
+
+/**
+ * Creates an instance of a product reference field on the specified bundle.
+ *
+ * The field is both required & locked.
+ * 
+ * @string $field_name
+ *   The name of the field; if it already exists, a new instance of the existing
+ *     field will be created. For fields governed by the Commerce modules, this
+ *     should begin with commerce_.
+ * @string $entity_type
+ *   The type of entity the field instance will be attached to.
+ * @string $bundle
+ *   The bundle name of the entity the field instance will be attached to.
+ * @string $label
+ *   The label of the field instance.
+ * @int $weight
+ *   The default weight of the field instance widget and display.
+ */
+function registration_commerce_registration_reference_create_instance($field_name, $entity_type, $bundle, $label, $weight = 0) {
+  // If a field type we know should exist isn't found, clear the Field cache.
+  if (!field_info_field_types('registration_commerce_registration_reference')) {
+    field_cache_clear();
+  }
+
+  // Look for or add the specified field to the requested entity bundle.
+  $field = field_info_field($field_name);
+  $instance = field_info_instance($entity_type, $field_name, $bundle);
+
+  if (empty($field)) {
+    $field = array(
+      'field_name' => $field_name,
+      'type' => 'entityreference',
+      'cardinality' => 1,
+      'translatable' => FALSE,
+      'locked' => TRUE,
+      'entity_types' => array(),
+      'foreign keys' => array(
+        'node' => array(
+          'columns' => array(
+            'target_id' => 'nid',
+          ),
+          'table' => 'node',
+        ),
+      ),
+      'indexes' => array(
+        'target_id' => array(
+          0 => 'target_id',
+        ),
+      ),
+      'module' => 'entityreference',
+      'settings' => array(
+        'handler' => 'base',
+        'handler_settings' => array(
+          'behaviors' => array(
+            'views-select-list' => array(
+              'status' => 0,
+            ),
+          ),
+          'sort' => array(
+            'type' => 'none',
+          ),
+          'target_bundles' => array(),
+        ),
+        'target_type' => 'registration',
+      ),
+    );
+    $field = field_create_field($field);
+  }
+
+  if (empty($instance)) {
+    $instance = array(
+      'field_name' => $field_name,
+      'entity_type' => $entity_type,
+      'bundle' => $bundle,
+      'label' => $label,
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'entityreference',
+          'settings' => array(
+            'link' => FALSE,
+          ),
+          'type' => 'entityreference_label',
+          'weight' => $weight,
+        ),
+      ),
+      'required' => TRUE,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'entityreference',
+        'settings' => array(
+          'match_operator' => 'CONTAINS',
+          'path' => '',
+          'size' => 60,
+        ),
+        'type' => 'entityreference_autocomplete',
+        'weight' => $weight,
+      ),
+    );
+
+    field_create_instance($instance);
+  }
+}
+
+/**
+ * Add a registration line item to a user's cart.
+ */
+function registration_commerce_cart_registration_add($uid, $line_item) {
+  // Do not add the line item if it doesn't have a unit price.
+  $line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $line_item);
+  if (is_null($line_item_wrapper->commerce_unit_price->value())) {
+    return FALSE;
+  }
+
+  // First attempt to load the customer's shopping cart order.
+  $order = commerce_cart_order_load($uid);
+
+  // If no order existed, create one now.
+  if (empty($order)) {
+    $order = commerce_cart_order_new($uid);
+  }
+
+  // Set the incoming line item's order_id.
+  $line_item->order_id = $order->order_id;
+
+  // Wrap the order for easy access to field data.
+  $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
+
+  $matching_line_item = NULL;
+
+  // Generate an array of properties and fields to compare.
+  $comparison_properties = array('type', REGISTRATION_COMMERCE_FIELD);
+
+  // Loop over each line item on the order.
+  foreach ($order_wrapper->commerce_line_items as $delta => $matching_line_item_wrapper) {
+    // Examine each of the comparison properties on the line item.
+    foreach ($comparison_properties as $property) {
+      // If any property does not match the same property on the incoming line
+      // item...
+      if ($matching_line_item_wrapper->{$property}->raw() != $line_item_wrapper->{$property}->raw()) {
+        // Continue the loop with the next line item.
+        continue 2;
+      }
+    }
+
+    // If every comparison line item matched, don't add another:
+    $matching_line_item = $matching_line_item_wrapper->value();
+    break;
+  }
+
+  if ($matching_line_item) {
+    // Existing line item was found, return FALSE.
+    return FALSE;
+  }
+
+  commerce_line_item_save($line_item);
+
+  // Add it to the order's line item reference value.
+  $order_wrapper->commerce_line_items[] = $line_item;
+
+  // Save the updated order.
+  commerce_order_save($order);
+
+  // Return the line item.
+  return $line_item;
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function registration_commerce_form_alter(&$form, &$form_state, $form_id) {
+  // On the view cart page, disable the edit quantity field for registrations:
+  $cart_forms = array('views_form_commerce_cart_form_default', 'views_form_commerce_cart_form_custom_default');
+  if (in_array($form_id, $cart_forms)) {
+    foreach ($form['edit_quantity'] as &$qty) {
+      if (is_array($qty)) {
+        $line_item = commerce_line_item_load($qty['#line_item_id']);
+        if ($line_item->type == 'registration') {
+          $qty['#disabled'] = TRUE;
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Entity metadata getter callback for the registration price.
+ * 
+ * Returns an array formatted as a standard commerce price object.
+ */
+function registration_commerce_registration_price_get($data, $info) {
+  $result = module_invoke_all('registration_commerce_calculate_price', $data, $info);
+  if (!isset($result['amount'])) {
+    $settings = registration_commerce_get_settings($data->type);
+    $result = isset($settings['price_defaults']) ? $settings['price_defaults'] : array('amount' => 0, 'currency_code' => commerce_default_currency());
+  }
+  return $result;
+}
+
+/**
+ * Entity metadata callback for the amount property.
+ * 
+ * This exists specifically for use with rules.
+ */
+function registration_commerce_registration_amount_get($data, $info) {
+  $price = registration_commerce_registration_price_get($data, $info);
+  return $price['amount'];
+}
+
+/**
+ * Entity metadata callback for the currency property.
+ *
+ * This exists specifically for use with rules.
+ */
+function registration_commerce_registration_currency_get($data, $info) {
+  $price = registration_commerce_registration_price_get($data, $info);
+  return $price['currency_code'];
+}
+
+/**
+ * Helper/API function to load the registration commerce settings.
+ * 
+ * @string $registration_type
+ *   The machine name of the registration type to load settings from.
+ */
+function registration_commerce_get_settings($registration_type) {
+  $type_entities = entity_load('registration_type', array($registration_type));
+  $type_entity = array_pop($type_entities);
+  return $type_entity->registration_commerce_settings;
+}

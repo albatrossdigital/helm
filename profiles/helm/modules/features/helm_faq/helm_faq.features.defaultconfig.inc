@@ -55,19 +55,14 @@ function helm_faq_defaultconfig_user_default_permissions() {
   // Exported permission: 'create faq content'.
   $permissions['create faq content'] = array(
     'name' => 'create faq content',
-    'roles' => array(
-      'editor' => 'editor',
-    ),
+    'roles' => array(),
     'module' => 'node',
   );
 
   // Exported permission: 'delete any faq content'.
   $permissions['delete any faq content'] = array(
     'name' => 'delete any faq content',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'editor' => 'editor',
-    ),
+    'roles' => array(),
     'module' => 'node',
   );
 
@@ -95,9 +90,7 @@ function helm_faq_defaultconfig_user_default_permissions() {
   // Exported permission: 'edit any faq content'.
   $permissions['edit any faq content'] = array(
     'name' => 'edit any faq content',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
+    'roles' => array(),
     'module' => 'node',
   );
 

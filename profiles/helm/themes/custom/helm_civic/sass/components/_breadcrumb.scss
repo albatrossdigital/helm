@@ -1,0 +1,16 @@
+
+
+.breadcrumb {
+  border-radius: 0;
+
+  &, a {
+    color: $breadcrumb-color;
+  }
+
+  a {
+
+    &:hover, &.active {
+      color: $breadcrumb-active-color;
+    }
+  }
+}

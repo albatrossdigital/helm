@@ -1,0 +1,20 @@
+<?php
+
+/**
+ * @file
+ * Field schema, install and uninstall functions for the social_field module.
+ */
+
+/**
+ * Implements hook_install().
+ * Adds FontAwesome support to socialfield.
+ */
+function socialfield_widgets_install() {
+  $base_services = variable_get('socialfield_services', array()); 
+
+  foreach ($base_services as $key => &$data) {
+    $data['icon'] .= ' fa fa-' . $key;
+  }
+
+  variable_set('socialfield_services', $base_services);
+}

@@ -1,0 +1,5 @@
+;$Id: 
+name = Foundation formatters
+description = A collection of helpful display formatters, especially for Zurb Foundation
+core = 7.x
+

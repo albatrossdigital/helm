@@ -1,0 +1,94 @@
+<?php
+/**
+ * @file
+ * Code for the Helm Payment feature.
+ */
+
+include_once 'helm_payment.features.inc';
+
+
+
+/**
+ * Implements hook_commerce_line_item_type_info().
+ */
+function helm_payment_commerce_line_item_type_info() {
+  $line_item_types['commerce_invoice'] = array(
+    'name' => t('Invoice'),
+    'description' => t('Invoice line item type'),
+    'product' => TRUE,
+    'add_form_submit_value' => t('Add invoice'),
+    'base' => 'helm_payment_helm_payment_line_item',
+  );
+
+  return $line_item_types;
+}
+
+
+/**
+ * Ensures the helm_payment line item type contains an invoice amount field.
+ */
+function helm_payment_helm_payment_line_item_configuration($line_item_type) {
+  $type = $line_item_type['type'];
+
+  commerce_product_line_item_configuration($line_item_type);
+
+  // Look for or add an invoice amount decimal textfield to the helm_payment line item type.
+  $field_name = 'helm_payment_amount';
+  $field = field_info_field($field_name);
+  $instance = field_info_instance('commerce_line_item', $field_name, $type);
+
+  if (empty($field)) {
+    $field = array(
+      'field_name' => $field_name,
+      'type' => 'number_decimal',
+      'cardinality' => 1,
+      'entity_types' => array('commerce_line_item'),
+      'translatable' => FALSE,
+      'locked' => FALSE,
+    );
+    $field = field_create_field($field);
+  }
+
+  if (empty($instance)) {
+    $instance = array(
+      'field_name' => $field_name,
+      'entity_type' => 'commerce_line_item',
+      'bundle' => $type,
+      'label' => t('Amount'),
+      'required' => TRUE,
+      'commerce_cart_settings' => array('field_access' => 1),
+      'settings' => array(
+        'field_prefix' => '$',
+        'min' => 1,
+        'size' => 5,
+      ),
+
+      'widget' => array(
+        'type' => 'number',
+        'weight' => 0,
+        'settings' => array(
+        ),
+      ),
+
+      'display' => array(
+        'display' => array(
+          'label' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'default_value' => array(
+        0 => array(
+          'value' => 5,
+        ),
+      ),
+    );
+    field_create_instance($instance);
+  }
+}
+
+/**
+ * Returns a title for this line item.
+ */
+function helm_payment_helm_payment_line_item_title($line_item) {
+  return commerce_product_line_item_title($line_item);
+}

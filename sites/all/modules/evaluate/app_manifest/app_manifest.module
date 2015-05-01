@@ -1,0 +1,133 @@
+<?php
+
+/**
+ * Implements hook_menu_alter().
+ */
+function app_manifest_menu_alter(&$items) {
+  $items['admin/structure/features/%feature/manifest'] = array(
+    'title' => 'Manifest',
+    'description' => 'Generate an Open Apps manifest for a feature.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('app_manifest_manifest_form', 3),
+    'load arguments' => array(3, TRUE),
+    'access callback' => 'user_access',
+    'access arguments' => array('administer features'),
+    'type' => MENU_LOCAL_TASK,
+    'file' => 'app_manifest.admin.inc',
+    'file path' => drupal_get_path('module', 'app_manifest'),
+  );
+}
+
+/**
+ * Generate an Open Apps manifest for a feature.
+ */
+function app_manifest_get_manifest($feature) {
+  // Look for a make file named name.make or name.make.inc where name is the
+  // machine name of the feature.
+  $make_file = dirname($feature->filename) . "/{$feature->name}.make";
+  $make_inc_file = dirname($feature->filename) . "/{$feature->name}.make.inc";
+  $make = FALSE;
+  if (file_exists($make_file)) {
+    $make = drupal_parse_info_file($make_file);
+  }
+  elseif (file_exists($make_inc_file)) {
+    $make = drupal_parse_info_file($make_inc_file);
+  }
+  return app_manifest_export_manifest($feature->name, $feature->info, $make);
+}
+
+/**
+ * Helper function to generate an Open Apps manifest for a feature.
+ */
+function app_manifest_export_manifest($name, $info, $make = NULL) {
+  $available = update_get_available(TRUE);
+  $update_data = update_calculate_project_data($available);
+  $projects = update_get_projects();
+  $module_data = system_rebuild_module_data();
+  $manifest = array();
+  $manifest['name'] = $info['name'];
+  $manifest['description'] = $info['description'];
+  $manifest['machine_name'] = $name;
+  $manifest['version'] = $info['version'];
+  $manifest['author'] = isset($info['author']) ? $info['author'] : 'FIX_ME';
+  $manifest['author_url'] = isset($info['author_url']) ? $info['author_url'] : 'FIX_ME';
+  $manifest['downloadable'] = '';
+  $manifest['dependencies'] = array();
+  $manifest['libraries'] = array();
+  $manifest['downloadables'] = array();
+
+  // We need to add data for the project itself.
+  $info['dependencies'][] = $name;
+
+  // Support a 'recommends' key in .info files.
+  if (isset($info['recommends'])) {
+    $info['dependencies'] = array_unique(array_merge($info['dependencies'], $info['recommends']));
+  }
+
+  $dependencies = array();
+
+  // Add in nested dependencies.
+  foreach ($info['dependencies'] as $dependency) {
+    $dependency = drupal_parse_dependency($dependency);
+    $dependency = $dependency['name'];
+    $dependencies[$dependency] = $dependency;
+    if (isset($module_data[$dependency]->requires)) {
+      foreach (array_keys($module_data[$dependency]->requires) as $new_dependency) {
+        if (!isset($dependencies[$new_dependency])) {
+          $dependencies[$new_dependency] = $new_dependency;
+        }
+      }
+    }
+  }
+  foreach ($dependencies as $dependency) {
+    $project = FALSE;
+    foreach ($projects as $project_name => $data) {
+      if (isset($data['includes'][$dependency])) {
+        $project = $project_name;
+        // For dev releases, the .info file version may contain information
+        // about a previous stable release. Instead, use the actual installed
+        // dev version string.
+        if (isset($update_data[$project]['install_type']) && $update_data[$project]['install_type'] == 'dev') {
+          $version = $update_data[$project]['dev_version'];
+        }
+        else {
+          $version = $data['info']['version'];
+        }
+        break;
+      }
+    }
+    // Skip core dependencies, as they don't need downloading.
+    if ($project && $project != 'drupal') {
+      if (isset($update_data[$project]['releases'][$version]['download_link'])) {
+        $manifest['downloadables']["{$project} {$version}"] = $update_data[$project]['releases'][$version]['download_link'];
+      }
+      else {
+        // Update data may be missing. Default to the standard link, but add
+        // a note to check the link.
+        $manifest['downloadables']["{$project} {$version}"] = "http://ftp.drupal.org/files/projects/{$project}-{$version}.tar.gz CHECK_LINK";
+      }
+      // Add the downoadable for the primary project.
+      if ($dependency == $name) {
+        $manifest['downloadable'] = "{$project} {$version}";
+      }
+      // It's the project, not the individual dependency, that we need.
+      else {
+        $manifest['dependencies'][$project] = "{$project} {$version}";
+      }
+    }
+  }
+  // If there is a make file, use it for library data.
+  if ($make && isset($make['libraries'])) {
+    foreach ($make['libraries'] as $library => $data) {
+      // No easy way to determine the version, so add a note to add it.
+      $manifest['libraries'][$library] = $library . ' ADD_VERSION';
+      if (isset($data['download']) && in_array($data['download']['type'], array('file', 'get'))) {
+        $manifest['downloadables'][$library . ' ADD_VERSION'] = $data['download']['url'];
+      }
+    }
+  }
+  module_load_include('inc', 'features', 'features.export');
+  $manifest = features_export_info($manifest);
+  return $manifest;
+}
+

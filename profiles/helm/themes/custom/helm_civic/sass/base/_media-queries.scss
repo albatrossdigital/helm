@@ -1,0 +1,24 @@
+
+
+@mixin respond($media) {
+  @media #{$media} {
+    @content;
+  }
+}
+
+// Mobile
+$xs-only: "screen and (max-width: #{$screen-xs-max})";
+// Tablet + mobile
+$sm-and-down: "screen and (max-width: #{$screen-sm-max})";
+// Tablet only
+$sm-only: "screen and (min-width: #{$screen-sm-min}) and (max-width: #{$screen-sm-max})";
+// Tablet up
+$sm-up: "screen and (min-width: #{$screen-sm-min})";
+// Laptop + tablet + mobile
+$md-and-down: "screen and (max-width: #{$screen-md-max})";
+// Laptop only
+$md-only: "screen and (min-width: #{$screen-sm-min}) and (max-width: #{$screen-xs-max})";
+// Laptop up
+$md-up: "screen and (min-width: #{$screen-md-min})";
+// Large screen
+$lg-up: "screen and (min-width: #{$screen-lg-min})";

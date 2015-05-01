@@ -1,5 +1,5 @@
 name = Helm Home
-description = Default home page
+description = Homepage helper default content
 core = 7.x
 package = Helm
 dependencies[] = ctools
@@ -11,25 +11,16 @@ dependencies[] = media
 dependencies[] = metatag
 dependencies[] = page_manager
 dependencies[] = panels_mini
+<<<<<<< HEAD
+;dependencies[] = panopoly_widgets
+=======
 dependencies[] = helm_widgets
+>>>>>>> 02b8b2f1264680770b0ae4139e156ad4d247bb6e
 dependencies[] = rdf
 dependencies[] = redirect
-dependencies[] = helm_carousel
 dependencies[] = helm_news
-dependencies[] = helm_news_content
 dependencies[] = helm_news_display
 dependencies[] = helm_page_display
 dependencies[] = token
 dependencies[] = uuid
 dependencies[] = uuid_features
-__drupal_alter_by_ref[][fieldable_panels_pane][helm_carousel] = helm_carousel
-__drupal_alter_by_ref[][fieldable_panels_pane][text] = text
-features[ctools][] = page_manager:pages_default:1
-features[ctools][] = panels_mini:panels_default:1
-features[ctools][] = strongarm:strongarm:1
-features[features_api][] = api:2
-features[page_manager_pages][] = home_page
-features[panels_mini][] = page_sidebar_right_complex_
-features[uuid_fpp][] = 505af91d-8d63-42da-bf46-14d3eaac7473
-features[uuid_fpp][] = 6d49f829-c1ce-4734-ae6b-b2d6bd6ec9f2
-mtime = 1425601647

@@ -1,0 +1,83 @@
+<?php
+
+/**
+ * @file
+ * Install, update, & uninstall functions for the registration_commerce module.
+ */
+
+/**
+ * Implements hook_enable().
+ */
+function registration_commerce_enable() {
+
+  // Create a simple product to be used as the referenced product on
+  // registration line items:
+  if (!variable_get('registration_commerce_product', FALSE)) {
+    $form_state = array();
+    $form_state['values'] = array();
+    $form = array();
+    $form['#parents'] = array();
+
+    // Generate a new product object:
+    $new_product = commerce_product_new('product');
+
+    $new_product->status = TRUE;
+    $new_product->uid = 1;
+
+    $new_product->sku = 'REGISTRATION';
+    $new_product->title = t('Registration');
+    $new_product->created = $new_product->changed = time();
+
+    $price = array(
+      LANGUAGE_NONE => array(
+        0 => array(
+          'amount' => 0,
+          'currency_code' => commerce_default_currency(),
+        ),
+      ),
+    );
+    $new_product->commerce_price = $price;
+
+    // Notify field widgets to save their field data:
+    field_attach_submit('commerce_product', $new_product, $form, $form_state);
+
+    commerce_product_save($new_product);
+
+    variable_set('registration_commerce_product', $new_product->product_id);
+  }
+}
+
+/**
+ * Implements hook_schema_alter().
+ */
+function registration_commerce_schema_alter(&$schema) {
+  // Add registration_commerce_settings blob to existing registration schema.
+  $schema['registration_type']['fields']['registration_commerce_settings'] = array(
+    'type' => 'blob',
+    'default' => NULL,
+    'serialize' => TRUE,
+    'description' => 'Configuration options for Registration Commerce.',
+  );
+}
+
+/**
+ * Implements hook_install().
+ */
+function registration_commerce_install() {
+  $new_schema = array();
+  registration_commerce_schema_alter($new_schema);
+  foreach ($new_schema['registration_type']['fields'] as $name => $spec) {
+    db_add_field('registration_type', $name, $spec);
+  }
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function registration_commerce_uninstall() {
+  $new_schema = array();
+  registration_commerce_schema_alter($new_schema);
+  foreach ($new_schema['registration_type']['fields'] as $name => $spec) {
+    db_drop_field('registration_type', $name);
+  }
+}

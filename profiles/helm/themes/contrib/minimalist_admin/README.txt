@@ -5,9 +5,10 @@ Minimalist Admin is a theme inspired by the [LinkedIn blog post interface](https
 
 ### Recommended addons
 * Drupal module: [Responsive Vertical Tabs](https://www.drupal.org/project/vertical_tabs_responsive)
-* Drupal modules: [CKEditor](https://www.drupal.org/project/ckeditor), [CKEditor Widgets]((https://www.drupal.org/project/ckeditor_widgets)
+* Drupal module: [CKEditor](https://www.drupal.org/project/ckeditor), [CKEditor Widgets]((https://www.drupal.org/project/ckeditor_widgets)
 * CKEditor theme: [Minimalist](http://ckeditor.com/addon/minimalist)
-* Drupal modules: [Angular Media](https://www.drupal.org/project/angular_media)
+* Drupal module: [Angular Media](https://www.drupal.org/project/angular_media)
+* Drupal module: [Select2](https://www.drupal.org/project/select2)
 * Full drupal distro (with everything): [Soar](https://github.com/albatrossdigital/soar-drops-7)
 
 ### Customizing

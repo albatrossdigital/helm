@@ -62,6 +62,7 @@ dependencies[] = panels_ipe
 dependencies[] = panels_mini
 dependencies[] = fences
 dependencies[] = panels_extra_styles
+dependencies[] = clean_markup_panels
 dependencies[] = helm_input_formats
 dependencies[] = gravatar
 ; dependencies[] = quickedit
@@ -117,7 +118,7 @@ dependencies[] = helm_user
 
 ; Helm - Contrib - Optional Features
 ;dependencies[] = helm_news
-;dependencies[] = helm_events
+;dependencies[] = helm_event
 ;dependencies[] = helm_webform
 ;dependencies[] = helm_landingpage
 ;dependencies[] = helm_sitemap
@@ -195,4 +196,5 @@ dependencies[] = tablefield
 
 
 files[] = helm.profile
+
 
