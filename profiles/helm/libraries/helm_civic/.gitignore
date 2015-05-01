@@ -1,8 +1,0 @@
-*.html
-humans.txt
-robots.txt
-.sass-cache
-node_modules
-.bin
-*.sublime-workspace
-bower_components
