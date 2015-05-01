@@ -1,19 +1,9 @@
 // Non-modular or client styles for .l-header region.
 
-
-// Branding
-// ------------------------------
-
-.l-brand {
-  margin-bottom: 20px;
-}
-
 .l-logo {
   padding-bottom: rem-calc(10);
   padding-top: rem-calc(10);
 }
-
-
 
 
 // *
@@ -21,14 +11,12 @@
 // *
 // ******************************************************
 
+
+
 // Mobile only
 // --------------------------------------------------
 
 @media screen and (max-width: $screen-xs-max) {
-  
-  // Branding
-  // ------------------------------
-
   .l-logo {
     text-align: center;
   }

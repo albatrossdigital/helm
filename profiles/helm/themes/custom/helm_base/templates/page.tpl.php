@@ -162,7 +162,7 @@
     </div>
   </header>
   <?php if ($logo || !empty($page['header'])): ?>
-    <div class="l-brand">
+    <div class="brand">
       <div class="container"><div class="row">
         <?php if ($logo): ?>
           <div class="col-sm-4">
