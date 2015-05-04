@@ -10,12 +10,27 @@
 function helm_faq_categories_taxonomy_default_vocabularies() {
   return array(
     'faq_category' => array(
-      'name' => 'How Do I Category',
+      'name' => 'FAQ Category',
       'machine_name' => 'faq_category',
-      'description' => 'Used to organize How Do Is',
+      'description' => 'Organize FAQ entries',
       'hierarchy' => 1,
       'module' => 'taxonomy',
       'weight' => 0,
+      'rdf_mapping' => array(
+        'rdftype' => array(
+          0 => 'skos:ConceptScheme',
+        ),
+        'name' => array(
+          'predicates' => array(
+            0 => 'dc:title',
+          ),
+        ),
+        'description' => array(
+          'predicates' => array(
+            0 => 'rdfs:comment',
+          ),
+        ),
+      ),
     ),
   );
 }
