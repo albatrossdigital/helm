@@ -13,7 +13,7 @@ function helm_faq_taxonomy_default_vocabularies() {
       'name' => 'FAQ Category',
       'machine_name' => 'faq_category',
       'description' => 'Organize FAQ entries',
-      'hierarchy' => 0,
+      'hierarchy' => 1,
       'module' => 'taxonomy',
       'weight' => 0,
       'rdf_mapping' => array(
