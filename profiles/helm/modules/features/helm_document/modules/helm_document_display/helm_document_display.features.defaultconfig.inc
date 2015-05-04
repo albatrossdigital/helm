@@ -70,11 +70,11 @@ function helm_document_display_defaultconfig_user_default_permissions() {
     'module' => 'panelizer',
   );
 
-  // Exported permission: 'administer panelizer taxonomy_term document_category defaults'.
-  $permissions['administer panelizer taxonomy_term document_category defaults'] = array(
-    'name' => 'administer panelizer taxonomy_term document_category defaults',
+  // Exported permission: 'administer pdf reader'.
+  $permissions['administer pdf reader'] = array(
+    'name' => 'administer pdf reader',
     'roles' => array(),
-    'module' => 'panelizer',
+    'module' => 'pdf_reader',
   );
 
   return $permissions;

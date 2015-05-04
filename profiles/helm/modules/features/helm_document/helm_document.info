@@ -36,3 +36,4 @@ features[variable][] = node_options_document
 features[variable][] = node_preview_document
 features[variable][] = node_submitted_document
 features[variable][] = pathauto_file_document_pattern
+features[variable][] = webform_node_document

@@ -27,16 +27,6 @@ function helm_document_display_strongarm() {
         'default' => 1,
         'choice' => 0,
       ),
-      'teaser' => array(
-        'status' => 0,
-        'default' => 0,
-        'choice' => 0,
-      ),
-      'live_results_search' => array(
-        'status' => 0,
-        'default' => 0,
-        'choice' => 0,
-      ),
     ),
   );
   $export['panelizer_defaults_node_document'] = $strongarm;
