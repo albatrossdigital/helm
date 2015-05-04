@@ -25,17 +25,23 @@ function liftoff_lorem_ipsum_node_presave($node) {
 
       $header_level = variable_get('liftoff_lorem_ipsum_header_level', 2);
       $lists = variable_get('liftoff_lorem_ipsum_lists', TRUE);
+      $lists = rand(0, 1);
       
       $i = 0;
       $j = 0;
       $output = _liftoff_lorem_ipsum_paragraph($json, $i);
-      $output .= $header_level ? _liftoff_lorem_ipsum_header($header_level, $json, $j) : '';
+      $output .= $lists ? _liftoff_lorem_ipsum_list('ul', $json, $i) : '';
+      $output .= _liftoff_lorem_ipsum_paragraph($json, $i);
+      dpm($lists);
+      dpm($output);
+      /*
+      //$output .= $header_level ? _liftoff_lorem_ipsum_header($header_level, $json, $j) : '';
       $output .= _liftoff_lorem_ipsum_paragraph($json, $i);
       $output .= $lists ? _liftoff_lorem_ipsum_header('ol', $json, $i) : '';
       $output .= _liftoff_lorem_ipsum_paragraph($json, $i);
       $output .= $header_level ? _liftoff_lorem_ipsum_header($header_level+1, $json, $j) : '';
-      $output .= $lists ? _liftoff_lorem_ipsum_header('ul', $json, $i) : '';
-      $output .= _liftoff_lorem_ipsum_paragraph($json, $i);
+      
+      $output .= _liftoff_lorem_ipsum_paragraph($json, $i);*/
 
       $node->body[LANGUAGE_NONE][0]['value'] = $output;
     }
@@ -66,6 +72,7 @@ function _liftoff_lorem_ipsum_paragraph($json, &$i) {
 
 function _liftoff_lorem_ipsum_list($tag, $json, &$i) {
   $item = '';
+  dpm($tag);
   for ($k=$i; $k<$i+6; $k++) {
     $item .= '<li>' . $json['db'][$k]['quote'] . '</li>';
   }
