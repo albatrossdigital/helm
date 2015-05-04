@@ -1,0 +1,72 @@
+<div class="row edit-form" ng-if="!crop">
+  <div class="col-md-4 preview" ng-class="{croppable: 'croppable'}">
+    <div thumbnails class="icon-lg"></div>
+    <div class="preview-overlay">
+      <button class="btn btn-sm" title="Crop" ng-click="startCrop($event)"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Crop</button>
+    </div>
+  </div>
+  <div class="col-md-8">
+    
+    <div  ng-if="!crop" class="form">
+ 
+      <div class="editable-item">
+        <span class="title">File Name: </span>
+        <span ng-show="!editing">{{file.name}}</span>
+        <input ng-show="editing" type="textfield" ng-model="file.name" class="form-control" />
+      </div>
+
+      <div class="editable-item">
+        <span class="title">Alt Text: </span>
+        <span ng-show="!editing">{{file.alt}}</span>
+        <input ng-show="editing" type="textfield" ng-model="file.alt" class="form-control" />
+      </div>
+
+      <div class="editable-item">
+        <span class="title">Title Text: </span>
+        <span ng-show="!editing">{{file.title}}</span>
+        <input ng-show="editing" type="textfield" ng-model="file.title" class="form-control" />
+      </div>
+
+      <div class="editable-item">
+        <span class="title">Attribution: </span>
+        <span ng-show="!editing">{{file.attribution}}</span>
+        <input ng-show="editing" type="textfield" ng-model="file.attribution" class="form-control" />
+      </div>
+
+      <div class="editable-item">
+        <span class="title">Source: </span>
+        <span ng-show="!editing">{{file.source}}</span>
+        <input ng-show="editing" type="textfield" ng-model="file.source" class="form-control" />
+      </div>
+
+      <div>
+        <!-- button to show form -->
+        <button type="button" class="btn btn-default" ng-click="startEdit($event)" ng-show="!editing">
+          Edit
+        </button>
+        <!-- buttons to submit / cancel form -->
+        <span ng-show="editing">
+          <button type="submit" class="btn btn-primary" ng-click="saveFile($event);">
+            Save
+          </button>
+          <button type="button" class="btn btn-default" ng-click="stopEdit()">
+            Cancel
+          </button>
+        </span>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<div class="image-crop" ng-if="crop">
+  <div ng-jcrop="file.cropUrl" selection="coords"></div>
+  <button class="btn btn-danger bottom-left" ng-click="stopCrop($event)">Cancel</button>
+
+  <div class="bottom-right">
+    <button class="btn btn-default" ng-click="saveCrop(true, $event)" ng-if="!overwriteOnly"><span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span> Overwrite</button>
+    <button class="btn btn-primary" ng-click="saveCrop(false, $event)" ng-if="!overwriteOnly"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Save as Copy</button>
+    <button class="btn btn-primary" ng-click="saveCrop(true, $event)" ng-if="overwriteOnly"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Save</button>
+  </div>
+</div>
