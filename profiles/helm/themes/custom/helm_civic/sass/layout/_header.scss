@@ -57,6 +57,11 @@ img.logo {
 
 @include respond($sm-up) {
   #main-menu {
-    padding-top: 3px;
+    padding-top: 0;
+
+    a {
+      padding-top: 19px;
+      padding-bottom: 18px;
+    }
   }
 }

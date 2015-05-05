@@ -5142,6 +5142,16 @@ button.close {
     display: none !important; }
  }
 
+#admin-menu ul {
+  font-size: 0.8rem; }
+  #admin-menu ul img {
+    margin-bottom: 0; }
+
+.alert-box .krumo-root {
+  color: #000000; }
+.alert-box p:last-child, .alert-box ul:last-child {
+  margin-bottom: 0; }
+
 .navbar {
   border-left: 0;
   border-right: 0; }
@@ -5172,7 +5182,10 @@ img.logo {
 
 @media screen and (min-width: 768px) {
   #main-menu {
-    padding-top: 3px; }
+    padding-top: 0; }
+    #main-menu a {
+      padding-top: 19px;
+      padding-bottom: 18px; }
  }
 
 .footer {
