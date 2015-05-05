@@ -64,7 +64,7 @@ function angular_311_library() {
 function angular_311_render_pane($subtype, $conf, $args, $contexts) {
   $block = new stdClass();
   $block->title = '';
-  $block->content = theme('angular_311_app'); 
+  $block->content = theme('angular_311_app', array('conf' => $conf)); 
   return $block;
 }
 
@@ -93,6 +93,7 @@ function angular_311_theme() {
  * Implements hook_theme_preprocess().
  */
 function template_preprocess_angular_311_app(&$variables) {
+  dpm($variables);
   $vocabulary = taxonomy_vocabulary_machine_name_load('faq_category');
   drupal_add_library('angular_311', 'angular-311');
   $variables['app_id'] = 'angular-311-app-' . $variables['id'];
@@ -100,6 +101,7 @@ function template_preprocess_angular_311_app(&$variables) {
     'app_id' => $variables['app_id'],
     'app_path' => $variables['app_path'],
     'api_path' => $variables['api_path'],
+    'app_page_display' => $variables['conf']['page_display'],
     'payment_url' => 'http://workhorse.albatrossdigital.com/payment-callback.php',
     'track_url' => 'http://markaspot.helmcivic.com/georeport/v2',
     'vocabulary_vid' => $vocabulary->vid,

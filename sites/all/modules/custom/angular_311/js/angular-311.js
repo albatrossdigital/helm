@@ -7,6 +7,7 @@
         apiUrl = settings.angular_311.api_path;
         paymentUrl = settings.angular_311.payment_url;
         trackUrl = settings.angular_311.track_url;
+        appPageDisplay = settings.angular_311.app_page_display;
         vocabularyVid = settings.angular_311.vocabulary_vid;
         var app = $('#' + settings.angular_311.app_id);
         if(!app.hasClass('ng-scope')) {
