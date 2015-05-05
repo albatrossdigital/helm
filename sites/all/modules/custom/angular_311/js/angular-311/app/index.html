@@ -45,7 +45,7 @@
         paymentUrl='';paymentUrl="http://workhorse.albatrossdigital.com/payment-callback.php";
         Drupal.settings.angular_311.payment_path = paymentUrl;
         trackUrl='';trackUrl="http://dev-tross-markaspot.pantheon.io/georeport/v2";
-        Drupal.settings.angular_311.track_path = trackUrl;
+        Drupal.settings.angular_311.app_page_display = 'answers';
     </script>
   </head>
   <body page-ready>
@@ -64,15 +64,14 @@
 </nav>
 <div class="container">
 <div class="app-wrap">
-  <div class="open-nav">
+  <div ng-if="appPageDisplay == 'all'" class="open-nav">
     <a menu-click="return-false"><i class="fa fa-arrow-circle-o-left"></i> <span>Navigation</span></a>
   </div>
   <div class="app-slider">
     <div class="row">
-      <div class="col-xs-6 col-sm-12 nav-contain">
+      <div ng-if="appPageDisplay == 'all'" class="col-xs-6 col-sm-12 nav-contain">
         <div menu></div>
       </div>
-
       <div class="col-xs-6 col-sm-12 content-contain">
         <div class="body-content animation-wrap">
           <main id="main-311" class="main main-311 transform clearfix" ui-view></main>

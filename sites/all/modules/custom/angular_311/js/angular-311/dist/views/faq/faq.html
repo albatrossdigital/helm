@@ -11,7 +11,7 @@
       <div class="col-xs-10 col-md-10 top-category">
         <h4><a href="" ng-click="open(item)">{{item.name}}</a></h4>
         <div class="animation-wrap">
-          <div class="slidedown" ng-if="active.tid == item.tid">
+          <div class="slidedown" ng-if="active.tid == item.tid || displayExpanded('answers')">
             <!-- @todo: ng-repeat="child in terms | filter: { parent: [{id: item.tid}] } |  orderBy: 'weight'" -->
             <ul class="taxonomy-vocabulary-2col">
               <li ng-repeat="child in terms | termsByParent:item.tid" >

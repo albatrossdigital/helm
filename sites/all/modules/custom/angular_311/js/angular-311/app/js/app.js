@@ -38,6 +38,8 @@ angular.module('app', [
       //$rootScope.trackUrl = 'http://dev-tross-markaspot.pantheon.io/georeport/v2';
       $rootScope.trackUrl = Drupal.settings.angular_311.track_url;
       //$rootScope.trackUrl = 'http://markaspot.local/georeport/v2';
+      $rootScope.appPageDisplay = Drupal.settings.angular_311.app_page_display;
+      
       console.log($rootScope);
 
 
@@ -126,6 +128,11 @@ angular.module('app', [
           stateName = baseRoute+'.'+baseName;
         }
         $state.go(stateName);
+      }
+
+            // Helper function returns boolean for if we're in "full page mode"
+      $rootScope.displayExpanded = function(section) {
+        return section == $rootScope.appPageDisplay;
       }
 		
 		}
