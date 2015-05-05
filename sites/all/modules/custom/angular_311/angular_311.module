@@ -93,7 +93,7 @@ function angular_311_theme() {
  * Implements hook_theme_preprocess().
  */
 function template_preprocess_angular_311_app(&$variables) {
-  dpm($variables);
+  //dpm($variables);
   $vocabulary = taxonomy_vocabulary_machine_name_load('faq_category');
   drupal_add_library('angular_311', 'angular-311');
   $variables['app_id'] = 'angular-311-app-' . $variables['id'];
