@@ -62,11 +62,9 @@ dependencies[] = panels_ipe
 dependencies[] = panels_mini
 dependencies[] = fences
 dependencies[] = panels_extra_styles
-dependencies[] = clean_markup_panels
 dependencies[] = helm_input_formats
 dependencies[] = gravatar
-; dependencies[] = quickedit
-
+;dependencies[] = clean_markup_panels // evaluate for future
 
 ; Helm - Contrib - Field UI and Content Types
 dependencies[] = field_group
