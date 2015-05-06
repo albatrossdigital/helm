@@ -6912,6 +6912,8 @@ h1, h2, h3, h4, h5, h6, p, .field-name-body, .field-name-field-date, a, .views-f
 .view-content > h3, .grouping-content > h2 {
   margin-top: 1.1em;
   margin-bottom: 1.1em; }
+  .view-content > h3:first-child, .grouping-content > h2:first-child {
+    margin-top: 0; }
 
 .app-wrap {
   padding-bottom: 50px; }
@@ -6978,6 +6980,11 @@ body.front #content {
   padding-top: 40px;
   margin-top: 40px; }
 
+.common-border-small + .common-border-small {
+  border-top: 1px solid #eeeeee;
+  padding-top: 20px;
+  margin-top: 20px; }
+
 .field-name-body img, .field-name-body iframe {
   display: block;
   margin-left: auto;
@@ -6988,3 +6995,7 @@ body.front #content {
 
 .field-name-field-image img {
   margin-bottom: 20px; }
+
+.pane-views-exp-events-events-upcoming .views-exposed-widget {
+  float: none;
+  padding-left: 0; }

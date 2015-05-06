@@ -9,6 +9,11 @@
 .grouping-content > h2 {
   margin-top: #{$headings-line-height}em;
   margin-bottom: #{$headings-line-height}em;
+  
+
+  &:first-child {
+    margin-top: 0;
+  }
 }
 
 .view-content > h3 {

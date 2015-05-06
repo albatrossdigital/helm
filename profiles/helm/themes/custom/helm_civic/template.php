@@ -56,6 +56,12 @@ function helm_civic_preprocess_panels_pane(&$vars) {
     $pretty_sitename = theme_get_setting('pretty_sitename', 'helm_civic');
     $vars['content'] = $pretty_sitename ? $pretty_sitename : $vars['content'];
   }
+  
+  $alt_heading = !empty($vars['pane']->configuration)
+              && !empty($vars['pane']->configuration['override_title'])
+              && !empty($vars['pane']->configuration['override_title_heading']);
+
+  $vars['pane_heading'] = $alt_heading ? $vars['pane']->configuration['override_title_heading'] : 'h4';
 }
 
 /**
