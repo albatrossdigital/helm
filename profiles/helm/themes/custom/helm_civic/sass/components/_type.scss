@@ -63,12 +63,12 @@ h1, .h1 {
   font-weight: $light-weight;
   line-height: 1.2em;
   color: rgba($headings-color, .54);
+  @extend %header-link-alt;
 }
 
 
 h2, .h2 {
   @extend %header-h2;
-  @extend %header-link-alt;
 }
 
 h3, .h3 {
