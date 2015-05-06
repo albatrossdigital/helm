@@ -4,14 +4,6 @@
 
 h1, h2, h3, h4, h5, h6 {
 
-  a {
-    color: $black;
-
-    &:hover {
-      color: lighten($black, 10%);
-    }
-  }
-
   &.margin-top-none {
     margin-top: 0;
   }
@@ -35,6 +27,26 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+%header-link {
+  a {
+    color: rgba($headings-color, .87);
+
+    &:hover {
+      color: rgba($headings-color, .77);
+    }
+  }
+}
+
+%header-link-alt {
+  a {
+    color: rgba($headings-color, .54);
+
+    &:hover {
+      color: rgba($headings-color, .44);
+    }
+  }
+}
+
 h1, .h1 {
   line-height: 1.1em;
   color: rgba($headings-color, .87);
@@ -43,6 +55,8 @@ h1, .h1 {
   &, small {
     font-weight: $medium-weight;
   }
+
+  @extend %header-link;
 }
 
 %header-h2 {
@@ -51,37 +65,24 @@ h1, .h1 {
   color: rgba($headings-color, .54);
 }
 
+
 h2, .h2 {
   @extend %header-h2;
+  @extend %header-link-alt;
 }
 
 h3, .h3 {
   font-weight: $medium-weight;
   line-height: 1.4em;
   color: rgba($headings-color, .87);
-
-  // a {
-  
-
-  //   &:hover {
-    
-  //     text-decoration: none;
-  //     border-bottom: 2px solid $brand-primary;
-  //   }
-  // }
+  @extend %header-link;
 }
 
 h4, .h4 {
   font-weight: $regular-weight;
   line-height: 1.4em;
   color: rgba($headings-color, .87);
-
-  // a {
-  //   &:hover {
-  //     text-decoration: none;
-  //     border-bottom: 2px solid $brand-primary;
-  //   }
-  // }
+  @extend %header-link;
 }
 
 h5, .h5 {
@@ -90,11 +91,13 @@ h5, .h5 {
   letter-spacing: 1px;
   line-height: 1.5em;
   color: rgba($headings-color, .54);
+  @extend %header-link-alt;
 }
 
 h6, .h6 {
   font-weight: $regular-weight;
   color: rgba($headings-color, .54);
+  @extend %header-link-alt;
 }
 
 
