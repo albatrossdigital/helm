@@ -45,10 +45,14 @@ h1, .h1 {
   }
 }
 
-h2, .h2 {
+%header-h2 {
   font-weight: $light-weight;
   line-height: 1.2em;
   opacity: .54;
+}
+
+h2, .h2 {
+  @extend %header-h2;
 }
 
 h3, .h3 {

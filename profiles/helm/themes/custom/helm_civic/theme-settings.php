@@ -33,7 +33,9 @@ function helm_civic_form_system_theme_settings_alter(&$form, &$form_state) {
   $form['fonts']['google_font'] = array(
     '#type' => 'textfield',
     '#title' => t('Google Font'),
-    '#description' => t('Include this css file from Google Fonts.  Leave blank to not pull any css file from Google Fonts.'),
+    '#description' => t('Include font families from google fonts. Seperate all fonts with a "|", using the sytax described !link.  For example: <strong>Tangerine:bold,bolditalic|Inconsolata:italic|Droid Sans</strong>', array(
+      '!link' => l('here', 'https://developers.google.com/fonts/docs/getting_started#Syntax" target="_blank', array('attributes' => array('target' => '_blank' )))
+    )),
     '#default_value' => theme_get_setting('google_font', 'helm_civic'),
   );
   /*$form['fonts']['fontawesome'] = array(

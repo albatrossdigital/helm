@@ -6895,6 +6895,14 @@ input.form-autocomplete {
 h1.page-title {
   margin-top: 0; }
 
+h1, h2, h3, h4, h5, h6, p, .field-name-body, .field-name-field-date, a, .views-field-name, label {
+  opacity: 0;
+  -webkit-transition: opacity 0.25s ease-in-out;
+  -o-transition: opacity 0.25s ease-in-out;
+  transition: opacity 0.25s ease-in-out; }
+  .wf-active h1, .wf-active h2, .wf-active h3, .wf-active h4, .wf-active h5, .wf-active h6, .wf-active p, .wf-active .field-name-body, .wf-active .field-name-field-date, .wf-active a, .wf-active .views-field-name, .wf-active label {
+    opacity: 1; }
+
 .app-wrap {
   padding-bottom: 50px; }
 
@@ -6957,8 +6965,8 @@ body.front #content {
 
 .common-border + .common-border {
   border-top: 1px solid #eeeeee;
-  padding-top: 20px;
-  margin-top: 20px; }
+  padding-top: 40px;
+  margin-top: 40px; }
 
 .field-name-body img, .field-name-body iframe {
   display: block;
