@@ -5,13 +5,13 @@
 // Views grouping
 // ------------------------------------------------------
 
-.views-content > h3,
+.view-content > h3,
 .grouping-content > h2 {
   margin-top: #{$headings-line-height}em;
   margin-bottom: #{$headings-line-height}em;
 }
 
-.views-content > h3 {
+.view-content > h3 {
   @extend %header-h2;
 }
 

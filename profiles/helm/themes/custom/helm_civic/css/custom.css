@@ -6712,9 +6712,9 @@ h1 a, .h1 a, h3 a, .h3 a, h4 a, .h4 a {
   h1 a:hover, .h1 a:hover, h3 a:hover, .h3 a:hover, h4 a:hover, .h4 a:hover {
     color: rgba(0, 0, 0, 0.77); }
 
-h2 a, .h2 a, .views-content > h3 a, h5 a, .h5 a, h6 a, .h6 a {
+h2 a, .h2 a, .view-content > h3 a, h5 a, .h5 a, h6 a, .h6 a {
   color: rgba(0, 0, 0, 0.54); }
-  h2 a:hover, .h2 a:hover, .views-content > h3 a:hover, h5 a:hover, .h5 a:hover, h6 a:hover, .h6 a:hover {
+  h2 a:hover, .h2 a:hover, .view-content > h3 a:hover, h5 a:hover, .h5 a:hover, h6 a:hover, .h6 a:hover {
     color: rgba(0, 0, 0, 0.44); }
 
 h1, .h1 {
@@ -6724,7 +6724,7 @@ h1, .h1 {
   h1, h1 small, .h1, .h1 small {
     font-weight: 500; }
 
-h2, .h2, .views-content > h3 {
+h2, .h2, .view-content > h3 {
   font-weight: 300;
   line-height: 1.2em;
   color: rgba(0, 0, 0, 0.54); }
@@ -6909,7 +6909,7 @@ h1, h2, h3, h4, h5, h6, p, .field-name-body, .field-name-field-date, a, .views-f
   .wf-active h1, .wf-active h2, .wf-active h3, .wf-active h4, .wf-active h5, .wf-active h6, .wf-active p, .wf-active .field-name-body, .wf-active .field-name-field-date, .wf-active a, .wf-active .views-field-name, .wf-active label {
     opacity: 1; }
 
-.views-content > h3, .grouping-content > h2 {
+.view-content > h3, .grouping-content > h2 {
   margin-top: 1.1em;
   margin-bottom: 1.1em; }
 
