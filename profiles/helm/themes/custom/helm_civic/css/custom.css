@@ -6673,22 +6673,56 @@ img.logo {
   margin: 0 auto;
   display: block; }
 
-.col-xs-6 + .col-xs-6:nth-child(2n+1), .col-xs-4 + .col-xs-4:nth-child(3n+1), .col-xs-3 + .col-xs-3:nth-child(4n+1), .col-sm-6 + .col-sm-6:nth-child(2n+1), .col-sm-4 + .col-sm-4:nth-child(3n+1), .col-sm-3 + .col-sm-3:nth-child(4n+1), .col-md-6 + .col-md-6:nth-child(2n+1), .col-md-4 + .col-md-4:nth-child(3n+1), .col-md-3 + .col-md-3:nth-child(4n+1), .col-lg-6 + .col-lg-6:nth-child(2n+1), .col-lg-4 + .col-lg-4:nth-child(3n+1), .col-lg-3 + .col-lg-3:nth-child(4n+1) {
+.clear-xs-6:nth-child(2n+1), .clear-xs-4:nth-child(3n+1), .clear-xs-3:nth-child(4n+1), .clear-xs-2:nth-child(6n+1) {
   clear: left; }
+
+@media screen and (max-width: 767px) {
+  .clear-xs-only-6:nth-child(2n+1), .clear-xs-only-4:nth-child(3n+1), .clear-xs-only-3:nth-child(4n+1), .clear-xs-only-2:nth-child(6n+1) {
+    clear: left; }
+ }
+
+@media screen and (max-width: 991px) {
+  .clear-sm-down-6:nth-child(2n+1), .clear-sm-down-4:nth-child(3n+1), .clear-sm-down-3:nth-child(4n+1), .clear-sm-down-2:nth-child(6n+1) {
+    clear: left; }
+ }
+
+@media screen and (min-width: 768px) and (max-width: 991px) {
+  .clear-sm-only-6:nth-child(2n+1), .clear-sm-only-4:nth-child(3n+1), .clear-sm-only-3:nth-child(4n+1), .clear-sm-only-2:nth-child(6n+1) {
+    clear: left; }
+ }
 
 @media screen and (min-width: 768px) {
   .false-container {
     width: 744px; }
+
+  .clear-sm-6:nth-child(2n+1), .clear-sm-4:nth-child(3n+1), .clear-sm-3:nth-child(4n+1), .clear-sm-2:nth-child(6n+1) {
+    clear: left; }
+ }
+
+@media screen and (max-width: 1279px) {
+  .clear-md-down-6:nth-child(2n+1), .clear-md-down-4:nth-child(3n+1), .clear-md-down-3:nth-child(4n+1), .clear-md-down-2:nth-child(6n+1) {
+    clear: left; }
+ }
+
+@media screen and (min-width: 992px) and (max-width: 1279px) {
+  .clear-md-only-6:nth-child(2n+1), .clear-md-only-4:nth-child(3n+1), .clear-md-only-3:nth-child(4n+1), .clear-md-only-2:nth-child(6n+1) {
+    clear: left; }
  }
 
 @media screen and (min-width: 992px) {
   .false-container {
     width: 964px; }
+
+  .clear-md-6:nth-child(2n+1), .clear-md-4:nth-child(3n+1), .clear-md-3:nth-child(4n+1), .clear-md-2:nth-child(6n+1) {
+    clear: left; }
  }
 
 @media screen and (min-width: 1280px) {
   .false-container {
     width: 1080px; }
+
+  .clear-lg-6:nth-child(2n+1), .clear-lg-4:nth-child(3n+1), .clear-lg-3:nth-child(4n+1), .clear-lg-2:nth-child(6n+1) {
+    clear: left; }
  }
 
 img {
