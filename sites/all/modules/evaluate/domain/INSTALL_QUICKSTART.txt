@@ -1,0 +1,91 @@
+/**
+ * @file
+ * Quickstart INSTALL file for Domain Access.
+ */
+
+This file is a quickstart guide for using the Domain Access
+suite of modules.
+
+For full documentation, see INSTALL.txt and README.txt
+
+INSTALLATION INSTRUCTIONS
+
+1. Before proceeding, you must install and configure Drupal
+    without installing this module.
+
+    Note that you only need one settings directory and file.
+
+2. Unpack the download and place it in your modules directory.
+
+    Note the path to this directory, it is normally:
+
+      'sites/all/modules'
+
+3. Add the following four lines of code to your settings.php file:
+
+/**
+ * Add the domain module setup routine.
+ */
+include DRUPAL_ROOT . '/sites/all/modules/domain/settings.inc';
+
+    NOTE: You may need to alter the file path above based on your
+    site configuration.  See INSTALL.txt for further help.
+
+    IMPORTANT: You must add these lines to settings.php after the
+    $databases. Normally, you should add these lines to the end of the
+    settings.php file.
+
+    NOTE: If you perform a Drupal core version upgrade, you must
+    remove these lines from settings.php.  See UPGRADE.txt for details.
+
+4. Go to Admin > Modules.  There you will see the Domain module group.
+
+    Only enable the Domain Access module.
+
+    Submit the configuration changes to your modules.
+
+5. Rebuild content access permissions as instructed.
+
+6. Configure permissions for the module, normally you will give your
+    site administrators the following permissions:
+
+    -- 'administer domains'
+    -- 'set domain access'
+
+    If you intend to use access control for editors, you may wish to set
+    the following permissions:
+
+    -- 'assign domain editors'
+    -- 'edit domain content'
+
+    For more information see README.txt.
+
+    NOTE: Some of these permissions may be pre-configured for the
+    site's administrative role.
+
+7. Read the main README.txt file for the Domain Access module.
+
+8. Go to Admin > Structure > Domain and configure the module.
+
+9. Now you are ready to explore the options available to you.
+
+    The Domain Access suite contains a number of optional helper
+    modules.  You do not need to use any of these modules, but
+    they may add desirable features.
+
+    Each of the modules has its own INSTALL.txt and README.txt files.
+    Please read them carefully before activating them.
+
+----
+USING DRUSH
+
+NOTE: When installing from drush, it is proper to pass the URI value for your
+site. Include the full path to the installation, as below:
+
+  drush pm-enable domain --uri=http://example.com/optional_subdirectory
+
+Then clear the node access cache:
+
+  drush cache-clear
+
+When prompted, select either option [1] or option [5] to rebuild node access.

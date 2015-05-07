@@ -1,0 +1,12 @@
+name = Login Redirect
+description = "Provides a method to redirect according to an URL-defined parameter after user logs in."
+package = User
+core = 7.x
+configure = admin/config/system/login_redirect
+
+; Information added by Drupal.org packaging script on 2014-04-27
+version = "7.x-1.2"
+core = "7.x"
+project = "login_redirect"
+datestamp = "1398584327"
+

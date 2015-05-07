@@ -1,0 +1,27 @@
+<?php
+
+/**
+ * @file
+ * Installs Login Redirect.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function login_redirect_install() {
+  variable_set('login_redirect_status', 0);
+  variable_set('login_redirect_parameter_name', 'destination');
+  $t = get_t();
+  drupal_set_message($t('Thank you for installing Login Redirect. Please
+  proceed to the <a href="@settings">Settings Page</a> and configure
+  Login Redirect properly.',
+  array('@settings' => url('admin/config/system/login_redirect'))));
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function login_redirect_uninstall() {
+  variable_del('login_redirect_status');
+  variable_del('login_redirect_parameter_name');
+}

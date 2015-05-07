@@ -1,0 +1,94 @@
+<?php
+
+/**
+ * @file
+ * Install file for Domain Menu Block.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function domain_menu_block_schema() {
+  $schema['domain_menu_block'] = array(
+    'description' => 'Stores Menu Block settings for domains.',
+    'fields' => array(
+      'machine_name' => array(
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => TRUE, 'default' => '',
+        'description' => 'The machine name for this menu block.',
+      ),
+      'base_name' => array(
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'The base menu name for this menu block.',
+      ),
+      'description' => array(
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => TRUE, 'default' => '',
+        'description' => 'The description for this menu block.',
+      ),
+      'level' => array(
+        'type' => 'int',
+        'size' => 'small',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 1,
+        'description' => 'Starting level for this menu block.',
+      ),
+      'depth' => array(
+        'type' => 'int',
+        'size' => 'small',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 2,
+        'description' => 'Max depth for this menu block.',
+      ),
+      'follow' => array(
+        'type' => 'int',
+        'size' => 'tiny',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'Follow starting level for this menu block.',
+      ),
+      'expanded' => array(
+        'type' => 'int',
+        'size' => 'tiny',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'Expand child items for this menu block.',
+      ),
+      'sort' => array(
+        'type' => 'int',
+        'size' => 'tiny',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'Sort menu tree for this menu block.',
+      ),
+      'auto_create' => array(
+        'type' => 'int',
+        'size' => 'tiny',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 1,
+        'description' => 'Auto-create menus for this item.',
+      ),
+      'auto_delete' => array(
+        'type' => 'int',
+        'size' => 'tiny',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 1,
+        'description' => 'Auto-delete menus for this item.',
+      ),
+    ),
+    'primary key' => array('machine_name'),
+  );
+  return $schema;
+}

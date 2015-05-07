@@ -1,0 +1,453 @@
+<?php
+
+/**
+ * @file
+ * Install file.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function domain_install() {
+  domain_set_primary_domain();
+}
+
+/**
+ * Implements hook_schema().
+ */
+function domain_schema() {
+  $schema['domain'] = array(
+    'description' => 'The base table for domain records',
+    'fields' => array(
+      'domain_id' => array('type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0, 'description' => 'Domain numeric id.'),
+      'subdomain' => array('type' => 'varchar', 'length' => '255', 'not null' => TRUE, 'default' => '', 'description' => 'Registered DNS entry, will match HTTP_HOST requests'),
+      'sitename' => array('type' => 'varchar', 'length' => '255', 'not null' => TRUE, 'default' => '', 'description' => 'Site display name'),
+      'scheme' => array('type' => 'varchar', 'length' => '8', 'not null' => TRUE, 'default' => 'http', 'description' => 'Protocol'),
+      'valid' => array('type' => 'varchar', 'length' => '1', 'not null' => TRUE, 'default' => '1', 'description' => 'Active status'),
+      'weight' => array('type' => 'int', 'unsigned' => FALSE, 'not null' => TRUE, 'default' => 0, 'description' => 'Sort order'),
+      'is_default' => array('type' => 'int', 'size' => 'tiny', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0, 'description' => 'Indicates primary domain'),
+      'machine_name' => array('type' => 'varchar', 'length' => '255', 'not null' => TRUE, 'default' => '', 'description' => 'The machine name for this domain.')),
+    'primary key' => array('domain_id'),
+    'indexes' => array(
+      'subdomain' => array('subdomain'),
+      'weight' => array('weight'),
+      'is_default' => array('is_default'),
+    ),
+    'foreign_keys' => array(
+      'domain_id' => array('domain_export' => 'domain_id'),
+      'machine_name' => array('domain_export' => 'machine_name'),
+    ),
+  );
+  $schema['domain_access'] = array(
+    'description' => 'Stores domain information for each node',
+    'fields' => array(
+      'nid' => array('type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0, 'description' => 'Node id, foreign key to {node}'),
+      'gid' => array('type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0, 'description' => 'Node access grant id'),
+      'realm' => array('type' => 'varchar', 'length' => '255', 'not null' => TRUE, 'default' => '', 'description' => 'Node access realm')),
+    'primary key' => array('nid', 'gid', 'realm'),
+    'indexes' => array(
+      'nid' => array('nid')
+    ),
+    'foreign_keys' => array(
+      'nid' => array('node' => 'nid'),
+    ),
+  );
+  $schema['domain_editor'] = array(
+    'description' => 'Stores domain information for each user',
+    'fields' => array(
+      'uid' => array('type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0, 'description' => 'User id, foreign key to {user}'),
+      'domain_id' => array('type' => 'int', 'unsigned' => FALSE, 'not null' => TRUE, 'default' => 0, 'description' => 'Domain id, foreign key to {domain}')),
+    'primary key' => array('uid', 'domain_id'),
+    'foreign_keys' => array(
+      'uid' => array('user' => 'uid'),
+      'domain_id' => array('domain' => 'domain_id'),
+    ),
+  );
+  $schema['domain_export'] = array(
+    'description' => 'Stores canonical machine names for domains.',
+    'fields' => array(
+      'domain_id' => array('type' => 'serial', 'not null' => TRUE, 'description' => 'Domain id. Automatic master key.'),
+      'machine_name' => array('type' => 'varchar', 'length' => '255', 'not null' => TRUE, 'default' => '', 'description' => 'The machine name for this domain.')),
+    'unique keys' => array('machine_name' => array('machine_name')),
+    'indexes' => array(
+      'domain_id' => array('domain_id')
+    ),
+  );
+  return $schema;
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function domain_uninstall() {
+  $variables = array(
+    'domain_bootstrap_modules',
+    'domain_classes',
+    'domain_cron_rule',
+    'domain_debug',
+    'domain_default_source',
+    'domain_edit_on_primary',
+    'domain_force_admin',
+    'domain_grant_all',
+    'domain_list_size',
+    'domain_paths',
+    'domain_search',
+    'domain_select_format',
+    'domain_sitename_override',
+    'domain_seo',
+    'domain_vertical_tab',
+    'domain_www',
+    'domain_xmlrpc_rule',
+  );
+  if (function_exists('node_type_get_types')) {
+    $types = node_type_get_types();
+    foreach ($types as $key => $type) {
+      $variables[] = 'domain_node_' . $key;
+    }
+  }
+  foreach ($variables as $variable) {
+    variable_del($variable);
+  }
+}
+
+/**
+ * Checks module requirements.
+ */
+function domain_requirements($phase) {
+  $requirements = array();
+  switch ($phase) {
+    case 'install':
+      module_load_include('module', 'domain');
+      $root = strtolower(rtrim($_SERVER['HTTP_HOST']));
+      if ($error = domain_valid_domain($root)) {
+        $requirements['domain'] = array(
+          'title' => t('Domain Access'),
+          'value' => $error . t('If you are using drush, please provide the --uri option (e.g. drush en domain --uri="http://example.com/optional_subdirectory").'),
+          'severity' => REQUIREMENT_ERROR,
+        );
+      }
+      break;
+    case 'runtime':
+      $messages = array();
+      $severity = REQUIREMENT_ERROR;
+      // Ensure we have a primary domain.
+      $check = domain_default();
+      if ($check['domain_id'] == 0) {
+        $updated = t('set by an administrator');
+        if (user_access('administer domains')) {
+          $updated = l(t('set properly'), 'admin/structure/domain');
+        }
+        $messages[] = t('The site has no primary domain and needs to be !updated.', array('!updated' => $updated));
+      }
+      // Check for domain_id 0.
+      $list = domain_update_module_check();
+      domain_update_messages($messages, $list);
+
+      // Now report.
+      $t = get_t();
+      if (empty($message)) {
+        $severity = REQUIREMENT_OK;
+        $messages[] = t('Module installed correctly.');
+      }
+      $requirements['domain'] = array(
+        'title' => $t('Domain Access'),
+        'value' => theme('item_list', array('items' => $messages)),
+        'severity' => $severity,
+      );
+      break;
+  }
+  return $requirements;
+}
+
+/**
+ * Update note.
+ *
+ * Upgrading from Drupal 5 to Drupal 7 is not supported.
+ * You must first upgrade to Drupal 6.x.2.3 or higher, and then proceed to Drupal 7.
+ *
+ */
+
+/**
+ * Update block deltas to Drupal 7.
+ */
+function domain_update_7000(&$sandbox) {
+  // Get an array of the renamed block deltas, organized by module.
+  $renamed_deltas = array(
+    'domain' => array(
+      '0' => 'switcher',
+      '1' => 'information',
+    ),
+  );
+  $moved_deltas = array();
+  update_fix_d7_block_deltas($sandbox, $renamed_deltas, $moved_deltas);
+  return t('Domain Access blocks updated.');
+}
+
+/**
+ * Change the edit and delete permissions.
+ */
+function domain_update_7001(&$sandbox) {
+  db_update('role_permission')
+    ->condition('permission', 'edit domain nodes')
+    ->fields(array('permission' => 'edit domain content'))
+    ->execute();
+  db_update('role_permission')
+    ->condition('permission', 'delete domain nodes')
+    ->fields(array('permission' => 'delete domain content'))
+    ->execute();
+  return t('Updated Domain Access permission names.');
+}
+
+/**
+ * Add sorting to domains.
+ */
+function domain_update_7300(&$sandbox) {
+  if (db_field_exists('domain', 'weight')) {
+    return t('No update required');
+  }
+  db_add_field('domain', 'weight', array('type' => 'int', 'unsigned' => FALSE, 'not null' => TRUE, 'default' => 0), array());
+  db_add_index('domain', 'weight', array('weight'));
+  variable_del('domain_sort');
+  return t('Domain sorting added.');
+}
+
+/**
+ * Add default domain flag and weight the default higher.
+ */
+function domain_update_7301(&$sandbox) {
+  if (db_field_exists('domain', 'is_default')) {
+    return t('No update required');
+  }
+  db_add_field('domain', 'is_default', array('type' => 'int', 'size' => 'tiny', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0), array());
+  db_update('domain')
+    ->fields(array('is_default' => 1, 'weight' => -1))
+    ->condition('domain_id', 0)
+    ->execute();
+  variable_del('domain_default');
+
+  return t('Default domain updated.');
+}
+
+/**
+ * Add an index on {domain}.is_default.
+ */
+function domain_update_7302(&$sandbox) {
+  if (!db_index_exists('domain', 'is_default')) {
+    db_add_index('domain', 'is_default', array('is_default'));
+  }
+  return t('Domain default indexed properly.');
+}
+
+/**
+ * Remove the zero record from the database.
+ */
+function domain_update_7303(&$sandbox) {
+  // We grab the default domain, remove it from the database, and
+  // then re-save it into the table, using the new value as the default domain.
+  $default = db_query("SELECT * FROM {domain} WHERE domain_id = 0")->fetchAssoc();
+  if (empty($default)) {
+    return t('Domain Access did not find an existing domain 0. No updates required.');
+  }
+  // We have to do a delete and re-insert here to properly increment the id.
+  // Since the module might be disabled, we can't use drupal_write_record();
+  db_delete('domain')
+    ->condition('domain_id', 0)
+    ->execute();
+
+  db_insert('domain')
+    ->fields(array(
+      'subdomain' => $default['subdomain'],
+      'sitename' => $default['sitename'],
+      'scheme' => $default['scheme'],
+      'valid' => $default['valid'],
+      'weight' => $default['weight'],
+      'is_default' => $default['is_default'],
+
+    ))
+    ->execute();
+
+  // Update tables that use a domain_id and we control directly.
+  $default_id = db_query("SELECT domain_id FROM {domain} WHERE is_default = 1")->fetchField();
+
+  db_update('domain_editor')
+    ->fields(array('domain_id' => $default_id))
+    ->condition('domain_id', 0)
+    ->execute();
+  db_update('domain_access')
+    ->fields(array('gid' => $default_id))
+    ->condition('gid', 0)
+    ->condition('realm', 'domain_id')
+    ->execute();
+  db_update('node_access')
+    ->fields(array('gid' => $default_id))
+    ->condition('gid', 0)
+    ->condition('realm', 'domain_id')
+    ->execute();
+  // Remove the old variables.
+  variable_del('domain_root');
+  variable_del('domain_sitename');
+  variable_del('domain_scheme');
+  // Update message.
+  return t('Domain Access updated domain 0 successfully');
+}
+
+/**
+ * Rebuild the {domain} table.
+ */
+function domain_update_7304(&$sandbox) {
+  // Reset the domain_id field as a plain integer.
+  $spec = array('type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0, 'description' => 'Domain numeric id.');
+  db_change_field('domain', 'domain_id', 'domain_id', $spec);
+  db_drop_primary_key('domain');
+
+  // Add the machine name column.
+  if (!db_field_exists('domain', 'machine_name')) {
+    $spec = array('type' => 'varchar', 'length' => '255', 'not null' => TRUE, 'default' => '', 'description' => 'The machine name for this domain.');
+    db_add_field('domain', 'machine_name', $spec);
+  }
+
+  // Now we can safely add the new primary key.
+  db_add_primary_key('domain', array('domain_id'));
+
+  return t('{domain} table updated with machine_name column.');
+}
+
+/**
+ * Allow domains to be made exportable.
+ */
+function domain_update_7305(&$sandbox) {
+  if (db_table_exists('domain_export')) {
+    return t('{domain_export} table exists.');
+  }
+  $schema = array(
+    'description' => 'Stores canonical machine names for domains.',
+    'fields' => array(
+      'domain_id' => array('type' => 'serial', 'description' => 'Domain id. Automatic master key.'),
+      'machine_name' => array('type' => 'varchar', 'length' => '255', 'not null' => TRUE, 'default' => '', 'description' => 'The machine name for this domain.')),
+    'primary key' => array('machine_name'),
+    'indexes' => array(
+      'domain_id' => array('domain_id')
+    ),
+  );
+  db_create_table('domain_export', $schema);
+  return t('{domain_export} table created.');
+}
+
+
+/**
+ * Insert existing domain records into {domain_export} and {domain}.
+ */
+function domain_update_7306(&$sandbox) {
+  $domains = db_query("SELECT domain_id, subdomain FROM {domain} ORDER BY domain_id")->fetchAll();
+  foreach ($domains as $domain) {
+    $query = db_insert('domain_export')
+      ->fields(array(
+        'domain_id' => $domain->domain_id,
+        'machine_name' => domain_update_machine_name($domain->subdomain),
+      ));
+    $query->execute();
+    $query = db_update('domain')
+      ->condition('domain_id', $domain->domain_id)
+      ->fields(array(
+        'machine_name' => domain_update_machine_name($domain->subdomain),
+      ));
+    $query->execute();
+  }
+
+  return t('{domain_export} table populated.');
+}
+
+/**
+ * Updates the {domain_export} table for new key handling.
+ */
+function domain_update_7307(&$sandbox) {
+  db_drop_primary_key('domain_export');
+  // Just in case a unique key already exists, drop it.
+  db_drop_unique_key('domain_export', 'machine_name');
+  db_add_unique_key('domain_export', 'machine_name', array('machine_name'));
+  return t('{domain_export} table keys updated.');
+}
+
+/**
+ * Generates a machine name during the update process.
+ *
+ * @param $subdomain
+ *  The subdomain string of the record, which should be unique.
+ *
+ * @return
+ *  A string with dot and colon transformed to underscore.
+ */
+function domain_update_machine_name($subdomain) {
+  return preg_replace('/[^a-z0-9_]+/', '_', $subdomain);
+}
+
+/**
+ * Replace domain_behavior with default node access settings.
+ */
+function domain_update_7308(&$sandbox) {
+  $behavior = variable_get('domain_behavior', 0);
+  if (function_exists('node_type_get_types')) {
+    $types = node_type_get_types();
+    foreach ($types as $key => $type) {
+      $node_access_values = array('DOMAIN_ACTIVE');
+      $all_sites = variable_get('domain_node_' . $key, 0);
+      if ($behavior == 1 || $all_sites == 1) {
+        $node_access_values[] = 'DOMAIN_ALL';
+      }
+      variable_set('domain_node_' . $key, $node_access_values);
+    }
+  }
+  variable_del('domain_behavior');
+
+  return t('Ported domain behavior to default node access settings.');
+}
+
+/**
+ * Updates domain_roles variable to use machine names.
+ */
+function domain_update_7309(&$sandbox) {
+  drupal_load('module', 'domain');
+  $defaults = variable_get('domain_roles', array());
+  $new = array();
+  foreach ($defaults as $rid => $domains) {
+    // We cannot use a constant here. See https://drupal.org/node/2042461.
+    $new[$rid]['DOMAIN_ALL'] = $domains['all'];
+    foreach ($domains as $domain_id => $check) {
+      $domain = domain_lookup($domain_id);
+      if ($domain != -1) {
+        $new[$rid][$domain['machine_name']] = $check;
+      }
+    }
+  }
+  variable_set('domain_roles', $new);
+}
+
+/**
+ * Updates node grants for unpublished content.
+ */
+function domain_update_7310(&$sandbox) {
+  node_access_rebuild(TRUE);
+}
+
+/**
+ * Remove stale domain_node_{bundle} variables.
+ */
+function domain_update_7311(&$sandbox) {
+  if (function_exists('node_type_get_types')) {
+    $variable_names = array();
+    foreach (node_type_get_types() as $key => $type) {
+      $variable_names[] = 'domain_node_' . $key;
+    }
+    db_delete('variable')
+      ->condition('name', 'domain_node_%', 'LIKE')
+      ->condition('name', $variable_names, 'NOT IN')
+      ->execute();
+  }
+}
+
+/**
+ * Removes deprecated setting 'domain_form_elements'.
+ */
+function domain_update_7312(&$sandbox) {
+  variable_del('domain_form_elements');
+}

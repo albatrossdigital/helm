@@ -1,0 +1,473 @@
+<?php
+
+/**
+ * @defgroup domain_conf Domain Conf: configuration extension
+ * Functions for the Domain Conf module.
+ */
+
+/**
+ * @file
+ * Domain manager configuration options.
+ *
+ * @ingroup domain_conf
+ */
+
+/**
+ * Implements hook_domain_bootstrap_full().
+ */
+function domain_conf_domain_bootstrap_full($domain) {
+  $check = &drupal_static(__FUNCTION__);
+  // If running domain_set_domain(), we have issues with the variables
+  // from the primary domain, which need to be loaded from cache.
+  // @link http://drupal.org/node/412156
+  if ($check) {
+    $_domain = domain_get_domain();
+    if ($domain['domain_id'] == 0 && $check != $_domain['domain_id']) {
+      _domain_conf_load_primary(TRUE);
+    }
+  }
+  // Flag that we have already loaded.
+  $check = $domain['domain_id'];
+  $data = db_query("SELECT settings FROM {domain_conf} WHERE domain_id = :domain_id", array(':domain_id' => $domain['domain_id']))->fetchField();
+  if (!empty($data)) {
+    global $conf;
+    $settings = domain_unserialize($data);
+    // Overwrite the $conf variables.
+    foreach ($settings as $key => $value) {
+      if ($value === 'domain-conf-ignore') {
+        continue;
+      }
+      // Language handling is a special case.
+      if ($key == 'language_default') {
+        $table = domain_get_primary_table('system');
+        $language = (bool) db_query("SELECT status FROM $table WHERE name = 'locale' AND type = 'module'")->fetchField();
+        if ($language) {
+          $table = domain_get_primary_table('languages');
+          $temp = db_query("SELECT * FROM $table WHERE language = :language", array(':language' => $value))->fetchObject();
+          if (!empty($temp)) {
+            $value = $temp;
+            $GLOBALS['language'] = $temp;
+            $conf[$key] = $value;
+          }
+          // Ensure we store the default language in case of reset.
+          // See domain_conf_js_maintain().
+          $table = domain_get_primary_table('variable');
+          $result = db_query("SELECT value FROM $table WHERE name = :name", array(':name' => $key))->fetchField();
+          if (!empty($result)) {
+            domain_conf_default_language(unserialize($result));
+          }
+        }
+      }
+      else {
+        $conf[$key] = $value;
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_menu()
+ */
+function domain_conf_menu() {
+  $items = array();
+  $items['admin/structure/domain/view/%domain/config'] = array(
+    'title' => 'Settings',
+    'type' => MENU_LOCAL_TASK,
+    'access arguments' => array('administer domains'),
+    'page callback' => 'domain_conf_page',
+    'page arguments' => array(4),
+    'file' => 'domain_conf.admin.inc',
+  );
+  $items['admin/structure/domain/view/%domain/conf-reset'] = array(
+    'title' => 'Domain site settings',
+    'type' => MENU_VISIBLE_IN_BREADCRUMB,
+    'access arguments' => array('administer domains'),
+    'page callback' => 'domain_conf_reset',
+    'page arguments' => array(4),
+    'file' => 'domain_conf.admin.inc',
+  );
+  return $items;
+}
+
+/**
+ * Implements hook_theme()
+ */
+function domain_conf_theme() {
+  $themes = array(
+    'domain_conf_reset' => array(
+      'variables' => array('domain' => array()),
+    ),
+  );
+  return $themes;
+}
+
+/**
+ * Implements hook_hook_info().
+ */
+function domain_conf_hook_info() {
+  // TODO: test the loader function, which may fail in D7.
+  $hooks['domain_conf'] = array(
+    'group' => 'domain',
+  );
+  return $hooks;
+}
+
+/**
+ * Retrieves elements from hook_domain_conf() and formats them
+ * as needed.
+ *
+ * @param $all
+ *   Should the function return all hook implementations or just those marked
+ *   with the domain_settings flag.  Defaults to FALSE.  Used to determine if
+ *   we are loading configuration options specific to the Domain Access module.
+ * @return
+ *   An array of form elements according to the FormsAPI or an empty array.
+ */
+function domain_conf_api($all = FALSE, $settings = array()) {
+  global $_domain;
+  $options = array();
+  $extra = module_invoke_all('domain_conf', $_domain);
+  if (!empty($extra)) {
+    foreach ($extra as $key => $value) {
+      foreach (element_children($value) as $element) {
+        if (isset($value[$element]['#default_value']) && isset($settings[$element])) {
+          $value[$element]['#default_value'] = $settings[$element];
+        }
+      }
+      if (!empty($value['#domain_setting']) || $all == TRUE) {
+        // Discard the #domain_setting flag; it is not needed.
+        unset($value['#domain_setting']);
+        // Set the $options array.
+        $options[$key] = $value;
+      }
+    }
+  }
+  return $options;
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function domain_conf_block_info() {
+  $blocks = array();
+  $blocks['domain-main-links'] = array(
+    'info' => t('Domain main links'),
+  );
+  $blocks['domain-secondary-links'] = array(
+    'info' => t('Domain secondary links'),
+  );
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function domain_conf_block_view($delta = '') {
+  // Dispatch to sub-function.
+  if (empty($delta)) {
+    return;
+  }
+  // Get the menu information.
+  $menus = menu_get_menus();
+  $string = str_replace('domain-', '', $delta);
+  $name = str_replace('-links', '-menu', $string);
+  $source = 'menu_' . str_replace('-', '_', $string) . '_source';
+  $data = variable_get($source, $string);
+  // Some domains can disable primary and secondary links.
+  if (empty($data)) {
+    return;
+  }
+  // In D7, secondary links may be children of main links.
+  if ($delta == 'domain-secondary-links' && variable_get('menu_secondary_links_source', 'user-menu') == variable_get('menu_main_links_source', 'main-menu')) {
+    // This does not work right now.
+  }
+  if (!isset($menus[$data])) {
+    return;
+  }
+  // Output the block.
+  $output = menu_tree($data);
+  // Build the block.
+  $block = array(
+    'subject' => check_plain($menus[$data]),
+    'content' => $output,
+  );
+  return $block;
+}
+
+/**
+ * Change the variable setting for a domain.
+ * This function is called by external modules that wish
+ * to alter Domain Conf settings.
+ *
+ * Note that this function saves the value to the database
+ * and changes the active $conf array.
+ *
+ * @link http://drupal.org/node/367963
+ * @see domain_conf_variable_save()
+ *
+ * @param $domain_id
+ *   The unique domain ID that is being edited.
+ * @param $variable
+ *   The name of the variable you wish to set.
+ * @param $value
+ *   The value of the variable to set. You may leave this
+ *   value blank in order to unset the custom variable.
+ */
+function domain_conf_variable_set($domain_id, $variable, $value = NULL) {
+  global $conf, $_domain;
+  domain_conf_variable_save($domain_id, $variable, $value);
+  // Clear the cache.
+  cache_clear_all('variables', 'cache');
+  drupal_static_reset('domain_conf_variable_get_settings');
+  drupal_static_reset('domain_conf_variable_get_base');
+  // If we are on the active domain, set the active variable.
+  if ($domain_id == $_domain['domain_id']) {
+    $conf[$variable] = $value;
+  }
+}
+
+/**
+ * Load a variable specific to a domain.
+ *
+ * @param $domain_id
+ *   The unique domain ID that is being edited.
+ * @param $variable
+ *   The name of the variable you wish to get.
+ * @param $all
+ *   A boolean flag indicating whether to return the entire variable array.
+ * @param $reset
+ *   A boolean flag to reset the static variable array for the domain. Useful
+ *   if you are changing variables during a page request.
+ * @return
+ *   The value of the variable for that domain, or NULL if not set,
+ *   or an array of variables, in the case of $all.
+ */
+function domain_conf_variable_get($domain_id, $variable = '', $all = FALSE, $reset = FALSE) {
+  $_domain = domain_get_domain();
+  $settings = &drupal_static(__FUNCTION__ . '_settings');
+  $base = &drupal_static(__FUNCTION__ . '_base');
+  if (empty($base)) {
+    $base = _domain_conf_load_primary(FALSE);
+  }
+  if (!isset($settings[$domain_id]) || $reset) {
+    // Get the current settings for this domain, if any.
+    $data = domain_unserialize(db_query("SELECT settings FROM {domain_conf} WHERE domain_id = :domain_id", array(':domain_id' => $domain_id))->fetchField());
+    if (empty($data)) {
+      $data = array();
+    }
+    $settings[$domain_id] = array_merge($base, $data);
+  }
+  if ($all) {
+    return $settings[$domain_id];
+  }
+  if (isset($settings[$domain_id][$variable])) {
+    return $settings[$domain_id][$variable];
+  }
+  return NULL;
+}
+
+/**
+ * Get the language options for use in forms.
+ */
+function domain_conf_language_options() {
+  $languages = language_list('language', TRUE);
+  $options = array();
+  foreach ($languages as $key => $lang) {
+    $extra = '';
+    if ($lang->native != $lang->name) {
+      $extra = ' (' . $lang->name . ')';
+    }
+    $options[$key] = check_plain($lang->native . $extra);
+  }
+  return $options;
+}
+
+/**
+ * Load the variables from the primary domain.
+ *
+ * We run this special handler when not able to trust variable_get()
+ * during domain switching.
+ *
+ * @see domain_set_domain()
+ *
+ * @param $unset
+ *   If TRUE, this will reset the global $conf array.
+ * @return
+ *   If set to TRUE, no return, just modify the global $conf array.
+ *   Otherwise, return the settings data for the primary domain.
+ */
+function _domain_conf_load_primary($unset = FALSE) {
+  $settings = &drupal_static(__FUNCTION__);
+
+  if (!isset($settings)) {
+    // Account for table prefixing.
+    $cache_table = domain_get_primary_table('cache');
+    // Load the query.
+    $data = db_query("SELECT data FROM $cache_table WHERE cid = 'variables'")->fetchField();
+    if (!empty($data)) {
+      $settings = domain_unserialize($data);
+    }
+    // If the cache has been cleared, this data will be empty.
+    // In this case, grab the data directly from the base {variable} table.
+    else {
+      $variable_table = domain_get_primary_table('variable');
+      $result = db_query("SELECT name, value FROM $variable_table");
+      foreach ($result as $vars) {
+        $data[$vars->name] = domain_unserialize($vars->value);
+      }
+      $settings = $data;
+    }
+  }
+  // Do we reset the global or just return data?
+  if ($unset) {
+    global $conf;
+    $conf = $settings;
+    return;
+  }
+  return $settings;
+}
+
+/**
+ * Delete a setting from {domain_conf}.
+ *
+ * @param $domain_id
+ *   The unique domain ID that is being edited.
+ * @param $variable
+ *   The name of the variable you wish to delete.
+ */
+function domain_conf_variable_delete($domain_id, $variable) {
+  // Get the current settings for this domain, if any.
+  $settings = domain_unserialize(db_query("SELECT settings FROM {domain_conf} WHERE domain_id = :domain_id", array(':domain_id' => $domain_id))->fetchField());
+  // Settings found, remove them.
+  if (!empty($settings)) {
+    unset($settings[$variable]);
+    db_update('domain_conf')
+      ->condition('domain_id', $domain_id)
+      ->fields(array('settings' => serialize($settings)))
+      ->execute();
+  }
+}
+
+/**
+ * Store a single variable in {domain_conf}.
+ *
+ * @link http://drupal.org/node/367963
+ * @see domain_conf_variable_set()
+ *
+ * @param $domain_id
+ *   The unique domain ID that is being edited.
+ * @param $variable
+ *   The name of the variable you wish to set.
+ * @param $value
+ *   The value of the variable to set. You may leave this
+ *   value blank in order to unset the custom variable.
+ */
+function domain_conf_variable_save($domain_id, $variable, $value = NULL) {
+  // Get the current settings for this domain, if any.
+  $serialized = db_query("SELECT settings FROM {domain_conf} WHERE domain_id = :domain_id", array(':domain_id' => $domain_id))->fetchField();
+  // Settings found, update them.
+  if ($serialized) {
+    $settings = domain_unserialize($serialized);
+    $settings[$variable] = $value;
+    db_update('domain_conf')
+      ->condition('domain_id', $domain_id)
+      ->fields(array('settings' => serialize($settings)))
+      ->execute();
+  }
+  elseif (domain_lookup($domain_id) != -1) {
+    $settings = array($variable => $value);
+    db_insert('domain_conf')
+      ->fields(array('domain_id' => $domain_id, 'settings' => serialize($settings)))
+      ->execute();
+  }
+}
+
+/**
+ * Implements hook_features_api().
+ */
+function domain_conf_features_api() {
+  $components = array(
+    'domain_conf' => array(
+      'name' => t('Domain variables'),
+      'default_hook' => 'domain_conf_default_variables',
+      'default_file' => FEATURES_DEFAULTS_CUSTOM,
+      'default_filename' => 'domains',
+      'feature_source' => TRUE,
+      'file' => drupal_get_path('module', 'domain_conf') .'/domain_conf.features.inc',
+    ),
+  );
+  return $components;
+}
+
+/**
+ * Ensure that language changes do not affect default settings.
+ *
+ * When using multiple languages with JavaScript translations, the invocation
+ * of _locale_rebuild_js() can force the default domain setting to be assigned
+ * to the active domain. Hilarity foes not ensue.
+ *
+ * We try to account for this issue by ensuring that the default setting is not
+ * changed when this function is invoked, which can happen in two places:
+ * locale_js_alter() and locale_languages_delete_form_submit(). Fortunately,
+ * both function are tied to hook that we can monitor in order to ensure that
+ * the settings are preserved properly.
+
+ * @link http://drupal.org/node/1271810
+ * @see _locale_rebuild_js()
+ * @see locale_languages_delete_form_submit()
+ * @see hook_multilingual_settings_changed()
+ * @see domain_conf_js_alter()
+ * @see domain_conf_multilingual_settings_changed()
+ */
+function domain_conf_js_maintain() {
+  // Only a factor if using the Locale module.
+  if (!module_exists('locale')) {
+    return;
+  }
+  if ($default_language = domain_conf_default_language()) {
+    drupal_register_shutdown_function('domain_conf_set_default_language', $default_language);
+  }
+}
+
+/**
+ * Implements hook_js_alter().
+ */
+function domain_conf_js_alter(&$javascript) {
+  domain_conf_js_maintain();
+}
+
+/**
+ * Implements hook_multilingual_settings_changed().
+ */
+function domain_conf_multilingual_settings_changed() {
+  domain_conf_js_maintain();
+}
+
+/**
+ * Store the default language setting for later use.
+ *
+ * @param $value
+ *  If set, the $language object to store.
+ *
+ * @return
+ *  The language object or FALSE if not set.
+ */
+function domain_conf_default_language($value = NULL) {
+  $language = &drupal_static(__FUNCTION__);
+  if (!is_null($value)) {
+    $language = $value;
+  }
+  return (isset($language)) ? $language : FALSE;
+}
+
+/**
+ * Shutdown function to reset the default language variable.
+ *
+ * @param $default_language
+ *  A language object, stored by domain_conf_default_language().
+ */
+function domain_conf_set_default_language($default_language) {
+  if (!empty($default_language) && is_object($default_language)) {
+    variable_set('language_default', $default_language);
+  }
+}

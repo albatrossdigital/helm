@@ -1,0 +1,6 @@
+Changelog file for Domain Menu Block
+
+12-DEC-2011
+-- Initial commit.
+-- Opens the 7.x-1.x snapshot.
+-- Tags a 7.x-1.0-beta1 release.

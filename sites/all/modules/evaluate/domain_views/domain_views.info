@@ -1,0 +1,29 @@
+name = Domain Views
+description = Provides Views integration for the Domain Access module.
+package = Domain Access
+dependencies[] = domain
+dependencies[] = views
+core = 7.x
+files[] = domain_views.module
+files[] = domain_views.views.inc
+; Includes
+files[] = includes/domain_views_handler_argument_domain_access_gid.inc
+files[] = includes/domain_views_handler_field_domain_id.inc
+files[] = includes/domain_views_handler_field_domain_sitename.inc
+files[] = includes/domain_views_handler_field_domain_subdomain.inc
+files[] = includes/domain_views_handler_field_domain_access_sitename.inc
+files[] = includes/domain_views_handler_filter_domain_access_current_all.inc
+files[] = includes/domain_views_handler_filter_domain_access_gid.inc
+files[] = includes/domain_views_handler_filter_domain_access_realm.inc
+files[] = includes/domain_views_handler_filter_domain_domain_id.inc
+files[] = includes/domain_views_handler_filter_domain_machine_name.inc
+files[] = includes/domain_views_plugin_access.inc
+files[] = includes/domain_views_plugin_argument_default_current.inc
+files[] = includes/domain_views_plugin_cache_time.inc
+
+; Information added by drupal.org packaging script on 2012-09-28
+version = "7.x-1.5"
+core = "7.x"
+project = "domain_views"
+datestamp = "1348846266"
+

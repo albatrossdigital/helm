@@ -1,0 +1,72 @@
+<?php
+
+/**
+ * @file
+ * Provide hostname alias registration for domain records.
+ *
+ * @ingroup domain_alias
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function domain_alias_schema() {
+  $schema['domain_alias'] = array(
+    'description' => 'Domain aliases and patterns for domain entries.',
+    'fields' => array(
+      'alias_id' => array('type' => 'serial',
+        'description' => 'The primary identifier for an alias/pattern.',
+        'not null' => TRUE,
+        ),
+      'domain_id' => array('type' => 'int',
+        'description' => 'The related domain entry in the {domain} table.',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        ),
+      'pattern' => array('type' => 'varchar',
+        'description' => 'The domain alias/pattern',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+        ),
+      'redirect' => array('type' => 'int',
+        'description' => 'Boolean flag indicating whether the alias should be redirected to the main domain.',
+        'size' => 'tiny',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        ),
+      ),
+    'primary key' => array('alias_id'),
+    'indexes' => array('pattern' => array('pattern'), 'domain' => array('domain_id')),
+    'foreign_keys' => array(
+      'uid' => array('user' => 'uid'),
+      'domain_id' => array('domain' => 'domain_id'),
+    ),
+  );
+
+  return $schema;
+}
+
+/**
+ * Implements hook_dependencies().
+ */
+function domain_alias_update_dependencies() {
+  $dependencies['domain_alias'][7300] = array(
+    'domain' => 7303,
+  );
+  return $dependencies;
+}
+
+/**
+ * Remove references to row 0.
+ */
+function domain_alias_update_7300(&$sandbox) {
+  $default_id = db_query("SELECT domain_id FROM {domain} WHERE is_default = 1")->fetchField();
+  db_update('domain_alias')
+    ->fields(array('domain_id' => $default_id))
+    ->condition('domain_id', 0)
+    ->execute();
+  return t('Domain Alias zero records removed.');
+}

@@ -1,0 +1,1271 @@
+<?php
+
+/**
+ * @file
+ * Simpletest for Domain Access.
+ */
+
+class DomainTestCase extends DrupalWebTestCase {
+
+  /**
+   * On setup, install our module and create a default domain.
+   *
+   * @param $list
+   *   An optional array of modules to enable.
+   */
+  public function setUp($list = array()) {
+    // Prevent simpletest from vomiting on bootstrap if there
+    // are required submodules in use.
+    $modules = _domain_bootstrap_modules();
+    $modules = array_merge($modules, $list);
+    parent::setUp($modules);
+
+    // Account for drush and other automated testing to set a proper http value.
+    if (empty($_SERVER['HTTP_HOST']) || $_SERVER['HTTP_HOST'] == 'default') {
+      $_SERVER['HTTP_HOST'] = 'example.com';
+    }
+    // Build the {domain} table for this test run.
+    db_query("TRUNCATE {domain}");
+    db_query("TRUNCATE {domain_export}");
+    domain_set_primary_domain();
+    db_query("UPDATE {domain} SET sitename = 'TestDomainSitename' WHERE is_default = 1");
+
+    // Set the primary domain to active. This step should let us run
+    // tests from any valid domain. See http://drupal.org/node/1144632.
+    $GLOBALS['_domain'] = domain_default(TRUE);
+    drupal_static_reset('domain_initial_domain');
+    domain_initial_domain($GLOBALS['_domain']);
+
+    // Create some nodes and users.
+    for ($i = 0; $i < 10; $i++) {
+      $settings = array(
+        'type' => 'page',
+        'title' => $this->randomName(32),
+        'body' => array(LANGUAGE_NONE => array(array($this->randomName(64)))),
+      );
+      $this->drupalCreateNode($settings);
+      // Using drupalCreateUser runs tests we don't want.
+      $edit = array(
+        'name' => $this->randomName(32),
+        'mail' => $this->randomName(32) . '@example.com',
+        'roles' => array(DRUPAL_AUTHENTICATED_RID),
+        'status' => 1,
+      );
+      user_save(NULL, $edit);
+    }
+
+  }
+
+  /**
+   * Helper function to create domains.
+   *
+   * @param $subdomains
+   *   An array of subdomains to create.
+   * @param $base
+   *   A base domain string, in the format 'example.com'.
+   *
+   * @return
+   *  An array of created domains.
+   */
+  public function domainCreateDomains($subdomains = array('one', 'two', 'three'), $base = NULL) {
+    $setup = drupal_map_assoc($subdomains);
+    $base_domain = $base;
+    if (empty($base_domain) && !empty($_SERVER['HTTP_HOST'])) {
+      $base_domain = $_SERVER['HTTP_HOST'];
+    }
+    if (empty($base_domain)) {
+      $base_domain = 'example.com';
+    }
+    $i = 0;
+    $domains = array();
+    foreach ($setup as $subdomain) {
+      $record = array(
+        'sitename' => $subdomain,
+        'subdomain' => $subdomain . '.' . $base_domain,
+        'valid' => 1,
+        'is_default' => 0,
+        'weight' => $i++,
+        'scheme' => 'http',
+      );
+      $domains[$subdomain] = domain_save($record, $record);
+    }
+    return $domains;
+  }
+
+  /**
+   * Helper function for form introspection.
+   *
+   * Forms are sensitive to the global user account, so we must reset it when
+   * using this technique.
+   *
+   * @param $uid
+   *   A user id representing the account to test.
+   * @param $type
+   *   The node type of the form.
+   */
+  public function domainNodeForm($uid, $type) {
+    $temp = $GLOBALS['user'];
+    $user = user_load($uid, TRUE);
+    $GLOBALS['user'] = $user;
+    $node = (object) array('uid' => $user->uid, 'name' => (isset($user->name) ? $user->name : ''), 'type' => $type, 'language' => LANGUAGE_NONE);
+    module_load_include('inc', 'node', 'node.pages');
+    $form = drupal_get_form($type . '_node_form', $node);
+    $GLOBALS['user'] = $temp;
+    return $form;
+  }
+
+  /**
+   * Set the global $base_url to a domain.
+   *
+   * Required so that POST and other url() requests can be routed properly.
+   *
+   * @param $domain
+   *  The domain to use as the base url.
+   */
+  protected function domainSetBaseUrl($domain) {
+    $GLOBALS['base_url'] = trim($domain['path'], '/');
+  }
+
+  /**
+   * Resets $base_url to the initial domain.
+   */
+  protected function domainResetBaseUrl() {
+    $domain = domain_initial_domain();
+    $GLOBALS['base_url'] = $domain['path'];
+  }
+
+  public function tearDown() {
+    parent::tearDown();
+  }
+
+}
+
+class DomainInstallTest extends DomainTestCase {
+
+  public static function getInfo() {
+    return array(
+      'name' => 'Check install routine',
+      'description' => 'Create primary domain record and verify its consistency in the database.',
+      'group' => 'Domain Access',
+    );
+  }
+
+  // If the default domain is not in the database, the sitename will be default sitename.
+  public function testDomainInstall() {
+    $domain = domain_default(TRUE, FALSE);
+    $this->assertTrue($domain['sitename'] == 'TestDomainSitename', t('Default domain created successfully'));
+    $records = db_query("SELECT COUNT(domain_id) FROM {domain_export}")->fetchField();
+    $this->assertTrue($records == 1, t('{domain_export} has one record.'));
+    $domains = db_query("SELECT COUNT(domain_id) FROM {domain}")->fetchField();
+    $this->assertTrue($domains == 1, t('{domain} has one record.'));
+    $join = db_query("SELECT COUNT(d.domain_id) FROM {domain} d INNER JOIN {domain_export} de ON d.domain_id = de.domain_id")->fetchField();
+    $this->assertTrue($join == 1, t('Database counts match.'));
+    $join2 = db_query("SELECT COUNT(d.domain_id) FROM {domain} d INNER JOIN {domain_export} de ON d.domain_id = de.domain_id WHERE d.domain_id = 1")->fetchField();
+    $this->assertTrue($join2 == 1, t('Database records match.'));
+    $join = db_query("SELECT COUNT(d.domain_id) FROM {domain} d INNER JOIN {domain_export} de ON d.machine_name = de.machine_name")->fetchField();
+    $this->assertTrue($join == 1, t('Machine names match.'));
+  }
+
+  // Check the existence of our default grant.
+  function testDomainGrantAll() {
+    domain_set_default_grant(TRUE);
+    $check = db_query_range("SELECT 1 FROM {node_access} WHERE realm = :realm AND gid = :gid", 0, 1,
+      array(
+        ':realm' => 'domain_all',
+        ':gid' => 0,
+      )
+    )->fetchField();
+    $this->assertTrue($check > 0, t('Domain all grant stored correctly !check.', array('!check' => $check)));
+  }
+
+  function testDomainEnable() {
+    // Delete records so we can test the installer.
+    db_query("TRUNCATE {domain_access}");
+    db_query("TRUNCATE {domain_editor}");
+    // Check nodes.
+    $nid = db_query_range("SELECT n.nid FROM {node} n INNER JOIN {domain_access} da ON n.nid = da.nid", 0, 1)->fetchField();
+    $this->assertTrue(empty($nid), t('Initial nodes have no domain data.'));
+    // Check users.
+    $uid = db_query_range("SELECT u.uid FROM {users} u INNER JOIN {domain_editor} de ON u.uid = de.uid", 0, 1)->fetchField();
+    $this->assertTrue(empty($uid), t('Initial users have no domain data.'));
+    // Run domain_enable.
+    domain_enable();
+    // Check nodes.
+    $nid = db_query_range("SELECT n.nid FROM {node} n INNER JOIN {domain_access} da ON n.nid = da.nid", 0, 1)->fetchField();
+    $this->assertTrue(!empty($nid), t('Nodes have added domain data.'));
+    // Check users.
+    $uid = db_query_range("SELECT u.uid FROM {users} u INNER JOIN {domain_editor} de ON u.uid = de.uid", 0, 1)->fetchField();
+    $this->assertTrue(!empty($uid), t('Users have added domain data.'));
+  }
+
+}
+
+class DomainCreateTest extends DomainTestCase {
+
+  public static function getInfo() {
+    return array(
+      'name' => 'Create domains',
+      'description' => 'Create random domains and verify consistency in the database.',
+      'group' => 'Domain Access',
+    );
+  }
+
+  // Create some domains and verify they match what we expect.
+  function testDomainCreate() {
+    $setup = $this->domainCreateDomains();
+    $result = db_query("SELECT sitename, subdomain FROM {domain} WHERE is_default = 0 ORDER BY weight");
+    $domains = array();
+    foreach ($result as $record) {
+      $domains[$record->sitename] = array('sitename' => $record->sitename, 'subdomain' => $record->subdomain);
+    }
+    foreach ($domains as $sitename => $domain) {
+      $this->assertTrue($domains[$sitename]['sitename'] == $setup[$sitename]['sitename'], t('Domain %subdomain created successfully', array('%subdomain' => $domain['subdomain'])));
+    }
+
+    // Delete one of the domains.
+    domain_delete($setup['three']);
+    $deleted_domain = domain_lookup($setup['three']['domain_id'], NULL, TRUE);
+    $this->assertTrue($deleted_domain == -1, t('Domain %domain deleted successfully.', array('%domain' => $setup['three']['subdomain'])));
+  }
+
+  // Try to create badly formed domains.
+  function testDomainValidate() {
+    $tests = array(
+      'localhost' => array(), // localhost is allowed.
+      'localhost:80' => array(), // localhost may specify a port.
+      'nodotsinstring' => array(t('At least one dot (.) is required, except for <em>localhost</em>.')),
+      'example.com:2000:1' => array(t('Only one colon (:) is allowed.')),
+      'example.com:foo' => array(t('The port protocol must be an integer.')),
+      '.example.com' => array(t('The domain must not begin with a dot (.)')),
+      'example.com.' => array(t('The domain must not end with a dot (.)')),
+      '$.example.com' => array(t('Only alphanumeric characters, dashes, and a colon are allowed.')),
+      'EXAMPLE.com' => array(t('Only lower-case characters are allowed.')),
+    );
+    foreach ($tests as $subdomain => $error) {
+      $return = domain_validate($subdomain);
+      // Special handling for localhost. This test needs refactoring.
+      if (substr_count($subdomain, 'localhost') > 0 && empty($return)) {
+        $return = TRUE;
+      }
+      $this->assertTrue(!empty($return), t('!message', array('!message' => !empty($error) ? $error[0] : t('%subdomain is an allowed domain string.', array('%subdomain' => $subdomain)))));
+    }
+    // Test for the non-alphanumeric character override.
+    global $conf;
+    $conf['domain_allow_non_ascii'] = TRUE;
+    $return = domain_validate('$%#!.com');
+    $this->assertTrue(empty($return), t('ASCII character override value allowed.'));
+    // Test for the www. prefix when 'WWW prefix handling' is disabled.
+    $conf['domain_www'] = 0;
+    $return = domain_validate('www.example.com');
+    $this->assertTrue(empty($return), t('<em>WWW prefix handling</em> disabled: Domains can be registered with the www. prefix.'));
+    // Test for the www. prefix when 'WWW prefix handling' is enabled.
+    $conf['domain_www'] = 1;
+    $return = domain_validate('www.example.com');
+    $this->assertTrue(!empty($return), t('<em>WWW prefix handling</em> enabled: Domains must be registered without the www. prefix.'));
+  }
+
+  // Test the domain_save() function.
+  function testDomainSave() {
+    // See https://drupal.org/node/1786570
+    $domain = domain_default();
+    $this->assertTrue(!empty($domain['machine_name']), t('Default domain has proper machine name.'));
+    $temp = $domain['machine_name'];
+    $domain['machine_name'] .= 'foo';
+    domain_save($domain);
+    $domain = domain_default(TRUE);
+    $this->assertTrue($domain['machine_name'] == $temp . 'foo', t('Updated domain has proper machine name.'));
+  }
+
+}
+
+class DomainHookTest extends DomainTestCase {
+
+  public static function getInfo() {
+    return array(
+      'name' => 'Domain module hooks',
+      'description' => 'Fire domain hooks and test responses.',
+      'group' => 'Domain Access',
+    );
+  }
+
+  // On setup, install our test module.
+  function setUp($list = array()) {
+    $list[] = 'domain_test';
+    parent::setUp($list);
+  }
+
+  function testDomainHooks() {
+    // hook_domain_load() adds 'testvar' => TRUE to the domain array.
+    $domain = domain_default(TRUE);
+    $this->assertTrue(!empty($domain['testvar']), t('hook_domain_load() fired correctly.'));
+
+    // hook_domain_insert() sets sitename to 'foobar' instead of 'testfoo'.
+    $result = $this->domainCreateDomains(array('testfoo'));
+    $new_domain = $result['testfoo'];
+    $this->assertTrue($new_domain['sitename'] == 'foobar', t('hook_domain_insert() fired correctly.'));
+
+    // hook_domain_update() re-saves that domain and set it's sitename back to 'testfoo'.
+    $updated_domain = domain_save($new_domain, $new_domain);
+    $this->assertTrue($updated_domain['sitename'] == 'testfoo', t('hook_domain_update() fired correctly.'));
+
+    // hook_domain_cron() should run for each domain, setting our static to the name of the domain.
+    // Get the domain list.
+    $domains = domain_domains(TRUE);
+    // Run the hook for each active domain.
+    foreach ($domains as $domain) {
+      domain_set_domain($domain['domain_id'], TRUE);
+      module_invoke('domain_test', 'domain_cron', $domain);
+      $value = domain_test_get();
+      $this->assertTrue($value == $domain['sitename'], t('Domain cron fired for %domain.', array('%domain' => $domain['subdomain'])));
+    }
+    // Reset the active domain.
+    domain_reset_domain(TRUE);
+
+    // domain_reassign() sets a static value to 'domain_editor' and changes
+    // editors from domain 1 to domain 2. It also calls a hook that our
+    // test module uses to set a variable to 'domain_editor'.
+    $old_domain = domain_lookup(1);
+    $new_domain = domain_lookup(2);
+    $count = db_query("SELECT COUNT(domain_id) FROM {domain_editor} WHERE domain_id = :domain_id", array(':domain_id' => $old_domain['domain_id']))->fetchField();
+    $count2 = db_query("SELECT COUNT(domain_id) FROM {domain_editor} WHERE domain_id = :domain_id", array(':domain_id' => $new_domain['domain_id']))->fetchField();
+    $total = $count + $count2;
+    domain_reassign($old_domain, $new_domain, 'domain_editor');
+    $value = domain_test_get();
+    $this->assertTrue($value == 'domain_editor', t('hook_domain_reassign() fired correctly.'));
+    $count = db_query("SELECT COUNT(domain_id) FROM {domain_editor} WHERE domain_id = :domain_id", array(':domain_id' => $old_domain['domain_id']))->fetchField();
+    $count2 = db_query("SELECT COUNT(domain_id) FROM {domain_editor} WHERE domain_id = :domain_id", array(':domain_id' => $new_domain['domain_id']))->fetchField();
+    $this->assertTrue($count == 0, t('No editors remain on domain 1.'));
+    $this->assertTrue($total > 0 && $count2 == $total, t('Editors reassigned to domain 2.'));
+
+    // hook_domain_delete() sets a static value to 'delete' and removes the domain.
+    domain_delete($updated_domain);
+    $value = domain_test_get();
+    $this->assertTrue($value == 'delete', t('hook_domain_delete() fired correctly.'));
+    $deleted_domain = domain_lookup($updated_domain['domain_id'], NULL, TRUE);
+    $this->assertTrue($deleted_domain == -1, t('Domain deleted successfully.'));
+
+    // hook_domain_validate_alter() allows any domain to be valid.
+    $return = domain_validate('thisshouldfail');
+    $this->assertTrue(empty($return), t('hook_domain_validate_alter() fired correctly.'));
+
+    // TODO: abstract these test functions?
+    // hook_domain_bootstrap_lookup() will let us adjust the domain lookup.
+    // Here we read the domain 'local.test' as an alias for the default domain.
+    // However, this function can't really be registered, so we have to fake it a bit.
+    $new_domain = $this->domainCreateDomains(array('newtest'));
+    $test_domain = array('subdomain' => 'local.test');
+    $modules = _domain_bootstrap_modules();
+    $modules[] = 'domain_test';
+    $args[] = $test_domain;
+    foreach ($modules as $module) {
+      $function = $module . '_domain_bootstrap_lookup';
+      if (function_exists($function)) {
+        $result = call_user_func_array($function, $args);
+        if (isset($result) && is_array($result)) {
+          $return = array_merge_recursive($return, $result);
+        }
+        elseif (isset($result)) {
+          $return[] = $result;
+        }
+      }
+    }
+    $this->assertTrue($new_domain['newtest']['domain_id'] == $return['domain_id'], t('hook_domain_bootstrap_lookup() fired correctly.'));
+
+    // hook_domain_bootstrap_full() fires after a domain is determined.
+    // This hook does not allow a return value, so we modify the $_domain global.
+    // However, this function can't really be registered, so we have to fake it a bit.
+    $args = array($return);
+    foreach ($modules as $module) {
+      $function = $module . '_domain_bootstrap_full';
+      if (function_exists($function)) {
+        call_user_func_array($function, $args);
+      }
+    }
+    $return = domain_get_domain();
+    $this->assertTrue(!empty($return['test_full']), t('hook_domain_bootstrap_full() fired correctly.'));
+
+    // hook_domain_batch() should add a 'domain_test' array element.
+    $batch = domain_batch_actions();
+    $this->assertTrue(isset($batch['domain_test']), t('hook_domain_batch() fired correctly.'));
+    // hook_domain_batch_alter() changes values in the batch options.
+    $this->assertTrue($batch['maintenance_mode']['#form']['#title'] == t('Test reset value'), t('hook_domain_batch_alter() fired correctly.'));
+
+  }
+
+}
+
+class DomainSwitchingTest extends DomainTestCase {
+
+  public static function getInfo() {
+    return array(
+      'name' => 'Domain switching',
+      'description' => 'Ensure that programmatic domain switching works.',
+      'group' => 'Domain Access',
+    );
+  }
+
+  // On setup, install our test module.
+  function setUp($list = array()) {
+    parent::setUp($list);
+  }
+
+  // Test domain creation and switching.
+  function testDomainSwitching() {
+    // Create some domains.
+    $result = $this->domainCreateDomains();
+    $_domain = domain_get_domain();
+
+    // Are we currently on the primary domain?
+    $default_id = domain_default_id();
+    $this->assertTrue($_domain['domain_id'] == $default_id, t('Primary domain loaded initially.'));
+
+    // Get the domain list.
+    $domains = domain_domains(TRUE);
+    // Switch to each active domain.
+    foreach ($domains as $domain) {
+      domain_set_domain($domain['domain_id'], TRUE);
+      $active = domain_get_domain();
+      $this->assertTrue($active['domain_id'] == $domain['domain_id'], t('Switched to domain %domain.', array('%domain' => $domain['subdomain'])));
+    }
+    // Reset the active domain.
+    domain_reset_domain(TRUE);
+    $active = domain_get_domain();
+    $this->assertTrue($active['domain_id'] == $_domain['domain_id'], t('Switched back to initial domain.'));
+  }
+}
+
+class DomainUnitTest extends DomainTestCase {
+  public static function getInfo() {
+    return array(
+      'name' => 'Domain unit tests',
+      'description' => 'Tests for function encapsulation.',
+      'group' => 'Domain Access',
+    );
+  }
+
+  // On setup, install our test module.
+  function setUp($list = array()) {
+    parent::setUp($list);
+  }
+
+  // Test that domain_node_load() and domain_get_node_domains() functions properly.
+  function testDomainGetNodeDomains() {
+    $count = db_query("SELECT COUNT(domain_id) FROM {domain}")->fetchField();
+    $this->assertTrue($count == 1, t('Primary domain created.'));
+    // Reset the default domain.
+    $domain = domain_default(TRUE);
+    // By design, there should be 10 nodes created with default domain assignment.
+    $count = db_query("SELECT COUNT(nid) FROM {node}")->fetchField();
+    $this->assertTrue($count == 10, t('Ten initial nodes created.'));
+    $count = db_query("SELECT COUNT(nid) FROM {domain_access} WHERE realm = 'domain_id'")->fetchField();
+    $this->assertTrue($count == 10, t('Initial nodes are assigned to the default domain.'));
+    $count = db_query("SELECT COUNT(nid) FROM {domain_access} WHERE realm = 'domain_site'")->fetchField();
+    $this->assertTrue($count == 10, t('Initial nodes are assigned to all affiliates.'));
+
+    // Reset the {node_access} table.
+    node_access_rebuild();
+
+    // Create three more domains.
+    $this->domainCreateDomains();
+    $count = db_query("SELECT COUNT(domain_id) FROM {domain}")->fetchField();
+    $this->assertTrue($count == 4, t('Three new domains created.'));
+    // Reset the domains.
+    $domains = domain_domains(TRUE);
+    // Fetch the existing node ids.
+    $node_ids = array_keys(db_query("SELECT nid FROM {node}")->FetchAllAssoc('nid'));
+    // On node load, these should all be assigned to domain_site and domain_id = 1.
+    $nodes = node_load_multiple($node_ids);
+    // Check domains.
+    $set = TRUE;
+    // TODO: This could be more elegant.
+    foreach ($nodes as $node) {
+      if (!isset($node->domains)) {
+        $set = FALSE;
+      }
+      if (empty($node->domains)) {
+        $set = FALSE;
+      }
+      if (empty($node->domains[1])) {
+        $set = FALSE;
+      }
+      if (count($node->domains) > 1) {
+        $set = FALSE;
+      }
+      if (!$set) {
+        break;
+      }
+    }
+    $this->assertTrue(!empty($set), t('All nodes return proper domain assignment.'));
+    // Check domain_site.
+    $set = TRUE;
+    foreach ($nodes as $node) {
+      if (!isset($node->domain_site)) {
+        $set = FALSE;
+      }
+      if (empty($node->domain_site)) {
+        $set = FALSE;
+      }
+      if (!$set) {
+        break;
+      }
+    }
+    $this->assertTrue(!empty($set), t('All nodes return proper affiliate assignment.'));
+    // Check subdomains.
+    $set = TRUE;
+    foreach ($nodes as $node) {
+      if (!isset($node->subdomains)) {
+        $set = FALSE;
+      }
+      if (empty($node->subdomains)) {
+        $set = FALSE;
+      }
+      if (empty($node->subdomains[0])) {
+        $set = FALSE;
+      }
+      if ($node->subdomains[0] != t('All affiliates')) {
+        $set = FALSE;
+      }
+      if ($node->subdomains[1] != $domain['sitename']) {
+        $set = FALSE;
+      }
+      if (count($node->subdomains) > 2) {
+        $set = FALSE;
+      }
+      if (!$set) {
+        break;
+      }
+    }
+    $this->assertTrue(!empty($set), t('All nodes return proper subdomain string.'));
+    // Now, delete half the node information.
+    $delete_ids = array_chunk($node_ids, 5);
+    db_delete('domain_access')
+      ->condition('nid', $delete_ids[0], 'IN')
+      ->execute();
+    // By design, there should be 5 nodes left with default domain assignment.
+    $count = db_query("SELECT COUNT(nid) FROM {domain_access} WHERE realm = 'domain_id'")->fetchField();
+    $this->assertTrue($count == 5, t('Five nodes are assigned to the default domain.'));
+    $count = db_query("SELECT COUNT(nid) FROM {domain_access} WHERE realm = 'domain_site'")->fetchField();
+    $this->assertTrue($count == 5, t('Five nodes are assigned to all affiliates.'));
+
+    // Test editor permissions.
+    // Add an editor role.
+    $this->permissions = array(
+      'access content',
+      'create page content',
+    );
+
+    $this->editor_role = $this->drupalCreateRole($this->permissions);
+    // Using drupalCreateUser runs tests we don't want.
+    $edit = array(
+      'name' => $this->randomName(32),
+      'mail' => $this->randomName(32) . '@example.com',
+      'roles' => drupal_map_assoc(array(DRUPAL_AUTHENTICATED_RID, $this->editor_role)),
+      'status' => 1,
+      'pass' => 'fubar',
+      'domain_user' => array(domain_default_id() => domain_default_id()),
+    );
+    $test_user = user_save(NULL, $edit);
+    // Check that a normal user can view the nodes from the primary domain.
+    $this->assertTrue(TRUE, '<strong>' . t('No special permissions. User should have view access to all nodes.' . '</strong>'));
+    foreach ($nodes as $node) {
+      foreach (array('view', 'update', 'delete') as $op) {
+        $access = node_access($op, $node, $test_user);
+        if ($op == 'view') {
+          $this->assertTrue($access, t('User has proper access to %op domain content.', array('%op' => $op)));
+        }
+        else {
+          $this->assertFalse($access, t('User denied access to %op domain content.', array('%op' => $op)));
+        }
+      }
+    }
+
+    // Test queries for node access.
+    $result = db_select('node', 'n')
+      ->fields('n', array('nid'))
+      ->condition('n.status', 1)
+      ->addTag('node_access')
+      ->addMetaData('account', $test_user)
+      ->execute()
+      ->fetchCol();
+    $this->assertTrue(count($result) == 10, t('Node access query returns correctly.'));
+
+    // Test editor permissions.
+    $perms = array(
+      'edit domain content',
+      'delete domain content',
+      'view unpublished domain content',
+    );
+    user_role_grant_permissions($this->editor_role, $perms);
+    $test_user = user_load($test_user->uid, TRUE);
+    drupal_static_reset('node_access');
+    $count = 0;
+    $this->assertTrue(TRUE, '<strong>' . t('All nodes assigned to user domain. User can edit, delete and view unpublished. User should have access to all nodes.' . '</strong>'));
+    foreach ($nodes as $node) {
+      foreach (array('view', 'update', 'delete') as $op) {
+        $node->status = 0;
+        $access = node_access($op, $node, $test_user);
+        $this->assertTrue($access, t('User has proper access to %op domain content.', array('%op' => $op)));
+      }
+      $count++;
+      // This save routine removes the 'domain_site' grant and assigns some
+      // content to a domain the user cannot access.
+      if ($count > 5) {
+        $node->domains = array(4 => 4);
+      }
+      else {
+        $node->domains = array(domain_default_id() => domain_default_id());
+      }
+      $node->domain_site = 0;
+      node_save($node);
+    }
+    drupal_static_reset('node_access');
+    $count = 0;
+    $this->assertTrue(TRUE, '<strong>' . t('Some nodes assigned to user domain. User can edit, delete and view unpublished.User should have access to domain nodes.' . '</strong>'));
+    foreach ($nodes as $node) {
+      $count++;
+      foreach (array('view', 'update', 'delete') as $op) {
+        $access = node_access($op, $node, $test_user);
+        if ($count <= 5) {
+          $this->assertTrue($access, t('User has proper access to %op domain content.', array('%op' => $op)));
+        }
+        else {
+          $this->assertFalse($access, t('User denied access to %op non-domain content.', array('%op' => $op)));
+        }
+      }
+    }
+
+    // Test queries for node access.
+    $result = db_select('node', 'n')
+      ->fields('n', array('nid'))
+      ->condition('n.status', 1)
+      ->addTag('node_access')
+      ->addMetaData('account', $test_user)
+      ->execute()
+      ->fetchCol();
+    $this->assertTrue(count($result) == 0, t('Node access query returns correctly.'));
+
+
+    // Test queries for node access.
+    $result = db_select('node', 'n')
+      ->fields('n', array('nid'))
+      ->condition('n.status', 0)
+      ->addTag('node_access')
+      ->addMetaData('account', $test_user)
+      ->execute()
+      ->fetchCol();
+    $this->assertTrue(count($result) == 5, t('Node access query returns correctly.'));
+
+    // Now take away the domain permissions to content.
+    user_role_revoke_permissions($this->editor_role, $perms);
+    $test_user = user_load($test_user->uid, TRUE);
+    drupal_static_reset('node_access');
+    $this->assertTrue(TRUE, '<strong>' . t('User has no editing permissions. User should have access to no nodes.' . '</strong>'));
+    foreach ($nodes as $node) {
+      foreach (array('view', 'update', 'delete') as $op) {
+        $access = node_access($op, $node, $test_user);
+        $this->assertFalse($access, t('User denied access to %op all domain content.', array('%op' => $op)));
+      }
+    }
+
+    // Test queries for node access.
+    $result = db_select('node', 'n')
+      ->fields('n', array('nid'))
+      ->condition('n.status', 1)
+      ->addTag('node_access')
+      ->addMetaData('account', $test_user)
+      ->execute()
+      ->fetchCol();
+    $this->assertTrue(count($result) == 0, t('Node access query returns correctly.'));
+
+    // Test queries for node access.
+    $result = db_select('node', 'n')
+      ->fields('n', array('nid'))
+      ->condition('n.status', 0)
+      ->addTag('node_access')
+      ->addMetaData('account', $test_user)
+      ->execute()
+      ->fetchCol();
+    $this->assertTrue(count($result) == 0, t('Node access query returns correctly.'));
+
+    // Test the dynamic extension of permissions via user settings.
+    $roles = variable_get('domain_roles', array());
+    // Reset the domains.
+    $domains = domain_domains(TRUE);
+    // Delete the user's domains.
+    db_delete('domain_editor')
+      ->condition('uid', $test_user->uid)
+      ->execute();
+    $test_user = user_load($test_user->uid, TRUE);
+    // Check that user has no domains.
+    $this->assertTrue(empty($test_user->domain_user), t('User is not assigned to any domains.'));
+    // Give all users dynamic access to the default domain.
+    $roles = array(
+      DRUPAL_AUTHENTICATED_RID => array(
+        DOMAIN_ALL => domain_default_machine_name(),
+      ),
+    );
+    variable_set('domain_roles', $roles);
+    variable_set('domain_add_roles', 0);
+    // Now reset the user and test again.
+    $test_user = user_load($test_user->uid, TRUE);
+    $this->assertTrue(!empty($test_user->domain_user), t('User is assigned to domains.'));
+    $this->assertTrue(!empty($test_user->domain_user[domain_default_id()]), t('User is dynamically assigned to the default domain.'));
+    // TODO: Expand this testing logic.
+  }
+
+}
+
+class DomainCacheTest extends DomainTestCase {
+  public static function getInfo() {
+    return array(
+      'name' => 'Domain caching tests',
+      'description' => 'Tests for proper page caching and markup.',
+      'group' => 'Domain Access',
+    );
+  }
+
+  // On setup, install our test module.
+  function setUp($list = array()) {
+    parent::setUp($list);
+    variable_set('cache', 1);
+  }
+
+  // Check that cache works and ids are set properly.
+  function testDomainPageCache() {
+    $cache = variable_get('cache');
+    $this->assertTrue(!empty($cache), t('Page caching enabled.'));
+
+    // This section borrowed from bootstrap.test.
+    // Fill the cache.
+    $this->drupalGet('');
+
+    // Check the output for our body classes.
+    $domain_classes = domain_page_classes();
+    $this->assertRaw('domain-', t('Domain text found in body classes.'));
+    $this->assertRaw($domain_classes[0], t('Domain-specific body class rendered correctly: !class.', array('!class' => $domain_classes[0])));
+
+    $this->drupalHead('');
+    $this->assertEqual($this->drupalGetHeader('X-Drupal-Cache'), 'HIT', t('Page was cached on primary domain.'));
+    $etag = $this->drupalGetHeader('ETag');
+    $last_modified = $this->drupalGetHeader('Last-Modified');
+
+    $user = $this->drupalCreateUser();
+    $this->drupalLogin($user);
+    $this->drupalGet('', array(), array('If-Modified-Since: ' . $last_modified, 'If-None-Match: ' . $etag));
+    $this->assertResponse(200, t('Conditional request returned 200 OK for authenticated user.'));
+    $this->assertFalse($this->drupalGetHeader('X-Drupal-Cache'), t('Primary domain was not cached for logged in user.'));
+
+    // Try cache on a secondary domain.
+    $domains = $this->domainCreateDomains(array('one'));
+    $this->assertTrue(isset($domains['one']), t('Created test domain %domain', array('%domain' => $domains['one']['subdomain'])));
+
+    // Test to see if this install supports the subdomain. If it does, test against it.
+    $url = $domains['one']['path'] . drupal_get_path('module', 'domain') . '/tests/200.png';
+    $response = drupal_http_request($url, array('method' => 'HEAD'));
+    // If the check above fails, we cannot do further testing.
+    if ($response->code != 200) {
+      $this->assertTrue(TRUE, t('The server cannot connect to %domain. Test complete.', array('%domain' => $domains['one']['subdomain'])));
+      return;
+    }
+    $this->assertTrue(TRUE, t('The server connected to %domain.', array('%domain' => $domains['one']['subdomain'])));
+    // Logout the user and try again.
+    $this->drupalLogout($user);
+    // Assert that page caching applies.
+    $this->drupalHead('');
+    $this->assertEqual($this->drupalGetHeader('X-Drupal-Cache'), 'HIT', t('Page was cached on primary domain.'));
+
+    $options = array('absolute' => TRUE);
+    $new_user = $this->drupalCreateUser();
+    // Fill the cache.
+    $this->drupalGet($domains['one']['path'], $options);
+
+    // Check the output for our body classes.
+    // Note that we set the domain to get the right variables.
+    domain_set_domain($domains['one']['domain_id'], TRUE);
+    $domain_classes2 = domain_page_classes();
+    domain_reset_domain(TRUE);
+    $this->assertRaw('domain-', t('Domain text found in body classes.'));
+    $this->assertTrue($domain_classes[0] != $domain_classes2[0], t('Body class is different for secondary domain.'));
+    $this->assertRaw($domain_classes2[0], t('Domain-specific body class rendered correctly: !class.', array('!class' => $domain_classes2[0])));
+
+    $this->drupalHead($domains['one']['path'], $options);
+    $this->assertEqual($this->drupalGetHeader('X-Drupal-Cache'), 'HIT', t('Page was cached on %domain.', array('%domain' => $domains['one']['subdomain'])));
+    $etag = $this->drupalGetHeader('ETag');
+    $last_modified = $this->drupalGetHeader('Last-Modified');
+
+    // Try to login the user from the subdomain.
+    // To do so, we must force $base_url to use the new domain for paths.
+    $this->domainSetBaseUrl($domains['one']);
+
+    $this->drupalLogin($new_user);
+    $this->drupalGet('', array(), array('If-Modified-Since: ' . $last_modified, 'If-None-Match: ' . $etag));
+    $this->assertResponse(200, t('Conditional request returned 200 OK for authenticated user.'));
+
+    $this->drupalGet($domains['one']['path'], $options, array('If-Modified-Since: ' . $last_modified, 'If-None-Match: ' . $etag));
+    $this->assertResponse(200, t('Conditional request returned 200 OK for authenticated user.'));
+    $this->assertFalse($this->drupalGetHeader('X-Drupal-Cache'), t('%domain was not cached for logged in user.', array('%domain' => $domains['one']['path'])));
+
+    // Check that both pages were cached properly.
+    $default = domain_default();
+    $result = db_query("SELECT 1 FROM {cache_page} WHERE cid = :cid", array(':cid' => $default['path']))->fetchField();
+    $this->assertTrue(!empty($result), t('Primary domain cached correctly to {cache_page}.'));
+    $result = db_query("SELECT 1 FROM {cache_page} WHERE cid = :cid", array(':cid' => $domains['one']['path']))->fetchField();
+    $this->assertTrue(!empty($result), t('%domain cached correctly to {cache_page}.', array('%domain' => $domains['one']['path'])));
+
+    // Reset $base_url.
+    $this->domainResetBaseUrl();
+  }
+}
+
+class DomainUpdateTest extends DomainTestCase {
+  public static function getInfo() {
+    return array(
+      'name' => 'Domain update tests',
+      'description' => 'Tests for the update to 7.x.3.',
+      'group' => 'Domain Access',
+    );
+  }
+
+  // On setup, install our test module.
+  function setUp($list = array()) {
+    if (!in_array('domain_conf', $list)) {
+      $list[] = 'domain_conf';
+    }
+    parent::setUp($list);
+    db_insert('domain_conf')
+      ->fields(array(
+        'domain_id' => 0,
+        'settings' => '',
+      ))
+      ->execute();
+  }
+
+  function testDomainUpdate() {
+    // Test a false positive $schema missing table.
+    $schema = array('foo' => array('fields' => array('domain_id' => array('type' => 'int'))));
+    $tables = domain_test_schema($schema);
+    $this->assertTrue(empty($tables), t('domain_test_schema() returned correctly for missing table.'));
+    // Test a false positive $schema type mismatch.
+    $schema = array('foo' => array('fields' => array('domain_id' => array('type' => 'serial'))));
+    $tables = domain_test_schema($schema);
+    $this->assertTrue(empty($tables), t('domain_test_schema() returned correctly for type mismatch.'));
+    // Test a false positive $schema missing column.
+    $schema = array('domain_conf' => array('fields' => array('field_id' => array('type' => 'int'))));
+    $tables = domain_test_schema($schema);
+    $this->assertTrue(empty($tables), t('domain_test_schema() returned correctly for missing column.'));
+    // Test a proper match.
+    $schema = array('domain_conf' => drupal_get_schema('domain_conf'));
+    $tables = domain_test_schema($schema);
+    $this->assertTrue(!empty($tables), t('domain_test_schema() returned correctly for database table.'));
+    // Test the update functionality.
+    $count = db_query("SELECT COUNT(domain_id) FROM {domain_conf} WHERE domain_id = 0")->fetchField();
+    $this->assertTrue($count == 1, t('Domain id of 0 inserted in {domain_conf}.'));
+    $list = domain_update_module_check();
+    $this->assertTrue(count($list) > 0, t('domain_update_module_check() returned correctly.'));
+    domain_update_zero_records(domain_update_tables($list));
+    $list = domain_update_module_check();
+    $this->assertTrue(count($list) == 0, t('domain_update_zero_records fired correctly.'));
+  }
+}
+
+class DomainFilterTest extends DomainTestCase {
+  public static function getInfo() {
+    return array(
+      'name' => 'Domain filter tests',
+      'description' => 'Tests for domain-based text filters.',
+      'group' => 'Domain Access',
+    );
+  }
+
+  // On setup, install our test module.
+  function setUp($list = array()) {
+    parent::setUp($list);
+  }
+
+  function testDomainURLFilters() {
+    // Create domains.
+    $domains = $this->domainCreateDomains();
+    // Remove nodes from 'all affiliates'.
+    db_delete('domain_access')
+      ->condition('realm', 'domain_site')
+      ->execute();
+    // Fetch the existing node ids.
+    $node_ids = array_keys(db_query("SELECT nid FROM {node}")->FetchAllAssoc('nid'));
+    // On node load, these should all be assigned to domain_id = 1.
+    $nodes = node_load_multiple($node_ids);
+    // Cycle through the domains and test a new node for each one, since
+    // the url rewrites are cached.
+    foreach (domain_domains(TRUE) as $key => $domain) {
+      $node = $nodes[$key];
+      $path = "node/$node->nid";
+      $this->assertTrue($path != "node/", t('Fetched a node path.'));
+      domain_set_domain($key);
+      $_domain = domain_get_domain();
+      // Set the $base_url value to the current domain.
+      $this->domainSetBaseUrl($domain);
+      $text = $this->randomString(255);
+      $filtertext = "---[canonical-url:$path]---";
+      $text .= $filtertext;
+      $text .= $this->randomString(255);
+      $this->assertTrue(substr_count($text, $filtertext) > 0, t('Sample text contains domain url: @url.', array('@url' => $filtertext)));
+      $newtext = domain_url_filter_process($text, NULL, NULL, NULL, NULL, NULL);
+      $this->assertTrue(substr_count($newtext, $filtertext) == 0, t('Sample text does not contain domain url: @url.', array('@url' => $filtertext)));
+      // These should be returning absolute URLs for all domains but the first.
+      $url = url($path);
+      $this->assertTrue(substr_count($newtext, $url) > 0, t('Sample text contains proper url: @url.', array('@url' => $url)));
+    }
+  }
+
+}
+
+class DomainInvalidTest extends DomainTestCase {
+  public static function getInfo() {
+    return array(
+      'name' => 'Invalid domain tests',
+      'description' => 'Tests for inactive / invalid domains.',
+      'group' => 'Domain Access',
+    );
+  }
+
+  // On setup, install our test module.
+  function setUp($list = array()) {
+    $list[] = 'domain_test';
+    parent::setUp($list);
+  }
+
+  function testDomainInvalid() {
+    // Create domains.
+    $this->domainCreateDomains();
+    $default = domain_default();
+    // Set one domain as invalid.
+    $domain = domain_lookup(2);
+    $domain['valid'] = 0;
+    domain_save($domain, $domain);
+    $domain = domain_lookup(2);
+
+    // Test that we set that domain properly.
+    $this->assertTrue(empty($domain['valid']), t('Domain %domain set to invalid.', array('%domain' => $domain['subdomain'])));
+
+    // Check to see that users with no permission is redirected.
+    $this->drupalGet($domain['path']);
+    $this->assertTrue(TRUE, t('Request sent to invalid domain.'));
+    $this->assertRaw('Welcome to '. $default['sitename'], t('Request redirected to primary domain.'));
+
+    // Check that redirection does not occur on allowed paths.
+    $this->drupalGet($domain['path'] . 'user/login');
+    $this->assertTrue(TRUE, t('Request sent to user/login on invalid domain.'));
+    $this->assertRaw('<link rel="shortcut icon" href="' . $domain['path'] . 'misc/favicon.ico" type="image/vnd.microsoft.icon" />', t('Request allowed on invalid domain.'));
+
+    // Check that redirection does not occur on hook matches.
+    $this->drupalGet($domain['path'] . 'admin');
+    $this->assertTrue(TRUE, t('Request sent to hook match on invalid domain.'));
+    $this->assertRaw('<link rel="shortcut icon" href="' . $domain['path'] . 'misc/favicon.ico" type="image/vnd.microsoft.icon" />', t('Request allowed on invalid domain.'));
+
+    // Check that privileged user is not redirected.
+    $user = $this->drupalCreateUser(array('access inactive domains'));
+    $this->drupalLogin($user);
+    $this->drupalGet($domain['path']);
+    $this->assertTrue(TRUE, t('Request sent to invalid domain as privileged user.'));
+    $this->assertRaw('Welcome to '. $domain['sitename'], t('Request granted access to invalid domain.'));
+
+    // Check that unprivileged user is redirected.
+    $user = $this->drupalCreateUser();
+    $this->drupalLogin($user);
+    $this->drupalGet($domain['path']);
+    $this->assertTrue(TRUE, t('Request sent to invalid domain as unprivileged user.'));
+    $this->assertRaw('Welcome to '. $default['sitename'], t('Unprivileged user redirected to primary domain.'));
+
+    // Check that redirection does not occur on hook matches.
+    $this->drupalGet($domain['path'] . 'admin');
+    $this->assertTrue(TRUE, t('Request sent to hook match on invalid domain.'));
+    $this->assertRaw('<link rel="shortcut icon" href="' . $domain['path'] . 'misc/favicon.ico" type="image/vnd.microsoft.icon" />', t('Request allowed on invalid domain.'));
+  }
+}
+
+class DomainTokenTest extends DomainTestCase {
+  public static function getInfo() {
+    return array(
+      'name' => 'Domain token tests',
+      'description' => 'Tests for domain-based tokens.',
+      'group' => 'Domain Access',
+    );
+  }
+
+  function setUp($list = array()) {
+    $list[] = 'domain_test';
+    parent::setUp($list);
+
+    // Build the {domain} table specifically for this test run.
+    // Note the the base test already created some domains.
+    db_query("TRUNCATE {domain}");
+    db_query("TRUNCATE {domain_export}");
+    // Create dummy domains. We want to use example.com for reliable token
+    // testing.
+    $this->domains = $this->domainCreateDomains(array('one', 'two', 'three'), 'example.com');
+  }
+
+  /**
+   * Test the domain tokens.
+   */
+  function testDomainTokens() {
+    // Set the 'current' domain to the non-default domain 'three'.
+    domain_set_domain($this->domains['three']['domain_id']);
+
+    // Test the [domain:*] base tokens with a valid domain provided as data.
+    $tokens = array(
+      'id' => (string) $this->domains['one']['domain_id'],
+      'machine-name' => 'one_example_com',
+      'name' => 'one',
+      'path' => domain_get_path($this->domains['one']),
+      'url' => 'oneexamplecom',
+      'hostname' => 'one.example.com',
+      'subdomain' => 'one',
+      // Deprecated tokens
+      'machine_name' => 'one_example_com',
+    );
+    $data['domain'] = $this->domains['one'];
+    $replacements = $this->assertTokens('domain', $data, $tokens);
+
+    // Ensure that the [domain:*] tokens do not replace anything if not
+    // provided with a valid domain.
+    $tokens = array(
+      'id' => NULL,
+      'name' => NULL,
+    );
+    $replacements = $this->assertTokens('domain', array(), $tokens);
+
+    // Test the [current-domain:*] tokens.
+    $tokens = array(
+      'id' => (string) $this->domains['three']['domain_id'],
+      'machine-name' => 'three_example_com',
+      'name' => 'three',
+      'path' => domain_get_path($this->domains['three']),
+      'url' => 'threeexamplecom',
+      'hostname' => 'three.example.com',
+      'subdomain' => 'three',
+      // Deprecated tokens
+      'machine_name' => 'three_example_com',
+    );
+    $replacements = $this->assertTokens('current-domain', array(), $tokens);
+
+    // Test the [default-domain:*] tokens.
+    $tokens = array(
+      'id' => '1',
+      'name' => 'TestDomainSitename',
+    );
+    $replacements = $this->assertTokens('default-domain', array(), $tokens);
+  }
+
+  /**
+   * Test that the tokens perform as expected when generated from
+   * hook_node_insert() and hook_node_update().
+   *
+   * @see http://drupal.org/node/1336698
+   */
+  function testRegression1336698() {
+    $admin_account = $this->drupalCreateUser(array('administer nodes', 'bypass node access', 'set domain access'));
+    $this->drupalLogin($admin_account);
+
+    // Insert a new node using defaults and check the message generated by
+    // domain_test_node_insert() and token_replace().
+    $edit = array(
+      'title' => 'Test page 1',
+    );
+    $this->drupalPost('node/add/page', $edit, t('Save'));
+    $sitename = $this->domains['one']['sitename'];
+    $this->assertText("Inserted node Test page 1 assigned to domain 1 ({$sitename}).");
+
+    // Select a different domain to assign to this node at random.
+    shuffle($this->domains);
+    $domain = reset($this->domains);
+    $this->assertNotEqual($domain['sitename'], 'TestDomainSitename', 'Random domain selected.');
+
+    // Update the node assigning it to the new domain and check the message
+    // generated by domain_test_node_insert() and token_replace().
+    $node = $this->drupalGetNodeByTitle('Test page 1');
+    $edit = array(
+      'domains[1]' => FALSE, // Default domain is ID 1.
+      'domains[' . $domain['domain_id'] . ']' => TRUE,
+    );
+    $this->drupalPost('node/' . $node->nid . '/edit', $edit, t('Save'));
+    $this->assertText("Updated node Test page 1 assigned to domain {$domain['domain_id']} ({$domain['sitename']}).");
+  }
+
+  /**
+   * Function copied from TokenTestHelper::assertTokens().
+   */
+  function assertTokens($type, array $data, array $tokens, array $options = array()) {
+    $input = $this->mapTokenNames($type, array_keys($tokens));
+    $replacements = token_generate($type, $input, $data, $options);
+    foreach ($tokens as $name => $expected) {
+      $token = $input[$name];
+      if (!isset($expected)) {
+        $this->assertTrue(!isset($values[$token]), t("Token value for @token was not generated.", array('@type' => $type, '@token' => $token)));
+      }
+      elseif (!isset($replacements[$token])) {
+        $this->fail(t("Token value for @token was not generated.", array('@type' => $type, '@token' => $token)));
+      }
+      else {
+        $this->assertIdentical($replacements[$token], $expected, t("Token value for @token was '@actual', expected value '@expected'.", array('@type' => $type, '@token' => $token, '@actual' => $replacements[$token], '@expected' => $expected)));
+      }
+    }
+
+    return $replacements;
+  }
+
+  function mapTokenNames($type, array $tokens = array()) {
+    $return = array();
+    foreach ($tokens as $token) {
+      $return[$token] = "[$type:$token]";
+    }
+    return $return;
+  }
+}
+
+class DomainSitenameTest extends DomainTestCase {
+
+  public static function getInfo() {
+    return array(
+      'name' => 'Sitename override',
+      'description' => 'Tests behavior of sitenames and domain names.',
+      'group' => 'Domain Access',
+    );
+  }
+
+  function setUp($list = array()) {
+    // install domain_conf module
+    if (!in_array('domain_conf', $list)) {
+      $list[] = 'domain_conf';
+    }
+    parent::setUp($list);
+
+    $admin_account = $this->drupalCreateUser(array('administer domains', 'administer site configuration'));
+    $this->drupalLogin($admin_account);
+  }
+
+  // Test that domain name overrides sitename if override is enabled (=default)
+  function testOverrideEnabled() {
+    $domain = domain_default();
+
+    // Assume that override is enabled (default behavior)
+    // $this->drupalPost('admin/structure/domain/settings', array('domain_sitename_override' => TRUE), t('Save configuration'));
+
+    // Update domain name on domain edit form
+    $domainname_new = $this->randomName(32);
+    $this->drupalPost('admin/structure/domain/view/' . $domain['domain_id'] . '/edit', array('sitename' => $domainname_new), t('Save domain record'));
+
+    // Check that new domain name is displayed on frontpage
+    $this->drupalGet('');
+    $this->assertText($domainname_new, 'Frontpage shows updated domain name.');
+
+    // Check that site-information form also shows updated domain name
+    $this->drupalGet('admin/config/system/site-information');
+    $this->assertFieldByName('site_name', $domainname_new, 'Site information form shows domain name.');
+
+    // Try to update site name on system form
+    $sitename_new = $this->randomName(32);
+    $this->drupalPost('admin/config/system/site-information', array('site_name' => $sitename_new), t('Save configuration'));
+
+    // Check that domain name has not changed
+    $domainname = db_query("SELECT sitename FROM {domain} WHERE is_default = 1")->fetchField();
+    $this->assertTrue($domainname == $domainname_new, 'Domain name not updated to new site name.');
+
+    // Check that frontpage still shows domainname_new
+    $this->drupalGet('');
+    $this->assertText($domainname_new, 'Frontpage still shows domain name, new site name ignored.');
+  }
+
+  // Test that sitename is independent of domain name if override is disabled
+  function testOverrideDisabled() {
+    $domain = domain_default();
+
+    // disable override
+    $this->drupalPost('admin/structure/domain/settings', array('domain_sitename_override' => FALSE), t('Save configuration'));
+
+    // Update sitename on system form
+    $sitename_new = $this->randomName(32);
+    $this->drupalPost('admin/config/system/site-information', array('site_name' => $sitename_new), t('Save configuration'));
+
+    // Check that new sitename is displayed on frontpage
+    $this->drupalGet('');
+    $this->assertText($sitename_new, 'Frontpage shows new site name.');
+
+    // Check that name of default domain has NOT been updated
+    $domainname = db_query("SELECT sitename FROM {domain} WHERE is_default = 1")->fetchField();
+    $this->assertFalse($domainname == $sitename_new, 'Domain name not updated to new site name.');
+
+    // Update domain name on domain edit form
+    $domainname_new = $this->randomName(32);
+    $this->drupalPost('admin/structure/domain/view/' . $domain['domain_id'] . '/edit', array('sitename' => $domainname_new), t('Save domain record'));
+
+    // Check that frontpage still shows sitename_new instead of domainname_new
+    $this->drupalGet('');
+    $this->assertText($sitename_new, 'Frontpage shows site name instead of domain name.');
+  }
+}
+
+class DomainSettingsTest extends DomainTestCase {
+  public static function getInfo() {
+    return array(
+      'name' => 'Module settings',
+      'description' => 'Tests configuration options for the module.',
+      'group' => 'Domain Access',
+    );
+  }
+
+  function setUp($list = array()) {
+    parent::setUp($list);
+    $this->domainCreateDomains();
+  }
+
+  // Test the settings for adding content.
+  function testDomainContentSettings() {
+    $domains = domain_domains(TRUE);
+    $this->assertTrue(count($domains) == 4, 'Four test domains created.');
+    // Check that no values are set.
+    $value = variable_get('domain_node_article', NULL);
+    $this->assertNull($value, 'No settings for creating articles.');
+    // The default values should be present for 'article'.
+    $defaults = domain_default_node_access_settings('article');
+    $this->assertTrue(count($defaults) == 2, 'Two options set for articles.');
+    $this->assertTrue(in_array(DOMAIN_ALL, $defaults), 'All domains selected by default');
+    $this->assertTrue(in_array(DOMAIN_ACTIVE, $defaults), 'Active domain selected by default');
+
+    // Test the node edit form.
+    $type = 'article';
+    $uid = 1;
+    $form = $this->domainNodeForm($uid, $type);
+    // Are the default values set as expected?
+    $this->assertTrue(!empty($form['domain']['domain_site']['#default_value']), 'All affiliates selected when editing.');
+    $_domain = domain_get_domain();
+    $expected = array($_domain['domain_id'] => $_domain['domain_id']);
+    $this->assertEqual($form['domain']['domains']['#default_value'], $expected, 'Active domain selected when editing.');
+
+    // Now let's change the settings and test again.
+    $settings = array();
+    foreach ($domains as $domain) {
+      if (!$domain['is_default']) {
+        $settings[] = $domain['machine_name'];
+      }
+    }
+    variable_set('domain_node_article', $settings);
+    $defaults = variable_get('domain_node_article', NULL);
+    $this->assertTrue(count($defaults) == 3, 'Three options set for articles.');
+    $this->assertFalse(in_array(DOMAIN_ALL, $defaults), 'All domains not selected by default');
+    $this->assertFalse(in_array(DOMAIN_ACTIVE, $defaults), 'Active domain not selected by default');
+
+    // Test the node edit form again.
+    $type = 'article';
+    $uid = 1;
+    $form = $this->domainNodeForm($uid, $type);
+    // Are the default values set as expected?
+    $this->assertTrue(empty($form['domain']['domain_site']['#default_value']), 'All affiliates not selected when editing.');
+    $_domain = domain_get_domain();
+    $this->assertFalse(in_array($_domain['domain_id'], $form['domain']['domains']['#default_value']), 'Active domain not selected when editing.');
+    foreach ($defaults as $machine_name) {
+      $id = domain_load_domain_id($machine_name);
+      $this->assertTrue(in_array($id, $form['domain']['domains']['#default_value']), t('Domain %id set properly as a default.', array('%id' => $id)));
+    }
+
+  }
+}

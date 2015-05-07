@@ -1,0 +1,181 @@
+<?php
+
+/**
+ * @defgroup domain_views Domain Views: provides views integration.
+ *
+ * Views integration for Domain Access.
+ */
+
+/**
+ * @file
+ * Provides a Views filter for the Domain Access module.
+ *
+ * Original code by mrichar1 see http://drupal.org/node/200714
+ *
+ * @ingroup domain_views
+ */
+
+/**
+ * Implement hook_views_api().
+ */
+function domain_views_views_api() {
+  return array('api' => 2.0);
+}
+
+/**
+ * Provides a switch fo 7.x.2 / 7.x.3 compatibility.
+ */
+function domain_views_api_version() {
+  if (function_exists('domain_api_version')) {
+    return domain_api_version();
+  }
+  return 2;
+}
+
+/**
+ * Implement hook_ctools_plugin_api().
+ */
+function domain_views_ctools_plugin_api($module, $api) {
+  if ($module == 'views_ui') {
+    return array('version' => 2);
+  }
+}
+
+/**
+ * Implement hook_ctools_plugin_directory().
+ */
+function domain_views_ctools_plugin_directory($module, $plugin) {
+  // Only supported by Domain Access 7.x.3
+    if (domain_views_api_version() > 2 && $module == 'views_ui' && !empty($plugin)) {
+    return "plugins/$plugin";
+  }
+}
+
+/**
+ * Implement hook_theme().
+ */
+function domain_views_theme() {
+  return array(
+   'domain_views_view_multiple_field' => array(
+      'variables' => array('items' => NULL, 'field' => NULL, 'values' => NULL),
+    ),
+  );
+}
+
+/**
+ * Theme multiple field output.
+ *
+ * Note that we only use $items in the default, but other themes might
+ * wish to leverage the extra data.
+ *
+ * @param $items
+ *   An array of output strings, as defined by the view field definition.
+ * @param $field
+ *   A string representing the name of the field being displayed.
+ * @param $values
+ *   An object containing the prepared views data, before it was altered by our handler.
+ * @return
+ *   Themed HTML output.
+ */
+function theme_domain_views_view_multiple_field($items, $field, $values) {
+  $output = '';
+  foreach ($items as $item) {
+    $output .= '<div class="field-item">' . $item . '</div>';
+  }
+  return $output;
+}
+
+/**
+ * Access callback for use with domain_views_plugin_access.
+ *
+ * @param $domains
+ *   An array of domain ids that may access this view.
+ * @param $strict
+ *   Boolean value indicating if strict rules should be applied.
+ * @param $member
+ *   Boolean value indicating if membership rules should be applied.
+ * @return
+ *   Boolean TRUE or FALSE.
+ */
+function domain_views_access($domains, $strict = TRUE, $member = FALSE) {
+  global $_domain, $user;
+  $account = $user;
+  $check = FALSE;
+  // Apply membership rules?
+  if ($member) {
+    $grants['domain_id'] = domain_get_user_domains($account);
+    if (isset($grants['domain_id'][-1])) {
+      $grants['domain_id'][0] = 0;
+      unset($grants['domain_id'][-1]);
+    }
+    $check = TRUE;
+  }
+  // Apply strict rules? These are harsher than membership and get applied last.
+  if ($strict) {
+    $grants = domain_views_get_grants();
+    $check = TRUE;
+  }
+  // If no grants, stop.
+  if ($check && (empty($grants['domain_id']) || !in_array($_domain['domain_id'], $grants['domain_id']))) {
+    return FALSE;
+  }
+  // None of the above, just match the current domain.
+  elseif (!$check) {
+    $grants['domain_id'] = array($_domain['domain_id']);
+  }
+  // Otherwise, convert and check.
+  foreach ($grants['domain_id'] as $grant) {
+    if ($grant == 0) {
+      $grant = -1;
+    }
+    if (in_array($grant, $domains)) {
+      return TRUE;
+    }
+  }
+  return FALSE;
+}
+
+/**
+ * Helper function to return the node grants for this user.
+ *
+ * @param $account
+ *   The account object of the user requesting the View.
+ * @return $grants
+ *   An array indicating which domains the user may access.
+ */
+function domain_views_get_grants($account = NULL)  {
+  global $user, $_domain;
+  static $grants;
+  if (empty($account)) {
+    $account = $user;
+  }
+  if (isset($grants[$account->uid])) {
+    return $grants[$account->uid];
+  }
+  $user_grants = domain_node_grants($account, 'view');
+  // Domain All gets in the way of normal grants.
+  if (!empty($user_grants['domain_all'])) {
+    $user_grants['domain_id'] = array($_domain['domain_id']);
+    _domain_views_alter_grants($user_grants, $account, 'view');
+  }
+  $grants[$account->uid] = $user_grants;
+  return $grants[$account->uid];
+}
+
+/**
+ * Helper function to hook_domaingrants().
+ * This should be replaced by a drupal_alter().
+ */
+function _domain_views_alter_grants(&$grants, $account, $op) {
+  static $_modules;
+  if (!isset($_modules)) {
+    $_modules = module_implements('node_grants_alter');
+  }
+  if (!empty($_modules)) {
+    foreach ($_modules as $module) {
+      // Cannot use module_invoke_all() since these are passed by reference.
+      $function = $module . '_node_grants_alter';
+      $function($grants, $account, $op);
+    }
+  }
+}

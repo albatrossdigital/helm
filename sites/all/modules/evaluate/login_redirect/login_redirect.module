@@ -1,0 +1,98 @@
+<?php
+
+/**
+ * @file
+ * Allows redirects according to an URL parameter after logins.
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function login_redirect_menu() {
+  $items['admin/config/system/login_redirect'] = array(
+    'title' => 'Login Redirect Settings',
+    'description' => 'Adjust Login Redirect settings.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('login_redirect_admin_settings'),
+    'access arguments' => array('administer site configuration'),
+    'type' => MENU_NORMAL_ITEM,
+    'file' => 'login_redirect.admin.inc',
+  );
+
+  return $items;
+}
+
+/**
+ * Implements of hook_help().
+ */
+function login_redirect_help($path, $arg) {
+  $output = '';
+  switch ($path) {
+    case 'admin/help#login_redirect':
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('A simple solution to allow redirects toward non-Drupal URLs after a successful user login.') . '</p>';
+      $output .= '<h3>' . t('Author(s):') . '</h3>';
+      $output .= '<p>' . t('legendm33066 &lt;http://drupal.org/user/1290564&gt;') . '</p>';
+
+      // Sets "variables" variable which will later be used to generate a list.
+      $variables = array();
+      $variables['items'] = array(
+        l(t('Enable the module'), 'admin/modules'),
+        l(t('Configure the module'), 'admin/config/system/login_redirect'));
+      $variables['title'] = t('Installation');
+      $variables['type'] = 'ul';
+      $variables['attributes'] = array('');
+      $output .= theme_item_list($variables);
+
+      $output .= '<h3>' . t('Uses') . '</h3>';
+      $output .= '<p>' . t('Visit the Login page (usually user/login) and append the redirection URL
+parameter using the parameter name defined in the <a href="@settings">Settings page</a>.
+For example, if you set the parameter name to
+"destination", then you would visit user/login?destination=http://www.google.com
+to have the user redirected to Google (http://www.google.com) after logging in.', array('@settings' => url('admin/login_redirect/settings'))) . '</p>';
+      $output .= '<h3>' . '<font color="red">' . t('Notice') . '</font>' . '</h3>';
+      $output .= '<p>' . '<font color="red">' . t('The URL passed parameter ALWAYS overrides the "destination" parameter handled by Drupal itself.') . '</font>' . '</p>';
+      return $output;
+  }
+}
+/**
+ * Implements hook_form_alter().
+ */
+function login_redirect_form_user_login_alter(&$form, &$form_state, $form_id) {
+  $status = variable_get('login_redirect_status', 0);
+  if ($status !== 0) {
+    $parameter_name = variable_get('login_redirect_parameter_name');
+    $params = drupal_get_query_parameters();
+    if (isset($params[$parameter_name])) {
+      if (!empty($params[$parameter_name])) {
+        $destination = check_plain(filter_xss($params[$parameter_name]));
+        if (valid_url($destination, TRUE)) {
+          $form['destination'] = array(
+            '#type' => 'value',
+            '#value' => $destination,
+          );
+          $form['#submit'][] = 'login_redirect_user_login_submit';
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Sets shutdown function to perform redirects later.
+ */
+function login_redirect_user_login_submit(&$form, &$form_state) {
+  if (isset($form_state['values']['destination'])) {
+    $destination = check_plain(filter_xss($form_state['values']['destination']));
+    if (valid_url($destination, TRUE)) {
+      drupal_register_shutdown_function('login_redirect_perform_redirect', $destination);
+    }
+  }
+}
+
+/**
+ * Perform redirects.
+ */
+function login_redirect_perform_redirect($destination) {
+  drupal_goto($destination, array('external' => TRUE));
+}

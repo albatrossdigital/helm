@@ -1,0 +1,468 @@
+<?php
+
+/**
+ * @file
+ * Domain-based menu block handling.
+ */
+
+/**
+ * Implements hook_init().
+ */
+function domain_menu_block_init() {
+  global $conf;
+  $_domain = domain_get_domain();
+  // Sets the allowed menus for content types dynamically.
+  $base = array_filter(variable_get('domain_menu_block_content_menu', array()));
+  $types = node_type_get_types();
+  if (empty($base) || empty($types) || !isset($_domain['machine_name'])) {
+    return;
+  }
+  $menus = array();
+  // Get the menu blocks for this domain.
+  $dmbs = domain_menu_block_load_multiple($base);
+  $parent = variable_get('domain_menu_block_parent_menu', '');
+  foreach ($base as $name) {
+    $menu = domain_menu_block_menu_name($dmbs[$name], $_domain);
+    $menus[$menu] = $menu;
+    if ($name == $parent) {
+      $parent_menu = "$menu:0";
+    }
+  }
+  // Set this for every content type.
+  foreach ($types as $type => $info) {
+    $conf['menu_options_' . $type] = $menus;
+    if (!empty($parent)) {
+      $conf['menu_parent_' . $type] = $parent_menu;
+    }
+  }
+}
+
+/**
+ * Implements hook_menu().
+ */
+function domain_menu_block_menu() {
+  $items['admin/structure/domain/domain_menu_block'] = array(
+    'title' => 'Menu blocks',
+    'access arguments' => array('administer domains'),
+    'type' => MENU_LOCAL_TASK,
+    'page callback' => 'domain_menu_block_admin',
+    'file' => 'domain_menu_block.admin.inc',
+    'description' => 'Domain menu block settings.',
+    'weight' => 8
+  );
+  $items['admin/structure/domain/domain_menu_block/create'] = array(
+    'title' => 'Create menu block',
+    'access arguments' => array('administer domains'),
+    'type' => MENU_LOCAL_ACTION,
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('domain_menu_block_form'),
+    'file' => 'domain_menu_block.admin.inc',
+    'description' => 'Create new domain menu block.',
+  );
+  $items['admin/structure/domain/domain_menu_block/edit/%domain_menu_block'] = array(
+    'title' => 'Edit menu block',
+    'access arguments' => array('administer domains'),
+    'type' => MENU_CALLBACK,
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('domain_menu_block_form', 5),
+    'file' => 'domain_menu_block.admin.inc',
+    'description' => 'Edit domain menu block.',
+  );
+  $items['admin/structure/domain/domain_menu_block/delete/%domain_menu_block'] = array(
+    'title' => 'Delete menu block',
+    'access arguments' => array('administer domains'),
+    'type' => MENU_CALLBACK,
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('domain_menu_block_delete_form', 5),
+    'file' => 'domain_menu_block.admin.inc',
+    'description' => 'Delete domain menu block.',
+  );
+  $items['admin/structure/domain/view/%domain/domain_menu_block'] = array(
+    'title' => 'Menus',
+    'access callback' => 'domain_menu_block_access',
+    'type' => MENU_LOCAL_TASK,
+    'page callback' => 'domain_menu_block_menu_overview',
+    'page arguments' => array(4),
+    'description' => 'Menus for this domain.',
+    'file' => 'domain_menu_block.admin.inc',
+  );
+  return $items;
+}
+
+/**
+ * Menu access callback.
+ */
+function domain_menu_block_access() {
+  // TODO: more complex handling.
+  return (user_access('administer domains') && user_access('administer menu'));
+}
+
+/**
+ * Creates a set of domain-sensitive menu blocks.
+ */
+function domain_menu_block_block_info() {
+  $menus = domain_menu_block_load_multiple();
+  $blocks = array();
+  foreach ($menus as $menu => $data) {
+    $blocks[$menu] = array(
+      'info' => t('Domain menu block: @menu', array('@menu' => $menu)),
+      'cache' => DRUPAL_NO_CACHE,
+    );
+  }
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function domain_menu_block_block_view($delta) {
+  $_domain = domain_get_domain();
+  $dmb = domain_menu_block_load($delta);
+  if (empty($dmb)) {
+    return;
+  }
+  $menu = menu_load(domain_menu_block_menu_name($dmb, $_domain));
+  if (empty($menu)) {
+    return;
+  }
+
+  // Set up the $config array that menu block likes.
+  $config = array(
+    'delta'       => str_replace('_', '-', ($dmb->machine_name)),
+    'menu_name'   => $menu['menu_name'],
+    'parent_mlid' => 0,
+    'title_link'  => 0,
+    'admin_title' => '',
+    'level'       => $dmb->level,
+    'follow'      => $dmb->follow,
+    'depth'       => $dmb->depth,
+    'expanded'    => $dmb->expanded,
+    'sort'        => $dmb->sort,
+  );
+
+  // The code below is copied from menu_block.
+  $data = menu_tree_build($config);
+  $data['subject'] = '';
+  // Add contextual links for this block.
+  if (!empty($data['content'])) {
+    if (in_array($config['menu_name'], array_keys(menu_get_menus()))) {
+      $data['content']['#contextual_links']['menu_block'] = array('admin/structure/menu/manage', array($config['menu_name']));
+    }
+    elseif (strpos($config['menu_name'], 'book-toc-') === 0) {
+      $node = str_replace('book-toc-', '', $config['menu_name']);
+      $data['content']['#contextual_links']['menu_block'] = array('admin/content/book', array($node));
+    }
+  }
+
+  return $data;
+}
+
+/**
+ * Returns a default domain node block object.
+ *
+ * For use in forms to ensure consistency.
+ *
+ * @return
+ *  A $dmb object as defined in this function.
+ */
+function domain_menu_block_default() {
+  $config = array(
+    'base_name' => '',
+    'machine_name' => '',
+    'description' => '',
+    'level'       => 1,
+    'follow'      => 0,
+    'depth'       => 2,
+    'expanded'    => 0,
+    'sort'        => 0,
+    'auto_create' => 1,
+    'auto_delete' => 1,
+  );
+  $dmb = (object) $config;
+  return $dmb;
+}
+
+/**
+ * Loads a single $dmb object by machine_name.
+ *
+ * @return
+ *  A $dmb object.
+ */
+function domain_menu_block_load($machine_name) {
+  $data = domain_menu_block_load_multiple(array($machine_name));
+  if (isset($data[$machine_name])) {
+    return $data[$machine_name];
+  }
+  return NULL;
+}
+
+/**
+ * Loads all or a list of $dmb objects.
+ *
+ * @param $machine_names
+ *  An array of dmb machine_names to load. If empty, all are loaded.
+ *
+ * @return
+ *  An array of $dmb objects, keyed by machine_name.
+ */
+function domain_menu_block_load_multiple($machine_names = array()) {
+  $query = db_select('domain_menu_block')
+    ->fields('domain_menu_block', array('machine_name', 'base_name', 'description', 'level', 'depth', 'expanded', 'follow', 'sort', 'auto_create', 'auto_delete'));
+  if (!empty($machine_names)) {
+    $query->condition('machine_name', $machine_names, 'IN');
+  }
+  return $query->execute()->fetchAllAssoc('machine_name');
+}
+
+/**
+ * Saves a $dmb object to the database.
+ *
+ * @param $dmb
+ *  A $dmb object.
+ * @param $create_menus
+ *  Boolean indicator that we should generate menus for this $dmb.
+ *
+ * @return
+ *  The $dmb object on save, or FALSE on failure.
+ */
+function domain_menu_block_save($dmb, $create_menus = TRUE) {
+  db_delete('domain_menu_block')
+    ->condition('machine_name', $dmb->machine_name)
+    ->execute();
+  drupal_write_record('domain_menu_block', $dmb);
+  if ($create_menus) {
+    domain_menu_block_create_menus($dmb);
+  }
+  return $dmb;
+}
+
+/**
+ * Deletes a $dmb object from the database.
+ *
+ * @param $dmb
+ *  A $dmb object.
+ * @param $delete_menus
+ *  Boolean indicator that we should delete menus created by this $dmb.
+ *
+ * @return
+ *  TRUE on success, or FALSE on failure.
+ */
+function domain_menu_block_delete($dmb, $delete_menus = TRUE) {
+  if ($delete_menus) {
+    domain_menu_block_delete_menus($dmb);
+  }
+  db_delete('domain_menu_block')
+    ->condition('machine_name', $dmb->machine_name)
+    ->execute();
+  return is_null(domain_menu_block_load($dmb->machine_name));
+}
+
+/**
+ * Creates new menus for each domain.
+ *
+ * @param $dmb
+ *  A $dmb object.
+ */
+function domain_menu_block_create_menus($dmb) {
+  $domains = domain_domains();
+  $list = domain_menu_block_create_list($dmb);
+  foreach ($list as $domain_id => $item) {
+    $menu = array(
+      'menu_name' => $item,
+      'title' => t('!base for !sitename', array('!base' => $dmb->base_name, '!sitename' => $domains[$domain_id]['sitename'])),
+      'description' => t('!description for !sitename', array('!description' => $dmb->description, '!sitename' => $domains[$domain_id]['sitename'])),
+    );
+    menu_save($menu);
+  }
+}
+
+/**
+ * Generates a list of menus to create.
+ *
+ * @param $dmb
+ *  A $dmb object.
+ *
+ * @return
+ *  An array of menu ids to create, keyed by domain_id.
+ */
+function domain_menu_block_create_list($dmb) {
+  return domain_menu_block_get_list($dmb, '=');
+}
+
+/**
+ * Abstracts the creation of menu lists.
+ *
+ * @param $dmb
+ *  A $dmb object.
+ * @param $condition
+ *  The query condition for this request (= or <>).
+ *
+ * @return
+ *  An array of menus, keyed by domain_id.
+ */
+function domain_menu_block_get_list($dmb, $condition) {
+  $list = domain_menu_block_menu_list($dmb);
+  $menus = array();
+  foreach ($list as $domain_id => $item) {
+    $query = db_select('menu_custom')
+      ->fields('menu_custom', array('menu_name'))
+      ->condition('menu_name', $item, $condition);
+    $count = $query->countQuery()->execute()->fetchField();
+    if (empty($count) && $condition == '=') {
+      $menus[$domain_id] = $item;
+    }
+    elseif (!empty($count)) {
+      $menus[$domain_id] = $item;
+    }
+  }
+  return $menus;
+}
+
+/**
+ * Generates a list of menus to create.
+ *
+ * @param $dmb
+ *  A $dmb object.
+ *
+ * @return
+ *  An array of menu ids to delete, keyed by domain_id.
+ */
+function domain_menu_block_delete_menus($dmb) {
+  $list = domain_menu_block_delete_list($dmb);
+  foreach ($list as $item) {
+    if ($menu = menu_load($item)) {
+      menu_delete($menu);
+    }
+  }
+}
+
+/**
+ * Generates a list of menus to delete.
+ *
+ * @param $dmb
+ *  A $dmb object.
+ *
+ * @return
+ *  An array of menu ids to delete, keyed by domain_id.
+ */
+function domain_menu_block_delete_list($dmb) {
+  return domain_menu_block_get_list($dmb, '<>');
+}
+
+/**
+ * Creates a list of potential menu names.
+ *
+ * @param $dmb
+ *  A $dmb object.
+ *
+ * @return
+ *  An array of menu ids, keyed by domain_id.
+ */
+function domain_menu_block_menu_list($dmb) {
+  $domains = domain_domains();
+  foreach ($domains as $domain) {
+    $list[$domain['domain_id']] = domain_menu_block_menu_name($dmb, $domain);
+  }
+  return $list;
+}
+
+/**
+ * Given a menu block and a target string, make a menu name.
+ *
+ * Invokes hook_domain_menu_block_menu_name_alter() before returning the name.
+ *
+ * @param $dmb
+ *  An domain menu block object.
+ * @param $domain
+ *  The target domain array.
+ *
+ * @return
+ *  An md5 hash of a menu / block name.
+ */
+function domain_menu_block_menu_name($dmb, $domain) {
+  // Support previous function signature, which accepted domain machine names
+  // instead of full domain arrays, in order to not break any modules or themes
+  // calling this function.
+  if (is_string($domain)) {
+    $domain = domain_machine_name_load($domain);
+  }
+  $menu_name = md5('menu-dmb-' . str_replace('_', '-', $dmb->machine_name . '-' . $domain['machine_name']));
+  // Give a change to alter the hash. Usefull when working with several
+  // enviorments with different alias for a site. Like dev, staging and
+  // production.
+  drupal_alter('domain_menu_block_menu_name', $menu_name, $dmb, $domain);
+  return $menu_name;
+}
+
+/**
+ * Counts the number of active menus creates by a $dmb.
+ *
+ * @param $dmb
+ *  An domain menu block object.
+ *
+ * @return
+ *  An integer.
+ */
+function domain_menu_block_menu_count($dmb) {
+  $list = domain_menu_block_menu_list($dmb);
+  $query = db_select('menu_custom')
+    ->fields('menu_custom', array('menu_name'))
+    ->condition('menu_name', $list, 'IN');
+  return (int) $query->countQuery()->execute()->fetchField();
+}
+
+/**
+ * Implements hook_domain_insert().
+ *
+ * On insert, create the required menus.
+ */
+function domain_menu_block_domain_insert($domain, $form_values = array()) {
+  $dmbs = domain_menu_block_load_multiple();
+  foreach ($dmbs as $dmb) {
+    if (!empty($dmb->auto_create)) {
+      $menu = array(
+        'menu_name' => domain_menu_block_menu_name($dmb, $domain),
+        'title' => t('!base for !sitename', array('!base' => $dmb->base_name, '!sitename' => $domain['sitename'])),
+        'description' => t('!description for !sitename', array('!description' => $dmb->description, '!sitename' => $domain['sitename'])),
+      );
+      $test = menu_load($menu['menu_name']);
+      if (empty($test)) {
+        menu_save($menu);
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_domain_delete().
+ *
+ * On delete, delete the required menus.
+ */
+function domain_menu_block_domain_delete($domain, $form_values = array()) {
+  $dmbs = domain_menu_block_load_multiple();
+  foreach ($dmbs as $dmb) {
+    if (!empty($dmb->auto_delete)) {
+      $menu_name = domain_menu_block_menu_name($dmb, $domain);
+      if ($menu = menu_load($menu_name)) {
+        menu_delete($menu);
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_features_api().
+ */
+function domain_menu_block_features_api() {
+  $components = array(
+    'domain_menu_block' => array(
+      'name' => t('Domain menu blocks'),
+      'default_hook' => 'domain_menu_block_default_domain_menu_blocks',
+      'default_file' => FEATURES_DEFAULTS_CUSTOM,
+      'default_filename' => 'domains',
+      'features_source' => TRUE,
+      'file' => drupal_get_path('module', 'domain_menu_block') . '/domain_menu_block.features.inc',
+    ),
+  );
+  return $components;
+}
