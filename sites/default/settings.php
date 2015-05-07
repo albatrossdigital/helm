@@ -561,4 +561,4 @@ $conf['404_fast_html'] = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN"
  */
 # $conf['pressflow_smart_start'] = TRUE;
 
-include DRUPAL_ROOT . '/sites/all/modules/domain/settings.inc';
+include DRUPAL_ROOT . '/sites/all/modules/evaluate/domain/settings.inc';
