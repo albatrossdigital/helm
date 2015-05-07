@@ -1,0 +1,114 @@
+
+
+// Drupal Panels
+// ---------------------------
+
+
+.pane-margin-bottom-small {
+  margin-bottom: 15px;
+}
+
+.pane-margin-bottom {
+  margin-bottom: 30px;
+}
+
+.pane-margin-bottom-big {
+  margin-bottom: 50px;
+}
+
+.pane-margin-bottom-none {
+  margin-bottom: 0;
+}
+
+
+
+// *
+// * Media Queries
+// *
+// ******************************************************
+
+
+// Useful for margins when columns disappear
+
+@include respond($xs-only) {
+
+  .pane-xs-margin-bottom-small {
+    margin-bottom: 15px;
+  }
+
+  .pane-xs-margin-bottom {
+    margin-bottom: 30px;
+  }
+
+  .pane-xs-margin-bottom-big {
+    margin-bottom: 50px;
+  }
+
+  .pane-xs-margin-bottom-none {
+    margin-bottom: 0;
+  }
+}
+
+
+// Useful for margins when columns disappear
+
+@include respond($sm-and-down) {
+
+  .pane-sm-down-margin-bottom-small {
+    margin-bottom: 15px;
+  }
+
+  .pane-sm-down-margin-bottom {
+    margin-bottom: 30px;
+  }
+
+  .pane-sm-down-margin-bottom-big {
+    margin-bottom: 50px;
+  }
+
+  .pane-sm-down-margin-bottom-none {
+    margin-bottom: 0;
+  }
+}
+
+// Useful for margins when columns disappear
+
+@include respond($sm-up) {
+
+  .pane-sm-margin-bottom-small {
+    margin-bottom: 15px;
+  }
+
+  .pane-sm-margin-bottom {
+    margin-bottom: 30px;
+  }
+
+  .pane-sm-margin-bottom-big {
+    margin-bottom: 50px;
+  }
+
+  .pane-sm-margin-bottom-none {
+    margin-bottom: 0;
+  }
+}
+
+// Useful for margins when columns disappear
+
+@include respond($md-up) {
+
+  .pane-md-margin-bottom-small {
+    margin-bottom: 15px;
+  }
+
+  .pane-md-margin-bottom {
+    margin-bottom: 30px;
+  }
+
+  .pane-md-margin-bottom-big {
+    margin-bottom: 50px;
+  }
+
+  .pane-md-margin-bottom-none {
+    margin-bottom: 0;
+  }
+}

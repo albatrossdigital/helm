@@ -6,6 +6,31 @@
 }
 
 
+// Make some common layouts clear properly
+// ----------------------------------------------
+
+%clear-left {
+  clear: left;
+}
+
+@mixin clear-grid-factory($sizes) {
+
+  @each $size in $sizes {
+    .col-#{$size}-6 + .col-#{$size}-6:nth-child(2n+1),
+    .col-#{$size}-4 + .col-#{$size}-4:nth-child(3n+1),
+    .col-#{$size}-3 + .col-#{$size}-3:nth-child(4n+1) {
+      @extend %clear-left;
+    }
+  }
+} 
+
+@include clear-grid-factory(('xs', 'sm', 'md', 'lg'));
+
+
+
+
+
+
 // *
 // * Media Queries
 // *
