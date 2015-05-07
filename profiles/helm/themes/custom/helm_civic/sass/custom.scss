@@ -38,9 +38,12 @@
 
 @import "modules/off-canvas";
 @import "modules/drupal-panels";
+@import "modules/webfonts";
+@import "modules/views";
 @import "modules/311-app";
 
 // Themes
 // -----------------------------------------
 @import "theme/home";
 @import "theme/common-fields";
+@import "theme/events";

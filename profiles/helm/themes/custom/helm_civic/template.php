@@ -5,13 +5,34 @@
  */
 function helm_civic_preprocess_html(&$vars) {
   // Add Google Fonts, FontAwesome
-  if ($google_font = theme_get_setting('google_font', 'helm_civic')) {
-    drupal_add_css($google_font, array('external' => TRUE));
-  }
+  // if ($google_font = theme_get_setting('google_font', 'helm_civic')) {
+  //   drupal_add_css($google_font, array('external' => TRUE));
+  // }
   // @todo?
   //if (theme_get_setting('fontawesome', 'helm_civic')) {
   //  drupal_add_css(path_to_theme() . , array('external' => TRUE));
   //}
+
+  // Load google fonts if available
+  $google_font = theme_get_setting('google_font', 'helm_civic');
+  if($google_font) {
+    $gfonts = explode('|', $google_font);
+    drupal_add_js("WebFontConfig = 
+      {
+        google: {
+          families: ['". implode("','", $gfonts) ."']
+        }
+      };
+      (function(d) {
+        var wf = d.createElement('script'), s = d.scripts[0];
+        wf.src = '//ajax.googleapis.com/ajax/libs/webfont/1.5.6/webfont.js';
+        s.parentNode.insertBefore(wf, s);
+      })(document);", array(
+      'type' => 'inline',
+      'scope' => 'header',
+      'weight' => 1,
+    ));
+  }
 }
 
 /**
@@ -35,6 +56,12 @@ function helm_civic_preprocess_panels_pane(&$vars) {
     $pretty_sitename = theme_get_setting('pretty_sitename', 'helm_civic');
     $vars['content'] = $pretty_sitename ? $pretty_sitename : $vars['content'];
   }
+  
+  $alt_heading = !empty($vars['pane']->configuration)
+              && !empty($vars['pane']->configuration['override_title'])
+              && !empty($vars['pane']->configuration['override_title_heading']);
+
+  $vars['pane_heading'] = $alt_heading ? $vars['pane']->configuration['override_title_heading'] : 'h4';
 }
 
 /**

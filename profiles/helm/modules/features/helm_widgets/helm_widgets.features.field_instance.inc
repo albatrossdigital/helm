@@ -23,6 +23,12 @@ function helm_widgets_field_default_field_instances() {
         'type' => 'file_default',
         'weight' => 2,
       ),
+      'triptych' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
     ),
     'entity_type' => 'fieldable_panels_pane',
     'field_name' => 'field_basic_file_file',
@@ -60,6 +66,12 @@ function helm_widgets_field_default_field_instances() {
         'type' => 'text_default',
         'weight' => 1,
       ),
+      'triptych' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
     ),
     'entity_type' => 'fieldable_panels_pane',
     'field_name' => 'field_basic_file_text',
@@ -93,6 +105,13 @@ function helm_widgets_field_default_field_instances() {
         'settings' => array(),
         'type' => 'text_default',
         'weight' => 1,
+      ),
+      'triptych' => array(
+        'label' => 'hidden',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 2,
       ),
     ),
     'entity_type' => 'fieldable_panels_pane',
@@ -134,6 +153,22 @@ function helm_widgets_field_default_field_instances() {
           'link_field' => '',
           'show_attribution' => 0,
           'show_src' => 1,
+        ),
+        'type' => 'lazysizes',
+        'weight' => 0,
+      ),
+      'triptych' => array(
+        'label' => 'hidden',
+        'module' => 'media_formatters',
+        'settings' => array(
+          'image_style' => 'default',
+          'image_style_lg' => 'default',
+          'image_style_md' => 'default',
+          'image_style_sm' => 'default',
+          'image_style_xs' => 'default',
+          'link_field' => '',
+          'show_attribution' => 0,
+          'show_src' => 0,
         ),
         'type' => 'lazysizes',
         'weight' => 0,
@@ -189,21 +224,14 @@ function helm_widgets_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'hidden',
-        'module' => 'simple_gmap',
-        'settings' => array(
-          'iframe_height' => 400,
-          'iframe_width' => 600,
-          'include_link' => 0,
-          'include_map' => 1,
-          'include_static_map' => 0,
-          'include_text' => 0,
-          'information_bubble' => 0,
-          'langcode' => 'en',
-          'link_text' => 'View larger map',
-          'map_type' => 'm',
-          'zoom_level' => 14,
-        ),
-        'type' => 'simple_gmap',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 3,
+      ),
+      'triptych' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
         'weight' => 0,
       ),
     ),
@@ -222,7 +250,7 @@ function helm_widgets_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => -4,
+      'weight' => 1,
     ),
   );
 
@@ -238,7 +266,13 @@ function helm_widgets_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 1,
+        'weight' => 2,
+      ),
+      'triptych' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
       ),
     ),
     'entity_type' => 'fieldable_panels_pane',
@@ -256,7 +290,84 @@ function helm_widgets_field_default_field_instances() {
         'rows' => 3,
       ),
       'type' => 'text_textarea',
-      'weight' => -3,
+      'weight' => 3,
+    ),
+  );
+
+  // Exported field_instance: 'fieldable_panels_pane-map-field_map_location'
+  $field_instances['fieldable_panels_pane-map-field_map_location'] = array(
+    'bundle' => 'map',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'hidden',
+        'module' => 'geofield_map',
+        'settings' => array(
+          'geofield_map_baselayers_hybrid' => 1,
+          'geofield_map_baselayers_map' => 1,
+          'geofield_map_baselayers_physical' => 0,
+          'geofield_map_baselayers_satellite' => 1,
+          'geofield_map_center' => array(
+            'geocode' => 'Find my location',
+            'lat' => '',
+            'lon' => '',
+          ),
+          'geofield_map_controltype' => 'default',
+          'geofield_map_draggable' => 0,
+          'geofield_map_height' => '300px',
+          'geofield_map_maptype' => 'map',
+          'geofield_map_max_zoom' => 0,
+          'geofield_map_min_zoom' => 0,
+          'geofield_map_mtc' => 'standard',
+          'geofield_map_overview' => 0,
+          'geofield_map_overview_opened' => 0,
+          'geofield_map_pancontrol' => 1,
+          'geofield_map_scale' => 0,
+          'geofield_map_scrollwheel' => 0,
+          'geofield_map_streetview_show' => 0,
+          'geofield_map_width' => '100%',
+          'geofield_map_zoom' => 8,
+        ),
+        'type' => 'geofield_map_map',
+        'weight' => 1,
+      ),
+      'triptych' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'fieldable_panels_pane',
+    'field_name' => 'field_map_location',
+    'label' => 'Location',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'geocoder',
+      'settings' => array(
+        'delta_handling' => 'default',
+        'geocoder_field' => 'field_map_address',
+        'geocoder_handler' => 'latlon',
+        'handler_settings' => array(
+          'google' => array(
+            'all_results' => 0,
+            'geometry_type' => 'point',
+            'reject_results' => array(
+              'APPROXIMATE' => 0,
+              'GEOMETRIC_CENTER' => 0,
+              'RANGE_INTERPOLATED' => 0,
+              'ROOFTOP' => 0,
+            ),
+          ),
+        ),
+      ),
+      'type' => 'geocoder',
+      'weight' => 2,
     ),
   );
 
@@ -272,6 +383,12 @@ function helm_widgets_field_default_field_instances() {
         'module' => 'link',
         'settings' => array(),
         'type' => 'link_default',
+        'weight' => 0,
+      ),
+      'triptych' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
         'weight' => 0,
       ),
     ),
@@ -343,6 +460,12 @@ function helm_widgets_field_default_field_instances() {
         'type' => 'default',
         'weight' => 0,
       ),
+      'triptych' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
     ),
     'entity_type' => 'fieldable_panels_pane',
     'field_name' => 'field_basic_table_table',
@@ -372,6 +495,12 @@ function helm_widgets_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
+        'weight' => 0,
+      ),
+      'triptych' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
         'weight' => 0,
       ),
     ),
@@ -418,6 +547,12 @@ function helm_widgets_field_default_field_instances() {
         ),
         'type' => 'video_click_to_play',
         'weight' => 2,
+      ),
+      'triptych' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
       ),
     ),
     'entity_type' => 'fieldable_panels_pane',
@@ -480,6 +615,7 @@ function helm_widgets_field_default_field_instances() {
   t('Image');
   t('Information');
   t('Links');
+  t('Location');
   t('Table');
   t('Text');
   t('The street address of the location you wish to map. This widget will contact Google and try to do its best to create a map!');

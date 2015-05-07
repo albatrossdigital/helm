@@ -14,9 +14,16 @@
 
 .common-border + .common-border {
   border-top: 1px solid $gray-lighter;
+  padding-top: 40px;
+  margin-top: 40px; 
+}
+
+.common-border-small + .common-border-small {
+  border-top: 1px solid $gray-lighter;
   padding-top: 20px;
   margin-top: 20px; 
 }
+
 
 // Content media
 // ----------------------------------------------------------------------------
