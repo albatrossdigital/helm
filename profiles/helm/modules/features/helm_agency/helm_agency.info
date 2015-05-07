@@ -24,6 +24,7 @@ features[field_instance][] = node-agency-field_agency_address
 features[field_instance][] = node-agency-field_agency_category
 features[field_instance][] = node-agency-field_agency_location
 features[field_instance][] = node-agency-field_agency_url
+features[field_instance][] = node-agency-field_media
 features[node][] = agency
 features[variable][] = field_bundle_settings_node__agency
 features[variable][] = menu_options_agency

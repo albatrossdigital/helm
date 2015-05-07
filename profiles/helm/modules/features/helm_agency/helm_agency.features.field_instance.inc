@@ -58,7 +58,7 @@ function helm_agency_field_default_field_instances() {
         'summary_rows' => 5,
       ),
       'type' => 'text_textarea_with_summary',
-      'weight' => 5,
+      'weight' => 6,
     ),
   );
 
@@ -105,7 +105,7 @@ function helm_agency_field_default_field_instances() {
         'rows' => 3,
       ),
       'type' => 'text_textarea',
-      'weight' => 3,
+      'weight' => 4,
     ),
   );
 
@@ -154,7 +154,9 @@ function helm_agency_field_default_field_instances() {
     'widget' => array(
       'active' => 1,
       'module' => 'options',
-      'settings' => array(),
+      'settings' => array(
+        'use_select2' => FALSE,
+      ),
       'type' => 'options_select',
       'weight' => 1,
     ),
@@ -217,7 +219,7 @@ function helm_agency_field_default_field_instances() {
         ),
       ),
       'type' => 'geocoder',
-      'weight' => 4,
+      'weight' => 5,
     ),
   );
 
@@ -281,7 +283,73 @@ function helm_agency_field_default_field_instances() {
       'module' => 'link',
       'settings' => array(),
       'type' => 'link_field',
-      'weight' => 2,
+      'weight' => 3,
+    ),
+  );
+
+  // Exported field_instance: 'node-agency-field_media'
+  $field_instances['node-agency-field_media'] = array(
+    'bundle' => 'agency',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'file',
+        'settings' => array(),
+        'type' => 'file_default',
+        'weight' => 7,
+      ),
+      'live_results_search' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_media',
+    'label' => 'Media',
+    'required' => 0,
+    'settings' => array(
+      'description_field' => 0,
+      'file_directory' => '',
+      'file_extensions' => 'png gif jpg',
+      'max_filesize' => '',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'angular_media',
+      'settings' => array(
+        'allowedSchemes' => array(
+          'oembed' => 0,
+          'private' => 0,
+          'public' => 0,
+        ),
+        'allowedTypes' => array(
+          'audio' => 0,
+          'document' => 0,
+          'image' => 0,
+          'video' => 0,
+        ),
+        'cropRatio' => 'free',
+        'style' => 'placeholder',
+        'tabs' => array(
+          'flickr' => 0,
+          'me' => 0,
+          'site' => 0,
+          'upload' => 0,
+        ),
+      ),
+      'type' => 'file_angular_media',
+      'weight' => 7,
     ),
   );
 
@@ -290,6 +358,7 @@ function helm_agency_field_default_field_instances() {
   t('Category');
   t('Description');
   t('Location');
+  t('Media');
   t('Physical Address');
   t('URL');
 
