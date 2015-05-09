@@ -144,9 +144,9 @@ angular.module('app', [
     function ($locationProvider,   $stateProvider,   $urlRouterProvider,   metaInfoProvider) {
 
       // Set base meta info
-      metaInfoProvider.setBaseTitle('FILLME!');
-      metaInfoProvider.setBaseDescription('FILLME!');
-      metaInfoProvider.setBaseKeywords('FILLME!');
+      metaInfoProvider.setBaseTitle('Helm Civic 311');
+      metaInfoProvider.setBaseDescription('Citizens come to your website to get stuff done. Help them.');
+      metaInfoProvider.setBaseKeywords('Helm, drupal, government');
 
       // $urlRouterProvider.rule(function ($injector, $location) {
       //   var path  = $location.path();
