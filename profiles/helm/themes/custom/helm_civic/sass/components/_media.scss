@@ -9,3 +9,12 @@ img {
   display: inline-block;
   margin-bottom: 20px;
 }
+
+
+// inside thumbnail component
+
+.thumbnail > *:first-child {
+  &, img {
+    margin-bottom: 0;
+  }
+}

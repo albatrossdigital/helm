@@ -6,6 +6,24 @@
 }
 
 
+// Make some common layouts clear properly
+// ----------------------------------------------
+
+@mixin clear-grid-factory($size) {
+
+  .clear-#{$size}-6:nth-child(2n+1),
+  .clear-#{$size}-4:nth-child(3n+1),
+  .clear-#{$size}-3:nth-child(4n+1),
+  .clear-#{$size}-2:nth-child(6n+1) {
+    clear: left;
+  }
+}
+
+// For all columns
+
+@include clear-grid-factory('xs');
+
+
 // *
 // * Media Queries
 // *
@@ -18,11 +36,52 @@
 //   }
 // }
 
+@include respond($xs-only) {
+
+  // xs has different columns than rest
+
+  @include clear-grid-factory('xs-only');
+}
+
+@include respond($sm-and-down) {
+  
+  // xs + sm has different columns than rest
+
+  @include clear-grid-factory('sm-down');
+}
+
+@include respond($sm-only) {
+  
+  // sm has different columns than rest
+
+  @include clear-grid-factory('sm-only');
+}
+
 @include respond($sm-up) {
 
   .false-container {
     width: $container-sm;
   }
+
+  // sm and up has different columns than rest
+
+  @include clear-grid-factory('sm');
+}
+
+
+@include respond($md-and-down) {
+
+  // xs + sm + md and up has different columns than rest
+
+  @include clear-grid-factory('md-down');
+}
+
+
+@include respond($md-only) {
+
+  // md has different columns than rest
+
+  @include clear-grid-factory('md-only');
 }
 
 @include respond($md-up) {
@@ -30,10 +89,19 @@
   .false-container {
     width: $container-md;
   }
+
+  // md and up has different columns than rest
+
+  @include clear-grid-factory('md');
 }
 
 @include respond($lg-up) {
+
   .false-container {
     width: $container-lg;
   }
+
+  // lg and up has different columns than rest
+
+  @include clear-grid-factory('lg');
 }

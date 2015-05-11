@@ -1,0 +1,133 @@
+
+
+// Drupal Panels
+// ---------------------------
+
+
+// Panel margins
+// ----------------------------
+
+$pane-margin-bottom-small: 15px;
+$pane-margin-bottom: 30px;
+$pane-margin-bottom-big: 50px;
+
+.pane-margin-bottom-small {
+  margin-bottom: $pane-margin-bottom-small;
+}
+
+.pane-margin-bottom {
+  margin-bottom: $pane-margin-bottom;
+}
+
+.pane-margin-bottom-big {
+  margin-bottom: $pane-margin-bottom-big;
+}
+
+.pane-margin-bottom-none {
+  margin-bottom: 0;
+}
+
+
+
+// *
+// * Media Queries
+// *
+// ******************************************************
+
+
+// Useful for margins when columns disappear
+
+@include respond($xs-only) {
+
+  // Panel margins
+  // ----------------------------
+
+  .pane-xs-margin-bottom-small {
+    margin-bottom: $pane-margin-bottom-small;
+  }
+
+  .pane-xs-margin-bottom {
+    margin-bottom: $pane-margin-bottom;
+  }
+
+  .pane-xs-margin-bottom-big {
+    margin-bottom: $pane-margin-bottom-big;
+  }
+
+  .pane-xs-margin-bottom-none {
+    margin-bottom: 0;
+  }
+}
+
+
+// Useful for margins when columns disappear
+
+@include respond($sm-and-down) {
+
+  // Panel margins
+  // ----------------------------
+
+  .pane-sm-down-margin-bottom-small {
+    margin-bottom: $pane-margin-bottom-small;
+  }
+
+  .pane-sm-down-margin-bottom {
+    margin-bottom: $pane-margin-bottom;
+  }
+
+  .pane-sm-down-margin-bottom-big {
+    margin-bottom: $pane-margin-bottom-big;
+  }
+
+  .pane-sm-down-margin-bottom-none {
+    margin-bottom: 0;
+  }
+}
+
+// Useful for margins when columns disappear
+
+@include respond($sm-up) {
+
+  // Panel margins
+  // ----------------------------
+
+  .pane-sm-margin-bottom-small {
+    margin-bottom: $pane-margin-bottom-small;
+  }
+
+  .pane-sm-margin-bottom {
+    margin-bottom: $pane-margin-bottom;
+  }
+
+  .pane-sm-margin-bottom-big {
+    margin-bottom: $pane-margin-bottom-big;
+  }
+
+  .pane-sm-margin-bottom-none {
+    margin-bottom: 0;
+  }
+}
+
+// Useful for margins when columns disappear
+
+@include respond($md-up) {
+
+  // Panel margins
+  // ----------------------------
+
+  .pane-md-margin-bottom-small {
+    margin-bottom: $pane-margin-bottom-small;
+  }
+
+  .pane-md-margin-bottom {
+    margin-bottom: $pane-margin-bottom;
+  }
+
+  .pane-md-margin-bottom-big {
+    margin-bottom: $pane-margin-bottom-big;
+  }
+
+  .pane-md-margin-bottom-none {
+    margin-bottom: 0;
+  }
+}
