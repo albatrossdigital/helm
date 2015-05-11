@@ -133,3 +133,13 @@ function helm_install() {
   // We want to revert this feature to get the helm profile as the default CKEditor profile for Rich Text formats.
   //features_revert(array('wysiwyg_input_formats'));
 }
+
+
+/**
+ * Implements hook_install_tasks_alter()
+ */
+function helm_install_tasks_alter(&$tasks, $install_state) {
+  install_from_db_install_tasks_alter($tasks, $install_state);
+  //print_r($tasks);
+  //die();
+}

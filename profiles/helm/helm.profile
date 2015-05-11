@@ -5,8 +5,8 @@
  */
 
 
-// @todo?
-//include_once 'install_from_db/install_from_db.profile';
+// Allow the Install from DB option
+include_once 'install_from_db/install_from_db.profile';
 
 
 /**
