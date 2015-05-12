@@ -17,7 +17,18 @@ function helm_event_display_default_page_manager_pages() {
   $page->admin_description = '';
   $page->path = 'events';
   $page->access = array();
-  $page->menu = array();
+  $page->menu = array(
+    'type' => 'normal',
+    'title' => 'Events',
+    'name' => 'main-menu',
+    'weight' => '0',
+    'parent' => array(
+      'type' => 'none',
+      'title' => '',
+      'name' => 'navigation',
+      'weight' => '0',
+    ),
+  );
   $page->arguments = array();
   $page->conf = array(
     'admin_paths' => FALSE,
@@ -43,7 +54,7 @@ function helm_event_display_default_page_manager_pages() {
     'relationships' => array(),
   );
   $display = new panels_display();
-  $display->layout = 'helm_full_page';
+  $display->layout = 'helm_sidebar_left';
   $display->layout_settings = array();
   $display->panel_settings = array(
     'style_settings' => array(
@@ -57,56 +68,68 @@ function helm_event_display_default_page_manager_pages() {
   $display->uuid = '6ceb670e-666f-49be-b231-9633e547603c';
   $display->content = array();
   $display->panels = array();
-    $pane = new stdClass();
-    $pane->pid = 'new-be1d031c-31ef-4ebc-87db-65fdd05d0d92';
-    $pane->panel = 'contentmain';
-    $pane->type = 'views_panes';
-    $pane->subtype = 'events-list';
-    $pane->shown = TRUE;
-    $pane->access = array();
-    $pane->configuration = array(
-      'use_pager' => 1,
-      'pager_id' => '0',
-      'items_per_page' => '10',
-      'view_settings' => 'fields',
-      'header_type' => 'none',
-      'view_mode' => 'teaser',
-    );
-    $pane->cache = array();
-    $pane->style = array();
-    $pane->css = array();
-    $pane->extras = array();
-    $pane->position = 0;
-    $pane->locks = array();
-    $pane->uuid = 'be1d031c-31ef-4ebc-87db-65fdd05d0d92';
-    $display->content['new-be1d031c-31ef-4ebc-87db-65fdd05d0d92'] = $pane;
-    $display->panels['contentmain'][0] = 'new-be1d031c-31ef-4ebc-87db-65fdd05d0d92';
-    $pane = new stdClass();
-    $pane->pid = 'new-7ef2cff5-8ca4-4525-9c23-fac2a186f023';
-    $pane->panel = 'sidebar';
-    $pane->type = 'block';
-    $pane->subtype = 'views--exp-events-list';
-    $pane->shown = TRUE;
-    $pane->access = array();
-    $pane->configuration = array(
-      'inherit_path' => 1,
-      'override_title' => 0,
-      'override_title_text' => '',
-      'override_title_heading' => 'h2',
-    );
-    $pane->cache = array();
-    $pane->style = array(
-      'settings' => NULL,
-    );
-    $pane->css = array();
-    $pane->extras = array();
-    $pane->position = 0;
-    $pane->locks = array();
-    $pane->uuid = '7ef2cff5-8ca4-4525-9c23-fac2a186f023';
-    $display->content['new-7ef2cff5-8ca4-4525-9c23-fac2a186f023'] = $pane;
-    $display->panels['sidebar'][0] = 'new-7ef2cff5-8ca4-4525-9c23-fac2a186f023';
+  $pane = new stdClass();
+  $pane->pid = 'new-d8d212dc-f66e-48c5-8506-542e87a2cd2a';
+  $pane->panel = 'contentmain';
+  $pane->type = 'views_panes';
+  $pane->subtype = 'events-events_upcoming';
+  $pane->shown = TRUE;
+  $pane->access = array();
+  $pane->configuration = array(
+    'path' => '',
+  );
+  $pane->cache = array();
+  $pane->style = array();
+  $pane->css = array();
+  $pane->extras = array();
+  $pane->position = 0;
+  $pane->locks = array();
+  $pane->uuid = 'd8d212dc-f66e-48c5-8506-542e87a2cd2a';
+  $display->content['new-d8d212dc-f66e-48c5-8506-542e87a2cd2a'] = $pane;
+  $display->panels['contentmain'][0] = 'new-d8d212dc-f66e-48c5-8506-542e87a2cd2a';
+  $pane = new stdClass();
+  $pane->pid = 'new-6eb928fb-40a4-4bd7-baab-b775e80c32ca';
+  $pane->panel = 'sidebar';
+  $pane->type = 'block';
+  $pane->subtype = 'views--exp-events-events_upcoming';
+  $pane->shown = TRUE;
+  $pane->access = array();
+  $pane->configuration = array(
+    'inherit_path' => 1,
+    'override_title' => 1,
+    'override_title_text' => 'Filter',
+    'override_title_heading' => 'div',
+  );
+  $pane->cache = array();
+  $pane->style = array(
+    'settings' => array(
+      'title' => array(
+        'element' => 'h5',
+        'attributes' => array(
+          'id' => '',
+          'class' => 'margin-top-none margin-bottom-double',
+        ),
+      ),
+      'content' => array(
+        'element' => '',
+        'attributes' => array(
+          'id' => '',
+          'class' => '',
+        ),
+      ),
+      'theme' => 1,
+    ),
+    'style' => 'wrapper_element',
+  );
+  $pane->css = array();
+  $pane->extras = array();
+  $pane->position = 0;
+  $pane->locks = array();
+  $pane->uuid = '6eb928fb-40a4-4bd7-baab-b775e80c32ca';
+  $display->content['new-6eb928fb-40a4-4bd7-baab-b775e80c32ca'] = $pane;
+  $display->panels['sidebar'][0] = 'new-6eb928fb-40a4-4bd7-baab-b775e80c32ca';
   $display->hide_title = PANELS_TITLE_FIXED;
-  $display->title_pane = 'new-7ef2cff5-8ca4-4525-9c23-fac2a186f023';
+  $display->title_pane = '0';
   $handler->conf['display'] = $display;
   $page->default_handlers[$handler->name] = $handler;
   $pages['helm_events'] = $page;

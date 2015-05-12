@@ -50,16 +50,16 @@ function helm_event_strongarm() {
     'extra_fields' => array(
       'form' => array(
         'metatags' => array(
-          'weight' => '16',
+          'weight' => '11',
         ),
         'title' => array(
           'weight' => '0',
         ),
         'path' => array(
-          'weight' => '15',
+          'weight' => '10',
         ),
         'redirect' => array(
-          'weight' => '14',
+          'weight' => '9',
         ),
         'flag' => array(
           'weight' => '10',

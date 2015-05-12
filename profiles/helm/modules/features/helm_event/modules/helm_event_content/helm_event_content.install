@@ -1,0 +1,17 @@
+<?php
+/**
+ * @file
+ * Code for the Helm Event Content feature.
+ */
+
+include_once 'helm_event_content.features.inc';
+
+/**
+ * Implements hook_disable().
+ * Delete default content.
+ */
+function helm_event_content_disable() {
+  if (module_exists('helm_core')) {
+    helm_core_uuid_features_delete('helm_event_content', 'node');
+  }
+}

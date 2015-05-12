@@ -1,0 +1,15 @@
+<?php
+/**
+ * @file
+ * Code for the Helm FAQ Content feature.
+ */
+
+/**
+ * Implements hook_disable().
+ * Delete default content.
+ */
+function helm_faq_content_disable() {
+  if (module_exists('helm_core')) {
+    helm_core_uuid_features_delete('helm_faq_content', 'node');
+  }
+}

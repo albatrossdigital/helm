@@ -61,8 +61,7 @@ function helm_news_apps_app_info() {
 //}
 
 function helm_news_app_post_install($status) {
-  dpm($status);
-  dpm('post ins');
+  module_enable('helm_news_display', 'helm_news_categories');
 }
 
 

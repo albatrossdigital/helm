@@ -33,6 +33,11 @@ function helm_news_display_strongarm() {
         'choice' => 0,
       ),
       'featured' => array(
+        'status' => 1,
+        'default' => 1,
+        'choice' => 0,
+      ),
+      'live_results_search' => array(
         'status' => 0,
         'default' => 0,
         'choice' => 0,

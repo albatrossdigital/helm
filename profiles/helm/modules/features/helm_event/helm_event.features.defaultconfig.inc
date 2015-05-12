@@ -76,9 +76,7 @@ function helm_event_defaultconfig_user_default_permissions() {
   // Exported permission: 'delete terms in event_category'.
   $permissions['delete terms in event_category'] = array(
     'name' => 'delete terms in event_category',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
+    'roles' => array(),
     'module' => 'taxonomy',
   );
 
@@ -103,9 +101,7 @@ function helm_event_defaultconfig_user_default_permissions() {
   // Exported permission: 'edit terms in event_category'.
   $permissions['edit terms in event_category'] = array(
     'name' => 'edit terms in event_category',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
+    'roles' => array(),
     'module' => 'taxonomy',
   );
 

@@ -38,21 +38,27 @@ function helm_event_register_defaultconfig_user_default_permissions() {
   // Exported permission: 'administer registration'.
   $permissions['administer registration'] = array(
     'name' => 'administer registration',
-    'roles' => array(),
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
     'module' => 'registration',
   );
 
   // Exported permission: 'administer registration states'.
   $permissions['administer registration states'] = array(
     'name' => 'administer registration states',
-    'roles' => array(),
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
     'module' => 'registration',
   );
 
   // Exported permission: 'administer registration types'.
   $permissions['administer registration types'] = array(
     'name' => 'administer registration types',
-    'roles' => array(),
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
     'module' => 'registration',
   );
 

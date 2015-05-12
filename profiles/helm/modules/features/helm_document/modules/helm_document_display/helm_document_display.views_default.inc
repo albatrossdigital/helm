@@ -29,7 +29,7 @@ function helm_document_display_views_default_views() {
   $handler->display->display_options['exposed_form']['type'] = 'basic';
   $handler->display->display_options['pager']['type'] = 'full';
   $handler->display->display_options['pager']['options']['items_per_page'] = '50';
-  $handler->display->display_options['style_plugin'] = 'table';
+  $handler->display->display_options['style_plugin'] = 'views_bootstrap_table_plugin_style';
   $handler->display->display_options['style_options']['grouping'] = array(
     0 => array(
       'field' => 'field_document_category',
@@ -42,6 +42,7 @@ function helm_document_display_views_default_views() {
     'title' => 'title',
     'created' => 'created',
     'field_attachment' => 'field_attachment',
+    'rendered_entity' => 'rendered_entity',
   );
   $handler->display->display_options['style_options']['default'] = '-1';
   $handler->display->display_options['style_options']['info'] = array(
@@ -53,14 +54,14 @@ function helm_document_display_views_default_views() {
       'empty_column' => 0,
     ),
     'title' => array(
-      'sortable' => 0,
+      'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
     'created' => array(
-      'sortable' => 0,
+      'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
@@ -71,6 +72,18 @@ function helm_document_display_views_default_views() {
       'separator' => '',
       'empty_column' => 0,
     ),
+    'rendered_entity' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+  );
+  $handler->display->display_options['style_options']['bootstrap_styles'] = array(
+    'striped' => 'striped',
+    'responsive' => 'responsive',
+    'bordered' => 0,
+    'hover' => 0,
+    'condensed' => 0,
   );
   /* Field: Content: Category */
   $handler->display->display_options['fields']['field_document_category']['id'] = 'field_document_category';
@@ -78,19 +91,17 @@ function helm_document_display_views_default_views() {
   $handler->display->display_options['fields']['field_document_category']['field'] = 'field_document_category';
   $handler->display->display_options['fields']['field_document_category']['label'] = '';
   $handler->display->display_options['fields']['field_document_category']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['field_document_category']['element_type'] = 'h3';
+  $handler->display->display_options['fields']['field_document_category']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['field_document_category']['alter']['text'] = '<h2 class="margin-top-none">[field_document_category]</h2>';
   $handler->display->display_options['fields']['field_document_category']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['field_document_category']['element_wrapper_type'] = '0';
   $handler->display->display_options['fields']['field_document_category']['element_default_classes'] = FALSE;
   $handler->display->display_options['fields']['field_document_category']['settings'] = array(
     'link' => 0,
   );
-  $handler->display->display_options['fields']['field_document_category']['field_api_classes'] = TRUE;
   /* Field: Content: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'node';
   $handler->display->display_options['fields']['title']['field'] = 'title';
-  $handler->display->display_options['fields']['title']['label'] = '';
   $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
   $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
@@ -98,7 +109,7 @@ function helm_document_display_views_default_views() {
   $handler->display->display_options['fields']['created']['id'] = 'created';
   $handler->display->display_options['fields']['created']['table'] = 'node';
   $handler->display->display_options['fields']['created']['field'] = 'created';
-  $handler->display->display_options['fields']['created']['label'] = '';
+  $handler->display->display_options['fields']['created']['label'] = 'Date';
   $handler->display->display_options['fields']['created']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['created']['date_format'] = 'helm_date_formats_date_short';
   $handler->display->display_options['fields']['created']['second_date_format'] = 'helm_date_formats_date_short';

@@ -5,25 +5,29 @@ package = Helm Content
 dependencies[] = ctools
 dependencies[] = features
 dependencies[] = file
-<<<<<<< HEAD
-=======
-dependencies[] = media
-dependencies[] = options
->>>>>>> 02b8b2f1264680770b0ae4139e156ad4d247bb6e
-dependencies[] = helm_news
 dependencies[] = helm_page
 dependencies[] = media
 dependencies[] = options
+dependencies[] = panelizer
 dependencies[] = strongarm
 dependencies[] = taxonomy
 dependencies[] = uuid_features
+<<<<<<< HEAD = ======
+>>>>>>> 02b8b2f1264680770b0ae4139e156ad4d247bb6e
+dependencies[] = helm_news
 __drupal_alter_by_ref[][node][article] = article
 features[ctools][] = strongarm:strongarm:1
 features[features_api][] = api:2
+features[uuid_node][] = 15ed3c39-54da-4981-81c3-caf023d41843
+features[uuid_node][] = 200c2422-3612-4bb1-998b-ec6d4cdc65ba
+features[uuid_node][] = 20a3f224-530e-4ad0-9c11-bf9d46fc5c91
+features[uuid_node][] = 2435ace3-f180-4b36-9b66-073aa5bf3110
 features[uuid_node][] = 34720554-6b2f-491a-ac40-61e1b4279a57
-features[uuid_node][] = 77118875-58ca-41f8-ba11-447ded276d27
 features[uuid_node][] = bd1cfda3-c136-4141-9ad0-46df817c24c9
+features[uuid_node][] = d8d6c11f-8329-45ba-93a0-d0b9996d635f
 features[uuid_node][] = da33829a-63ea-4ef4-9369-ee0608991780
+features[uuid_node][] = e725a34e-d158-4436-8234-3799c849bf3d
 features_exclude[field_base][field_category] = field_category
 features_exclude[field_instance][node-article-field_attachment] = node-article-field_attachment
 features_exclude[field_instance][node-article-field_category] = node-article-field_category
+features_exclude[dependencies][helm_news] = helm_news

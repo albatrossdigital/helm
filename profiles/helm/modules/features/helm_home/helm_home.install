@@ -125,7 +125,7 @@ function helm_home_enable() {
 }
 
 /**
- * Implements hook_disable().
+ * Implements hook_uninstall().
  */
 function helm_home_uninstall() {
   $query = new EntityFieldQuery();

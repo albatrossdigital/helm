@@ -98,7 +98,7 @@ function helm_page_display_strongarm() {
         'default' => 0,
         'choice' => 0,
       ),
-      'featured' => array(
+      'live_results_search' => array(
         'status' => 0,
         'default' => 0,
         'choice' => 0,

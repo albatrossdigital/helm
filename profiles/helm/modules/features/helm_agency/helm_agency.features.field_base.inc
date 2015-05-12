@@ -114,6 +114,21 @@ function helm_agency_field_default_field_bases() {
     'type' => 'geofield',
   );
 
+  // Exported field_base: 'field_agency_social_fields'
+  $field_bases['field_agency_social_fields'] = array(
+    'active' => 1,
+    'cardinality' => -1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_agency_social_fields',
+    'indexes' => array(),
+    'locked' => 0,
+    'module' => 'socialfield',
+    'settings' => array(),
+    'translatable' => 0,
+    'type' => 'social_links_field',
+  );
+
   // Exported field_base: 'field_agency_url'
   $field_bases['field_agency_url'] = array(
     'active' => 1,
