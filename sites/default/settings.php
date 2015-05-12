@@ -564,9 +564,8 @@ $conf['404_fast_html'] = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN"
 
 # Make domain access work on Pantheon
 # See http://helpdesk.getpantheon.com/customer/portal/articles/381152-reading-pantheon-environment-configuration for details
-/*if (isset($_SERVER['PANTHEON_ENVIRONMENT'])) {
+if (isset($_SERVER['PANTHEON_ENVIRONMENT'])) {
   extract(json_decode($_SERVER['PRESSFLOW_SETTINGS'], TRUE));
 }
 
 include DRUPAL_ROOT . '/sites/all/modules/evaluate/domain/settings.inc';
-*/
