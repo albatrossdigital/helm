@@ -58,7 +58,7 @@ function helm_agency_field_default_field_instances() {
         'summary_rows' => 5,
       ),
       'type' => 'text_textarea_with_summary',
-      'weight' => 6,
+      'weight' => 7,
     ),
   );
 
@@ -223,6 +223,95 @@ function helm_agency_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-agency-field_agency_social_fields'
+  $field_instances['node-agency-field_agency_social_fields'] = array(
+    'bundle' => 'agency',
+    'default_value' => array(
+      0 => array(
+        'service' => 'twitter',
+        'url' => 'http://twitter.com/name',
+        'weight' => -10,
+      ),
+      1 => array(
+        'service' => 'googleplus',
+        'url' => 'https://plus.google.com/name',
+        'weight' => -9,
+      ),
+      2 => array(
+        'service' => 'facebook',
+        'url' => 'http://facebook.com/name',
+        'weight' => -8,
+      ),
+      3 => array(
+        'service' => 'youtube',
+        'url' => 'http://youtube.com/name',
+        'weight' => -7,
+      ),
+      4 => array(
+        'service' => 'pinterest',
+        'url' => 'http://pinterest.com/name',
+        'weight' => -6,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'socialfield',
+        'settings' => array(
+          'link_text' => FALSE,
+        ),
+        'type' => 'socialfield_formatter',
+        'weight' => 8,
+      ),
+      'live_results_search' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_agency_social_fields',
+    'label' => 'Agency Social Fields',
+    'required' => 0,
+    'settings' => array(
+      'services' => array(
+        'facebook' => 'facebook',
+        'googleplus' => 'googleplus',
+        'linkedin' => 'linkedin',
+        'pinterest' => 'pinterest',
+        'twitter' => 'twitter',
+        'vimeo' => 'vimeo',
+        'youtube' => 'youtube',
+      ),
+      'used_services' => array(
+        'facebook' => 'facebook',
+        'googleplus' => 'googleplus',
+        'linkedin' => 'linkedin',
+        'pinterest' => 'pinterest',
+        'twitter' => 'twitter',
+        'vimeo' => 'vimeo',
+        'youtube' => 'youtube',
+      ),
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'socialfield',
+      'settings' => array(),
+      'type' => 'socialfield_widget',
+      'weight' => 6,
+    ),
+  );
+
   // Exported field_instance: 'node-agency-field_agency_url'
   $field_instances['node-agency-field_agency_url'] = array(
     'bundle' => 'agency',
@@ -349,12 +438,13 @@ function helm_agency_field_default_field_instances() {
         ),
       ),
       'type' => 'file_angular_media',
-      'weight' => 7,
+      'weight' => 8,
     ),
   );
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('Agency Social Fields');
   t('Category');
   t('Description');
   t('Location');

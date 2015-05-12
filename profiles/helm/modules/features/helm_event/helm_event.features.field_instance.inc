@@ -61,7 +61,7 @@ function helm_event_field_default_field_instances() {
         'summary_rows' => 5,
       ),
       'type' => 'text_textarea_with_summary',
-      'weight' => 4,
+      'weight' => 7,
     ),
     'workbench_access_field' => 0,
   );
@@ -142,7 +142,7 @@ function helm_event_field_default_field_instances() {
         'tabs' => array(),
       ),
       'type' => 'file_angular_media',
-      'weight' => 13,
+      'weight' => 8,
     ),
   );
 
@@ -217,6 +217,59 @@ function helm_event_field_default_field_instances() {
     'workbench_access_field' => 0,
   );
 
+  // Exported field_instance: 'node-event-field_event_address'
+  $field_instances['node-event-field_event_address'] = array(
+    'bundle' => 'event',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 7,
+      ),
+      'featured' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'live_results_search' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'fences_wrapper' => 'div',
+    'field_name' => 'field_event_address',
+    'label' => 'Location and Address',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'rows' => 3,
+      ),
+      'type' => 'text_textarea',
+      'weight' => 5,
+    ),
+  );
+
   // Exported field_instance: 'node-event-field_event_category'
   $field_instances['node-event-field_event_category'] = array(
     'bundle' => 'event',
@@ -271,25 +324,28 @@ function helm_event_field_default_field_instances() {
     'widget' => array(
       'active' => 1,
       'module' => 'options',
-      'settings' => array(),
+      'settings' => array(
+        'use_select2' => FALSE,
+      ),
       'type' => 'options_select',
       'weight' => 3,
     ),
   );
 
-  // Exported field_instance: 'node-event-field_location_description'
-  $field_instances['node-event-field_location_description'] = array(
+  // Exported field_instance: 'node-event-field_event_location'
+  $field_instances['node-event-field_event_location'] = array(
     'bundle' => 'event',
-    'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'hidden',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 4,
+        'label' => 'above',
+        'module' => 'geofield',
+        'settings' => array(
+          'data' => 'full',
+        ),
+        'type' => 'geofield_wkt',
+        'weight' => 8,
       ),
       'featured' => array(
         'label' => 'above',
@@ -310,24 +366,36 @@ function helm_event_field_default_field_instances() {
         'weight' => 0,
       ),
     ),
-    'ds_extras_field_template' => '',
     'entity_type' => 'node',
     'fences_wrapper' => 'div',
-    'field_name' => 'field_location_description',
+    'field_name' => 'field_event_location',
     'label' => 'Location',
     'required' => 0,
     'settings' => array(
-      'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
       'active' => 1,
-      'module' => 'text',
+      'module' => 'geocoder',
       'settings' => array(
-        'rows' => 5,
+        'delta_handling' => 'default',
+        'geocoder_field' => 'field_event_address',
+        'geocoder_handler' => 'google',
+        'handler_settings' => array(
+          'google' => array(
+            'all_results' => 0,
+            'geometry_type' => 'point',
+            'reject_results' => array(
+              'APPROXIMATE' => 0,
+              'GEOMETRIC_CENTER' => 0,
+              'RANGE_INTERPOLATED' => 0,
+              'ROOFTOP' => 0,
+            ),
+          ),
+        ),
       ),
-      'type' => 'text_textarea',
-      'weight' => 5,
+      'type' => 'geocoder',
+      'weight' => 6,
     ),
   );
 
@@ -414,7 +482,7 @@ function helm_event_field_default_field_instances() {
         ),
       ),
       'type' => 'file_angular_media',
-      'weight' => 18,
+      'weight' => 4,
     ),
   );
 
@@ -478,6 +546,7 @@ function helm_event_field_default_field_instances() {
   t('Date');
   t('Description');
   t('Location');
+  t('Location and Address');
   t('Media');
   t('Subtitle');
 

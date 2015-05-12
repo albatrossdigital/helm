@@ -25,7 +25,7 @@ function helm_faq_content_uuid_features_default_content() {
   'tnid' => 0,
   'translate' => 0,
   'uuid' => '0000f16e-9087-4cc6-b4b0-0d072cdea959',
-  'revision_uid' => 1,
+  'revision_uid' => 0,
   'body' => array(
     'und' => array(
       0 => array(
@@ -112,6 +112,15 @@ function helm_faq_content_uuid_features_default_content() {
       'callback' => 'date_iso8601',
     ),
   ),
+  'domains' => array(
+    1 => 1,
+  ),
+  'domain_site' => TRUE,
+  'subdomains' => array(
+    0 => 'All affiliates',
+    1 => 'City of Springfield',
+  ),
+  'domain_source' => NULL,
   'name' => 'demoadmin',
   'picture' => 0,
   'data' => 'a:6:{s:16:"ckeditor_default";s:1:"t";s:20:"ckeditor_show_toggle";s:1:"t";s:14:"ckeditor_width";s:4:"100%";s:13:"ckeditor_lang";s:2:"en";s:18:"ckeditor_auto_lang";s:1:"t";s:12:"admin_select";s:7:"toolbar";}',
@@ -133,7 +142,7 @@ function helm_faq_content_uuid_features_default_content() {
   'tnid' => 0,
   'translate' => 0,
   'uuid' => '04858eb9-8cdb-4255-983e-0b3b56876991',
-  'revision_uid' => 1,
+  'revision_uid' => 0,
   'body' => array(
     'und' => array(
       0 => array(
@@ -220,6 +229,15 @@ function helm_faq_content_uuid_features_default_content() {
       'callback' => 'date_iso8601',
     ),
   ),
+  'domains' => array(
+    1 => 1,
+  ),
+  'domain_site' => TRUE,
+  'subdomains' => array(
+    0 => 'All affiliates',
+    1 => 'City of Springfield',
+  ),
+  'domain_source' => NULL,
   'name' => 'demoadmin',
   'picture' => 0,
   'data' => 'a:6:{s:16:"ckeditor_default";s:1:"t";s:20:"ckeditor_show_toggle";s:1:"t";s:14:"ckeditor_width";s:4:"100%";s:13:"ckeditor_lang";s:2:"en";s:18:"ckeditor_auto_lang";s:1:"t";s:12:"admin_select";s:7:"toolbar";}',
@@ -241,7 +259,7 @@ function helm_faq_content_uuid_features_default_content() {
   'tnid' => 0,
   'translate' => 0,
   'uuid' => '0cac8f75-fb6a-4944-b0fe-6914e22b939c',
-  'revision_uid' => 1,
+  'revision_uid' => 0,
   'body' => array(
     'und' => array(
       0 => array(
@@ -328,6 +346,15 @@ function helm_faq_content_uuid_features_default_content() {
       'callback' => 'date_iso8601',
     ),
   ),
+  'domains' => array(
+    1 => 1,
+  ),
+  'domain_site' => TRUE,
+  'subdomains' => array(
+    0 => 'All affiliates',
+    1 => 'City of Springfield',
+  ),
+  'domain_source' => NULL,
   'name' => 'demoadmin',
   'picture' => 0,
   'data' => 'a:6:{s:16:"ckeditor_default";s:1:"t";s:20:"ckeditor_show_toggle";s:1:"t";s:14:"ckeditor_width";s:4:"100%";s:13:"ckeditor_lang";s:2:"en";s:18:"ckeditor_auto_lang";s:1:"t";s:12:"admin_select";s:7:"toolbar";}',
@@ -349,7 +376,7 @@ function helm_faq_content_uuid_features_default_content() {
   'tnid' => 0,
   'translate' => 0,
   'uuid' => '0f6528d5-946d-4f67-accf-890a7617283b',
-  'revision_uid' => 1,
+  'revision_uid' => 0,
   'body' => array(
     'und' => array(
       0 => array(
@@ -436,6 +463,15 @@ function helm_faq_content_uuid_features_default_content() {
       'callback' => 'date_iso8601',
     ),
   ),
+  'domains' => array(
+    1 => 1,
+  ),
+  'domain_site' => TRUE,
+  'subdomains' => array(
+    0 => 'All affiliates',
+    1 => 'City of Springfield',
+  ),
+  'domain_source' => NULL,
   'name' => 'demoadmin',
   'picture' => 0,
   'data' => 'a:6:{s:16:"ckeditor_default";s:1:"t";s:20:"ckeditor_show_toggle";s:1:"t";s:14:"ckeditor_width";s:4:"100%";s:13:"ckeditor_lang";s:2:"en";s:18:"ckeditor_auto_lang";s:1:"t";s:12:"admin_select";s:7:"toolbar";}',
@@ -457,7 +493,7 @@ function helm_faq_content_uuid_features_default_content() {
   'tnid' => 0,
   'translate' => 0,
   'uuid' => '11b349de-b127-4ed0-90dc-2ea9799ce14d',
-  'revision_uid' => 1,
+  'revision_uid' => 0,
   'body' => array(
     'und' => array(
       0 => array(
@@ -544,6 +580,15 @@ function helm_faq_content_uuid_features_default_content() {
       'callback' => 'date_iso8601',
     ),
   ),
+  'domains' => array(
+    1 => 1,
+  ),
+  'domain_site' => TRUE,
+  'subdomains' => array(
+    0 => 'All affiliates',
+    1 => 'City of Springfield',
+  ),
+  'domain_source' => NULL,
   'name' => 'demoadmin',
   'picture' => 0,
   'data' => 'a:6:{s:16:"ckeditor_default";s:1:"t";s:20:"ckeditor_show_toggle";s:1:"t";s:14:"ckeditor_width";s:4:"100%";s:13:"ckeditor_lang";s:2:"en";s:18:"ckeditor_auto_lang";s:1:"t";s:12:"admin_select";s:7:"toolbar";}',
@@ -565,7 +610,7 @@ function helm_faq_content_uuid_features_default_content() {
   'tnid' => 0,
   'translate' => 0,
   'uuid' => '1726d1c5-2e86-4c0c-8db4-3ca3f3646520',
-  'revision_uid' => 1,
+  'revision_uid' => 0,
   'body' => array(
     'und' => array(
       0 => array(
@@ -652,6 +697,15 @@ function helm_faq_content_uuid_features_default_content() {
       'callback' => 'date_iso8601',
     ),
   ),
+  'domains' => array(
+    1 => 1,
+  ),
+  'domain_site' => TRUE,
+  'subdomains' => array(
+    0 => 'All affiliates',
+    1 => 'City of Springfield',
+  ),
+  'domain_source' => NULL,
   'name' => 'demoadmin',
   'picture' => 0,
   'data' => 'a:6:{s:16:"ckeditor_default";s:1:"t";s:20:"ckeditor_show_toggle";s:1:"t";s:14:"ckeditor_width";s:4:"100%";s:13:"ckeditor_lang";s:2:"en";s:18:"ckeditor_auto_lang";s:1:"t";s:12:"admin_select";s:7:"toolbar";}',
@@ -673,7 +727,7 @@ function helm_faq_content_uuid_features_default_content() {
   'tnid' => 0,
   'translate' => 0,
   'uuid' => '19eeaa5f-c1e5-4e1e-8566-103ce9e6d443',
-  'revision_uid' => 1,
+  'revision_uid' => 0,
   'body' => array(
     'und' => array(
       0 => array(
@@ -760,6 +814,15 @@ function helm_faq_content_uuid_features_default_content() {
       'callback' => 'date_iso8601',
     ),
   ),
+  'domains' => array(
+    1 => 1,
+  ),
+  'domain_site' => TRUE,
+  'subdomains' => array(
+    0 => 'All affiliates',
+    1 => 'City of Springfield',
+  ),
+  'domain_source' => NULL,
   'name' => 'demoadmin',
   'picture' => 0,
   'data' => 'a:6:{s:16:"ckeditor_default";s:1:"t";s:20:"ckeditor_show_toggle";s:1:"t";s:14:"ckeditor_width";s:4:"100%";s:13:"ckeditor_lang";s:2:"en";s:18:"ckeditor_auto_lang";s:1:"t";s:12:"admin_select";s:7:"toolbar";}',
@@ -781,7 +844,7 @@ function helm_faq_content_uuid_features_default_content() {
   'tnid' => 0,
   'translate' => 0,
   'uuid' => '1b955fe5-cae6-4fad-b4de-77cb9e9a9269',
-  'revision_uid' => 1,
+  'revision_uid' => 0,
   'body' => array(
     'und' => array(
       0 => array(
@@ -868,6 +931,15 @@ function helm_faq_content_uuid_features_default_content() {
       'callback' => 'date_iso8601',
     ),
   ),
+  'domains' => array(
+    1 => 1,
+  ),
+  'domain_site' => TRUE,
+  'subdomains' => array(
+    0 => 'All affiliates',
+    1 => 'City of Springfield',
+  ),
+  'domain_source' => NULL,
   'name' => 'demoadmin',
   'picture' => 0,
   'data' => 'a:6:{s:16:"ckeditor_default";s:1:"t";s:20:"ckeditor_show_toggle";s:1:"t";s:14:"ckeditor_width";s:4:"100%";s:13:"ckeditor_lang";s:2:"en";s:18:"ckeditor_auto_lang";s:1:"t";s:12:"admin_select";s:7:"toolbar";}',
@@ -889,7 +961,7 @@ function helm_faq_content_uuid_features_default_content() {
   'tnid' => 0,
   'translate' => 0,
   'uuid' => '1c2bd0be-1b74-4353-b27a-f988c5d762f0',
-  'revision_uid' => 1,
+  'revision_uid' => 0,
   'body' => array(
     'und' => array(
       0 => array(
@@ -976,6 +1048,15 @@ function helm_faq_content_uuid_features_default_content() {
       'callback' => 'date_iso8601',
     ),
   ),
+  'domains' => array(
+    1 => 1,
+  ),
+  'domain_site' => TRUE,
+  'subdomains' => array(
+    0 => 'All affiliates',
+    1 => 'City of Springfield',
+  ),
+  'domain_source' => NULL,
   'name' => 'demoadmin',
   'picture' => 0,
   'data' => 'a:6:{s:16:"ckeditor_default";s:1:"t";s:20:"ckeditor_show_toggle";s:1:"t";s:14:"ckeditor_width";s:4:"100%";s:13:"ckeditor_lang";s:2:"en";s:18:"ckeditor_auto_lang";s:1:"t";s:12:"admin_select";s:7:"toolbar";}',
@@ -997,7 +1078,7 @@ function helm_faq_content_uuid_features_default_content() {
   'tnid' => 0,
   'translate' => 0,
   'uuid' => '1efbf75b-1db2-4b67-bf0f-1545f7cf7711',
-  'revision_uid' => 1,
+  'revision_uid' => 0,
   'body' => array(
     'und' => array(
       0 => array(
@@ -1084,6 +1165,15 @@ function helm_faq_content_uuid_features_default_content() {
       'callback' => 'date_iso8601',
     ),
   ),
+  'domains' => array(
+    1 => 1,
+  ),
+  'domain_site' => TRUE,
+  'subdomains' => array(
+    0 => 'All affiliates',
+    1 => 'City of Springfield',
+  ),
+  'domain_source' => NULL,
   'name' => 'demoadmin',
   'picture' => 0,
   'data' => 'a:6:{s:16:"ckeditor_default";s:1:"t";s:20:"ckeditor_show_toggle";s:1:"t";s:14:"ckeditor_width";s:4:"100%";s:13:"ckeditor_lang";s:2:"en";s:18:"ckeditor_auto_lang";s:1:"t";s:12:"admin_select";s:7:"toolbar";}',
@@ -1105,7 +1195,7 @@ function helm_faq_content_uuid_features_default_content() {
   'tnid' => 0,
   'translate' => 0,
   'uuid' => '1fd378d5-1f09-44dc-984c-8c034135b908',
-  'revision_uid' => 1,
+  'revision_uid' => 0,
   'body' => array(
     'und' => array(
       0 => array(
@@ -1192,6 +1282,15 @@ function helm_faq_content_uuid_features_default_content() {
       'callback' => 'date_iso8601',
     ),
   ),
+  'domains' => array(
+    1 => 1,
+  ),
+  'domain_site' => TRUE,
+  'subdomains' => array(
+    0 => 'All affiliates',
+    1 => 'City of Springfield',
+  ),
+  'domain_source' => NULL,
   'name' => 'demoadmin',
   'picture' => 0,
   'data' => 'a:6:{s:16:"ckeditor_default";s:1:"t";s:20:"ckeditor_show_toggle";s:1:"t";s:14:"ckeditor_width";s:4:"100%";s:13:"ckeditor_lang";s:2:"en";s:18:"ckeditor_auto_lang";s:1:"t";s:12:"admin_select";s:7:"toolbar";}',
@@ -1213,7 +1312,7 @@ function helm_faq_content_uuid_features_default_content() {
   'tnid' => 0,
   'translate' => 0,
   'uuid' => '20dc940c-6e00-436b-a569-a0b65a9670c0',
-  'revision_uid' => 1,
+  'revision_uid' => 0,
   'body' => array(
     'und' => array(
       0 => array(
@@ -1300,6 +1399,15 @@ function helm_faq_content_uuid_features_default_content() {
       'callback' => 'date_iso8601',
     ),
   ),
+  'domains' => array(
+    1 => 1,
+  ),
+  'domain_site' => TRUE,
+  'subdomains' => array(
+    0 => 'All affiliates',
+    1 => 'City of Springfield',
+  ),
+  'domain_source' => NULL,
   'name' => 'demoadmin',
   'picture' => 0,
   'data' => 'a:6:{s:16:"ckeditor_default";s:1:"t";s:20:"ckeditor_show_toggle";s:1:"t";s:14:"ckeditor_width";s:4:"100%";s:13:"ckeditor_lang";s:2:"en";s:18:"ckeditor_auto_lang";s:1:"t";s:12:"admin_select";s:7:"toolbar";}',
@@ -1321,7 +1429,7 @@ function helm_faq_content_uuid_features_default_content() {
   'tnid' => 0,
   'translate' => 0,
   'uuid' => '21fae09b-2683-414e-8422-4bff237a47c5',
-  'revision_uid' => 1,
+  'revision_uid' => 0,
   'body' => array(
     'und' => array(
       0 => array(
@@ -1408,6 +1516,15 @@ function helm_faq_content_uuid_features_default_content() {
       'callback' => 'date_iso8601',
     ),
   ),
+  'domains' => array(
+    1 => 1,
+  ),
+  'domain_site' => TRUE,
+  'subdomains' => array(
+    0 => 'All affiliates',
+    1 => 'City of Springfield',
+  ),
+  'domain_source' => NULL,
   'name' => 'demoadmin',
   'picture' => 0,
   'data' => 'a:6:{s:16:"ckeditor_default";s:1:"t";s:20:"ckeditor_show_toggle";s:1:"t";s:14:"ckeditor_width";s:4:"100%";s:13:"ckeditor_lang";s:2:"en";s:18:"ckeditor_auto_lang";s:1:"t";s:12:"admin_select";s:7:"toolbar";}',
@@ -1429,7 +1546,7 @@ function helm_faq_content_uuid_features_default_content() {
   'tnid' => 0,
   'translate' => 0,
   'uuid' => '258f5a99-afb7-445b-aa56-79f9e45f6ebb',
-  'revision_uid' => 1,
+  'revision_uid' => 0,
   'body' => array(
     'und' => array(
       0 => array(
@@ -1516,6 +1633,15 @@ function helm_faq_content_uuid_features_default_content() {
       'callback' => 'date_iso8601',
     ),
   ),
+  'domains' => array(
+    1 => 1,
+  ),
+  'domain_site' => TRUE,
+  'subdomains' => array(
+    0 => 'All affiliates',
+    1 => 'City of Springfield',
+  ),
+  'domain_source' => NULL,
   'name' => 'demoadmin',
   'picture' => 0,
   'data' => 'a:6:{s:16:"ckeditor_default";s:1:"t";s:20:"ckeditor_show_toggle";s:1:"t";s:14:"ckeditor_width";s:4:"100%";s:13:"ckeditor_lang";s:2:"en";s:18:"ckeditor_auto_lang";s:1:"t";s:12:"admin_select";s:7:"toolbar";}',
@@ -1537,7 +1663,7 @@ function helm_faq_content_uuid_features_default_content() {
   'tnid' => 0,
   'translate' => 0,
   'uuid' => '28cb6de3-ba8d-4477-a973-2749f077c75d',
-  'revision_uid' => 1,
+  'revision_uid' => 0,
   'body' => array(
     'und' => array(
       0 => array(
@@ -1624,6 +1750,15 @@ function helm_faq_content_uuid_features_default_content() {
       'callback' => 'date_iso8601',
     ),
   ),
+  'domains' => array(
+    1 => 1,
+  ),
+  'domain_site' => TRUE,
+  'subdomains' => array(
+    0 => 'All affiliates',
+    1 => 'City of Springfield',
+  ),
+  'domain_source' => NULL,
   'name' => 'demoadmin',
   'picture' => 0,
   'data' => 'a:6:{s:16:"ckeditor_default";s:1:"t";s:20:"ckeditor_show_toggle";s:1:"t";s:14:"ckeditor_width";s:4:"100%";s:13:"ckeditor_lang";s:2:"en";s:18:"ckeditor_auto_lang";s:1:"t";s:12:"admin_select";s:7:"toolbar";}',
@@ -1645,7 +1780,7 @@ function helm_faq_content_uuid_features_default_content() {
   'tnid' => 0,
   'translate' => 0,
   'uuid' => '35458940-201a-4853-8e26-50910d5f01c0',
-  'revision_uid' => 1,
+  'revision_uid' => 0,
   'body' => array(
     'und' => array(
       0 => array(
@@ -1732,6 +1867,15 @@ function helm_faq_content_uuid_features_default_content() {
       'callback' => 'date_iso8601',
     ),
   ),
+  'domains' => array(
+    1 => 1,
+  ),
+  'domain_site' => TRUE,
+  'subdomains' => array(
+    0 => 'All affiliates',
+    1 => 'City of Springfield',
+  ),
+  'domain_source' => NULL,
   'name' => 'demoadmin',
   'picture' => 0,
   'data' => 'a:6:{s:16:"ckeditor_default";s:1:"t";s:20:"ckeditor_show_toggle";s:1:"t";s:14:"ckeditor_width";s:4:"100%";s:13:"ckeditor_lang";s:2:"en";s:18:"ckeditor_auto_lang";s:1:"t";s:12:"admin_select";s:7:"toolbar";}',
@@ -1753,7 +1897,7 @@ function helm_faq_content_uuid_features_default_content() {
   'tnid' => 0,
   'translate' => 0,
   'uuid' => '45164c12-2c26-4949-97bb-5a3da3b78a75',
-  'revision_uid' => 1,
+  'revision_uid' => 0,
   'body' => array(
     'und' => array(
       0 => array(
@@ -1840,6 +1984,15 @@ function helm_faq_content_uuid_features_default_content() {
       'callback' => 'date_iso8601',
     ),
   ),
+  'domains' => array(
+    1 => 1,
+  ),
+  'domain_site' => TRUE,
+  'subdomains' => array(
+    0 => 'All affiliates',
+    1 => 'City of Springfield',
+  ),
+  'domain_source' => NULL,
   'name' => 'demoadmin',
   'picture' => 0,
   'data' => 'a:6:{s:16:"ckeditor_default";s:1:"t";s:20:"ckeditor_show_toggle";s:1:"t";s:14:"ckeditor_width";s:4:"100%";s:13:"ckeditor_lang";s:2:"en";s:18:"ckeditor_auto_lang";s:1:"t";s:12:"admin_select";s:7:"toolbar";}',
@@ -1861,7 +2014,7 @@ function helm_faq_content_uuid_features_default_content() {
   'tnid' => 0,
   'translate' => 0,
   'uuid' => '4a4dca59-f44f-444d-ba73-911b10c6521f',
-  'revision_uid' => 1,
+  'revision_uid' => 0,
   'body' => array(
     'und' => array(
       0 => array(
@@ -1941,6 +2094,15 @@ function helm_faq_content_uuid_features_default_content() {
       'callback' => 'date_iso8601',
     ),
   ),
+  'domains' => array(
+    1 => 1,
+  ),
+  'domain_site' => TRUE,
+  'subdomains' => array(
+    0 => 'All affiliates',
+    1 => 'City of Springfield',
+  ),
+  'domain_source' => NULL,
   'name' => 'demoadmin',
   'picture' => 0,
   'data' => 'a:6:{s:16:"ckeditor_default";s:1:"t";s:20:"ckeditor_show_toggle";s:1:"t";s:14:"ckeditor_width";s:4:"100%";s:13:"ckeditor_lang";s:2:"en";s:18:"ckeditor_auto_lang";s:1:"t";s:12:"admin_select";s:7:"toolbar";}',
@@ -1962,7 +2124,7 @@ function helm_faq_content_uuid_features_default_content() {
   'tnid' => 0,
   'translate' => 0,
   'uuid' => '4f86a4d6-075a-4463-9722-f5488dca3e19',
-  'revision_uid' => 1,
+  'revision_uid' => 0,
   'body' => array(
     'und' => array(
       0 => array(
@@ -2049,6 +2211,15 @@ function helm_faq_content_uuid_features_default_content() {
       'callback' => 'date_iso8601',
     ),
   ),
+  'domains' => array(
+    1 => 1,
+  ),
+  'domain_site' => TRUE,
+  'subdomains' => array(
+    0 => 'All affiliates',
+    1 => 'City of Springfield',
+  ),
+  'domain_source' => NULL,
   'name' => 'demoadmin',
   'picture' => 0,
   'data' => 'a:6:{s:16:"ckeditor_default";s:1:"t";s:20:"ckeditor_show_toggle";s:1:"t";s:14:"ckeditor_width";s:4:"100%";s:13:"ckeditor_lang";s:2:"en";s:18:"ckeditor_auto_lang";s:1:"t";s:12:"admin_select";s:7:"toolbar";}',
@@ -2070,7 +2241,7 @@ function helm_faq_content_uuid_features_default_content() {
   'tnid' => 0,
   'translate' => 0,
   'uuid' => '51a7a5b9-4c4a-41a2-b646-2f563f3aa2ae',
-  'revision_uid' => 1,
+  'revision_uid' => 0,
   'body' => array(
     'und' => array(
       0 => array(
@@ -2157,6 +2328,15 @@ function helm_faq_content_uuid_features_default_content() {
       'callback' => 'date_iso8601',
     ),
   ),
+  'domains' => array(
+    1 => 1,
+  ),
+  'domain_site' => TRUE,
+  'subdomains' => array(
+    0 => 'All affiliates',
+    1 => 'City of Springfield',
+  ),
+  'domain_source' => NULL,
   'name' => 'demoadmin',
   'picture' => 0,
   'data' => 'a:6:{s:16:"ckeditor_default";s:1:"t";s:20:"ckeditor_show_toggle";s:1:"t";s:14:"ckeditor_width";s:4:"100%";s:13:"ckeditor_lang";s:2:"en";s:18:"ckeditor_auto_lang";s:1:"t";s:12:"admin_select";s:7:"toolbar";}',
@@ -2178,7 +2358,7 @@ function helm_faq_content_uuid_features_default_content() {
   'tnid' => 0,
   'translate' => 0,
   'uuid' => '541a8639-7162-4bf2-b9d3-7f38af3f1c72',
-  'revision_uid' => 1,
+  'revision_uid' => 0,
   'body' => array(
     'und' => array(
       0 => array(
@@ -2265,6 +2445,15 @@ function helm_faq_content_uuid_features_default_content() {
       'callback' => 'date_iso8601',
     ),
   ),
+  'domains' => array(
+    1 => 1,
+  ),
+  'domain_site' => TRUE,
+  'subdomains' => array(
+    0 => 'All affiliates',
+    1 => 'City of Springfield',
+  ),
+  'domain_source' => NULL,
   'name' => 'demoadmin',
   'picture' => 0,
   'data' => 'a:6:{s:16:"ckeditor_default";s:1:"t";s:20:"ckeditor_show_toggle";s:1:"t";s:14:"ckeditor_width";s:4:"100%";s:13:"ckeditor_lang";s:2:"en";s:18:"ckeditor_auto_lang";s:1:"t";s:12:"admin_select";s:7:"toolbar";}',
@@ -2286,7 +2475,7 @@ function helm_faq_content_uuid_features_default_content() {
   'tnid' => 0,
   'translate' => 0,
   'uuid' => '56712b63-d76d-4756-bff0-977ca77ac160',
-  'revision_uid' => 1,
+  'revision_uid' => 0,
   'body' => array(
     'und' => array(
       0 => array(
@@ -2373,6 +2562,15 @@ function helm_faq_content_uuid_features_default_content() {
       'callback' => 'date_iso8601',
     ),
   ),
+  'domains' => array(
+    1 => 1,
+  ),
+  'domain_site' => TRUE,
+  'subdomains' => array(
+    0 => 'All affiliates',
+    1 => 'City of Springfield',
+  ),
+  'domain_source' => NULL,
   'name' => 'demoadmin',
   'picture' => 0,
   'data' => 'a:6:{s:16:"ckeditor_default";s:1:"t";s:20:"ckeditor_show_toggle";s:1:"t";s:14:"ckeditor_width";s:4:"100%";s:13:"ckeditor_lang";s:2:"en";s:18:"ckeditor_auto_lang";s:1:"t";s:12:"admin_select";s:7:"toolbar";}',
@@ -2394,7 +2592,7 @@ function helm_faq_content_uuid_features_default_content() {
   'tnid' => 0,
   'translate' => 0,
   'uuid' => '5c242eff-985d-41d8-a780-c20641fbf796',
-  'revision_uid' => 1,
+  'revision_uid' => 0,
   'body' => array(
     'und' => array(
       0 => array(
@@ -2481,6 +2679,15 @@ function helm_faq_content_uuid_features_default_content() {
       'callback' => 'date_iso8601',
     ),
   ),
+  'domains' => array(
+    1 => 1,
+  ),
+  'domain_site' => TRUE,
+  'subdomains' => array(
+    0 => 'All affiliates',
+    1 => 'City of Springfield',
+  ),
+  'domain_source' => NULL,
   'name' => 'demoadmin',
   'picture' => 0,
   'data' => 'a:6:{s:16:"ckeditor_default";s:1:"t";s:20:"ckeditor_show_toggle";s:1:"t";s:14:"ckeditor_width";s:4:"100%";s:13:"ckeditor_lang";s:2:"en";s:18:"ckeditor_auto_lang";s:1:"t";s:12:"admin_select";s:7:"toolbar";}',
@@ -2502,7 +2709,7 @@ function helm_faq_content_uuid_features_default_content() {
   'tnid' => 0,
   'translate' => 0,
   'uuid' => '6122d81b-3c66-4bf8-90bc-e8ac64f80ac6',
-  'revision_uid' => 1,
+  'revision_uid' => 0,
   'body' => array(
     'und' => array(
       0 => array(
@@ -2589,6 +2796,15 @@ function helm_faq_content_uuid_features_default_content() {
       'callback' => 'date_iso8601',
     ),
   ),
+  'domains' => array(
+    1 => 1,
+  ),
+  'domain_site' => TRUE,
+  'subdomains' => array(
+    0 => 'All affiliates',
+    1 => 'City of Springfield',
+  ),
+  'domain_source' => NULL,
   'name' => 'demoadmin',
   'picture' => 0,
   'data' => 'a:6:{s:16:"ckeditor_default";s:1:"t";s:20:"ckeditor_show_toggle";s:1:"t";s:14:"ckeditor_width";s:4:"100%";s:13:"ckeditor_lang";s:2:"en";s:18:"ckeditor_auto_lang";s:1:"t";s:12:"admin_select";s:7:"toolbar";}',
@@ -2610,7 +2826,7 @@ function helm_faq_content_uuid_features_default_content() {
   'tnid' => 0,
   'translate' => 0,
   'uuid' => '619098a0-a637-4dce-82f7-3c66f3835ab7',
-  'revision_uid' => 1,
+  'revision_uid' => 0,
   'body' => array(
     'und' => array(
       0 => array(
@@ -2697,6 +2913,15 @@ function helm_faq_content_uuid_features_default_content() {
       'callback' => 'date_iso8601',
     ),
   ),
+  'domains' => array(
+    1 => 1,
+  ),
+  'domain_site' => TRUE,
+  'subdomains' => array(
+    0 => 'All affiliates',
+    1 => 'City of Springfield',
+  ),
+  'domain_source' => NULL,
   'name' => 'demoadmin',
   'picture' => 0,
   'data' => 'a:6:{s:16:"ckeditor_default";s:1:"t";s:20:"ckeditor_show_toggle";s:1:"t";s:14:"ckeditor_width";s:4:"100%";s:13:"ckeditor_lang";s:2:"en";s:18:"ckeditor_auto_lang";s:1:"t";s:12:"admin_select";s:7:"toolbar";}',
@@ -2718,7 +2943,7 @@ function helm_faq_content_uuid_features_default_content() {
   'tnid' => 0,
   'translate' => 0,
   'uuid' => '721e56c8-ac9f-4acd-aef9-f9cad6c6fce5',
-  'revision_uid' => 1,
+  'revision_uid' => 0,
   'body' => array(
     'und' => array(
       0 => array(
@@ -2805,6 +3030,15 @@ function helm_faq_content_uuid_features_default_content() {
       'callback' => 'date_iso8601',
     ),
   ),
+  'domains' => array(
+    1 => 1,
+  ),
+  'domain_site' => TRUE,
+  'subdomains' => array(
+    0 => 'All affiliates',
+    1 => 'City of Springfield',
+  ),
+  'domain_source' => NULL,
   'name' => 'demoadmin',
   'picture' => 0,
   'data' => 'a:6:{s:16:"ckeditor_default";s:1:"t";s:20:"ckeditor_show_toggle";s:1:"t";s:14:"ckeditor_width";s:4:"100%";s:13:"ckeditor_lang";s:2:"en";s:18:"ckeditor_auto_lang";s:1:"t";s:12:"admin_select";s:7:"toolbar";}',
@@ -2826,7 +3060,7 @@ function helm_faq_content_uuid_features_default_content() {
   'tnid' => 0,
   'translate' => 0,
   'uuid' => '728b31fb-625c-4968-990d-4d077656001b',
-  'revision_uid' => 1,
+  'revision_uid' => 0,
   'body' => array(
     'und' => array(
       0 => array(
@@ -2913,6 +3147,15 @@ function helm_faq_content_uuid_features_default_content() {
       'callback' => 'date_iso8601',
     ),
   ),
+  'domains' => array(
+    1 => 1,
+  ),
+  'domain_site' => TRUE,
+  'subdomains' => array(
+    0 => 'All affiliates',
+    1 => 'City of Springfield',
+  ),
+  'domain_source' => NULL,
   'name' => 'demoadmin',
   'picture' => 0,
   'data' => 'a:6:{s:16:"ckeditor_default";s:1:"t";s:20:"ckeditor_show_toggle";s:1:"t";s:14:"ckeditor_width";s:4:"100%";s:13:"ckeditor_lang";s:2:"en";s:18:"ckeditor_auto_lang";s:1:"t";s:12:"admin_select";s:7:"toolbar";}',
@@ -2934,7 +3177,7 @@ function helm_faq_content_uuid_features_default_content() {
   'tnid' => 0,
   'translate' => 0,
   'uuid' => '74bc6d63-7d6b-48c8-b7c2-f61c0b786f2f',
-  'revision_uid' => 1,
+  'revision_uid' => 0,
   'body' => array(
     'und' => array(
       0 => array(
@@ -3021,6 +3264,15 @@ function helm_faq_content_uuid_features_default_content() {
       'callback' => 'date_iso8601',
     ),
   ),
+  'domains' => array(
+    1 => 1,
+  ),
+  'domain_site' => TRUE,
+  'subdomains' => array(
+    0 => 'All affiliates',
+    1 => 'City of Springfield',
+  ),
+  'domain_source' => NULL,
   'name' => 'demoadmin',
   'picture' => 0,
   'data' => 'a:6:{s:16:"ckeditor_default";s:1:"t";s:20:"ckeditor_show_toggle";s:1:"t";s:14:"ckeditor_width";s:4:"100%";s:13:"ckeditor_lang";s:2:"en";s:18:"ckeditor_auto_lang";s:1:"t";s:12:"admin_select";s:7:"toolbar";}',
@@ -3042,7 +3294,7 @@ function helm_faq_content_uuid_features_default_content() {
   'tnid' => 0,
   'translate' => 0,
   'uuid' => '783141b6-6520-4ac4-b555-efd2d0cd0a3f',
-  'revision_uid' => 1,
+  'revision_uid' => 0,
   'body' => array(
     'und' => array(
       0 => array(
@@ -3129,6 +3381,15 @@ function helm_faq_content_uuid_features_default_content() {
       'callback' => 'date_iso8601',
     ),
   ),
+  'domains' => array(
+    1 => 1,
+  ),
+  'domain_site' => TRUE,
+  'subdomains' => array(
+    0 => 'All affiliates',
+    1 => 'City of Springfield',
+  ),
+  'domain_source' => NULL,
   'name' => 'demoadmin',
   'picture' => 0,
   'data' => 'a:6:{s:16:"ckeditor_default";s:1:"t";s:20:"ckeditor_show_toggle";s:1:"t";s:14:"ckeditor_width";s:4:"100%";s:13:"ckeditor_lang";s:2:"en";s:18:"ckeditor_auto_lang";s:1:"t";s:12:"admin_select";s:7:"toolbar";}',
@@ -3150,7 +3411,7 @@ function helm_faq_content_uuid_features_default_content() {
   'tnid' => 0,
   'translate' => 0,
   'uuid' => '81bd88f3-b150-4034-85ea-8b7b61cc05c4',
-  'revision_uid' => 1,
+  'revision_uid' => 0,
   'body' => array(
     'und' => array(
       0 => array(
@@ -3237,6 +3498,15 @@ function helm_faq_content_uuid_features_default_content() {
       'callback' => 'date_iso8601',
     ),
   ),
+  'domains' => array(
+    1 => 1,
+  ),
+  'domain_site' => TRUE,
+  'subdomains' => array(
+    0 => 'All affiliates',
+    1 => 'City of Springfield',
+  ),
+  'domain_source' => NULL,
   'name' => 'demoadmin',
   'picture' => 0,
   'data' => 'a:6:{s:16:"ckeditor_default";s:1:"t";s:20:"ckeditor_show_toggle";s:1:"t";s:14:"ckeditor_width";s:4:"100%";s:13:"ckeditor_lang";s:2:"en";s:18:"ckeditor_auto_lang";s:1:"t";s:12:"admin_select";s:7:"toolbar";}',
@@ -3258,7 +3528,7 @@ function helm_faq_content_uuid_features_default_content() {
   'tnid' => 0,
   'translate' => 0,
   'uuid' => '898a31f8-0561-448c-8a79-b5f7230f48ab',
-  'revision_uid' => 1,
+  'revision_uid' => 0,
   'body' => array(
     'und' => array(
       0 => array(
@@ -3347,6 +3617,15 @@ function helm_faq_content_uuid_features_default_content() {
       'callback' => 'date_iso8601',
     ),
   ),
+  'domains' => array(
+    1 => 1,
+  ),
+  'domain_site' => TRUE,
+  'subdomains' => array(
+    0 => 'All affiliates',
+    1 => 'City of Springfield',
+  ),
+  'domain_source' => NULL,
   'name' => 'demoadmin',
   'picture' => 0,
   'data' => 'a:6:{s:16:"ckeditor_default";s:1:"t";s:20:"ckeditor_show_toggle";s:1:"t";s:14:"ckeditor_width";s:4:"100%";s:13:"ckeditor_lang";s:2:"en";s:18:"ckeditor_auto_lang";s:1:"t";s:12:"admin_select";s:7:"toolbar";}',
@@ -3368,7 +3647,7 @@ function helm_faq_content_uuid_features_default_content() {
   'tnid' => 0,
   'translate' => 0,
   'uuid' => '8ace04c8-0948-4c88-b752-d776b651c2d4',
-  'revision_uid' => 1,
+  'revision_uid' => 0,
   'body' => array(
     'und' => array(
       0 => array(
@@ -3455,6 +3734,15 @@ function helm_faq_content_uuid_features_default_content() {
       'callback' => 'date_iso8601',
     ),
   ),
+  'domains' => array(
+    1 => 1,
+  ),
+  'domain_site' => TRUE,
+  'subdomains' => array(
+    0 => 'All affiliates',
+    1 => 'City of Springfield',
+  ),
+  'domain_source' => NULL,
   'name' => 'demoadmin',
   'picture' => 0,
   'data' => 'a:6:{s:16:"ckeditor_default";s:1:"t";s:20:"ckeditor_show_toggle";s:1:"t";s:14:"ckeditor_width";s:4:"100%";s:13:"ckeditor_lang";s:2:"en";s:18:"ckeditor_auto_lang";s:1:"t";s:12:"admin_select";s:7:"toolbar";}',
@@ -3476,7 +3764,7 @@ function helm_faq_content_uuid_features_default_content() {
   'tnid' => 0,
   'translate' => 0,
   'uuid' => '8dc80e0a-5b47-4e3f-b0f0-2cd985eea91f',
-  'revision_uid' => 1,
+  'revision_uid' => 0,
   'body' => array(
     'und' => array(
       0 => array(
@@ -3563,6 +3851,15 @@ function helm_faq_content_uuid_features_default_content() {
       'callback' => 'date_iso8601',
     ),
   ),
+  'domains' => array(
+    1 => 1,
+  ),
+  'domain_site' => TRUE,
+  'subdomains' => array(
+    0 => 'All affiliates',
+    1 => 'City of Springfield',
+  ),
+  'domain_source' => NULL,
   'name' => 'demoadmin',
   'picture' => 0,
   'data' => 'a:6:{s:16:"ckeditor_default";s:1:"t";s:20:"ckeditor_show_toggle";s:1:"t";s:14:"ckeditor_width";s:4:"100%";s:13:"ckeditor_lang";s:2:"en";s:18:"ckeditor_auto_lang";s:1:"t";s:12:"admin_select";s:7:"toolbar";}',
@@ -3584,7 +3881,7 @@ function helm_faq_content_uuid_features_default_content() {
   'tnid' => 0,
   'translate' => 0,
   'uuid' => '906c00bb-4f69-4aa4-91fc-97e9829af6d3',
-  'revision_uid' => 1,
+  'revision_uid' => 0,
   'body' => array(
     'und' => array(
       0 => array(
@@ -3679,6 +3976,15 @@ function helm_faq_content_uuid_features_default_content() {
       'callback' => 'date_iso8601',
     ),
   ),
+  'domains' => array(
+    1 => 1,
+  ),
+  'domain_site' => TRUE,
+  'subdomains' => array(
+    0 => 'All affiliates',
+    1 => 'City of Springfield',
+  ),
+  'domain_source' => NULL,
   'name' => 'admin',
   'picture' => 0,
   'data' => 'a:6:{s:12:"admin_select";s:10:"admin_menu";s:16:"ckeditor_default";s:1:"t";s:20:"ckeditor_show_toggle";s:1:"t";s:14:"ckeditor_width";s:4:"100%";s:13:"ckeditor_lang";s:2:"en";s:18:"ckeditor_auto_lang";s:1:"t";}',
@@ -3700,7 +4006,7 @@ function helm_faq_content_uuid_features_default_content() {
   'tnid' => 0,
   'translate' => 0,
   'uuid' => '9c59b24e-2544-458f-b0e0-338c0d63a69a',
-  'revision_uid' => 1,
+  'revision_uid' => 0,
   'body' => array(
     'und' => array(
       0 => array(
@@ -3798,6 +4104,15 @@ function helm_faq_content_uuid_features_default_content() {
       'callback' => 'date_iso8601',
     ),
   ),
+  'domains' => array(
+    1 => 1,
+  ),
+  'domain_site' => TRUE,
+  'subdomains' => array(
+    0 => 'All affiliates',
+    1 => 'City of Springfield',
+  ),
+  'domain_source' => NULL,
   'name' => 'admin',
   'picture' => 0,
   'data' => 'a:6:{s:12:"admin_select";s:10:"admin_menu";s:16:"ckeditor_default";s:1:"t";s:20:"ckeditor_show_toggle";s:1:"t";s:14:"ckeditor_width";s:4:"100%";s:13:"ckeditor_lang";s:2:"en";s:18:"ckeditor_auto_lang";s:1:"t";}',
@@ -3819,7 +4134,7 @@ function helm_faq_content_uuid_features_default_content() {
   'tnid' => 0,
   'translate' => 0,
   'uuid' => '9c89dbf8-57cb-476b-80d7-4ca20709a464',
-  'revision_uid' => 1,
+  'revision_uid' => 0,
   'body' => array(
     'und' => array(
       0 => array(
@@ -3906,6 +4221,15 @@ function helm_faq_content_uuid_features_default_content() {
       'callback' => 'date_iso8601',
     ),
   ),
+  'domains' => array(
+    1 => 1,
+  ),
+  'domain_site' => TRUE,
+  'subdomains' => array(
+    0 => 'All affiliates',
+    1 => 'City of Springfield',
+  ),
+  'domain_source' => NULL,
   'name' => 'demoadmin',
   'picture' => 0,
   'data' => 'a:6:{s:16:"ckeditor_default";s:1:"t";s:20:"ckeditor_show_toggle";s:1:"t";s:14:"ckeditor_width";s:4:"100%";s:13:"ckeditor_lang";s:2:"en";s:18:"ckeditor_auto_lang";s:1:"t";s:12:"admin_select";s:7:"toolbar";}',
@@ -3927,7 +4251,7 @@ function helm_faq_content_uuid_features_default_content() {
   'tnid' => 0,
   'translate' => 0,
   'uuid' => '9e7aeb59-6bff-414e-a1d8-f8b36158779d',
-  'revision_uid' => 1,
+  'revision_uid' => 0,
   'body' => array(
     'und' => array(
       0 => array(
@@ -4014,6 +4338,15 @@ function helm_faq_content_uuid_features_default_content() {
       'callback' => 'date_iso8601',
     ),
   ),
+  'domains' => array(
+    1 => 1,
+  ),
+  'domain_site' => TRUE,
+  'subdomains' => array(
+    0 => 'All affiliates',
+    1 => 'City of Springfield',
+  ),
+  'domain_source' => NULL,
   'name' => 'demoadmin',
   'picture' => 0,
   'data' => 'a:6:{s:16:"ckeditor_default";s:1:"t";s:20:"ckeditor_show_toggle";s:1:"t";s:14:"ckeditor_width";s:4:"100%";s:13:"ckeditor_lang";s:2:"en";s:18:"ckeditor_auto_lang";s:1:"t";s:12:"admin_select";s:7:"toolbar";}',
@@ -4035,7 +4368,7 @@ function helm_faq_content_uuid_features_default_content() {
   'tnid' => 0,
   'translate' => 0,
   'uuid' => 'a21e77bc-ec01-4b03-ac5e-694784b5514f',
-  'revision_uid' => 1,
+  'revision_uid' => 0,
   'body' => array(
     'und' => array(
       0 => array(
@@ -4122,6 +4455,15 @@ function helm_faq_content_uuid_features_default_content() {
       'callback' => 'date_iso8601',
     ),
   ),
+  'domains' => array(
+    1 => 1,
+  ),
+  'domain_site' => TRUE,
+  'subdomains' => array(
+    0 => 'All affiliates',
+    1 => 'City of Springfield',
+  ),
+  'domain_source' => NULL,
   'name' => 'demoadmin',
   'picture' => 0,
   'data' => 'a:6:{s:16:"ckeditor_default";s:1:"t";s:20:"ckeditor_show_toggle";s:1:"t";s:14:"ckeditor_width";s:4:"100%";s:13:"ckeditor_lang";s:2:"en";s:18:"ckeditor_auto_lang";s:1:"t";s:12:"admin_select";s:7:"toolbar";}',
@@ -4143,7 +4485,7 @@ function helm_faq_content_uuid_features_default_content() {
   'tnid' => 0,
   'translate' => 0,
   'uuid' => 'a40fec09-78ef-4bef-ac9a-87d232355487',
-  'revision_uid' => 1,
+  'revision_uid' => 0,
   'body' => array(
     'und' => array(
       0 => array(
@@ -4230,6 +4572,15 @@ function helm_faq_content_uuid_features_default_content() {
       'callback' => 'date_iso8601',
     ),
   ),
+  'domains' => array(
+    1 => 1,
+  ),
+  'domain_site' => TRUE,
+  'subdomains' => array(
+    0 => 'All affiliates',
+    1 => 'City of Springfield',
+  ),
+  'domain_source' => NULL,
   'name' => 'admin',
   'picture' => 0,
   'data' => 'a:6:{s:12:"admin_select";s:10:"admin_menu";s:16:"ckeditor_default";s:1:"t";s:20:"ckeditor_show_toggle";s:1:"t";s:14:"ckeditor_width";s:4:"100%";s:13:"ckeditor_lang";s:2:"en";s:18:"ckeditor_auto_lang";s:1:"t";}',
@@ -4251,7 +4602,7 @@ function helm_faq_content_uuid_features_default_content() {
   'tnid' => 0,
   'translate' => 0,
   'uuid' => 'a9cf8f76-a453-424a-ba89-f7a964905212',
-  'revision_uid' => 1,
+  'revision_uid' => 0,
   'body' => array(
     'und' => array(
       0 => array(
@@ -4338,6 +4689,15 @@ function helm_faq_content_uuid_features_default_content() {
       'callback' => 'date_iso8601',
     ),
   ),
+  'domains' => array(
+    1 => 1,
+  ),
+  'domain_site' => TRUE,
+  'subdomains' => array(
+    0 => 'All affiliates',
+    1 => 'City of Springfield',
+  ),
+  'domain_source' => NULL,
   'name' => 'demoadmin',
   'picture' => 0,
   'data' => 'a:6:{s:16:"ckeditor_default";s:1:"t";s:20:"ckeditor_show_toggle";s:1:"t";s:14:"ckeditor_width";s:4:"100%";s:13:"ckeditor_lang";s:2:"en";s:18:"ckeditor_auto_lang";s:1:"t";s:12:"admin_select";s:7:"toolbar";}',
@@ -4359,7 +4719,7 @@ function helm_faq_content_uuid_features_default_content() {
   'tnid' => 0,
   'translate' => 0,
   'uuid' => 'ae5a747f-2e2f-4980-b2b1-92550b8cc76c',
-  'revision_uid' => 1,
+  'revision_uid' => 0,
   'body' => array(
     'und' => array(
       0 => array(
@@ -4446,6 +4806,15 @@ function helm_faq_content_uuid_features_default_content() {
       'callback' => 'date_iso8601',
     ),
   ),
+  'domains' => array(
+    1 => 1,
+  ),
+  'domain_site' => TRUE,
+  'subdomains' => array(
+    0 => 'All affiliates',
+    1 => 'City of Springfield',
+  ),
+  'domain_source' => NULL,
   'name' => 'demoadmin',
   'picture' => 0,
   'data' => 'a:6:{s:16:"ckeditor_default";s:1:"t";s:20:"ckeditor_show_toggle";s:1:"t";s:14:"ckeditor_width";s:4:"100%";s:13:"ckeditor_lang";s:2:"en";s:18:"ckeditor_auto_lang";s:1:"t";s:12:"admin_select";s:7:"toolbar";}',
@@ -4467,7 +4836,7 @@ function helm_faq_content_uuid_features_default_content() {
   'tnid' => 0,
   'translate' => 0,
   'uuid' => 'b63beef3-ce22-420f-bba0-0cc7ab57968d',
-  'revision_uid' => 1,
+  'revision_uid' => 0,
   'body' => array(
     'und' => array(
       0 => array(
@@ -4554,6 +4923,15 @@ function helm_faq_content_uuid_features_default_content() {
       'callback' => 'date_iso8601',
     ),
   ),
+  'domains' => array(
+    1 => 1,
+  ),
+  'domain_site' => TRUE,
+  'subdomains' => array(
+    0 => 'All affiliates',
+    1 => 'City of Springfield',
+  ),
+  'domain_source' => NULL,
   'name' => 'demoadmin',
   'picture' => 0,
   'data' => 'a:6:{s:16:"ckeditor_default";s:1:"t";s:20:"ckeditor_show_toggle";s:1:"t";s:14:"ckeditor_width";s:4:"100%";s:13:"ckeditor_lang";s:2:"en";s:18:"ckeditor_auto_lang";s:1:"t";s:12:"admin_select";s:7:"toolbar";}',
@@ -4575,7 +4953,7 @@ function helm_faq_content_uuid_features_default_content() {
   'tnid' => 0,
   'translate' => 0,
   'uuid' => 'b744dc75-e543-4229-b06b-d52fb3e2d135',
-  'revision_uid' => 1,
+  'revision_uid' => 0,
   'body' => array(
     'und' => array(
       0 => array(
@@ -4662,6 +5040,15 @@ function helm_faq_content_uuid_features_default_content() {
       'callback' => 'date_iso8601',
     ),
   ),
+  'domains' => array(
+    1 => 1,
+  ),
+  'domain_site' => TRUE,
+  'subdomains' => array(
+    0 => 'All affiliates',
+    1 => 'City of Springfield',
+  ),
+  'domain_source' => NULL,
   'name' => 'demoadmin',
   'picture' => 0,
   'data' => 'a:6:{s:16:"ckeditor_default";s:1:"t";s:20:"ckeditor_show_toggle";s:1:"t";s:14:"ckeditor_width";s:4:"100%";s:13:"ckeditor_lang";s:2:"en";s:18:"ckeditor_auto_lang";s:1:"t";s:12:"admin_select";s:7:"toolbar";}',
@@ -4683,7 +5070,7 @@ function helm_faq_content_uuid_features_default_content() {
   'tnid' => 0,
   'translate' => 0,
   'uuid' => 'bf118b1d-b2ea-4b43-8148-3dfae6b0c186',
-  'revision_uid' => 1,
+  'revision_uid' => 0,
   'body' => array(
     'und' => array(
       0 => array(
@@ -4777,6 +5164,15 @@ function helm_faq_content_uuid_features_default_content() {
       'callback' => 'date_iso8601',
     ),
   ),
+  'domains' => array(
+    1 => 1,
+  ),
+  'domain_site' => TRUE,
+  'subdomains' => array(
+    0 => 'All affiliates',
+    1 => 'City of Springfield',
+  ),
+  'domain_source' => NULL,
   'name' => 'demoadmin',
   'picture' => 0,
   'data' => 'a:6:{s:16:"ckeditor_default";s:1:"t";s:20:"ckeditor_show_toggle";s:1:"t";s:14:"ckeditor_width";s:4:"100%";s:13:"ckeditor_lang";s:2:"en";s:18:"ckeditor_auto_lang";s:1:"t";s:12:"admin_select";s:7:"toolbar";}',
@@ -4798,7 +5194,7 @@ function helm_faq_content_uuid_features_default_content() {
   'tnid' => 0,
   'translate' => 0,
   'uuid' => 'c4fdd360-549a-40ff-be5d-9df113106618',
-  'revision_uid' => 1,
+  'revision_uid' => 0,
   'body' => array(
     'und' => array(
       0 => array(
@@ -4885,6 +5281,15 @@ function helm_faq_content_uuid_features_default_content() {
       'callback' => 'date_iso8601',
     ),
   ),
+  'domains' => array(
+    1 => 1,
+  ),
+  'domain_site' => TRUE,
+  'subdomains' => array(
+    0 => 'All affiliates',
+    1 => 'City of Springfield',
+  ),
+  'domain_source' => NULL,
   'name' => 'demoadmin',
   'picture' => 0,
   'data' => 'a:6:{s:16:"ckeditor_default";s:1:"t";s:20:"ckeditor_show_toggle";s:1:"t";s:14:"ckeditor_width";s:4:"100%";s:13:"ckeditor_lang";s:2:"en";s:18:"ckeditor_auto_lang";s:1:"t";s:12:"admin_select";s:7:"toolbar";}',
@@ -4906,7 +5311,7 @@ function helm_faq_content_uuid_features_default_content() {
   'tnid' => 0,
   'translate' => 0,
   'uuid' => 'c53a8c6b-0551-431e-be7a-fd6f9ad242a2',
-  'revision_uid' => 1,
+  'revision_uid' => 0,
   'body' => array(
     'und' => array(
       0 => array(
@@ -4993,11 +5398,156 @@ function helm_faq_content_uuid_features_default_content() {
       'callback' => 'date_iso8601',
     ),
   ),
+  'domains' => array(
+    1 => 1,
+  ),
+  'domain_site' => TRUE,
+  'subdomains' => array(
+    0 => 'All affiliates',
+    1 => 'City of Springfield',
+  ),
+  'domain_source' => NULL,
   'name' => 'demoadmin',
   'picture' => 0,
   'data' => 'a:6:{s:16:"ckeditor_default";s:1:"t";s:20:"ckeditor_show_toggle";s:1:"t";s:14:"ckeditor_width";s:4:"100%";s:13:"ckeditor_lang";s:2:"en";s:18:"ckeditor_auto_lang";s:1:"t";s:12:"admin_select";s:7:"toolbar";}',
   'pathauto_perform_alias' => FALSE,
   'date' => '2015-05-04 21:08:01 +0000',
+);
+  $nodes[] = array(
+  'uid' => 4,
+  'title' => 'How do I pay my business taxes?',
+  'log' => '',
+  'status' => 1,
+  'comment' => 0,
+  'promote' => 0,
+  'sticky' => 0,
+  'vuuid' => 'cf1cf4e6-c438-456b-a9ca-468a7ec86013',
+  'type' => 'faq',
+  'language' => 'und',
+  'created' => 1430832657,
+  'tnid' => 0,
+  'translate' => 0,
+  'uuid' => 'd06fff0e-d906-4826-bab4-f23d06f22afd',
+  'revision_uid' => 4,
+  'body' => array(
+    'und' => array(
+      0 => array(
+        'value' => '<p><strong>Informational video on how to pay your taxes:</strong></p>
+
+<p>&nbsp;
+<dl>
+</dl>
+</p>
+
+<ul>
+	<li>Paying your business taxes video ( <a href="http://lacity.granicus.com/ViewPublisher.php?view_id=163&amp;%20+gview_id=178&amp;clip_id=14094&amp;_ga=1.164875766.812789099.1420053900" target="_blank">English</a> / <a href="http://lacity.granicus.com/ViewPublisher.php?view_id=163&amp;%20+gview_id=178&amp;clip_id=14093&amp;_ga=1.164875766.812789099.1420053900" target="_blank">Spanish</a> )</li>
+</ul>
+
+<p><strong>How much will it cost?</strong></p>
+
+<p>In general, architects, engineers, and consultants, etc., are taxed under <a href="http://www.amlegal.com/nxt/gateway.dll/California/lamc/municipalcode/chapterii*licensespermitsbusinessregulat?f=templates$fn=default.htm$3.0$vid=amlegal:lamc_ca$anc=JD_21.49.">Section 21.49</a> (Professions and Occupations). Contractors (defined as persons who construct, alter, repair, etc., any building, highway, road or other structure) are subject to tax under <a href="http://www.amlegal.com/nxt/gateway.dll/California/lamc/municipalcode/chapterii*licensespermitsbusinessregulat?f=templates$fn=default.htm$3.0$vid=amlegal:lamc_ca$anc=JD_21.188.">Section 21.188</a>. The minimum tax under Section 21.188 is $153.00 per year or any portion of the year. There are numerous other categories. Please go to the <a href="http://finance.lacity.org/content/NewBusinessTaxRates.htm">New Business Tax Rates page</a> for more information.</p>
+
+<p>&nbsp;</p>
+',
+        'summary' => '',
+        'format' => 'filtered_html',
+        'safe_value' => '<p><strong>Informational video on how to pay your taxes:</strong></p>
+
+<p> 
+</p><dl></dl><ul><li>Paying your business taxes video ( <a href="http://lacity.granicus.com/ViewPublisher.php?view_id=163&amp;%20+gview_id=178&amp;clip_id=14094&amp;_ga=1.164875766.812789099.1420053900" target="_blank">English</a> / <a href="http://lacity.granicus.com/ViewPublisher.php?view_id=163&amp;%20+gview_id=178&amp;clip_id=14093&amp;_ga=1.164875766.812789099.1420053900" target="_blank">Spanish</a> )</li>
+</ul><p><strong>How much will it cost?</strong></p>
+
+<p>In general, architects, engineers, and consultants, etc., are taxed under <a href="http://www.amlegal.com/nxt/gateway.dll/California/lamc/municipalcode/chapterii*licensespermitsbusinessregulat?f=templates$fn=default.htm$3.0$vid=amlegal:lamc_ca$anc=JD_21.49.">Section 21.49</a> (Professions and Occupations). Contractors (defined as persons who construct, alter, repair, etc., any building, highway, road or other structure) are subject to tax under <a href="http://www.amlegal.com/nxt/gateway.dll/California/lamc/municipalcode/chapterii*licensespermitsbusinessregulat?f=templates$fn=default.htm$3.0$vid=amlegal:lamc_ca$anc=JD_21.188.">Section 21.188</a>. The minimum tax under Section 21.188 is $153.00 per year or any portion of the year. There are numerous other categories. Please go to the <a href="http://finance.lacity.org/content/NewBusinessTaxRates.htm">New Business Tax Rates page</a> for more information.</p>
+
+<p> </p>
+',
+        'safe_summary' => '',
+      ),
+    ),
+  ),
+  'field_faq_category' => array(
+    'und' => array(
+      0 => array(
+        'tid' => 27,
+        'uuid' => 'c8bc9efa-8478-44de-939a-79004fa06ef1',
+      ),
+    ),
+  ),
+  'field_tags' => array(),
+  'field_faq_link' => array(),
+  'metatags' => array(),
+  'path' => array(
+    'pathauto' => 1,
+  ),
+  'rdf_mapping' => array(
+    'rdftype' => array(
+      0 => 'sioc:Item',
+      1 => 'foaf:Document',
+    ),
+    'title' => array(
+      'predicates' => array(
+        0 => 'dc:title',
+      ),
+    ),
+    'created' => array(
+      'predicates' => array(
+        0 => 'dc:date',
+        1 => 'dc:created',
+      ),
+      'datatype' => 'xsd:dateTime',
+      'callback' => 'date_iso8601',
+    ),
+    'changed' => array(
+      'predicates' => array(
+        0 => 'dc:modified',
+      ),
+      'datatype' => 'xsd:dateTime',
+      'callback' => 'date_iso8601',
+    ),
+    'body' => array(
+      'predicates' => array(
+        0 => 'content:encoded',
+      ),
+    ),
+    'uid' => array(
+      'predicates' => array(
+        0 => 'sioc:has_creator',
+      ),
+      'type' => 'rel',
+    ),
+    'name' => array(
+      'predicates' => array(
+        0 => 'foaf:name',
+      ),
+    ),
+    'comment_count' => array(
+      'predicates' => array(
+        0 => 'sioc:num_replies',
+      ),
+      'datatype' => 'xsd:integer',
+    ),
+    'last_activity' => array(
+      'predicates' => array(
+        0 => 'sioc:last_activity_date',
+      ),
+      'datatype' => 'xsd:dateTime',
+      'callback' => 'date_iso8601',
+    ),
+  ),
+  'domains' => array(
+    1 => 1,
+  ),
+  'domain_site' => TRUE,
+  'subdomains' => array(
+    0 => 'All affiliates',
+    1 => 'City of Springfield',
+  ),
+  'domain_source' => NULL,
+  'name' => 'demoadmin',
+  'picture' => 0,
+  'data' => 'a:6:{s:16:"ckeditor_default";s:1:"t";s:20:"ckeditor_show_toggle";s:1:"t";s:14:"ckeditor_width";s:4:"100%";s:13:"ckeditor_lang";s:2:"en";s:18:"ckeditor_auto_lang";s:1:"t";s:12:"admin_select";s:7:"toolbar";}',
+  'pathauto_perform_alias' => FALSE,
+  'date' => '2015-05-05 13:30:57 +0000',
 );
   $nodes[] = array(
   'uid' => 4,
@@ -5014,7 +5564,7 @@ function helm_faq_content_uuid_features_default_content() {
   'tnid' => 0,
   'translate' => 0,
   'uuid' => 'd543aad8-68ee-4d6a-ba81-bae027e57889',
-  'revision_uid' => 1,
+  'revision_uid' => 0,
   'body' => array(
     'und' => array(
       0 => array(
@@ -5101,6 +5651,15 @@ function helm_faq_content_uuid_features_default_content() {
       'callback' => 'date_iso8601',
     ),
   ),
+  'domains' => array(
+    1 => 1,
+  ),
+  'domain_site' => TRUE,
+  'subdomains' => array(
+    0 => 'All affiliates',
+    1 => 'City of Springfield',
+  ),
+  'domain_source' => NULL,
   'name' => 'demoadmin',
   'picture' => 0,
   'data' => 'a:6:{s:16:"ckeditor_default";s:1:"t";s:20:"ckeditor_show_toggle";s:1:"t";s:14:"ckeditor_width";s:4:"100%";s:13:"ckeditor_lang";s:2:"en";s:18:"ckeditor_auto_lang";s:1:"t";s:12:"admin_select";s:7:"toolbar";}',
@@ -5122,7 +5681,7 @@ function helm_faq_content_uuid_features_default_content() {
   'tnid' => 0,
   'translate' => 0,
   'uuid' => 'dd1b8948-a9fe-4484-8d94-e6eb50a56919',
-  'revision_uid' => 1,
+  'revision_uid' => 0,
   'body' => array(
     'und' => array(
       0 => array(
@@ -5209,6 +5768,15 @@ function helm_faq_content_uuid_features_default_content() {
       'callback' => 'date_iso8601',
     ),
   ),
+  'domains' => array(
+    1 => 1,
+  ),
+  'domain_site' => TRUE,
+  'subdomains' => array(
+    0 => 'All affiliates',
+    1 => 'City of Springfield',
+  ),
+  'domain_source' => NULL,
   'name' => 'demoadmin',
   'picture' => 0,
   'data' => 'a:6:{s:16:"ckeditor_default";s:1:"t";s:20:"ckeditor_show_toggle";s:1:"t";s:14:"ckeditor_width";s:4:"100%";s:13:"ckeditor_lang";s:2:"en";s:18:"ckeditor_auto_lang";s:1:"t";s:12:"admin_select";s:7:"toolbar";}',
@@ -5230,7 +5798,7 @@ function helm_faq_content_uuid_features_default_content() {
   'tnid' => 0,
   'translate' => 0,
   'uuid' => 'dfefe9d5-cfe0-42cb-8bee-71257d8382a3',
-  'revision_uid' => 1,
+  'revision_uid' => 0,
   'body' => array(
     'und' => array(
       0 => array(
@@ -5317,6 +5885,15 @@ function helm_faq_content_uuid_features_default_content() {
       'callback' => 'date_iso8601',
     ),
   ),
+  'domains' => array(
+    1 => 1,
+  ),
+  'domain_site' => TRUE,
+  'subdomains' => array(
+    0 => 'All affiliates',
+    1 => 'City of Springfield',
+  ),
+  'domain_source' => NULL,
   'name' => 'demoadmin',
   'picture' => 0,
   'data' => 'a:6:{s:16:"ckeditor_default";s:1:"t";s:20:"ckeditor_show_toggle";s:1:"t";s:14:"ckeditor_width";s:4:"100%";s:13:"ckeditor_lang";s:2:"en";s:18:"ckeditor_auto_lang";s:1:"t";s:12:"admin_select";s:7:"toolbar";}',
@@ -5338,7 +5915,7 @@ function helm_faq_content_uuid_features_default_content() {
   'tnid' => 0,
   'translate' => 0,
   'uuid' => 'e0f49bb5-fc8b-48f7-9d75-0bef4b91f3a2',
-  'revision_uid' => 1,
+  'revision_uid' => 0,
   'body' => array(
     'und' => array(
       0 => array(
@@ -5425,6 +6002,15 @@ function helm_faq_content_uuid_features_default_content() {
       'callback' => 'date_iso8601',
     ),
   ),
+  'domains' => array(
+    1 => 1,
+  ),
+  'domain_site' => TRUE,
+  'subdomains' => array(
+    0 => 'All affiliates',
+    1 => 'City of Springfield',
+  ),
+  'domain_source' => NULL,
   'name' => 'demoadmin',
   'picture' => 0,
   'data' => 'a:6:{s:16:"ckeditor_default";s:1:"t";s:20:"ckeditor_show_toggle";s:1:"t";s:14:"ckeditor_width";s:4:"100%";s:13:"ckeditor_lang";s:2:"en";s:18:"ckeditor_auto_lang";s:1:"t";s:12:"admin_select";s:7:"toolbar";}',
@@ -5446,7 +6032,7 @@ function helm_faq_content_uuid_features_default_content() {
   'tnid' => 0,
   'translate' => 0,
   'uuid' => 'e2a7a322-4b34-4562-98c3-286f57438a29',
-  'revision_uid' => 1,
+  'revision_uid' => 0,
   'body' => array(
     'und' => array(
       0 => array(
@@ -5526,6 +6112,15 @@ function helm_faq_content_uuid_features_default_content() {
       'callback' => 'date_iso8601',
     ),
   ),
+  'domains' => array(
+    1 => 1,
+  ),
+  'domain_site' => TRUE,
+  'subdomains' => array(
+    0 => 'All affiliates',
+    1 => 'City of Springfield',
+  ),
+  'domain_source' => NULL,
   'name' => 'demoadmin',
   'picture' => 0,
   'data' => 'a:6:{s:16:"ckeditor_default";s:1:"t";s:20:"ckeditor_show_toggle";s:1:"t";s:14:"ckeditor_width";s:4:"100%";s:13:"ckeditor_lang";s:2:"en";s:18:"ckeditor_auto_lang";s:1:"t";s:12:"admin_select";s:7:"toolbar";}',
@@ -5547,7 +6142,7 @@ function helm_faq_content_uuid_features_default_content() {
   'tnid' => 0,
   'translate' => 0,
   'uuid' => 'e613c9b7-0cd5-4617-952b-d23a3ec0e7e4',
-  'revision_uid' => 1,
+  'revision_uid' => 0,
   'body' => array(
     'und' => array(
       0 => array(
@@ -5634,6 +6229,15 @@ function helm_faq_content_uuid_features_default_content() {
       'callback' => 'date_iso8601',
     ),
   ),
+  'domains' => array(
+    1 => 1,
+  ),
+  'domain_site' => TRUE,
+  'subdomains' => array(
+    0 => 'All affiliates',
+    1 => 'City of Springfield',
+  ),
+  'domain_source' => NULL,
   'name' => 'demoadmin',
   'picture' => 0,
   'data' => 'a:6:{s:16:"ckeditor_default";s:1:"t";s:20:"ckeditor_show_toggle";s:1:"t";s:14:"ckeditor_width";s:4:"100%";s:13:"ckeditor_lang";s:2:"en";s:18:"ckeditor_auto_lang";s:1:"t";s:12:"admin_select";s:7:"toolbar";}',
@@ -5655,7 +6259,7 @@ function helm_faq_content_uuid_features_default_content() {
   'tnid' => 0,
   'translate' => 0,
   'uuid' => 'e6c31580-2844-496a-b8cf-4f6d80ed2945',
-  'revision_uid' => 1,
+  'revision_uid' => 0,
   'body' => array(
     'und' => array(
       0 => array(
@@ -5742,6 +6346,15 @@ function helm_faq_content_uuid_features_default_content() {
       'callback' => 'date_iso8601',
     ),
   ),
+  'domains' => array(
+    1 => 1,
+  ),
+  'domain_site' => TRUE,
+  'subdomains' => array(
+    0 => 'All affiliates',
+    1 => 'City of Springfield',
+  ),
+  'domain_source' => NULL,
   'name' => 'demoadmin',
   'picture' => 0,
   'data' => 'a:6:{s:16:"ckeditor_default";s:1:"t";s:20:"ckeditor_show_toggle";s:1:"t";s:14:"ckeditor_width";s:4:"100%";s:13:"ckeditor_lang";s:2:"en";s:18:"ckeditor_auto_lang";s:1:"t";s:12:"admin_select";s:7:"toolbar";}',
@@ -5763,7 +6376,7 @@ function helm_faq_content_uuid_features_default_content() {
   'tnid' => 0,
   'translate' => 0,
   'uuid' => 'e7e7c977-2041-4320-b5de-30c5533e5480',
-  'revision_uid' => 1,
+  'revision_uid' => 0,
   'body' => array(
     'und' => array(
       0 => array(
@@ -5850,6 +6463,15 @@ function helm_faq_content_uuid_features_default_content() {
       'callback' => 'date_iso8601',
     ),
   ),
+  'domains' => array(
+    1 => 1,
+  ),
+  'domain_site' => TRUE,
+  'subdomains' => array(
+    0 => 'All affiliates',
+    1 => 'City of Springfield',
+  ),
+  'domain_source' => NULL,
   'name' => 'demoadmin',
   'picture' => 0,
   'data' => 'a:6:{s:16:"ckeditor_default";s:1:"t";s:20:"ckeditor_show_toggle";s:1:"t";s:14:"ckeditor_width";s:4:"100%";s:13:"ckeditor_lang";s:2:"en";s:18:"ckeditor_auto_lang";s:1:"t";s:12:"admin_select";s:7:"toolbar";}',
@@ -5871,7 +6493,7 @@ function helm_faq_content_uuid_features_default_content() {
   'tnid' => 0,
   'translate' => 0,
   'uuid' => 'edeb4944-9dc4-482c-acd6-ceaf43e539e9',
-  'revision_uid' => 1,
+  'revision_uid' => 0,
   'body' => array(
     'und' => array(
       0 => array(
@@ -5958,6 +6580,15 @@ function helm_faq_content_uuid_features_default_content() {
       'callback' => 'date_iso8601',
     ),
   ),
+  'domains' => array(
+    1 => 1,
+  ),
+  'domain_site' => TRUE,
+  'subdomains' => array(
+    0 => 'All affiliates',
+    1 => 'City of Springfield',
+  ),
+  'domain_source' => NULL,
   'name' => 'demoadmin',
   'picture' => 0,
   'data' => 'a:6:{s:16:"ckeditor_default";s:1:"t";s:20:"ckeditor_show_toggle";s:1:"t";s:14:"ckeditor_width";s:4:"100%";s:13:"ckeditor_lang";s:2:"en";s:18:"ckeditor_auto_lang";s:1:"t";s:12:"admin_select";s:7:"toolbar";}',
@@ -5979,7 +6610,7 @@ function helm_faq_content_uuid_features_default_content() {
   'tnid' => 0,
   'translate' => 0,
   'uuid' => 'ee67dda1-64eb-4498-9af8-24fa2e0dcdca',
-  'revision_uid' => 1,
+  'revision_uid' => 0,
   'body' => array(
     'und' => array(
       0 => array(
@@ -6066,6 +6697,15 @@ function helm_faq_content_uuid_features_default_content() {
       'callback' => 'date_iso8601',
     ),
   ),
+  'domains' => array(
+    1 => 1,
+  ),
+  'domain_site' => TRUE,
+  'subdomains' => array(
+    0 => 'All affiliates',
+    1 => 'City of Springfield',
+  ),
+  'domain_source' => NULL,
   'name' => 'demoadmin',
   'picture' => 0,
   'data' => 'a:6:{s:16:"ckeditor_default";s:1:"t";s:20:"ckeditor_show_toggle";s:1:"t";s:14:"ckeditor_width";s:4:"100%";s:13:"ckeditor_lang";s:2:"en";s:18:"ckeditor_auto_lang";s:1:"t";s:12:"admin_select";s:7:"toolbar";}',
@@ -6087,7 +6727,7 @@ function helm_faq_content_uuid_features_default_content() {
   'tnid' => 0,
   'translate' => 0,
   'uuid' => 'fa5e0ad5-cb4f-49dc-b6c3-942b2d8b977b',
-  'revision_uid' => 1,
+  'revision_uid' => 0,
   'body' => array(
     'und' => array(
       0 => array(
@@ -6174,6 +6814,15 @@ function helm_faq_content_uuid_features_default_content() {
       'callback' => 'date_iso8601',
     ),
   ),
+  'domains' => array(
+    1 => 1,
+  ),
+  'domain_site' => TRUE,
+  'subdomains' => array(
+    0 => 'All affiliates',
+    1 => 'City of Springfield',
+  ),
+  'domain_source' => NULL,
   'name' => 'demoadmin',
   'picture' => 0,
   'data' => 'a:6:{s:16:"ckeditor_default";s:1:"t";s:20:"ckeditor_show_toggle";s:1:"t";s:14:"ckeditor_width";s:4:"100%";s:13:"ckeditor_lang";s:2:"en";s:18:"ckeditor_auto_lang";s:1:"t";s:12:"admin_select";s:7:"toolbar";}',
@@ -6195,7 +6844,7 @@ function helm_faq_content_uuid_features_default_content() {
   'tnid' => 0,
   'translate' => 0,
   'uuid' => 'fa97b5f5-a45a-43c4-8205-0b6f6b6e9335',
-  'revision_uid' => 1,
+  'revision_uid' => 0,
   'body' => array(
     'und' => array(
       0 => array(
@@ -6282,6 +6931,15 @@ function helm_faq_content_uuid_features_default_content() {
       'callback' => 'date_iso8601',
     ),
   ),
+  'domains' => array(
+    1 => 1,
+  ),
+  'domain_site' => TRUE,
+  'subdomains' => array(
+    0 => 'All affiliates',
+    1 => 'City of Springfield',
+  ),
+  'domain_source' => NULL,
   'name' => 'demoadmin',
   'picture' => 0,
   'data' => 'a:6:{s:16:"ckeditor_default";s:1:"t";s:20:"ckeditor_show_toggle";s:1:"t";s:14:"ckeditor_width";s:4:"100%";s:13:"ckeditor_lang";s:2:"en";s:18:"ckeditor_auto_lang";s:1:"t";s:12:"admin_select";s:7:"toolbar";}',
@@ -6303,7 +6961,7 @@ function helm_faq_content_uuid_features_default_content() {
   'tnid' => 0,
   'translate' => 0,
   'uuid' => 'fc0f60b9-fc5f-45e7-a0fc-a7353329db81',
-  'revision_uid' => 1,
+  'revision_uid' => 0,
   'body' => array(
     'und' => array(
       0 => array(
@@ -6390,6 +7048,15 @@ function helm_faq_content_uuid_features_default_content() {
       'callback' => 'date_iso8601',
     ),
   ),
+  'domains' => array(
+    1 => 1,
+  ),
+  'domain_site' => TRUE,
+  'subdomains' => array(
+    0 => 'All affiliates',
+    1 => 'City of Springfield',
+  ),
+  'domain_source' => NULL,
   'name' => 'demoadmin',
   'picture' => 0,
   'data' => 'a:6:{s:16:"ckeditor_default";s:1:"t";s:20:"ckeditor_show_toggle";s:1:"t";s:14:"ckeditor_width";s:4:"100%";s:13:"ckeditor_lang";s:2:"en";s:18:"ckeditor_auto_lang";s:1:"t";s:12:"admin_select";s:7:"toolbar";}',

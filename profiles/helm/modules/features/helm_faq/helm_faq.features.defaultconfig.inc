@@ -57,6 +57,7 @@ function helm_faq_defaultconfig_user_default_permissions() {
     'name' => 'create faq content',
     'roles' => array(
       'administrator' => 'administrator',
+      'editor' => 'editor',
     ),
     'module' => 'node',
   );
@@ -73,7 +74,9 @@ function helm_faq_defaultconfig_user_default_permissions() {
   // Exported permission: 'delete own faq content'.
   $permissions['delete own faq content'] = array(
     'name' => 'delete own faq content',
-    'roles' => array(),
+    'roles' => array(
+      'editor' => 'editor',
+    ),
     'module' => 'node',
   );
 
@@ -103,7 +106,9 @@ function helm_faq_defaultconfig_user_default_permissions() {
   // Exported permission: 'edit own faq content'.
   $permissions['edit own faq content'] = array(
     'name' => 'edit own faq content',
-    'roles' => array(),
+    'roles' => array(
+      'editor' => 'editor',
+    ),
     'module' => 'node',
   );
 

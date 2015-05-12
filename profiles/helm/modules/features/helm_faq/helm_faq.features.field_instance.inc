@@ -15,7 +15,7 @@ function helm_faq_field_default_field_instances() {
     'bundle' => 'faq',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => '<a href="http://www.baltimore.ifsight.com/help/content#body" class="contextual-help">Help with the Rich Text Editor</a>',
+    'description' => '',
     'display' => array(
       'default' => array(
         'label' => 'hidden',
@@ -287,7 +287,6 @@ function helm_faq_field_default_field_instances() {
 
   // Translatables
   // Included for use with string extractors like potx.
-  t('<a href="http://www.baltimore.ifsight.com/help/content#body" class="contextual-help">Help with the Rich Text Editor</a>');
   t('Answer');
   t('Category');
   t('Icon');
