@@ -205,7 +205,7 @@ function social_stream_field_formatter_view($entity_type, $entity, $field, $inst
   }
   $settings['feeds'] = $feeds;
 
-  $element[0] = theme('social_stream', $settings);
+  $element[0]['#markup'] = theme('social_stream', $settings);
 
   return $element;
 }
@@ -239,6 +239,7 @@ function social_stream_theme() {
  * Implements hook_theme_preprocess().
  */
 function template_preprocess_social_stream(&$variables) {
+
   $path = libraries_get_path('jquery-social-stream');
   if (empty($path)) {
     $variables['no_library'] = TRUE;
