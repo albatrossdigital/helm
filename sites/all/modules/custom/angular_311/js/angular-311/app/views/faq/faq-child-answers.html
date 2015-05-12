@@ -3,6 +3,12 @@
   <div class="panel-heading">
     <h4 class="panel-title"><a href="" ui-sref="faq.child.answers({nid: node.nid})">{{node.title}}</a></h4>
   </div>
-  <div class="panel-body" ng-show="activeNid == node.nid && node.body" ng-bind-html="node.body.value"></div>
+  <div class="panel-body" ng-show="activeNid == node.nid && node.body">
+    <div ng-bind-html="node.body.value"></div>
+    <p ng-if="node.field_faq_link">
+      <a href="" ng-href="{{node.field_faq_link.url}}" class="btn btn-primary">{{node.field_faq_link.title}} &raquo;</a>
+    </p>
+  </div>
+  
 </div>
 <div main-toggle="slide-left" main-toggle-force="add" main-toggle-enter="true"></div>

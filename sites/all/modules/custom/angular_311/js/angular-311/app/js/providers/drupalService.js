@@ -3,7 +3,7 @@
 angular.module('drupalService', ['ngResource'])
 
   .factory('Node', ['$resource', '$rootScope', function ($resource, $rootScope) {
-    return $resource($rootScope.apiUrl + '/node/:nid', 
+    return $resource($rootScope.apiUrl + '/node/:nid.json', 
       { 'nid': '@nid' },
       {
         get: {
@@ -43,7 +43,7 @@ angular.module('drupalService', ['ngResource'])
   }])
 
   .factory('TaxonomyTerm', ['$resource', '$rootScope', function ($resource, $rootScope) {
-    return $resource($rootScope.apiUrl + '/taxonomy_term/:tid', 
+    return $resource($rootScope.apiUrl + '/taxonomy_term/:tid.json', 
       {
         vocabulary: '@vocabulary',
       },
