@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Helm Event Content feature.
+ */
+
+include_once 'helm_event_content.features.inc';
