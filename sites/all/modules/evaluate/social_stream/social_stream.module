@@ -42,7 +42,7 @@ function social_stream_settings($form, &$form_state) {
   $form['general']['social_stream_js_wall'] = array(
     '#type' => 'textfield',
     '#title' => t('jquery.social.stream.wall Javascript file name'),
-    '#default_value' => variable_get('social_stream_js_stream', 'jquery.social.stream.wall.1.6.js'),
+    '#default_value' => variable_get('social_stream_js_wall', 'jquery.social.stream.wall.1.6.js'),
     '#description' => t('These files should exist in the jQuery Social Stream library in the js/ directory.'),
   );
   
