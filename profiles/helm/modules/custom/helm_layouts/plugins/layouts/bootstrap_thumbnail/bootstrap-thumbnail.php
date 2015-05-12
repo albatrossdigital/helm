@@ -11,8 +11,12 @@
 ?>
 
 <div class="panel-display thumbnail <?php if (!empty($classes)) { print $classes; } ?><?php if (!empty($class)) { print $class; } ?>" <?php if (!empty($css_id)) { print "id=\"$css_id\""; } ?>>
-  <?php print $content['imgarea']; ?>
-   <div class="caption">
+  <div class="image-panel panel-panel"><div class="panel-panel-inner">
+    <?php print $content['imgarea']; ?>
+  </div></div>
+  <div class="caption panel-panel">
+    <div class="panel-panel-inner">
       <?php print $content['contentmain']; ?>
+    </div>
   </div>
 </div><!-- /.bryant-flipped -->
