@@ -26,7 +26,7 @@ function helm_page_display_entity_info_alter(&$entity_info) {
 }
 
 function helm_page_display_entity_edit_form_alter(&$form, &$form_state, $form_id) {
-  dpm($form);
+  //dpm($form);
 }
 
 
