@@ -10,6 +10,12 @@ function helm_core_menu() {
     'access arguments' => array('access content'),
     'type' => MENU_CALLBACK,
   );
+  $items['disable'] = array(
+    'title' => 'Welcome',
+    'page callback' => 'helm_core_disable',
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
 
   $items['user/me'] = array(
     'title' => 'Welcome',
@@ -176,6 +182,20 @@ function helm_core_view_data($view_name, $display = 'default', $args = array(), 
   $view->execute();
   //dpm($view);
   return ($mode == 'view') ? $view : $view->result;
+}
+
+
+/**
+ * Delete entities added by uuid features
+ */
+function helm_core_uuid_features_delete($module = 'helm_news_content', $entity_type = 'node') {
+  module_load_include('inc', $module, $module . '.features.uuid_' . $entity_type);
+  $function_name = $module . '_uuid_features_default_content'; // @todo: taxonomy
+  $nodes = $function_name();
+  foreach($nodes as $node) {
+    //entity_uuid_delete($entity_type, $node['uuid']);
+  }
+  return $nodes;
 }
 
 
