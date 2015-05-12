@@ -27,9 +27,9 @@ jQuery(window).load(function(){
     });
 	
 	jQuery.each($container,function(){
-	//	sortstream(jQuery(this),'asc');
+	   //	sortstream(jQuery(this),'asc');
 		jQuery('li .section-thumb img, li .section-text img',jQuery(this)).css('opacity',0).show().fadeTo(800,1);
-    jQuery(this).isotope({layoutMode: 'fitRows', itemSelector: '.dcsns-li'});
+    jQuery(this).isotope({layoutMode: 'masonry', itemSelector: '.dcsns-li'});
 	});
 	
 	function sortstream(obj,d){

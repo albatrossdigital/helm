@@ -3,7 +3,7 @@
 <?php else: ?>
   <div id="wrapper">
     <div id="container"> 
-      <?php if ($type === 'wall'): ?>
+      <?php if ($type === 'social_stream_wall'): ?>
         <div id="wall" class="full-wall">
           <div id="social-stream"></div>
         </div>

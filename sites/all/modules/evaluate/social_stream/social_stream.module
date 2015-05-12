@@ -245,19 +245,8 @@ function template_preprocess_social_stream(&$variables) {
     $variables['no_library'] = TRUE;
   }
 
-  // Add library files  
-  drupal_add_js($path . '/inc/js/jquery.plugins.js');
-  drupal_add_js($path . '/inc/js/jquery.site.js');
-  drupal_add_js($path . '/js/' . variable_get('social_stream_js_stream', 'jquery.social.stream.1.5.9.min.js'), array('weight' => 1));
-  if ($variables['type'] === 'social_stream_wall') {
-    drupal_add_css($path . '/css/dcsns_wall.css');
-    drupal_add_js($path . '/js/' . variable_get('social_stream_js_stream', 'jquery.social.stream.wall.1.6.js'));
-  }
-  else {
-    drupal_add_css($path . '/css/dcsns_'. $variables['theme'] .'.css');
-  }
-
   // Clean up feeds
+
   $feeds = array();
   foreach ($variables['feeds'] as $service => $feed) {
     if (strpos($feed, 'http') !== FALSE) {
@@ -270,7 +259,9 @@ function template_preprocess_social_stream(&$variables) {
     $feeds['twitter']['url'] = url('rest/social-stream/twitter');
   }
 
-  // Add Settings
+
+  // Setup settings
+
   $image_path = url($path . '/images/dcsns-'. $variables['theme'] .'/');
   $settings = array(
     'type' => 'wall',
@@ -280,6 +271,28 @@ function template_preprocess_social_stream(&$variables) {
     'imagePath' => $image_path,
     'height' => $variables['height'],
   );
+
+  // Add library files  
+  drupal_add_js($path . '/inc/js/jquery.plugins.js');
+  drupal_add_js($path . '/inc/js/jquery.site.js');
+  drupal_add_js($path . '/js/' . variable_get('social_stream_js_stream', 'jquery.social.stream.1.5.9.min.js'), array('weight' => 1));
+
+  if ($variables['type'] === 'social_stream_wall') {
+    drupal_add_css($path . '/css/dcsns_wall.css');
+    drupal_add_js($path . '/js/' . variable_get('social_stream_js_wall', 'jquery.social.stream.wall.1.6.js'), array('weight' => 0));
+    $settings['wall'] = true;
+    $settings['filters'] = false;
+    $settings['rotate'] = array(
+      'direction' => 'up',
+      'delay' => -1
+    );
+  }
+  else {
+    drupal_add_css($path . '/css/dcsns_'. $variables['theme'] .'.css');
+    $settings['wall'] = false;
+    $settings['filters'] = true;
+  }
+  
   drupal_add_js(array('social_stream' => $settings), 'setting');
 
   // Add module js
