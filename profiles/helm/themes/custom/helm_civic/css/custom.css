@@ -7029,6 +7029,17 @@ h1, h2, h3, h4, h5, h6, p, .field-name-body, .field-name-field-date, a, .views-f
     padding-bottom: 100px; }
  }
 
+.dcsns-toolbar .filter li a {
+  background: none;
+  height: auto;
+  min-height: 28px;
+  padding: 3px; }
+
+.stream li .icon {
+  margin-bottom: 0;
+  max-width: 20px;
+  bottom: 5px; }
+
 body.front .breadcrumb, body.front .page-header {
   display: none; }
 body.front #content {
