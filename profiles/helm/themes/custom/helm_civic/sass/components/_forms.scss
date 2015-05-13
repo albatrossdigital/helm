@@ -230,6 +230,24 @@ input.form-autocomplete {
   }
 }
 
+
+// date field
+//--------------------------------------------------
+
+.webform-component-date > div {
+  @include make-row;
+
+  & > div {
+    @include grid-column-style;
+    float: left;
+    width: 33%;
+  }
+
+  & > input {
+    margin-left: $grid-gutter-width/2;
+  }
+}
+
 // Confirmation forms
 //--------------------------------------------------
 
@@ -248,16 +266,10 @@ input.form-autocomplete {
 // *
 // ******************************************************
 
-// @include respond($sm-up)
-//   //.node-webform.view-mode-full form > div,
-//   .page-user div.main > form > div {
-//     & > .form-item {
-//       max-width: 50%;
-//       clear: left;
-//     }
-//     & > .form-submit {
-//       clear: both;
-//       display: block;
-//     }
-//   }
-// }
+@include respond($sm-up) {
+  .panel-display .webform-client-form > div, 
+  .block-system > div > form > div {
+    max-width: 480px;
+    clear: left;
+  }
+}

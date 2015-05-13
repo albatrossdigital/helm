@@ -6863,6 +6863,30 @@ input.form-autocomplete {
     right: 0 !important;
     top: 35px !important; }
 
+.webform-component-date > div {
+  margin-left: -12px;
+  margin-right: -12px; }
+  .webform-component-date > div:before, .webform-component-date > div:after {
+    content: " ";
+    display: table; }
+  .webform-component-date > div:after {
+    clear: both; }
+  .webform-component-date > div > div {
+    position: relative;
+    min-height: 1px;
+    padding-left: 12px;
+    padding-right: 12px;
+    float: left;
+    width: 33%; }
+  .webform-component-date > div > input {
+    margin-left: 12px; }
+
+@media screen and (min-width: 768px) {
+  .panel-display .webform-client-form > div, .block-system > div > form > div {
+    max-width: 480px;
+    clear: left; }
+ }
+
 .modal-header .close {
   position: relative;
   z-index: 2; }
