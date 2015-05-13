@@ -81,7 +81,7 @@ function angular_311_theme() {
         'app_path' => url(angular_311_app_path()),
         'payment_url' => 'http://workhorse.albatrossdigital.com/payment-callback.php',
         'track_url' => 'http://markaspot.helmcivic.com/georeport/v2',
-        'api_path' => 'http://dev-helm-civic.pantheon.io/',//url('<front>', array('absolute' => TRUE)),
+        'api_path' => 'http://demo.helmcivic.com/',//url('<front>', array('absolute' => TRUE)),
         'vocabulary_vid' => 3,
       )
     ),
