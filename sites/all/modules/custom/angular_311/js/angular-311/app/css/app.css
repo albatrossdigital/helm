@@ -57,9 +57,10 @@
     -moz-transition: all ease 0.5s;
     transition: all ease 0.5s; }
   .app-slider > div {
-    margin-left: -100%;
     max-width: none;
     width: 200%; }
+  .app-slider.slider-style-all > div {
+    margin-left: -100%; }
   .show-nav .app-slider > div {
     margin-left: 0%; } }
 

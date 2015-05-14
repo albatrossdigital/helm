@@ -75,10 +75,16 @@ $open-nav-dim: 30px;
   // // Only Mobile
   // @media screen and (max-width: $screen-xs-max) {
  // we have soidebar first (docs section)
-  .app-slider > div {
-    margin-left: -100%;
-    max-width: none;
-    width: 200%;
+  .app-slider { 
+    & > div {
+      max-width: none;
+      width: 200%;
+    }
+
+    // Has side menu
+    &.slider-style-all > div {
+      margin-left: -100%;
+    }
   }
 
   .show-nav { 
