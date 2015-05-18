@@ -53,7 +53,7 @@ function helm_civic_map_theme() {
     'helm_civic_map' => array(
       'template' => 'templates/helm-civic-map',
       'variables' => array(
-        'type' => 'map',
+        'type' => 'full',
         'drupal_events' => url('api/events.json'),
         'transportation' => variable_get('helm_civic_map_transportation', 'http://maps.albatrossdigital.com:8888/v2/gtfs_corvallis.json'),
         'lat' => variable_get('helm_civic_map_lat', 44.5667),

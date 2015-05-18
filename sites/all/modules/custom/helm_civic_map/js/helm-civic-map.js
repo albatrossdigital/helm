@@ -42,6 +42,7 @@ function loadMap() {
       zoom: 14,
       scrollWheelZoom: false
   });
+  window.map = map;  // @todo: delete (helpful for debugging);
   /*map.addLayer(new L.StamenTileLayer("watercolor", {
       detectRetina: true
   }));*/
@@ -67,19 +68,19 @@ function loadMap() {
   var activeLayer;
   var gridControl;
 
-  if (settings.helm_civic_map.map == 'full')
-    var layers = document.getElementById('menu-ui'); {
-    var parksDefault = true;
+  //if (settings.helm_civic_map.type == 'full') {
+    var layers = document.getElementById('menu-ui'); 
+    var foursquareDefault = true;
     if (settings.helm_civic_map.lat == 44.5667) {
       addLayer('Public Transit', 'mbtiles', 14, {url: settings.helm_civic_map.transportation, 'attribution': '<a href="ftp://ftp.ci.corvallis.or.us/pw/Transportation/GoogleTransitFeed/">City of Corvallis GTFS</a>'}, true);
-      parksDefault = false;
+      foursquareDefault = false;
     }
-    addLayer('Parks', 'foursquare', 14, {query: 'park'}, parksDefault);
-    addLayer('Schools', 'foursquare', 13, {query: 'school'});
+    addLayer('Schools', 'foursquare', 13, {query: 'school'}, foursquareDefault); 
+    addLayer('Parks', 'foursquare', 14, {query: 'park'});
     addLayer('Restaurants', 'foursquare', 15, {query: 'restaurant'});
     addLayer('Entertainment', 'foursquare', 14, {query: 'entertainment'});
     addLayer('Events', 'drupal', 14, {url: settings.helm_civic_map.drupal_events});
-  }
+  //}
   // @todo: http://www.opencyclemap.org/
   // @todo: hiking map
 
