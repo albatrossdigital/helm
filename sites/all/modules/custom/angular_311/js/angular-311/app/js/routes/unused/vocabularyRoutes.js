@@ -28,7 +28,6 @@ angular.module('app.vocabulary', [
           },
           controller: function($scope, $rootScope, $state, tree){
             $scope.tree = tree;
-            console.log($state);
 
             //$scope.type = node.type[0].target_id;
 
@@ -95,7 +94,6 @@ angular.module('app.vocabulary', [
             $scope.activeParent = $filter('filter')(terms, { tid: $scope.activeTerm.parent[0].id })[0];
 
             $scope.activeNid = $state.params.answer != undefined ? $state.params.answer : null;
-            console.log($scope.activeParent);
 
 
             
@@ -107,7 +105,6 @@ angular.module('app.vocabulary', [
               direction: 'ASC'
             }).$promise.then(function(data) {
               $scope.nodes = data.list;
-              console.log($scope.nodes);
             });
 
 

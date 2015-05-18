@@ -46,7 +46,6 @@ angular.module('app.faq', [
             $scope.childOpen = false;
 
             $scope.open = function(item) {
-              console.log(item);
               $scope.active = item;
             }
 
@@ -76,7 +75,6 @@ angular.module('app.faq', [
           controller: function($scope, $rootScope, $state, $filter, terms, Node){
             $scope.activeTerm = $filter('termByTid')(terms, $state.params.tid);
             $scope.activeParent = $filter('termByTid')(terms, $scope.activeTerm.parent[0].id);
-            console.log($scope.activeParent);
             $state.go('faq.child.answers', {nid: 'list'});
           }
         })
@@ -101,7 +99,6 @@ angular.module('app.faq', [
               direction: 'ASC'
             }).$promise.then(function(data) {
               $scope.nodes = data.list;
-              console.log($scope.nodes);
             });
             
           }

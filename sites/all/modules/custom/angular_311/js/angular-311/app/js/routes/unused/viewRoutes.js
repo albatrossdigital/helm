@@ -75,7 +75,6 @@ angular.module('app.view', [
             $scope.activeTerm = null;
             View.query({entityType: 'term', name: 'tags'}, function(data) {
               $scope.terms = data;
-              console.log(data);
             });
 
             // Helper function for infinite scroll pager

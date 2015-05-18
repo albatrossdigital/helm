@@ -74,6 +74,7 @@ function angular_311_render_pane($subtype, $conf, $args, $contexts) {
  */
 function angular_311_theme() {
   //$path = drupal_get_path('module', 'angular_311');
+  global $base_url;
   return array(
     'angular_311_app' => array(
       'template' => 'templates/app',
@@ -81,7 +82,7 @@ function angular_311_theme() {
         'app_path' => url(angular_311_app_path()),
         'payment_url' => 'http://workhorse.albatrossdigital.com/payment-callback.php',
         'track_url' => 'http://markaspot.helmcivic.com/georeport/v2',
-        'api_path' => 'http://demo.helmcivic.com/',//url('<front>', array('absolute' => TRUE)),
+        'api_path' => $base_url . '/';
         'vocabulary_vid' => 3,
       )
     ),

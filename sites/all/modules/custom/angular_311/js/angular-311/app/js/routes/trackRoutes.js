@@ -33,7 +33,6 @@ angular.module('app.track', [
             Track.get({code: $state.params.code}).$promise.then(function(data) {
               if (data != undefined && data[0] != undefined) {
                 $scope.item = data[0];
-                console.log($scope.item);
               }
               else {
                 $scope.error = true;
@@ -54,7 +53,6 @@ angular.module('app.track', [
           },
           controller: function($scope, $rootScope, $state, services){
             $scope.types = services;
-            console.log(services);
           }
         })
 

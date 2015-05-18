@@ -40,7 +40,7 @@ angular.module('app', [
       //$rootScope.trackUrl = 'http://markaspot.local/georeport/v2';
       $rootScope.appPageDisplay = Drupal.settings.angular_311.app_page_display;
       
-      console.log($rootScope);
+      //console.log($rootScope);
 
 
       //requests/fd3f-1.json
