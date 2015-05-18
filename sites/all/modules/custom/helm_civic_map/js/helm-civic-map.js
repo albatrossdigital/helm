@@ -68,7 +68,7 @@ function loadMap() {
   var activeLayer;
   var gridControl;
 
-  //if (settings.helm_civic_map.type == 'full') {
+  //if (settings.helm_civic_map.type == 'full') {  // @todo
     var layers = document.getElementById('menu-ui'); 
     var foursquareDefault = true;
     if (settings.helm_civic_map.lat == 44.5667) {
