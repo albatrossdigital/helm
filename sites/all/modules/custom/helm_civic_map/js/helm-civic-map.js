@@ -63,19 +63,27 @@ function loadMap() {
   }).addTo(map);
   */
 
-  var layers = document.getElementById('menu-ui');
-  addLayer('Public Transit', 'mbtiles', 14, {url: settings.helm_civic_map.transportation, 'attribution': '<a href="ftp://ftp.ci.corvallis.or.us/pw/Transportation/GoogleTransitFeed/">City of Corvallis GTFS</a>'}, true);
-  addLayer('Parks', 'foursquare', 14, {query: 'park'});
-  addLayer('Schools', 'foursquare', 13, {query: 'school'});
-  addLayer('Restaurants', 'foursquare', 15, {query: 'restaurant'});
-  addLayer('Entertainment', 'foursquare', 14, {query: 'entertainment'});
-  addLayer('Events', 'drupal', 14, {url: settings.helm_civic_map.drupal_events});
-  // @todo: http://www.opencyclemap.org/
-  // @todo: hiking map
-
   var attr;
   var activeLayer;
   var gridControl;
+
+  if (settings.helm_civic_map.map == 'full')
+    var layers = document.getElementById('menu-ui'); {
+    var parksDefault = true;
+    if (settings.helm_civic_map.lat == 44.5667) {
+      addLayer('Public Transit', 'mbtiles', 14, {url: settings.helm_civic_map.transportation, 'attribution': '<a href="ftp://ftp.ci.corvallis.or.us/pw/Transportation/GoogleTransitFeed/">City of Corvallis GTFS</a>'}, true);
+      parksDefault = false;
+    }
+    addLayer('Parks', 'foursquare', 14, {query: 'park'}, parksDefault);
+    addLayer('Schools', 'foursquare', 13, {query: 'school'});
+    addLayer('Restaurants', 'foursquare', 15, {query: 'restaurant'});
+    addLayer('Entertainment', 'foursquare', 14, {query: 'entertainment'});
+    addLayer('Events', 'drupal', 14, {url: settings.helm_civic_map.drupal_events});
+  }
+  // @todo: http://www.opencyclemap.org/
+  // @todo: hiking map
+
+  
   function addLayer(name, type, zoom, params, active) {
       active = active == undefined ? false : active;
       //layer
