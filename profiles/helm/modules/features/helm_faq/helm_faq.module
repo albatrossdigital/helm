@@ -10,7 +10,7 @@ include_once 'helm_faq.features.inc';
  * Implements hook_taxonomy_term_view()
  * Redirect.
  */
-function helm_faq_taxonomy_term_view($term, $view_mode, $langcode) {
+/*function helm_faq_taxonomy_term_view($term, $view_mode, $langcode) {
   if ($term->vocabulary_machine_name === 'faq_category' && $view_mode === 'full' && arg(0) === 'taxonomy' && arg(1) === 'term') {
     $parents = taxonomy_get_parents_all($term->tid);
     if (count($parents) > 2) {
@@ -18,12 +18,13 @@ function helm_faq_taxonomy_term_view($term, $view_mode, $langcode) {
     }
   }
 }
+*/
 
 /**
  * Implements hook_node_view()
  * Redirect.
  */
-function helm_faq_node_view($node, $view_mode, $langcode) {
+/*function helm_faq_node_view($node, $view_mode, $langcode) {
   if ($node->type === 'faq' && $view_mode === 'full' && arg(0) === 'node') {
     if (!empty($node->field_faq_category[LANGUAGE_NONE][0]['tid'])) {
       $parents = taxonomy_get_parents_all($node->field_faq_category[LANGUAGE_NONE][0]['tid']);
@@ -39,17 +40,17 @@ function helm_faq_node_view($node, $view_mode, $langcode) {
     }
   }
 
-}
+}*/
 
 
 
 /**
  * Implements hook_preprocess_views_view()
  */
-function helm_faq_form_views_exposed_form_alter(&$form, $form_state) {
+/*function helm_faq_form_views_exposed_form_alter(&$form, $form_state) {
   if ($form['#id'] === 'views-exposed-form-faq-list-accordion') {
     $form['#attached']['js'][] = drupal_get_path('module', 'helm_faq') . '/js/helm-faq-view.js';
   }
-}
+}*/
 
 
