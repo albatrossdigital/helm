@@ -4,3 +4,10 @@
   position: relative;
   z-index: 2;
 }
+
+
+// z-index issues
+
+.modal.in .modal-dialog {
+  z-index: $zindex-modal;
+}

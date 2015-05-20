@@ -6891,6 +6891,9 @@ input.form-autocomplete {
   position: relative;
   z-index: 2; }
 
+.modal.in .modal-dialog {
+  z-index: 1040; }
+
 .breadcrumb {
   border-radius: 0; }
   .breadcrumb, .breadcrumb a {

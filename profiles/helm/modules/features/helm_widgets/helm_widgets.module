@@ -131,8 +131,15 @@ function helm_widgets_form_alter(&$form, &$form_state, $form_id) {
     $form['sort']['#access'] = FALSE;
   }
 
-  if ($form_id == 'fieldable_panels_panes_fieldable_panels_pane_content_type_edit_form') {
+  // Get rid of the "make title a link" option for FPP,
+  // as it doesn't seem to play nice
+  if($form_id == 'fieldable_panels_panes_entity_edit_form') {
+    $form['link']['#access'] = false;
+    $form['link']['link']['#default_value'] = 0;
+    $form['link']['link']['#value'] = 0;
+  }
 
+  if ($form_id == 'fieldable_panels_panes_fieldable_panels_pane_content_type_edit_form') {
     // Add fields to the FPP object if we are adding a reusable object for the first time
     if ($form_state['entity']->reusable && $form_state['op'] == 'add' && $form_state['rebuild'] == FALSE) {
       $form = fieldable_panels_panes_entity_edit_form($form, $form_state);
