@@ -482,7 +482,7 @@ function angular_media_ckeditor_plugin() {
  */
 function angular_media_form_alter(&$form, &$form_state, $form_id) {
   // @todo: other entity types...
-  if ($form_id === 'page_node_form' || $form_id === 'taxonomy_form_term') {
+  if (!empty($form['#node_edit_form']) || $form_id === 'taxonomy_form_term') {
     $fieldName = 'media_ckeditor';
 
     $options = array(
