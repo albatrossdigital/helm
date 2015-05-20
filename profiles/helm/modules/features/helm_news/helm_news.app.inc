@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Provides app info for openpublic blog.
+ * Provides app info for Helm news.
  */
 
 /**
