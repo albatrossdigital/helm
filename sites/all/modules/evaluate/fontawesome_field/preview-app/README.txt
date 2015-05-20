@@ -1,1 +1,0 @@
-These files are modified from the code on https://github.com/FortAwesome/Font-Awesome/tree/gh-pages, primarily https://github.com/FortAwesome/Font-Awesome/blob/gh-pages/icons/index.html.
