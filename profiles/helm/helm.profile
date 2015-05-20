@@ -40,25 +40,15 @@ function helm_apps_servers_info() {
  //$info =  drupal_parse_info_file(dirname(__file__) . '/openatrium.info');
  return array(
    'helm' => array(
-     'title' => 'Soar',
-     'description' => "Apps for the Soar distribution",
+     'title' => 'Helm',
+     'description' => "Apps for the Helm distribution",
      // @CHANGE this to -stable for stable releases.
-     'manifest' => 'http://workhorse.albatrossdigital.com/apps.json',
+     'manifest' => 'http://apps.albatrossdigital.com/app/query/helm',
      'profile' => 'helm',
      'profile_version' => isset($info['version']) ? $info['version'] : '7.x-1.x-dev',
      'server_name' => !empty($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : '',
      'server_ip' => !empty($_SERVER['SERVER_ADDR']) ? $_SERVER['SERVER_ADDR'] : '',
    ),
-   /*'openatrium' => array(
-     'title' => 'OpenAtrium',
-     'description' => "Apps for the OpenAtrium distribution",
-     // @CHANGE this to -stable for stable releases.
-     'manifest' => 'http://appserver.openatrium.com/app/query/openatrium-development',
-     'profile' => 'openatrium',
-     'profile_version' => isset($info['version']) ? $info['version'] : '7.x-2.x-dev',
-     'server_name' => !empty($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : '',
-     'server_ip' => !empty($_SERVER['SERVER_ADDR']) ? $_SERVER['SERVER_ADDR'] : '',
-   ),*/
  );
 }
 
