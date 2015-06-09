@@ -36,7 +36,7 @@ projects[field_group][subdir] = "contrib"
 projects[link][version] = "1.3"
 projects[link][subdir] = "contrib"
 
-projects[select_or_other][version] = "2.21"
+projects[select_or_other][version] = "2.22"
 projects[select_or_other][subdir] = "contrib"
 
 projects[field_collection][version] = "1.0-beta8"
@@ -94,7 +94,7 @@ projects[entityreference_prepopulate][subdir] = "contrib"
 projects[image_resize_filter][version] = "1.14"
 projects[image_resize_filter][subdir] = "contrib"
 
-projects[menu_block][version] = "2.5"
+projects[menu_block][version] = "2.6"
 projects[menu_block][subdir] = "contrib"
 
 projects[menu_firstchild][version] = "1.1"
@@ -166,7 +166,7 @@ projects[uuid][subdir] = contrib
 projects[views_bootstrap][version] = "3.1"
 projects[views_bootstrap][subdir] = contrib
 
-projects[apps][version] = "1.0-beta20"
+projects[apps][version] = "1.0-rc1"
 projects[apps][subdir] = contrib
 
 projects[user_alert][version] = "1.10"
@@ -260,7 +260,7 @@ projects[ctools][subdir] = contrib
 
 projects[panels][version] = 3.5
 projects[panels][subdir] = contrib
-projects[panels][patch][2448825] = https://www.drupal.org/files/issues/panels-export-indentation-2448825-1.patch
+projects[panels][patch][2448825] = http://drupal.org/files/issues/panels-export-indentation-2448825-1.patch
 
 projects[panels_breadcrumbs][version] = 2.2
 projects[panels_breadcrumbs][subdir] = contrib
@@ -273,9 +273,9 @@ projects[panelizer][patch][2416505] = http://drupal.org/files/issues/panelizer-s
 projects[fieldable_panels_panes][version] = 1.5
 projects[fieldable_panels_panes][subdir] = contrib
 projects[fieldable_panels_panes][patch][2283263] = http://drupal.org/files/issues/fieldable_panels_panes-n2283263-5.patch
-projects[fieldable_panels_panes][patch][2256503] = http://www.drupal.org/files/issues/fieldable_panels_panes-n2256503-12-backport-fpp15.patch
-projects[fieldable_panels_panes][patch][2415427] = https://www.drupal.org/files/issues/fieldable_panels_pane-avoid-reload-2415427-4.patch
-projects[fieldable_panels_panes][patch][2146479] = http://www.drupal.org/files/issues/2146479-admin-menu-map-conflict.patch
+projects[fieldable_panels_panes][patch][2256503] = http://drupal.org/files/issues/fieldable_panels_panes-n2256503-12-backport-fpp15.patch
+projects[fieldable_panels_panes][patch][2415427] = http://drupal.org/files/issues/fieldable_panels_pane-avoid-reload-2415427-4.patch
+projects[fieldable_panels_panes][patch][2146479] = http://drupal.org/files/issues/2146479-admin-menu-map-conflict.patch
 
 projects[pm_existing_pages][version] = 1.4
 projects[pm_existing_pages][subdir] = contrib
@@ -289,7 +289,7 @@ projects[views][version] = 3.11
 projects[views][subdir] = contrib
 projects[views][patch][2037469] = http://drupal.org/files/views-exposed-sorts-2037469-1.patch
 
-projects[views_autocomplete_filters][version] = 1.1
+projects[views_autocomplete_filters][version] = 1.2
 projects[views_autocomplete_filters][subdir] = contrib
 projects[views_autocomplete_filters][patch][2277453] = http://drupal.org/files/issues/ViewsAutocompleteFilters-no_results_on_some_environments-2277453-1.patch
 projects[views_autocomplete_filters][patch][2374709] = http://drupal.org/files/issues/views_autocomplete_filters-cache-2374709-2.patch
@@ -349,11 +349,7 @@ projects[bootstrap][subdir] = "contrib"
 projects[radix][version] = "3.0-rc2"
 projects[radix][subdir] = "contrib"
 
-<<<<<<< HEAD
 projects[minimalist_admin][version] = "1.0-alpha5"
-=======
-projects[minimalist_admin][version] = "1.0-alpha2"
->>>>>>> 02b8b2f1264680770b0ae4139e156ad4d247bb6e
 projects[minimalist_admin][subdir] = "contrib"
 
 
