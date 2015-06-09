@@ -1,7 +1,0 @@
-<?php
-/**
- * @file
- * Code for the Helm Social Stream feature.
- */
-
-include_once 'helm_social_stream.features.inc';

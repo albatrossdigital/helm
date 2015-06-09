@@ -1,7 +1,0 @@
-<?php
-/**
- * @file
- * Code for the Helm Deploy Server feature.
- */
-
-include_once 'helm_deploy_server.features.inc';

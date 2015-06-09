@@ -1,7 +1,0 @@
-<?php
-/**
- * @file
- * Code for the Helm Agency feature.
- */
-
-include_once 'helm_agency.features.inc';

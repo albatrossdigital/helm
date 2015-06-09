@@ -64,6 +64,7 @@ dependencies[] = fences
 dependencies[] = panels_extra_styles
 dependencies[] = helm_input_formats
 dependencies[] = gravatar
+dependencies[] = apps
 ;dependencies[] = clean_markup_panels // evaluate for future
 
 ; Helm - Contrib - Field UI and Content Types
@@ -176,6 +177,7 @@ dependencies[] = views_content
 dependencies[] = menu_block
 ;DUPE dependencies[] = number
 ;DUPE dependencies[] = page_manager
+;@TODO: rm geofield-related modules
 dependencies[] = geocoder
 dependencies[] = geofield
 dependencies[] = geofield_map

@@ -1,7 +1,0 @@
-<?php
-/**
- * @file
- * Code for the Helm Landing Page Display feature.
- */
-
-include_once 'helm_landingpage_display.features.inc';

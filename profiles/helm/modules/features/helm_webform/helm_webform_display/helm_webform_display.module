@@ -1,7 +1,0 @@
-<?php
-/**
- * @file
- * Code for the Helm Webform Display feature.
- */
-
-include_once 'helm_webform_display.features.inc';

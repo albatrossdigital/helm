@@ -1,7 +1,0 @@
-<?php
-/**
- * @file
- * Code for the Flight Sitemap feature.
- */
-
-include_once 'helm_sitemap.features.inc';

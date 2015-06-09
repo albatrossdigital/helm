@@ -139,7 +139,8 @@ function helm_install() {
  * Implements hook_install_tasks_alter()
  */
 function helm_install_tasks_alter(&$tasks, $install_state) {
-  install_from_db_install_tasks_alter($tasks, $install_state);
+  // @todo: re-enable this?
+  //install_from_db_install_tasks_alter($tasks, $install_state);
   //print_r($tasks);
   //die();
 }

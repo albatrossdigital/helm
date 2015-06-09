@@ -1,7 +1,0 @@
-<?php
-/**
- * @file
- * Code for the Helm Event Display feature.
- */
-
-include_once 'helm_event_display.features.inc';

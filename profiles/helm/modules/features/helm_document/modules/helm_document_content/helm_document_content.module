@@ -1,7 +1,0 @@
-<?php
-/**
- * @file
- * Code for the Helm Document Content feature.
- */
-
-include_once 'helm_document_content.features.inc';

@@ -145,12 +145,9 @@ projects[fences][subdir] = contrib
 projects[panels_extra_styles][version] = 1.1
 projects[panels_extra_styles][subdir] = contrib
 
-<<<<<<< HEAD
 projects[clean_markup][version] = 2.7
 projects[clean_markup][subdir] = contrib
 
-=======
->>>>>>> 02b8b2f1264680770b0ae4139e156ad4d247bb6e
 projects[addthis][version] = "4.0-alpha4"
 projects[addthis][subdir] = "contrib"
 
@@ -175,6 +172,15 @@ projects[apps][subdir] = contrib
 projects[user_alert][version] = "1.10"
 projects[user_alert][subdir] = "contrib"
 
+; @todo Rm geofield-related modules
+projects[geofield][version] = "2.3"
+projects[geofield][subdir] = "contrib"
+
+projects[geophp][version] = "1.7"
+projects[geophp][subdir] = "contrib"
+
+projects[geocoder][version] = "1.2"
+projects[geocoder][subdir] = "contrib"
 
 
 ; +++++ Modules Dev/specific revisions +++++
