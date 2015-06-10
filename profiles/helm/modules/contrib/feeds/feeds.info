@@ -68,5 +68,5 @@ files[] = views/feeds_views_handler_filter_severity.inc
 version = "7.x-1.x-dev"
 core = "7.x"
 project = "feeds"
-datestamp = "1433950414"
+datestamp = "1433977665"
 

@@ -9,5 +9,5 @@ dependencies[] = oembed
 version = "7.x-1.0-rc2+24-dev"
 core = "7.x"
 project = "oembed"
-datestamp = "1433950408"
+datestamp = "1433977660"
 
