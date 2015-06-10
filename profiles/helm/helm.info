@@ -125,76 +125,26 @@ dependencies[] = helm_user
 ;@todo: slideshow
 
 
-; **************************************
-; * Panopoly Contrib
-; **************************************
 
+; Panels / Display Modules
 
-; panels_core
-
-;DUPE dependencies[] = ctools
 dependencies[] = date
 dependencies[] = date_api
 dependencies[] = date_popup
 dependencies[] = date_views
 dependencies[] = defaultconfig
-;DUPE dependencies[] = entity
-;DUPE dependencies[] = entityreference
 dependencies[] = features
 dependencies[] = field_group
 dependencies[] = field_sql_storage
 dependencies[] = fieldable_panels_panes
-;DUPE dependencies[] = image
-;DUPE dependencies[] = libraries
-;DUPE dependencies[] = list
-;DUPE dependencies[] = menu
 dependencies[] = page_manager
 dependencies[] = panelizer
 dependencies[] = panels
 dependencies[] = panels_breadcrumbs
 dependencies[] = panels_ipe
-;DUPE dependencies[] = pathauto
-dependencies[] = pm_existing_pages
-;DUPE dependencies[] = strongarm
-;DUPE dependencies[] = taxonomy
-;DUPE dependencies[] = token
 dependencies[] = transliteration
-;DUPE dependencies[] = views
 dependencies[] = views_autocomplete_filters
 dependencies[] = views_content
-
-; Panolpoly widgets
-
-;DUPE dependencies[] = ctools
-;DUPE dependencies[] = defaultconfig
-;DUPE dependencies[] = features
-;DUPE dependencies[] = fieldable_panels_panes
-;DUPE dependencies[] = file
-;DUPE dependencies[] = file_entity
-;DUPE dependencies[] = image
-;DUPE dependencies[] = link
-;DUPE dependencies[] = media
-dependencies[] = menu_block
-;DUPE dependencies[] = number
-;DUPE dependencies[] = page_manager
-;@TODO: rm geofield-related modules
-dependencies[] = geocoder
-dependencies[] = geofield
-dependencies[] = geofield_map
-dependencies[] = tablefield
-;DUPE dependencies[] = text
-;DUPE dependencies[] = views
-;DUPE dependencies[] = views_autocomplete_filters
-;DUPE dependencies[] = views_content
-
-
-; **************************************
-; * Panopoly Distro
-; **************************************
-
-
-;dependencies[] = panopoly_core
-;dependencies[] = panopoly_widgets
 
 
 files[] = helm.profile

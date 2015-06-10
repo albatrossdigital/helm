@@ -145,9 +145,6 @@ projects[fences][subdir] = contrib
 projects[panels_extra_styles][version] = 1.1
 projects[panels_extra_styles][subdir] = contrib
 
-projects[clean_markup][version] = 2.7
-projects[clean_markup][subdir] = contrib
-
 projects[addthis][version] = "4.0-alpha4"
 projects[addthis][subdir] = "contrib"
 
@@ -171,16 +168,6 @@ projects[apps][subdir] = contrib
 
 projects[user_alert][version] = "1.10"
 projects[user_alert][subdir] = "contrib"
-
-; @todo Rm geofield-related modules
-projects[geofield][version] = "2.3"
-projects[geofield][subdir] = "contrib"
-
-projects[geophp][version] = "1.7"
-projects[geophp][subdir] = "contrib"
-
-projects[geocoder][version] = "1.2"
-projects[geocoder][subdir] = "contrib"
 
 
 ; +++++ Modules Dev/specific revisions +++++
@@ -222,35 +209,6 @@ projects[uuid_features][download][revision] = f0e01172040c6bcc3a464c31a28eb0dd0b
 projects[uuid_features][download][branch] = 7.x-1.x
 projects[uuid_features][patch][2222727] = http://drupal.org/files/issues/uuid_features-adding-export_render_alter-call-2222727-45.patch
 
-; From Mar 16 2015
-; (see https://github.com/albatrossdigital/helm/issues/30)
-; Fieldable panel panes UUID export
-; projects[fieldable_panels_panes][type] = module
-; projects[fieldable_panels_panes][subdir] = contrib
-; projects[fieldable_panels_panes][download][type] = git
-; projects[fieldable_panels_panes][download][revision] = 629449f3d848929fe54d1578bf79bec32b4aa40d
-; projects[fieldable_panels_panes][download][branch] = 7.x-1.x
-
-
-; *********************************************************************************
-; * Panopoly Distro
-; *********************************************************************************
-
-
-;projects[panopoly_core][version] = 1.19
-;projects[panopoly_core][subdir] = panopoly
-;projects[panopoly_core][patch][2453509] = https://www.drupal.org/files/issues/2453509-panopoly_core-remove-makefile-7.x-1.19.patch
-
-;projects[panopoly_widgets][version] = 1.19
-;projects[panopoly_widgets][subdir] = panopoly
-;projects[panopoly_widgets][patch][2453509] = https://www.drupal.org/files/issues/2453509-panopoly_widgets-remove-makefile-7.x-1.19.patch
-;projects[panopoly_widgets][patch][2453529] = http://drupal.org/files/issues/panopoly_widgets-remove-media-requirements.patch
-
-
-; *********************************************************************************
-; * Panopoly Contrib
-; *********************************************************************************
-
 
 ; panels_core
 ; -----------------------------------
@@ -276,12 +234,6 @@ projects[fieldable_panels_panes][patch][2283263] = http://drupal.org/files/issue
 projects[fieldable_panels_panes][patch][2256503] = http://drupal.org/files/issues/fieldable_panels_panes-n2256503-12-backport-fpp15.patch
 projects[fieldable_panels_panes][patch][2415427] = http://drupal.org/files/issues/fieldable_panels_pane-avoid-reload-2415427-4.patch
 projects[fieldable_panels_panes][patch][2146479] = http://drupal.org/files/issues/2146479-admin-menu-map-conflict.patch
-
-projects[pm_existing_pages][version] = 1.4
-projects[pm_existing_pages][subdir] = contrib
-
-projects[fape][version] = 1.2
-projects[fape][subdir] = contrib
 
 ; Views Magic
 
@@ -327,24 +279,9 @@ projects[features_override][version] = 2.0-rc2
 projects[features_override][subdir] = contrib
 
 
-; panels_widgets
-; -----------------------------------
-
-; Panopoly - Contrib - Fields
-
-projects[tablefield][version] = 2.4
-projects[tablefield][subdir] = contrib
-
-projects[simple_gmap][version] = 1.2
-projects[simple_gmap][subdir] = contrib
-
-
 ; *********************************************************************************
 ; * Themes
 ; *********************************************************************************
-
-projects[bootstrap][version] = "3.0"
-projects[bootstrap][subdir] = "contrib"
 
 projects[radix][version] = "3.0-rc2"
 projects[radix][subdir] = "contrib"
