@@ -1,0 +1,11 @@
+name = Clean markup API
+description = Functions common to the clean markup suite.
+core = 7.x
+package = Clean markup
+
+; Information added by Drupal.org packaging script on 2014-07-21
+version = "7.x-2.7"
+core = "7.x"
+project = "clean_markup"
+datestamp = "1405950528"
+

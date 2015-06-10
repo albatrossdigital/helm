@@ -1,0 +1,83 @@
+<?php
+/**
+ * @file
+ * Installs the clean_markup_blocks module.
+ */
+
+module_load_include('module', 'clean_markup', 'clean_markup');
+
+/**
+ * Implements hook_install().
+ */
+function clean_markup_blocks_install() {
+  $defaults = array(
+    'block_wrapper' => 'div',
+    'additional_block_classes' => '',
+    'additional_block_attributes' => '',
+    'enable_inner_div' => FALSE,
+    'title_wrapper' => 'h2',
+    'title_hide' => FALSE,
+    'content_wrapper' => CLEAN_MARKUP_NO_ELEMENT,
+    'block_html_id_as_class' => TRUE,
+  );
+
+  // Save default settings for all blocks.
+  variable_set('clean_markup_blocks-defaults', $defaults);
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function clean_markup_blocks_uninstall() {
+  // Delete all variables in this module's namespace.
+  db_delete('variable')->condition('name', 'clean_markup_blocks-%', 'LIKE')
+    ->execute();
+}
+
+/**
+ * Sets default block wrapper to "No element".
+ */
+function clean_markup_blocks_update_7200(&$sandbox) {
+  $defaults = variable_get('clean_markup_blocks-defaults', array());
+  $defaults['block_wrapper'] = CLEAN_MARKUP_NO_ELEMENT;
+  variable_set('clean_markup_blocks-defaults', $defaults);
+}
+
+/**
+ * Sets default content wrapper to "No element', returns default block wrapper
+ * to 'div'.
+ */
+function clean_markup_blocks_update_7201(&$sandbox) {
+  $defaults = variable_get('clean_markup_blocks-defaults', array());
+  $defaults['block_wrapper'] = 'div';
+  $defaults['content_wrapper'] = CLEAN_MARKUP_NO_ELEMENT;
+  variable_set('clean_markup_blocks-defaults', $defaults);
+}
+
+/**
+ * Adds block_html_id_as_class setting.
+ */
+function clean_markup_blocks_update_7202(&$sandbox) {
+  $defaults = variable_get('clean_markup_blocks-defaults', array());
+  $defaults['block_html_id_as_class'] = TRUE;
+  variable_set('clean_markup_blocks-defaults', $defaults);
+}
+
+/**
+ * Adds additional_block_attributes setting.
+ */
+function clean_markup_blocks_update_7203(&$sandbox) {
+  $defaults = variable_get('clean_markup_blocks-defaults', array());
+  $defaults['additional_block_attributes'] = '';
+  variable_set('clean_markup_blocks-defaults', $defaults);
+}
+
+/**
+ * Flushes all caches.
+ */
+function clean_markup_blocks_update_7204(&$sandbox) {
+  // To fix #2104239, we removed one hook implementation, added a different hook
+  // implementation, and moved a template file. Clear caches so Drupal picks up
+  // on the changes.
+  drupal_flush_all_caches();
+}

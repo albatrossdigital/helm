@@ -13,4 +13,4 @@ Originally developed by Dave Reid [1].
 
 References
 --------------------------------------------------------------------------------
-1: https://www.drupal.org/u/dave-reid
+1: http://drupal.org/user/53892

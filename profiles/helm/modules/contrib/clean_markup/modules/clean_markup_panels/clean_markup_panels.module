@@ -1,0 +1,35 @@
+<?php
+/**
+ * @file
+ * Provides clean panels markup.
+ */
+
+/**
+ * Implements hook_permission().
+ */
+function clean_markup_panels_permission() {
+  $permissions = array();
+
+  $permissions['administer clean markup panel pane settings'] = array(
+    'title' => t('Administer clean panel pane markup settings'),
+    'description' => t('Change the HTML used to render panel panes.') . '<br />' . t('Users with this permission can insert arbitrary HTML, including script code, which they could use to launch Cross Site Scripting (XSS) attacks.'),
+    'restrict access' => TRUE,
+  );
+
+  $permissions['administer clean markup panel region settings'] = array(
+    'title' => t('Administer clean panel region markup settings'),
+    'description' => t('Change the HTML used to render panel regions.') . '<br />' . t('Users with this permission can insert arbitrary HTML, including script code, which they could use to launch Cross Site Scripting (XSS) attacks.'),
+    'restrict access' => TRUE,
+  );
+
+  return $permissions;
+}
+
+/**
+ * Implements hook_ctools_plugin_directory().
+ */
+function clean_markup_panels_ctools_plugin_directory($owner, $plugin_type) {
+  if ($owner === 'panels') {
+    return "plugins/$plugin_type";
+  }
+}

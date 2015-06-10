@@ -1,0 +1,78 @@
+Clean Markup 7.x-2.7, 2014-07-21
+--------------------------------
+
+#2305717 by dcmouyard: Fixed Regression: Allow block title and content
+  attributes to be overridden.
+
+Clean Markup 7.x-2.6, 2014-05-30
+--------------------------------
+
+#2269651 by joelpittet: panels-onecol-clean.tpl.php starts it's tag as a section
+  and ends with a div.
+
+Clean Markup 7.x-2.4, 2014-02-15
+--------------------------------
+
+#2104239 by mparker17, attisan | kruser: No such file errors, and blocks don't
+  display when used with Mothership theme.
+Refactored $variables to $vars in clean_markup_blocks_preprocess_block for
+  consistency with clean_markup_blocks and to make the function easier to read.
+
+Clean Markup 7.x-2.3, 2013-12-18
+--------------------------------
+
+#2078273 by dcmouyard: Allow pane content wrapper attributes to be overridden.
+Fixed #2150671: Disabling "Output block's HTML ID as class" has no effect,
+  doesn't save
+Fixed #2150649: If you enter a value for 'Additional attributes', you have to
+  start with a space to avoid invalid HTML
+#2150683: Make a11y benefits from 'Hide block title' checkbox visible from the
+  UI.
+
+Clean Markup 7.x-2.2, 2013-10-26
+--------------------------------
+
+#2081655 by dcmouyard: Added permission to edit Clean Markup settings.
+#2082065 by dcmouyard, mparker17: Fixed Follow Drupal's coding and documentation standards.
+#2104235 by dcmouyard: Fixed Output correct closing tag on blocks.
+
+Clean Markup 7.x-2.0, 2013-08-15
+--------------------------------
+
+* Added support for:
+    * Panel panes
+
+      By changing the pane style to "Clean markup" (click the gear in the top-
+      right of a pane and click "Change" under "Style"), you can:
+
+        * Disable or set the HTML5 element to use as the pane wrapper,
+        * Enable or disable an inner div,
+        * Add classes to the outer pane wrapper,
+        * Add custom attributes (i.e. role="navigation")
+        * Set the HTML5 element to wrap the title,
+        * Toggle whether the block title is displayed visually,
+        * Disable or set the HTML5 element to wrap the content.
+
+    * Panel regions
+
+        By changing the region style to "Clean markup" (click the gear in the
+        top-left of a region and click "Change" under "Style"; or click "Display
+        settings" on the panel itself), you can:
+
+        * Disable or set the HTML5 element to use as the region wrapper,
+        * Enable or disable an inner div,
+        * Add classes to the outer region element,
+        * Add custom attributes (i.e. role="navigation").
+        * Enable or disable separator divs between panes in the region.
+
+    * Panel Layouts
+
+        Layouts have been provided to take advantage of Clean Markup's ability
+        to output the minimal amount of markup.
+
+        * One Column Clean: one region and single <section> wrapper.
+        * One Column Reset: one region with no wrapper.
+        * Six pack: six regions.
+        * Myriad: five rows with four regions each that will output the absolute
+          minimum markup. For example, a row with only one region will not
+          output the row wrapper.

@@ -20,9 +20,9 @@ files[] = feeds_news.module
 files[] = feeds_news.test
 
 
-; Information added by drush on 2015-04-24
+; Information added by drush on 2015-06-10
 version = "7.x-1.x-dev"
 core = "7.x"
 project = "feeds"
-datestamp = "1429914955"
+datestamp = "1433950414"
 

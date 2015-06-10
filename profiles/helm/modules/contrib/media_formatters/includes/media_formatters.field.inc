@@ -683,7 +683,7 @@ function _media_formatters_view_flexible_media($entity_type, $entity, $field, $i
         $markup = _media_formatters_view_lazysizes($entity_type, $entity, $field, $instance, $langcode, $item, $display, $settings);
         if (!empty($settings['link_field']) && !empty($entity->{$settings['link_field']})) {
           $wrapper = entity_metadata_wrapper($entity_type, $entity);
-          $markup = l($markup, $wrapper->{$settings['link_field']}->url->value(), array('html' => TRUE));
+          $markup = l($value, $wrapper->{$settings['link_field']}->url->value(), array('html' => TRUE));
         }
         elseif (!empty($settings['image_style_lightbox'])) {
           $options = array(

@@ -40,12 +40,10 @@ class PanelsPaneController extends DrupalDefaultEntityController {
     parent::attachLoad($queried_entities, $revision_id);
 
     // We need to go through and unserialize our serialized fields.
-    if (!empty($queried_entities)) {
-      foreach ($queried_entities as $entity) {
-        foreach (array('view_access', 'edit_access') as $key) {
-          if (is_string($entity->$key)) {
-            $entity->$key = unserialize($entity->$key);
-          }
+    foreach ($queried_entities as $entity) {
+      foreach (array('view_access', 'edit_access') as $key) {
+        if (is_string($entity->$key)) {
+          $entity->$key = unserialize($entity->$key);
         }
       }
     }
@@ -61,7 +59,7 @@ class PanelsPaneController extends DrupalDefaultEntityController {
   }
 
   public function access($op, $entity = NULL, $account = NULL) {
-    if ($op !== 'create' && empty($entity)) {
+    if ($op !== 'create' && !$entity) {
       return FALSE;
     }
 
@@ -70,22 +68,22 @@ class PanelsPaneController extends DrupalDefaultEntityController {
       return TRUE;
     }
 
-    $bundle = is_string($entity) ? $entity : $entity->bundle;
+    switch ($op) {
+      case 'create':
+        return user_access('create fieldable ' . $entity);
 
-    if ($op == 'create') {
-      return user_access('create fieldable ' . $bundle);
-    }
-    elseif ($op == 'view') {
-      ctools_include('context');
-      return ctools_access($entity->view_access, fieldable_panels_panes_get_base_context($entity));
-    }
-    elseif ($op == 'update') {
-      ctools_include('context');
-      return user_access('edit fieldable ' . $bundle) && ctools_access($entity->edit_access, fieldable_panels_panes_get_base_context($entity));
-    }
-    elseif ($op == 'delete') {
-      ctools_include('context');
-      return user_access('delete fieldable ' . $bundle) && ctools_access($entity->edit_access, fieldable_panels_panes_get_base_context($entity));
+      case 'view':
+        ctools_include('context');
+        return ctools_access($entity->view_access, fieldable_panels_panes_get_base_context($entity));
+
+      case 'update':
+        ctools_include('context');
+        return user_access('edit fieldable ' . $entity->bundle) && ctools_access($entity->edit_access, fieldable_panels_panes_get_base_context($entity));
+
+      case 'delete':
+        ctools_include('context');
+        return user_access('delete fieldable ' . $entity->bundle) && ctools_access($entity->edit_access, fieldable_panels_panes_get_base_context($entity));
+
     }
 
     return FALSE;
@@ -97,11 +95,6 @@ class PanelsPaneController extends DrupalDefaultEntityController {
     $entity->is_new = !(isset($entity->fpid) && is_numeric($entity->fpid));
 
     $transaction = db_transaction();
-
-    // Load the stored entity, if any.
-    if (!empty($entity->fpid) && !isset($entity->original)) {
-      $entity->original = entity_load_unchanged('fieldable_panels_pane', $entity->fpid);
-    }
 
     // Set the timestamp fields.
     if (empty($entity->created)) {
@@ -116,7 +109,6 @@ class PanelsPaneController extends DrupalDefaultEntityController {
     $entity->changed = REQUEST_TIME;
 
     field_attach_presave('fieldable_panels_pane', $entity);
-    module_invoke_all('fieldable_panels_pane_presave', $entity);
     module_invoke_all('entity_presave', $entity, 'fieldable_panels_pane');
 
     // When saving a new entity revision, unset any existing $entity->vid
@@ -128,6 +120,8 @@ class PanelsPaneController extends DrupalDefaultEntityController {
       $entity->timestamp = REQUEST_TIME;
     }
 
+    module_invoke_all('entity_presave', $entity, 'fieldable_panels_pane');
+
     try {
       if (!$entity->is_new) {
         // Since we already have an fpid, write the revision to ensure the
@@ -136,7 +130,6 @@ class PanelsPaneController extends DrupalDefaultEntityController {
         drupal_write_record('fieldable_panels_panes', $entity, 'fpid');
 
         field_attach_update('fieldable_panels_pane', $entity);
-        module_invoke_all('fieldable_panels_pane_update', $entity);
         module_invoke_all('entity_update', $entity, 'fieldable_panels_pane');
 
       }
@@ -152,7 +145,6 @@ class PanelsPaneController extends DrupalDefaultEntityController {
           ->execute();
 
         field_attach_insert('fieldable_panels_pane', $entity);
-        module_invoke_all('fieldable_panels_pane_insert');
         module_invoke_all('entity_insert', $entity, 'fieldable_panels_pane');
       }
 
@@ -247,7 +239,7 @@ class PanelsPaneController extends DrupalDefaultEntityController {
 
     // Remove previously built content, if exists.
     $entity->content = array();
-
+ 
     // Add the title so that it may be controlled via other display mechanisms.
     $entity->content['title'] = array(
       '#theme' => 'html_tag',
@@ -264,8 +256,7 @@ class PanelsPaneController extends DrupalDefaultEntityController {
       }
     }
 
-    // Allow modules to change the view mode, trigger
-    // hook_entity_view_mode_alter().
+    // Allow modules to change the view mode.
     $context = array(
       'entity_type' => 'fieldable_panels_pane',
       'entity' => $entity,
@@ -292,30 +283,26 @@ class PanelsPaneController extends DrupalDefaultEntityController {
     if (!empty($fpids)) {
       $entities = fieldable_panels_panes_load_multiple($fpids, array());
 
-      if (!empty($entities)) {
-        try {
-          foreach ($entities as $fpid => $entity) {
-            // Call the entity-specific callback (if any):
-            module_invoke_all('fieldable_panels_pane_delete', $entity);
-            module_invoke_all('entity_delete', $entity, 'fieldable_panels_pane');
-            field_attach_delete('fieldable_panels_pane', $entity);
-          }
-
-          // Delete after calling hooks so that they can query entity tables as
-          // needed.
-          db_delete('fieldable_panels_panes')
-            ->condition('fpid', $fpids, 'IN')
-            ->execute();
-
-          db_delete('fieldable_panels_panes_revision')
-            ->condition('fpid', $fpids, 'IN')
-            ->execute();
+      try {
+        foreach ($entities as $fpid => $entity) {
+          // Call the entity-specific callback (if any):
+          module_invoke_all('entity_delete', $entity, 'fieldable_panels_pane');
+          field_attach_delete('fieldable_panels_pane', $entity);
         }
-        catch (Exception $e) {
-          $transaction->rollback();
-          watchdog_exception('fieldable_panels_pane', $e);
-          throw $e;
-        }
+
+        // Delete after calling hooks so that they can query entity tables as needed.
+        db_delete('fieldable_panels_panes')
+          ->condition('fpid', $fpids, 'IN')
+          ->execute();
+
+        db_delete('fieldable_panels_panes_revision')
+          ->condition('fpid', $fpids, 'IN')
+          ->execute();
+      }
+      catch (Exception $e) {
+        $transaction->rollback();
+        watchdog_exception('fieldable_panels_pane', $e);
+        throw $e;
       }
 
       // Clear the page and block and entity_load_multiple caches.

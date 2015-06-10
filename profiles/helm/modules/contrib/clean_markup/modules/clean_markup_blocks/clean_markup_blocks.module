@@ -1,0 +1,319 @@
+<?php
+/**
+ * @file
+ * Provides clean block markup.
+ */
+
+/**
+ * Implements hook_permission().
+ */
+function clean_markup_blocks_permission() {
+  $permissions = array();
+
+  $permissions['administer clean markup block settings'] = array(
+    'title' => t('Administer clean block markup settings'),
+    'description' => t('Change the HTML used to render blocks.') . '<br />' . t('Users with this permission can insert arbitrary HTML, including script code, which they could use to launch Cross Site Scripting (XSS) attacks.'),
+    'restrict access' => TRUE,
+  );
+
+  return $permissions;
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function clean_markup_blocks_form_alter(&$form, &$form_state, $form_id) {
+  if ($form_id === 'block_admin_configure' || $form_id == 'block_add_block_form') {
+    if (user_access('administer clean markup block settings')) {
+      // Load defaults.
+      $defaults = variable_get('clean_markup_blocks-defaults');
+      $wrapper_elements = _clean_markup_get_html_wrapper_elements();
+      $optional_wrapper_elements = _clean_markup_get_html_wrapper_elements(TRUE);
+
+      // Get settings for this block.
+      $variable_name = _clean_markup_blocks_generate_prefix($form['module']['#value'], $form['delta']['#value']);
+      $this_block_settings = variable_get($variable_name, $defaults);
+
+      // Set our own submit handler so we can save the settings in our custom
+      // part of the form.
+      $form['#submit'][] = '_clean_markup_blocks_block_configure_submit';
+
+      // Create our custom part of the form.
+      $form['clean_markup'] = array(
+        '#type' => 'fieldset',
+        '#title' => t('Clean markup options'),
+        '#group' => 'visibility',
+      );
+
+      // Controls for block markup.
+      $form['clean_markup']['block_wrapper'] = array(
+        '#type' => 'select',
+        '#title' => t('Block wrapper markup'),
+        '#description' => t('Choose the HTML element to wrap the block.'),
+        '#default_value' => $this_block_settings['block_wrapper'],
+        '#options' => $optional_wrapper_elements,
+      );
+      $form['clean_markup']['additional_block_classes'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Additional block classes'),
+        '#description' => t('Additional classes to set on the block wrapper.'),
+        '#default_value' => $this_block_settings['additional_block_classes'],
+        '#states' => array(
+          'invisible' => array(
+            ':input[name="block_wrapper"]' => array('value' => CLEAN_MARKUP_NO_ELEMENT),
+          ),
+        ),
+      );
+
+      $form['clean_markup']['additional_block_attributes'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Additional attributes'),
+        '#description' => t('Additional attributes to set on the block wrapper (i.e. <code>role="navigation"</code>). Text entered here will not be sanitized.') . '<br />' .
+        t('While this is a powerful and flexible feature if used by a trusted user with HTML experience, it is a security risk in the hands of a malicious or inexperienced user.'),
+        '#default_value' => $this_block_settings['additional_block_attributes'],
+        '#states' => array(
+          'invisible' => array(
+            ':input[name="block_wrapper"]' => array('value' => CLEAN_MARKUP_NO_ELEMENT),
+          ),
+        ),
+      );
+      if (module_exists('token')) {
+        $form['clean_markup']['token_help'] = array(
+          '#title' => t('Replacement patterns'),
+          '#type' => 'fieldset',
+          '#collapsible' => TRUE,
+          '#collapsed' => TRUE,
+          '#description' => t('Prefer raw-text replacements for text to avoid problems with HTML entities!'),
+          '#states' => array(
+            'invisible' => array(
+              ':input[name="block_wrapper"]' => array('value' => CLEAN_MARKUP_NO_ELEMENT),
+            ),
+          ),
+        );
+        $form['clean_markup']['token_help']['help'] = array(
+          '#value' => theme('token_tree', array('global'), TRUE, TRUE),
+        );
+        $form['clean_markup']['token_help']['help']['tokens'] = array(
+          '#theme' => 'token_tree',
+          '#token_types' => array('global'),
+          '#global_types' => TRUE,
+          '#click_insert' => TRUE,
+        );
+      }
+
+      $form['clean_markup']['block_html_id_as_class'] = array(
+        '#type' => 'checkbox',
+        '#title' => t("Output block's HTML ID as class"),
+        '#default_value' => $this_block_settings['block_html_id_as_class'],
+        '#states' => array(
+          'invisible' => array(
+            ':input[name="block_wrapper"]' => array('value' => CLEAN_MARKUP_NO_ELEMENT),
+          ),
+        ),
+      );
+
+      $form['clean_markup']['enable_inner_div'] = array(
+        '#type' => 'checkbox',
+        '#title' => t('Enable inner div'),
+        '#description' => t('Specify if you want an inner div element inside the main block wrapper.'),
+        '#default_value' => $this_block_settings['enable_inner_div'],
+        '#states' => array(
+          'invisible' => array(
+            ':input[name="block_wrapper"]' => array('value' => CLEAN_MARKUP_NO_ELEMENT),
+          ),
+        ),
+      );
+
+      // Controls for title markup.
+      $form['clean_markup']['title_wrapper'] = array(
+        '#type' => 'select',
+        '#title' => t('Title wrapper markup'),
+        '#description' => t('Choose the HTML to use to wrap the block title.'),
+        '#default_value' => $this_block_settings['title_wrapper'],
+        '#options' => $wrapper_elements,
+      );
+      $form['clean_markup']['title_hide'] = array(
+        '#type' => 'checkbox',
+        '#title' => t('Visually-hide block title'),
+        '#description' => t('Add the <code>element-invisible</code> CSS class to the block title. This hides it visually but leaves it visible to screenreaders.'),
+        '#default_value' => $this_block_settings['title_hide'],
+      );
+
+      // Controls for content markup.
+      $form['clean_markup']['content_wrapper'] = array(
+        '#type' => 'select',
+        '#title' => t('Content wrapper markup'),
+        '#description' => t('Choose the HTML to use to wrap the block content.'),
+        '#default_value' => $this_block_settings['content_wrapper'],
+        '#options' => $optional_wrapper_elements,
+      );
+    }
+  }
+}
+
+/**
+ * Form submit handler for block_admin_configure() and block_add_block_form().
+ *
+ * This allows us to save our custom options.
+ */
+function _clean_markup_blocks_block_configure_submit($form, &$form_state) {
+  if (user_access('administer clean markup block settings')) {
+    // Load defaults.
+    $defaults = variable_get('clean_markup_blocks-defaults');
+    $valid_wrapper_elements = _clean_markup_get_html_wrapper_elements(TRUE);
+
+    // Get settings for this block.
+    $variable_name = _clean_markup_blocks_generate_prefix($form_state['values']['module'], $form_state['values']['delta']);
+    $new_block_settings = variable_get($variable_name, $defaults);
+
+    // Match user input with valid wrapper element keys, otherwise user may be
+    // trying to XSS.
+    $new_block_settings['block_wrapper'] = array_key_exists($form_state['values']['block_wrapper'], $valid_wrapper_elements) ? $form_state['values']['block_wrapper'] : $defaults['block_wrapper'];
+    $new_block_settings['title_wrapper'] = array_key_exists($form_state['values']['title_wrapper'], $valid_wrapper_elements) ? $form_state['values']['title_wrapper'] : $defaults['title_wrapper'];
+    $new_block_settings['content_wrapper'] = array_key_exists($form_state['values']['content_wrapper'], $valid_wrapper_elements) ? $form_state['values']['content_wrapper'] : $defaults['content_wrapper'];
+
+    // @ATTENTION: We assume that check_plain will be run before this value is
+    // output; we're not running it here.
+    $new_block_settings['additional_block_classes'] = $form_state['values']['additional_block_classes'];
+
+    // @ATTENTION: This value will not be run through check_plain when output.
+    $new_block_settings['additional_block_attributes'] = $form_state['values']['additional_block_attributes'];
+
+    // Drupal 7 takes care of ensuring checkboxes that are in the form but were
+    // submitted as FALSE show up in $form_state['values'] as FALSE even though
+    // they weren't in the POST data. :D
+    $new_block_settings['enable_inner_div'] = (boolean) $form_state['values']['enable_inner_div'];
+    $new_block_settings['title_hide'] = (boolean) $form_state['values']['title_hide'];
+    $new_block_settings['block_html_id_as_class'] = (boolean) $form_state['values']['block_html_id_as_class'];
+
+    variable_set($variable_name, $new_block_settings);
+  }
+}
+
+/**
+ * Helper function to generate a unique variable name for a block.
+ *
+ * @param string $module
+ *   The name of the module providing this block.
+ * @param string $delta
+ *   The delta of this block in this module.
+ *
+ * @return string
+ *   The unique name of the variable corresponding to the block identified by
+ *   the parameters.
+ */
+function _clean_markup_blocks_generate_prefix($module, $delta) {
+  return 'clean_markup_blocks--' . $module . '-' . $delta;
+}
+
+/**
+ * Implements MODULE_preprocess_HOOK().
+ */
+function clean_markup_blocks_preprocess_block(&$vars) {
+  // Load defaults.
+  $defaults = variable_get('clean_markup_blocks-defaults');
+
+  // Get settings for this block.
+  $variable_name = _clean_markup_blocks_generate_prefix($vars['block']->module, $vars['block']->delta);
+  $current_block_settings = variable_get($variable_name, $defaults);
+
+  // Copy simple settings into variables.
+  $vars['block_wrapper'] = $current_block_settings['block_wrapper'];
+  $vars['inner_div'] = $current_block_settings['enable_inner_div'];
+  if (module_exists('token')) {
+    $vars['additional_attributes'] = token_replace($current_block_settings['additional_block_attributes'], array('global'));
+  }
+  else {
+    $vars['additional_attributes'] = $current_block_settings['additional_block_attributes'];
+  }
+
+  // Pad additional_attributes.
+  if (!empty($vars['additional_attributes'])) {
+    $vars['additional_attributes'] = str_pad($vars['additional_attributes'], strlen($vars['additional_attributes']) + 2 ,' ', STR_PAD_BOTH);
+  }
+
+  // Convert the additional block classes into an array, then merge into the
+  // existing classes array. Note the use of check_plain to prevent XSS.
+  $vars['classes_array'] = array_merge(
+    $vars['classes_array'],
+    explode(' ', check_plain($current_block_settings['additional_block_classes']))
+  );
+
+  // Only output a title if one is set.
+  if ($vars['block']->subject) {
+    $vars['title'] = array(
+      '#prefix' => $vars['title_prefix'],
+      '#suffix' => $vars['title_suffix'],
+      '#type' => 'html_tag',
+      '#tag' => $current_block_settings['title_wrapper'],
+      '#attributes' => isset($vars['title_attributes']) ? $vars['title_attributes'] : array(),
+      '#value' => $vars['block']->subject,
+    );
+    $vars['title']['#attributes']['class'] = array(
+      'title',
+      'block-title',
+    );
+    if ($current_block_settings['title_hide']) {
+      $vars['title']['#attributes']['class'][] = 'element-invisible';
+    }
+  }
+  else {
+    $vars['title'] = '';
+  }
+
+  // Only wrap the content if the user wants a wrapper.
+  if ($current_block_settings['content_wrapper'] !== CLEAN_MARKUP_NO_ELEMENT) {
+    $vars['content'] = array(
+      '#type' => 'html_tag',
+      '#tag' => $current_block_settings['content_wrapper'],
+      '#attributes' => array(
+        'class' => array('content'),
+      ),
+      '#value' => $vars['content'],
+    );
+    $vars['content']['#attributes'] += $vars['content_attributes_array'];
+  }
+
+  // Output the block HTML ID as a class if requested.
+  if ($current_block_settings['block_html_id_as_class']) {
+    $vars['classes_array'][] = $vars['block_html_id'];
+  }
+}
+
+/**
+ * Implements MODULE_process_HOOK().
+ */
+function clean_markup_blocks_process_block(&$vars) {
+  // Only output a title if one is set.
+  if ($vars['block']->subject) {
+    // Render title prefix and suffix.
+    $vars['title']['#prefix'] = render($vars['title_prefix']);
+    $vars['title']['#suffix'] = render($vars['title_suffix']);
+
+    // Core's block.tpl.php assumes the block subject is a string. While this is
+    // a different variable entirely, it's worth being consistent.
+    $vars['title'] = render($vars['title']);
+  }
+  else {
+    $vars['title'] = '';
+  }
+
+  // Core's block.tpl.php assumes the content is a string (it doesn't call
+  // render() on it). Even though we're overriding that tpl file, it's worth
+  // being consistent.
+  $vars['content'] = render($vars['content']);
+}
+
+/**
+ * Implements hook_theme().
+ */
+function clean_markup_blocks_theme($existing, $type, $theme, $path) {
+  // Return our own block theme-hook implementation, which will override core's
+  // block module's implementation.
+  return array(
+    'block' => array(
+      'render element' => 'elements',
+      'template' => 'block',
+    ),
+  );
+}

@@ -1,0 +1,12 @@
+/**
+ * @file
+ * Define styles for the Myriad theme.
+ */
+.myriad-row {
+  background: rgb(179,179,179);
+  padding: 1em;
+}
+
+.myriad-row + .myriad-row {
+  margin-top: 2em;
+}

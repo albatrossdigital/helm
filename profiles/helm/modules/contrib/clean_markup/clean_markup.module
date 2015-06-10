@@ -1,0 +1,65 @@
+<?php
+/**
+ * @file
+ * Functions common to the clean markup suite.
+ */
+
+/**
+ * No HTML wrapper element.
+ */
+define('CLEAN_MARKUP_NO_ELEMENT', 'none');
+
+/**
+ * Returns an array of HTML element types which can be used as wrappers.
+ *
+ * @see http://www.w3.org/TR/2012/CR-html5-20121217/index.html#elements-1
+ *
+ * @param bool $show_no_wrapper
+ *   Whether or not to show the "no wrapper" option in the list.
+ *
+ * @return array
+ *   An array of HTML element names, where keys are the HTML element and values
+ *   are translated description strings.
+ */
+function _clean_markup_get_html_wrapper_elements($show_no_wrapper = FALSE) {
+  $answer = array();
+
+  if ($show_no_wrapper) {
+    $answer[CLEAN_MARKUP_NO_ELEMENT] = '-- ' . t('No wrapper') . ' --';
+  }
+
+  $answer['address']    = t('@element — Contact information for a page or article element', array('@element' => 'address'));
+  $answer['article']    = t('@element — Self-contained syndicatable or reusable composition', array('@element' => 'article'));
+  $answer['aside']      = t('@element — Sidebar for tangentially related content', array('@element' => 'aside'));
+  $answer['blockquote'] = t('@element — A section quoted from another source', array('@element' => 'blockquote'));
+  $answer['caption']    = t('@element — Table caption', array('@element' => 'caption'));
+  $answer['details']    = t('@element — Disclosure control for hiding details', array('@element' => 'details'));
+  $answer['dd']         = t('@element — Content for corresponding dt element(s)', array('@element' => 'dd'));
+  $answer['dialog']     = t('@element — Dialog box or window', array('@element' => 'dialog'));
+  $answer['div']        = t('@element — Generic flow container', array('@element' => 'div'));
+  $answer['dl']         = t('@element — Association list consisting of zero or more name-value groups', array('@element' => 'dl'));
+  $answer['dt']         = t('@element — Legend for corresponding dd element(s)', array('@element' => 'dt'));
+  $answer['fieldset']   = t('@element — Group of form controls', array('@element' => 'fieldset'));
+  $answer['figcaption'] = t('@element — Figure caption', array('@element' => 'figcaption'));
+  $answer['figure']     = t('@element — Figure with optional caption', array('@element' => 'figure'));
+  $answer['footer']     = t('@element — Footer for a page or section', array('@element' => 'footer'));
+  $answer['h1']         = t('@element — First-level section heading', array('@element' => 'h1'));
+  $answer['h2']         = t('@element — Second-level section heading', array('@element' => 'h2'));
+  $answer['h3']         = t('@element — Third-level section heading', array('@element' => 'h3'));
+  $answer['h4']         = t('@element — Fourth-level section heading', array('@element' => 'h4'));
+  $answer['h5']         = t('@element — Fifth-level section heading', array('@element' => 'h5'));
+  $answer['h6']         = t('@element — Sixth-level section heading', array('@element' => 'h6'));
+  $answer['p']         = t('@element — Basic Paragraph', array('@element' => 'p'));
+  $answer['header']     = t('@element — Introductory or navigational aids for a page or section', array('@element' => 'header'));
+  $answer['li']         = t('@element — List item', array('@element' => 'li'));
+  $answer['menu']       = t('@element — Menu of commands', array('@element' => 'menu'));
+  $answer['nav']        = t('@element — Section with navigational links', array('@element' => 'nav'));
+  $answer['ol']         = t('@element — Ordered list', array('@element' => 'ol'));
+  $answer['section']    = t('@element — Generic document or application section', array('@element' => 'section'));
+  $answer['span']       = t('@element — Generic phrasing container', array('@element' => 'span'));
+  $answer['td']         = t('@element — Table cell', array('@element' => 'td'));
+  $answer['th']         = t('@element — Table header cell', array('@element' => 'th'));
+  $answer['ul']         = t('@element — List', array('@element' => 'ul'));
+
+  return $answer;
+}

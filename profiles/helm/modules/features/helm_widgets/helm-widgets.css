@@ -1,0 +1,34 @@
+/* Media Browser */
+body.page-media-browser {
+  height: auto;
+}
+
+/* Map Widget */
+div.pane-bundle-map .pane-content {
+  overflow: hidden;
+}
+
+div.field-name-field-map-address img {
+  max-width: auto;
+}
+
+/* File Widget */
+img.file-icon,
+div.file-widget img {
+  vertical-align: middle;
+}
+
+/* Table Widget */
+#modalContent .tablefield-row-0 {
+  background-color: rgba(0, 0, 0, 0.51);
+  color: #ffffff;
+  font-weight: bold;
+}
+
+/**
+ * Hide the Media 'Edit' button when on a CTools dialog, because it will
+ * close the current CTools dialog. Remove once #2264187 is fixed.
+ */
+.ctools-modal-content .media-widget a.edit {
+  display: none;
+}

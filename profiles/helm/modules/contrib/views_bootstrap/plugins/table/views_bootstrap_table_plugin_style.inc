@@ -32,7 +32,6 @@ class ViewsBootstrapTablePluginStyle extends views_plugin_style_table {
         'bordered' => t('Bordered'),
         'hover' => t('Hover'),
         'condensed' => t('Condensed'),
-        'responsive' => t('Responsive'),
       ),
     );
   }

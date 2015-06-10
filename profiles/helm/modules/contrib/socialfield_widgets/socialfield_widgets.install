@@ -13,21 +13,7 @@ function socialfield_widgets_install() {
   $base_services = variable_get('socialfield_services', array()); 
 
   foreach ($base_services as $key => &$data) {
-    switch($key) {
-      // Fontawesome has googleplus a little different
-      case 'googleplus':
-        $data['icon'] .= ' fa fa-' . 'google-plus';
-        break;
-
-      // Anything with a "square"
-      case 'vimeo':
-        $data['icon'] .= ' fa fa-' . $key . '-square';
-        break;
-
-      default:
-         $data['icon'] .= ' fa fa-' . $key;
-    }
-   
+    $data['icon'] .= ' fa fa-' . $key;
   }
 
   variable_set('socialfield_services', $base_services);
