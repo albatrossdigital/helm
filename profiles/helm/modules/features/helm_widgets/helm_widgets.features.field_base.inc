@@ -122,24 +122,6 @@ function helm_widgets_field_default_field_bases() {
     'type' => 'link_field',
   );
 
-  // Exported field_base: 'field_basic_table_table'
-  $field_bases['field_basic_table_table'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_basic_table_table',
-    'indexes' => array(),
-    'locked' => 0,
-    'module' => 'tablefield',
-    'settings' => array(
-      'cell_processing' => 0,
-      'lock_values' => 0,
-    ),
-    'translatable' => 0,
-    'type' => 'tablefield',
-  );
-
   // Exported field_base: 'field_basic_text_text'
   $field_bases['field_basic_text_text'] = array(
     'active' => 1,
@@ -157,96 +139,6 @@ function helm_widgets_field_default_field_bases() {
     'settings' => array(),
     'translatable' => 0,
     'type' => 'text_long',
-  );
-
-  // Exported field_base: 'field_map_address'
-  $field_bases['field_map_address'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_map_address',
-    'indexes' => array(
-      'format' => array(
-        0 => 'format',
-      ),
-    ),
-    'locked' => 0,
-    'module' => 'text',
-    'settings' => array(
-      'max_length' => 255,
-    ),
-    'translatable' => 0,
-    'type' => 'text',
-  );
-
-  // Exported field_base: 'field_map_information'
-  $field_bases['field_map_information'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_map_information',
-    'indexes' => array(
-      'format' => array(
-        0 => 'format',
-      ),
-    ),
-    'locked' => 0,
-    'module' => 'text',
-    'settings' => array(),
-    'translatable' => 0,
-    'type' => 'text_long',
-  );
-
-  // Exported field_base: 'field_map_location'
-  $field_bases['field_map_location'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_map_location',
-    'indexes' => array(
-      'bbox' => array(
-        0 => 'top',
-        1 => 'bottom',
-        2 => 'left',
-        3 => 'right',
-      ),
-      'bottom' => array(
-        0 => 'bottom',
-      ),
-      'centroid' => array(
-        0 => 'lat',
-        1 => 'lon',
-      ),
-      'geohash' => array(
-        0 => 'geohash',
-      ),
-      'lat' => array(
-        0 => 'lat',
-      ),
-      'left' => array(
-        0 => 'left',
-      ),
-      'lon' => array(
-        0 => 'lon',
-      ),
-      'right' => array(
-        0 => 'right',
-      ),
-      'top' => array(
-        0 => 'top',
-      ),
-    ),
-    'locked' => 0,
-    'module' => 'geofield',
-    'settings' => array(
-      'backend' => 'default',
-      'srid' => 4326,
-    ),
-    'translatable' => 0,
-    'type' => 'geofield',
   );
 
   // Exported field_base: 'field_quick_links_links'

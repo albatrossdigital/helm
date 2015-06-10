@@ -3,26 +3,10 @@ body.page-media-browser {
   height: auto;
 }
 
-/* Map Widget */
-div.pane-bundle-map .pane-content {
-  overflow: hidden;
-}
-
-div.field-name-field-map-address img {
-  max-width: auto;
-}
-
 /* File Widget */
 img.file-icon,
 div.file-widget img {
   vertical-align: middle;
-}
-
-/* Table Widget */
-#modalContent .tablefield-row-0 {
-  background-color: rgba(0, 0, 0, 0.51);
-  color: #ffffff;
-  font-weight: bold;
 }
 
 /**

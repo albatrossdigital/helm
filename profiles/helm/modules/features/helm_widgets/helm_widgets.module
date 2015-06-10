@@ -182,17 +182,6 @@ function helm_widgets_form_alter(&$form, &$form_state, $form_id) {
     // Update the text for the reusable markup
     $form['reusable']['warning']['#markup'] = '<div class="description">' . t('Note: This item is reusable! Any changes made will be applied globally.') . '</div>';
   }
-
-  // Improve the usability and functionality of the table field widget
-  if (!empty($form['field_basic_table_table'])) {
-    $form['field_basic_table_table'][LANGUAGE_NONE][0]['tablefield']['import']['#access'] = FALSE; // Remove importing from CSV
-    $form['field_basic_table_table'][LANGUAGE_NONE][0]['tablefield']['rebuild']['#collapsible'] = FALSE;
-    $form['field_basic_table_table'][LANGUAGE_NONE][0]['tablefield']['rebuild']['#collapsed'] = FALSE;
-    $form['field_basic_table_table'][LANGUAGE_NONE][0]['tablefield']['rebuild']['count_cols']['#field_prefix'] = $form['field_basic_table_table'][LANGUAGE_NONE][0]['tablefield']['rebuild']['count_cols']['#title'] . '? ';
-    $form['field_basic_table_table'][LANGUAGE_NONE][0]['tablefield']['rebuild']['count_cols']['#title'] = '';
-    $form['field_basic_table_table'][LANGUAGE_NONE][0]['tablefield']['rebuild']['count_rows']['#field_prefix'] = $form['field_basic_table_table'][LANGUAGE_NONE][0]['tablefield']['rebuild']['count_rows']['#title'] . '? ';
-    $form['field_basic_table_table'][LANGUAGE_NONE][0]['tablefield']['rebuild']['count_rows']['#title'] = '';
-  }
 }
 
 /**
@@ -281,36 +270,6 @@ function helm_widgets_entity_info_alter(&$entity_info) {
       'path' => 'admin/structure/fieldable-panels-panes/manage/%fieldable_panels_panes_type',
       'bundle argument' => 4,
       'real path' => 'admin/structure/fieldable-panels-panes/manage/text',
-      'access arguments' => array('administer fieldable panels panes'),
-    ),
-  );
-
-  // Basic Map
-  $entity_info['fieldable_panels_pane']['bundles']['map'] = array(
-    'label' => t('Add map'),
-    'description' => t('Add map'),
-    'pane category' => t('Custom'),
-    'pane top level' => TRUE,
-    'pane icon' => drupal_get_path('module', 'helm_widgets') . '/images/icon_map.png',
-    'admin' => array(
-      'path' => 'admin/structure/fieldable-panels-panes/manage/%fieldable_panels_panes_type',
-      'bundle argument' => 4,
-      'real path' => 'admin/structure/fieldable-panels-panes/manage/map',
-      'access arguments' => array('administer fieldable panels panes'),
-    ),
-  );
- 
-  // Basic table
-  $entity_info['fieldable_panels_pane']['bundles']['table'] = array(
-    'label' => t('Add table'),
-    'description' => t('Add table'),
-    'pane category' => t('Custom'),
-    'pane top level' => TRUE,
-    'pane icon' => drupal_get_path('module', 'helm_widgets') . '/images/icon_table.png',
-    'admin' => array(
-      'path' => 'admin/structure/fieldable-panels-panes/manage/%fieldable_panels_panes_type',
-      'bundle argument' => 4,
-      'real path' => 'admin/structure/fieldable-panels-panes/manage/table',
       'access arguments' => array('administer fieldable panels panes'),
     ),
   );

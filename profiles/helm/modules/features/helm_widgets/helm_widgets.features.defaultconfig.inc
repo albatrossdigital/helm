@@ -41,29 +41,9 @@ function helm_widgets_defaultconfig_user_default_permissions() {
     'module' => 'fieldable_panels_panes',
   );
 
-  // Exported permission: 'create fieldable map'.
-  $permissions['create fieldable map'] = array(
-    'name' => 'create fieldable map',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'editor' => 'editor',
-    ),
-    'module' => 'fieldable_panels_panes',
-  );
-
   // Exported permission: 'create fieldable quick_links'.
   $permissions['create fieldable quick_links'] = array(
     'name' => 'create fieldable quick_links',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'editor' => 'editor',
-    ),
-    'module' => 'fieldable_panels_panes',
-  );
-
-  // Exported permission: 'create fieldable table'.
-  $permissions['create fieldable table'] = array(
-    'name' => 'create fieldable table',
     'roles' => array(
       'administrator' => 'administrator',
       'editor' => 'editor',
@@ -111,29 +91,9 @@ function helm_widgets_defaultconfig_user_default_permissions() {
     'module' => 'fieldable_panels_panes',
   );
 
-  // Exported permission: 'delete fieldable map'.
-  $permissions['delete fieldable map'] = array(
-    'name' => 'delete fieldable map',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'editor' => 'editor',
-    ),
-    'module' => 'fieldable_panels_panes',
-  );
-
   // Exported permission: 'delete fieldable quick_links'.
   $permissions['delete fieldable quick_links'] = array(
     'name' => 'delete fieldable quick_links',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'editor' => 'editor',
-    ),
-    'module' => 'fieldable_panels_panes',
-  );
-
-  // Exported permission: 'delete fieldable table'.
-  $permissions['delete fieldable table'] = array(
-    'name' => 'delete fieldable table',
     'roles' => array(
       'administrator' => 'administrator',
       'editor' => 'editor',
@@ -181,29 +141,9 @@ function helm_widgets_defaultconfig_user_default_permissions() {
     'module' => 'fieldable_panels_panes',
   );
 
-  // Exported permission: 'edit fieldable map'.
-  $permissions['edit fieldable map'] = array(
-    'name' => 'edit fieldable map',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'editor' => 'editor',
-    ),
-    'module' => 'fieldable_panels_panes',
-  );
-
   // Exported permission: 'edit fieldable quick_links'.
   $permissions['edit fieldable quick_links'] = array(
     'name' => 'edit fieldable quick_links',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'editor' => 'editor',
-    ),
-    'module' => 'fieldable_panels_panes',
-  );
-
-  // Exported permission: 'edit fieldable table'.
-  $permissions['edit fieldable table'] = array(
-    'name' => 'edit fieldable table',
     'roles' => array(
       'administrator' => 'administrator',
       'editor' => 'editor',

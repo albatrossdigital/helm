@@ -272,162 +272,6 @@ function helm_widgets_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'fieldable_panels_pane-map-field_map_address'
-  $field_instances['fieldable_panels_pane-map-field_map_address'] = array(
-    'bundle' => 'map',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => 'The street address of the location you wish to map. This widget will contact Google and try to do its best to create a map!',
-    'display' => array(
-      'default' => array(
-        'label' => 'hidden',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 3,
-      ),
-      'triptych' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'fieldable_panels_pane',
-    'field_name' => 'field_map_address',
-    'label' => 'Address',
-    'required' => 0,
-    'settings' => array(
-      'text_processing' => 0,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'text',
-      'settings' => array(
-        'size' => 60,
-      ),
-      'type' => 'text_textfield',
-      'weight' => 1,
-    ),
-  );
-
-  // Exported field_instance: 'fieldable_panels_pane-map-field_map_information'
-  $field_instances['fieldable_panels_pane-map-field_map_information'] = array(
-    'bundle' => 'map',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'hidden',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 2,
-      ),
-      'triptych' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'fieldable_panels_pane',
-    'field_name' => 'field_map_information',
-    'label' => 'Information',
-    'required' => 0,
-    'settings' => array(
-      'text_processing' => 1,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'text',
-      'settings' => array(
-        'rows' => 3,
-      ),
-      'type' => 'text_textarea',
-      'weight' => 3,
-    ),
-  );
-
-  // Exported field_instance: 'fieldable_panels_pane-map-field_map_location'
-  $field_instances['fieldable_panels_pane-map-field_map_location'] = array(
-    'bundle' => 'map',
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'hidden',
-        'module' => 'geofield_map',
-        'settings' => array(
-          'geofield_map_baselayers_hybrid' => 1,
-          'geofield_map_baselayers_map' => 1,
-          'geofield_map_baselayers_physical' => 0,
-          'geofield_map_baselayers_satellite' => 1,
-          'geofield_map_center' => array(
-            'geocode' => 'Find my location',
-            'lat' => '',
-            'lon' => '',
-          ),
-          'geofield_map_controltype' => 'default',
-          'geofield_map_draggable' => 0,
-          'geofield_map_height' => '300px',
-          'geofield_map_maptype' => 'map',
-          'geofield_map_max_zoom' => 0,
-          'geofield_map_min_zoom' => 0,
-          'geofield_map_mtc' => 'standard',
-          'geofield_map_overview' => 0,
-          'geofield_map_overview_opened' => 0,
-          'geofield_map_pancontrol' => 1,
-          'geofield_map_scale' => 0,
-          'geofield_map_scrollwheel' => 0,
-          'geofield_map_streetview_show' => 0,
-          'geofield_map_width' => '100%',
-          'geofield_map_zoom' => 8,
-        ),
-        'type' => 'geofield_map_map',
-        'weight' => 1,
-      ),
-      'triptych' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'fieldable_panels_pane',
-    'field_name' => 'field_map_location',
-    'label' => 'Location',
-    'required' => 0,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'geocoder',
-      'settings' => array(
-        'delta_handling' => 'default',
-        'geocoder_field' => 'field_map_address',
-        'geocoder_handler' => 'latlon',
-        'handler_settings' => array(
-          'google' => array(
-            'all_results' => 0,
-            'geometry_type' => 'point',
-            'reject_results' => array(
-              'APPROXIMATE' => 0,
-              'GEOMETRIC_CENTER' => 0,
-              'RANGE_INTERPOLATED' => 0,
-              'ROOFTOP' => 0,
-            ),
-          ),
-        ),
-      ),
-      'type' => 'geocoder',
-      'weight' => 2,
-    ),
-  );
-
   // Exported field_instance: 'fieldable_panels_pane-quick_links-field_quick_links_links'
   $field_instances['fieldable_panels_pane-quick_links-field_quick_links_links'] = array(
     'bundle' => 'quick_links',
@@ -479,63 +323,6 @@ function helm_widgets_field_default_field_instances() {
       'module' => 'link',
       'settings' => array(),
       'type' => 'link_field',
-      'weight' => -4,
-    ),
-  );
-
-  // Exported field_instance: 'fieldable_panels_pane-table-field_basic_table_table'
-  $field_instances['fieldable_panels_pane-table-field_basic_table_table'] = array(
-    'bundle' => 'table',
-    'default_value' => array(
-      0 => array(
-        'tablefield' => array(
-          'cell_0_0' => '',
-          'cell_0_1' => '',
-          'cell_1_0' => '',
-          'cell_1_1' => '',
-          'cell_2_0' => '',
-          'cell_2_1' => '',
-          'import' => array(
-            'rebuild_field_basic_table_table_0' => 'Upload CSV',
-            'tablefield_csv_field_basic_table_table_0' => '',
-          ),
-          'rebuild' => array(
-            'count_cols' => 2,
-            'count_rows' => 3,
-            'rebuild' => 'Rebuild Table',
-          ),
-        ),
-      ),
-    ),
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'hidden',
-        'module' => 'tablefield',
-        'settings' => array(),
-        'type' => 'default',
-        'weight' => 0,
-      ),
-      'triptych' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'fieldable_panels_pane',
-    'field_name' => 'field_basic_table_table',
-    'label' => 'Table',
-    'required' => 0,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 0,
-      'module' => 'tablefield',
-      'settings' => array(),
-      'type' => 'tablefield',
       'weight' => -4,
     ),
   );
@@ -666,17 +453,12 @@ function helm_widgets_field_default_field_instances() {
 
   // Translatables
   // Included for use with string extractors like potx.
-  t('Address');
   t('Caption');
   t('File');
   t('Image');
-  t('Information');
   t('Link');
   t('Links');
-  t('Location');
-  t('Table');
   t('Text');
-  t('The street address of the location you wish to map. This widget will contact Google and try to do its best to create a map!');
   t('Video');
 
   return $field_instances;
