@@ -258,7 +258,7 @@ $update_free_access = FALSE;
  *   $drupal_hash_salt = file_get_contents('/home/example/salt.txt');
  *
  */
-$drupal_hash_salt = '4fNbrakiYO-Qk2_LKPBMWoYLhSJ9WHWI_nGRh3Gw7qA';
+$drupal_hash_salt = 'LpP3XZQXB00kK5ssfzK4klrikf83Jwt8pOZS-86K160';
 
 /**
  * Base URL (optional).
@@ -531,10 +531,10 @@ $conf['404_fast_html'] = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN"
  * server response time when loading 404 error pages and prevents the 404 error
  * from being logged in the Drupal system log. In order to prevent valid pages
  * such as image styles and other generated content that may match the
- * '404_fast_html' regular expression from returning 404 errors, it is necessary
- * to add them to the '404_fast_paths_exclude' regular expression above. Make
- * sure that you understand the effects of this feature before uncommenting the
- * line below.
+ * '404_fast_paths' regular expression from returning 404 errors, it is
+ * necessary to add them to the '404_fast_paths_exclude' regular expression
+ * above. Make sure that you understand the effects of this feature before
+ * uncommenting the line below.
  */
 # drupal_fast_404();
 
@@ -589,6 +589,3 @@ $conf['404_fast_html'] = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN"
  */
 # $conf['pressflow_smart_start'] = TRUE;
 
-//$conf['google_analytics_reports_consumer_key'] = '476470788773-qrcpp5nko15d9f76m6bo62pbjqn9148n.apps.googleusercontent.com';
-//$conf['google_analytics_reports_consumer_secret'] = 'mzN4-e8GOVjJH50McrnspDvr';
-$conf['angular_media_flickrKey'] = '0a4705b25c964f6e42e00c5a02f5ff16';
