@@ -19,4 +19,3 @@ features[filter][] = html_code
 features[filter][] = plain_text
 features[user_permission][] = administer ckeditor
 features[user_permission][] = customize ckeditor
-mtime = 1426239223

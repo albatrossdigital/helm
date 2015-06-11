@@ -23,8 +23,28 @@ function helm_input_formats_filter_default_formats() {
         'status' => 1,
         'settings' => array(
           'valid_elements' => 'p,a,div,span,h2,h3,h4,h5,h6,section,article,strong,b,i,em,cite,blockquote,small,sub,sup,code,pre,ul,ol,li,dl,dt,dd,table,tbody,thead,th,tr,td,img,caption,br',
-          'valid_attributes' => 'href,src,target,width,height,colspan,span,alt,name,title,class,id,style',
+          'valid_attributes' => 'href,src,target,width,height,colspan,span,alt,name,title,class,id',
           'valid_styles' => 'text-align,float,margin',
+        ),
+      ),
+      'filter_url' => array(
+        'weight' => 0,
+        'status' => 1,
+        'settings' => array(
+          'filter_url_length' => 72,
+        ),
+      ),
+      'image_resize_filter' => array(
+        'weight' => 0,
+        'status' => 1,
+        'settings' => array(
+          'link' => 0,
+          'link_class' => '',
+          'link_rel' => '',
+          'image_locations' => array(
+            'local' => 'local',
+            'remote' => 0,
+          ),
         ),
       ),
       'filter_htmlcorrector' => array(
@@ -43,6 +63,26 @@ function helm_input_formats_filter_default_formats() {
     'status' => 1,
     'weight' => 1,
     'filters' => array(
+      'filter_url' => array(
+        'weight' => 0,
+        'status' => 1,
+        'settings' => array(
+          'filter_url_length' => 72,
+        ),
+      ),
+      'image_resize_filter' => array(
+        'weight' => 0,
+        'status' => 1,
+        'settings' => array(
+          'link' => 0,
+          'link_class' => '',
+          'link_rel' => '',
+          'image_locations' => array(
+            'local' => 'local',
+            'remote' => 0,
+          ),
+        ),
+      ),
       'filter_htmlcorrector' => array(
         'weight' => 10,
         'status' => 1,
