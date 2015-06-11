@@ -1,0 +1,116 @@
+<?php
+
+/**
+ * implementation of hook_field_schema()
+ * @param $field
+ * @return array
+ */
+function fontawesome_field_field_schema($field) {
+  $columns = array(
+    'icon' => array(
+      'description' => 'A Font Awesome icon',
+      'type' => 'varchar',
+      'length' => 30,
+      'not null' => FALSE,
+      'default' => ''
+    ),
+    'size' => array(
+      'description' => 'Icon size',
+      'type' => 'varchar',
+      'length' => 10,
+      'not null' => FALSE,
+      'default' => ''
+    ),
+    'invert' => array(
+      'description' => 'Invert icon color',
+      'type' => 'int',
+      'unsigned' => TRUE,
+      'not null' => FALSE,
+      'default' => 1,
+    ),
+    'fixed_width'  => array(
+      'description' => 'Fixed width icon',
+      'type' => 'int',
+      'unsigned' => TRUE,
+      'not null' => FALSE,
+      'default' => 1,
+    ),
+    'border'  => array(
+      'description' => 'Add border to icon',
+      'type' => 'int',
+      'unsigned' => TRUE,
+      'not null' => FALSE,
+      'default' => 1,
+    ),
+    'spinning' => array(
+      'description' => 'Spin the icon',
+      'type' => 'int',
+      'unsigned' => TRUE,
+      'not null' => FALSE,
+      'default' => 1,
+    ),
+    'rotation' => array(
+      'description' => 'Rotate the icon',
+      'type' => 'varchar',
+      'length' => 15,
+      'not null' => FALSE,
+      'default' => ''
+    ),
+    'flip_horizontal' => array(
+      'description' => 'Flip the icon horizontally',
+      'type' => 'int',
+      'unsigned' => TRUE,
+      'not null' => FALSE,
+      'default' => 0,
+    ),
+    'flip_vertical' => array(
+      'description' => 'Flip the icon vertically',
+      'type' => 'int',
+      'unsigned' => TRUE,
+      'not null' => FALSE,
+      'default' => 0,
+    ),
+    'color' => array(
+      'type' => 'varchar',
+      'length' => 7,
+      'not null' => FALSE,
+      'description' => 'Icon color',
+    ),
+  );
+
+  $indexes = array(
+    'icon' => array('icon'),
+  );
+
+  return array('columns' => $columns, 'indexes' => $indexes);
+}
+
+
+/**
+ * Adds the color column
+ */
+function fontawesome_field_update_7001(&$sandbox) {
+  foreach (field_info_fields() as $field_name => $field) {
+    if ($field['type'] != 'fontawesome_field') {
+      // Not a fontawesome field.
+      continue;
+    }
+
+    $table_name = _field_sql_storage_tablename($field);
+    $revision_table_name = _field_sql_storage_revision_tablename($field);
+
+    db_add_field($table_name, $field_name . '_color', array(
+      'type' => 'varchar',
+      'length' => 7,
+      'not null' => FALSE,
+      'description' => 'Icon color',
+    ));
+
+    db_add_field($revision_table_name, $field_name . '_color', array(
+      'type' => 'varchar',
+      'length' => 7,
+      'not null' => FALSE,
+      'description' => 'Icon color',
+    ));
+  }
+}
