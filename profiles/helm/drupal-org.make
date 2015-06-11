@@ -209,6 +209,16 @@ projects[uuid_features][download][revision] = f0e01172040c6bcc3a464c31a28eb0dd0b
 projects[uuid_features][download][branch] = 7.x-1.x
 projects[uuid_features][patch][2222727] = http://drupal.org/files/issues/uuid_features-adding-export_render_alter-call-2222727-45.patch
 
+; From Mar 13 2015
+; Sandbox module
+projects[fontawesome_field][type] = module
+projects[fontawesome_field][subdir] = "contrib"
+projects[fontawesome_field][download][type] = git
+projects[fontawesome_field][download][branch] = "7.x-1.x"
+projects[fontawesome_field][download][url] = http://git.drupal.org/sandbox/chrisrikli/2376759.git
+projects[fontawesome_field][download][revision] = 1e78ed0
+projects[fontawesome_field][patch][2477887] = https://www.drupal.org/files/issues/fontawesome_field-add-color-icon-widget-field-formatter-1.patch
+
 
 ; panels_core
 ; -----------------------------------
@@ -234,9 +244,6 @@ projects[fieldable_panels_panes][patch][2283263] = http://drupal.org/files/issue
 projects[fieldable_panels_panes][patch][2256503] = http://drupal.org/files/issues/fieldable_panels_panes-n2256503-12-backport-fpp15.patch
 projects[fieldable_panels_panes][patch][2415427] = http://drupal.org/files/issues/fieldable_panels_pane-avoid-reload-2415427-4.patch
 projects[fieldable_panels_panes][patch][2146479] = http://drupal.org/files/issues/2146479-admin-menu-map-conflict.patch
-
-; Views Magic
-
 projects[views][version] = 3.11
 projects[views][subdir] = contrib
 projects[views][patch][2037469] = http://drupal.org/files/views-exposed-sorts-2037469-1.patch
@@ -286,7 +293,8 @@ projects[features_override][subdir] = contrib
 projects[radix][version] = "3.0-rc2"
 projects[radix][subdir] = "contrib"
 
-projects[minimalist_admin][version] = "1.0-alpha5"
+// @todo: updates pending
+projects[minimalist_admin][version] = "1.0-alpha5"  
 projects[minimalist_admin][subdir] = "contrib"
 
 

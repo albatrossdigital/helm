@@ -263,7 +263,7 @@ function helm_input_formats_ckeditor_profile_defaults() {
       'settings' => array(
         'ss' => 2,
         'toolbar' => '[
-    [\'Source\',\'-\',\'Format\',\'Bold\',\'Italic\',\'-\',\'NumberedList\',\'BulletedList\',\'-\',\'Link\',\'Unlink\',\'-\',\'Image\',\'WidgetTemplateMenu\']
+    [\'Source\',\'-\',\'Paste\',\'PasteFromWord\',\'RemoveFormat\',\'Format\',\'Bold\',\'Italic\',\'-\',\'NumberedList\',\'BulletedList\',\'Outdent\',\'Indent\',\'-\',\'Link\',\'Unlink\',\'Anchor\',\'-\',\'Image\',\'WidgetTemplateMenu\']
 ]',
         'expand' => 't',
         'default' => 't',
@@ -305,6 +305,19 @@ function helm_input_formats_ckeditor_profile_defaults() {
         'theme_config_js' => 'f',
         'js_conf' => '',
         'loadPlugins' => array(
+          'angularMedia' => array(
+            'name' => 'angularMedia',
+            'desc' => 'Plugin for Angular Media Browser',
+            'path' => '%base_path%profiles/helm/modules/contrib/angular_media/plugins/angularMedia/',
+            'buttons' => FALSE,
+          ),
+          'counter' => array(
+            'name' => 'counter',
+            'desc' => 'Plugin to count symbols, symbols without blanks and words',
+            'path' => '%plugin_dir%counter/',
+            'buttons' => FALSE,
+            'default' => 'f',
+          ),
           'drupalbreaks' => array(
             'name' => 'drupalbreaks',
             'desc' => 'Plugin for inserting Drupal teaser and page breaks.',
@@ -317,29 +330,10 @@ function helm_input_formats_ckeditor_profile_defaults() {
             ),
             'default' => 't',
           ),
-          'media' => array(
-            'name' => 'media',
-            'desc' => 'Plugin for inserting images from Drupal media module',
-            'path' => '%plugin_dir%media/',
-            'buttons' => array(
-              'Media' => array(
-                'label' => 'Media',
-                'icon' => 'images/icon.gif',
-              ),
-            ),
-            'default' => 'f',
-          ),
-          'mediaBrowser' => array(
-            'name' => 'mediaBrowser',
-            'desc' => 'Media Browser for File Upload/Browsing',
-            'path' => '%base_path%profiles/soar/modules/contrib/ckeditor_media/plugins/mediaBrowser/',
-            'buttons' => FALSE,
-            'active' => 0,
-          ),
           'widgetbootstrap' => array(
             'name' => 'widgetbootstrap',
             'desc' => 'Plugin to add widgets based on Bootstrap elements',
-            'path' => '%base_path%profiles/soar/modules/custom/ckeditor_widgets/plugins/widgetbootstrap/',
+            'path' => '%base_path%profiles/helm/modules/contrib/ckeditor_widgets/plugins/widgetbootstrap/',
             'buttons' => array(
               'widgetbootstrapLeftCol' => array(
                 'icon' => 'icons/widgetbootstrapLeftCol.png',
@@ -370,7 +364,7 @@ function helm_input_formats_ckeditor_profile_defaults() {
           'widgetcommon' => array(
             'name' => 'widgetcommon',
             'desc' => 'Plugin to add common widgets',
-            'path' => '%base_path%profiles/soar/modules/custom/ckeditor_widgets/plugins/widgetcommon/',
+            'path' => '%base_path%profiles/helm/modules/contrib/ckeditor_widgets/plugins/widgetcommon/',
             'buttons' => array(
               'widgetcommonBox' => array(
                 'icon' => 'icons/widgetcommonBox.png',
@@ -385,7 +379,7 @@ function helm_input_formats_ckeditor_profile_defaults() {
           'widgettemplatemenu' => array(
             'name' => 'widgettemplatemenu',
             'desc' => 'Plugin for adding an Insert Template dropdown menu',
-            'path' => '%base_path%profiles/soar/modules/custom/ckeditor_widgets/plugins/widgettemplatemenu/',
+            'path' => '%base_path%profiles/helm/modules/contrib/ckeditor_widgets/plugins/widgettemplatemenu/',
             'buttons' => array(
               'oembed' => array(
                 'icon' => 'extraIcons/oembed.png',
