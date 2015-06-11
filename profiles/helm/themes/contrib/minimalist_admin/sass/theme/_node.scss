@@ -55,6 +55,15 @@
       position: absolute;
       top: -8rem;
       right: 0;
+
+      &.top-fixed {
+        position: fixed;
+        top: 0;
+        padding-top: 30px;
+        padding-bottom: .5em;
+        padding-left: 2em;
+        background-color: #fff;
+      }
     }
   }
 }

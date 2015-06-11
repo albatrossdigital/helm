@@ -84,6 +84,17 @@
 }
 
 
+// Make topbar float when scrolling
+// From http://stackoverflow.com/questions/19542660/how-to-fix-ckeditor-toolbar-on-the-screen
+.floatingToolbox {
+  background-color: $white !important;
+  border-bottom: 1px solid $gray-lighter !important;
+  position: fixed !important;
+  top: 29px;
+  z-index: 10000;
+}
+
+
 //*
 //* Responsive
 //* --------------------------------------------------

@@ -15,6 +15,7 @@ scripts[] = js/custom-bootstrap.min.js
 ; Theme scripts.
 ; This file is empty, just uncomment this line and start editing!
 scripts[] = js/scripts.js
+scripts[] = js/minimalist-admin.ckeditor.js
 
 
 ; Information added by Drupal.org packaging script on 2015-04-24
