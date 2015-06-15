@@ -289,6 +289,7 @@ function socialfield_field_info() {
       'instance_settings' => array(
         'used_services' => $used_services,
         'services' => $displayed_services,
+        'allow_multiple' => 0,
       ),
     ),
   );
@@ -325,6 +326,14 @@ function socialfield_field_instance_settings_form($field, $instance) {
     '#instance' => $instance,
     '#options' => $options,
   );
+
+  // Theme this part of the form as a table.
+  $form['allow_multiple'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Allow multiple links from the same service'),
+    '#default_value' => $instance['settings']['allow_multiple'],
+  );
+
   return $form;
 }
 
@@ -686,10 +695,12 @@ function socialfield_field_widget_form(&$form, &$form_state, $field, $instance, 
   // Getting services for the select list.
   $options = array_keys(variable_get('socialfield_services'));
   $options = array_combine($options, $options);
-  if (isset($instance['settings']['used_services'])) {
-    $options = $instance['settings']['used_services'];
+  if (empty($instance['settings']['allow_multiple']) || !$instance['settings']['allow_multiple']) {
+    if (isset($instance['settings']['used_services'])) {
+      $options = $instance['settings']['used_services'];
+    }
+    $options = array_diff($options, $form_state['services']);
   }
-  $options = array_diff($options, $form_state['services']);
   $options = array_map('ucfirst', $options);
 
   // Select for adding new element (service and url) to form. Done with Ajax Forms.
