@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Template for Helm Civic Home.
+ * Template for Helm Complex.
  *
  * Variables:
  * - $css_id: An optional CSS id to use for the layout.
@@ -15,9 +15,9 @@
   </div>
 <?php endif; ?>
 
-<div class="panel-display helm-home-page clearfix <?php if (!empty($classes)) { print $classes; } ?><?php if (!empty($class)) { print $class; } ?>" <?php if (!empty($css_id)) { print "id=\"$css_id\""; } ?>>
+<div class="panel-display helm-complex clearfix <?php if (!empty($classes)) { print $classes; } ?><?php if (!empty($class)) { print $class; } ?>" <?php if (!empty($css_id)) { print "id=\"$css_id\""; } ?>>
   <?php if (!empty($content['topleft']) || !empty($content['topright'])): ?>
-    <div class="layout-top layout-header-bg" style="background-image:url('<?php print $header_image; ?>');"><div class="false-container"><div class="row">
+    <div class="layout-top layout-header-bg"><div class="false-container"><div class="row">
       <?php if (!empty($content['topleft'])): ?>
         <div class="col-md-6 home-top-left panel-panel">
           <div class="panel-panel-inner">
@@ -128,4 +128,4 @@
       </div>
     </div></div></div>
   <?php endif; ?>
-</div><!-- /.home-page -->
+</div><!-- /.complex -->

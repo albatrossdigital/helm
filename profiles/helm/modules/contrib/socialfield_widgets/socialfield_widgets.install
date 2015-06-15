@@ -25,7 +25,7 @@ function socialfield_widgets_install() {
         break;
 
       default:
-         $data['icon'] .= ' fa fa-' . $key;
+        $data['icon'] .= ' fa fa-' . $key;
     }
    
   }

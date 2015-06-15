@@ -218,20 +218,21 @@ function socialfield_widgets_field_formatter_view($entity_type, $entity, $field,
   $element = array();
   $settings = $display['settings'];
     
-  
-    
   switch ($display['type']) {
     case 'socialfield_twitter':
 
       $ids = array();
       foreach ($items as $delta => $item) {
+
         if ($item['service'] === 'twitter') {
           $ids[] = str_replace(array('http://', 'https://', 'www.'), '', preg_replace('*twitter.com\/*', '$1', $item['url']));
         }
       }
       if (count($ids)) {
         $settings['screen_name'] = implode(',', $ids);
-        $element[0] = theme('socialfield_twitter_feed', $settings);
+        $element[0] = array(
+          '#markup' => theme('socialfield_twitter_feed', $settings)
+        );
       }
         
       break;
@@ -246,14 +247,14 @@ function socialfield_widgets_field_formatter_view($entity_type, $entity, $field,
       }
       if (count($ids)) {
         $settings['href'] = $ids[0]; // We can only have one FB account, so we choose the first one
-        $element[0] = theme('socialfield_facebook_likebox', $settings);
+        $element[0] = array(
+          '#markup' => theme('socialfield_facebook_likebox', $settings)
+        );
       }
       
       break;
 
   } // foreach
-dpm($element);
-dpm($display['type']);
   return $element;
 }
 
