@@ -23,9 +23,9 @@ body.front {
 // Panels layout
 .helm-home-page {
   .layout-header-bg {
-    height: 200px;
     background-repeat: no-repeat;
     background-size: cover;
+    background-position: center;
     position: relative;
   }
 
@@ -90,6 +90,14 @@ body.front {
 // * Media Queries
 // *
 // ******************************************************
+
+@include respond($xs-only) {
+  .helm-home-page {
+    .layout-header-bg {
+      background-image: none!important;
+    }
+  }
+}
 
 @include respond($sm-up) {
 

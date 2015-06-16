@@ -7090,9 +7090,9 @@ body.front .footer {
   margin-top: 0 !important; }
 
 .helm-home-page .layout-header-bg {
-  height: 200px;
   background-repeat: no-repeat;
   background-size: cover;
+  background-position: center;
   position: relative; }
 .helm-home-page .home-top-left {
   background: #2196F3;
@@ -7116,6 +7116,11 @@ body.front .footer {
   margin-top: 30px; }
   .helm-home-page .layout-quad .panel-pane {
     margin-top: 20px; }
+
+@media screen and (max-width: 767px) {
+  .helm-home-page .layout-header-bg {
+    background-image: none !important; }
+ }
 
 @media screen and (min-width: 768px) {
   body.front #content {
