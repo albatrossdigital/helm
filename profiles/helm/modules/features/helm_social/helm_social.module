@@ -5,3 +5,22 @@
  */
 
 include_once 'helm_social.features.inc';
+
+
+/** 
+ * Implementation of hook_entity_info_alter().
+ */
+function helm_social_display_entity_info_alter(&$entity_info) {
+  // Example Widget.
+  $entity_info['fieldable_panels_pane']['bundles']['social_feed'] = array(
+    'label' => t('Social Network Feed'),
+    'pane category' => t('Social'),
+    'pane top level' => TRUE,
+    'admin' => array(
+      'path' => 'admin/structure/fieldable-panels-panes/manage/%fieldable_panels_panes_type',
+      'bundle argument' => 4,
+      'real path' => 'admin/structure/fieldable-panels-panes/manage/social_feed',
+      'access arguments' => array('administer fieldable panels panes'),
+    ),
+  );
+}
