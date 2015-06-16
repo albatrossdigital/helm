@@ -7082,6 +7082,8 @@ h1, h2, h3, h4, h5, h6, p, .field-name-body, .field-name-field-date, a, .views-f
 
 body.front .breadcrumb, body.front .page-header {
   display: none; }
+body.front .page-header ~ .tabs {
+  margin-top: 20px; }
 body.front #content {
   width: 100%; }
 body.front .footer {

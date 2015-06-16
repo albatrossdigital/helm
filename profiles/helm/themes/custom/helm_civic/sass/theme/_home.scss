@@ -4,10 +4,14 @@ body.front {
     display: none;
   }
 
+  .page-header ~ .tabs {
+    margin-top: 20px;
+  }
+
   #content {
     width: 100%;
   }
-  
+
   // Footer
   // ------------------------
 
