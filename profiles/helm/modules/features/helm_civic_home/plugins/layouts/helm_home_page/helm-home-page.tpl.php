@@ -129,8 +129,8 @@
     </div></div></div>
   <?php endif; ?>
   <?php if (!empty($content['bottom_banner'])): ?>
-    <div class="layout-bottom-banner"><div class="row">
+    <div class="layout-bottom-banner">
       <?php print $content['bottom_banner']; ?>
-    </div></div>
+    </div>
   <?php endif; ?>
 </div><!-- /.home-page -->
