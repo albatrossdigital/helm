@@ -69,7 +69,7 @@
       <?php endif; ?>
     </div></div></div>
   <?php endif; ?>
-  <?php if (!empty($content['lowerleft']) || !empty($content['lowerright'])): ?>
+  <?php if (!(empty($content['lowerleft']) && empty($content['lowerright']))): ?>
     <div class="layout-lower"><div class="false-container"><div class="row paper">
       <?php if (!empty($content['lowerleft'])): ?>
         <div class="col-md-6 home-lower-left panel-panel">
@@ -120,7 +120,7 @@
       </div></div></div>
     <?php endif; ?>
     <?php if (!empty($content['bottom'])): ?>
-    <div class="layout-bottom"><div class="false-container"><div class="row">
+    <div class="layout-bottom"><div class="false-container"><div class="row paper">
       <div class="col-md-12 home-bottom panel-panel">
         <div class="panel-panel-inner">
           <?php print $content['bottom']; ?>
@@ -129,7 +129,7 @@
     </div></div></div>
   <?php endif; ?>
   <?php if (!empty($content['bottom_banner'])): ?>
-    <div class="layout-bottom-banner"><div class="row">
+    <div class="layout-bottom-banner"><div class="">
       <?php print $content['bottom_banner']; ?>
     </div></div>
   <?php endif; ?>
