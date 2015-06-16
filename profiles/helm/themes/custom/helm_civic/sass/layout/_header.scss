@@ -22,6 +22,11 @@
 
 img.logo {
   margin-bottom: 0;
+
+  .header & {
+    max-height: 40px;
+    width: auto;
+  }
 }
 
 #site-name {

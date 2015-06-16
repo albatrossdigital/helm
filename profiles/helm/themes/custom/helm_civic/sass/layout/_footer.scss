@@ -4,8 +4,25 @@
 .footer {
   border-top: 1px solid $gray-lighter;
   padding-top: 20px;
+  background: $gray-dark;
+
+  &, h1, h2 ,h3, h4, h5 {
+    color: $gray-lightest; 
+  }
 
   .block {
     margin-bottom: 35px;
+  }
+
+  // .pane-page-logo {
+  //   text-align: center;
+  // }
+
+  h1 {
+    font-size: 30px;
+  }
+
+  .nav li { 
+    float: left;
   }
 }

@@ -5166,6 +5166,9 @@ button.close {
 
 img.logo {
   margin-bottom: 0; }
+  .header img.logo {
+    max-height: 40px;
+    width: auto; }
 
 #site-name {
   line-height: 32px; }
@@ -5188,9 +5191,16 @@ img.logo {
 
 .footer {
   border-top: 1px solid #eeeeee;
-  padding-top: 20px; }
+  padding-top: 20px;
+  background: #333333; }
+  .footer, .footer h1, .footer h2, .footer h3, .footer h4, .footer h5 {
+    color: #FAFAFA; }
   .footer .block {
     margin-bottom: 35px; }
+  .footer h1 {
+    font-size: 30px; }
+  .footer .nav li {
+    float: left; }
 
 [class^="fa-"], .draggable a.tabledrag-handle:before {
   display: inline-block;
@@ -6725,6 +6735,9 @@ img.logo {
     clear: left; }
  }
 
+iframe {
+  border: 0; }
+
 img {
   max-width: 100%;
   height: auto;
@@ -7071,6 +7084,8 @@ body.front .breadcrumb, body.front .page-header {
   display: none; }
 body.front #content {
   width: 100%; }
+body.front .footer {
+  margin-top: 0 !important; }
 
 .helm-home-page .layout-header-bg {
   height: 200px;
