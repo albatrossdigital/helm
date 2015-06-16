@@ -6,7 +6,7 @@ $plugin = array(
   'category' => t('Helm'),
   'theme' => 'helm_home_page',
   'regions' => array(
-    'abovetop' => t('Above Page'),
+    //'abovetop' => t('Above Page'),
     'topleft' => t('Top Left'),
     'topright' => t('Top Right'),
     'contentmain' => t('Content'),
@@ -20,5 +20,6 @@ $plugin = array(
     'quad3' => t('Quadriptych 3'),
     'quad4' => t('Quadriptych 4'),
     'bottom' => t('Bottom'),
+    'bottom_banner' => t('Bottom banner'),
   ),
 );
