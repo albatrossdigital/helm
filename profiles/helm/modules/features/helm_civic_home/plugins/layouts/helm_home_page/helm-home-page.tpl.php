@@ -130,7 +130,7 @@
   <?php endif; ?>
   <?php if (!empty($content['bottom_banner'])): ?>
     <div class="layout-bottom-banner"><div class="row">
-      <?php print $content['bottom']; ?>
+      <?php print $content['bottom_banner']; ?>
     </div></div>
   <?php endif; ?>
 </div><!-- /.home-page -->
