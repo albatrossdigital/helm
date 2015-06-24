@@ -15,7 +15,7 @@
   </div>
 <?php endif; ?>
 
-<div class="panel-display helm-home-page clearfix container <?php if (!empty($classes)) { print $classes; } ?><?php if (!empty($class)) { print $class; } ?>" <?php if (!empty($css_id)) { print "id=\"$css_id\""; } ?>>
+<div class="panel-display helm-home-page clearfix <?php if (!empty($classes)) { print $classes; } ?><?php if (!empty($class)) { print $class; } ?>" <?php if (!empty($css_id)) { print "id=\"$css_id\""; } ?>>
   <?php if (!empty($content['topleft']) || !empty($content['topright'])): ?>
     <div class="layout-top layout-header-bg" style="background-image:url('<?php print $header_image; ?>');"><div class="false-container"><div class="row">
       <?php if (!empty($content['topleft'])): ?>
