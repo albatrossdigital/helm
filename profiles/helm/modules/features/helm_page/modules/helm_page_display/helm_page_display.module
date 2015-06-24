@@ -36,7 +36,7 @@ function helm_page_display_entity_edit_form_alter(&$form, &$form_state, $form_id
 function helm_page_display_theme() {
   return array(
     'helm_leveled_menu_block' => array(
-      'template' => 'templates/soar-leveled-menu-block',
+      'template' => 'templates/helm-leveled-menu-block',
       'variables' => array()
     ),
     'menu_tree__nav_stacked' => array(
