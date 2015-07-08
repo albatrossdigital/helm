@@ -36,7 +36,7 @@ function helm_page_display_entity_edit_form_alter(&$form, &$form_state, $form_id
 function helm_page_display_theme() {
   return array(
     'helm_leveled_menu_block' => array(
-      'template' => 'templates/soar-leveled-menu-block',
+      'template' => 'templates/helm-leveled-menu-block',
       'variables' => array()
     ),
     'menu_tree__nav_stacked' => array(
@@ -67,7 +67,7 @@ function _helm_page_display_child_menu_back_button($menu_item) {
   foreach ($set_zero as  $value) {
     $menu_item['#original_link'][$value] = 0;
   }
-  $menu_item['#title'] = 'Back';
+  $menu_item['#title'] = variable_get('helm_page_menu_back_label', t('Back'));
 
   return $menu_item;
 }
@@ -99,7 +99,13 @@ function _helm_page_display_child_menu_recurse($current_menu, &$menus, &$active,
       }
       // active item, record level
       if(!empty($value['#attributes']) && in_array('active', $value['#attributes']['class'])) {
-        $active = ($children) ? $value['#original_link']['depth'] + 1 : $value['#original_link']['depth'];
+        if($children) {
+          $active = $value['#original_link']['depth'] + 1;
+          $menus[$menu_level][$key]['#attributes']['data-menu-forward'] = $value['#original_link']['depth'] + 1;
+        }
+        else {
+          $active = $value['#original_link']['depth'];
+        }
       }
       // we have children, so recurse
       if($children) {

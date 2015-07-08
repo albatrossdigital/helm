@@ -15,8 +15,8 @@
   float: left;
 }
 
-[data-menu-back] a:before {
-  content: "\f104";
+[data-menu-back] a:before,
+[data-menu-forward] a:after {
   display: inline-block;
   font-family: FontAwesome;
   font-style: normal;
@@ -24,7 +24,17 @@
   line-height: 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+
+[data-menu-back] a:before {
+  content: "\f104";
   margin-right: 0.3em;
+}
+
+[data-menu-forward] a:after {
+  content: "\f105";
+  margin-left: 0.3em;
 }
 
 .level-1-active {
