@@ -98,15 +98,18 @@ function _helm_page_display_child_menu_recurse($current_menu, &$menus, &$active,
         $parent = menu_link_load($value['#original_link']['plid']);
       }
       // active item, record level
-      if(!empty($value['#attributes']) && in_array('active', $value['#attributes']['class'])) {
-        if($children) {
-          $active = $value['#original_link']['depth'] + 1;
+      if(!empty($value['#attributes'])) {
+        if(in_array('active', $value['#attributes']['class'])) {
+          $active = ($children) 
+                ? $value['#original_link']['depth'] + 1
+                : $value['#original_link']['depth'];
+        }
+        // Active trail so add a link
+        if($children && in_array('active-trail', $value['#attributes']['class'])) {
           $menus[$menu_level][$key]['#attributes']['data-menu-forward'] = $value['#original_link']['depth'] + 1;
         }
-        else {
-          $active = $value['#original_link']['depth'];
-        }
       }
+        
       // we have children, so recurse
       if($children) {
         _helm_page_display_child_menu_recurse($value['#below'], $menus, $active, $value);
