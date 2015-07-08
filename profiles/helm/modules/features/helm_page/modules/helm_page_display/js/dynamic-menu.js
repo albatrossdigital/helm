@@ -1,7 +1,7 @@
 
 (function ($) {
 
-Drupal.behaviors.facetapi = {
+Drupal.behaviors.dynamic_menu = {
   attach: function(context, settings) {
 
     function menuClick($self, selector, e) {

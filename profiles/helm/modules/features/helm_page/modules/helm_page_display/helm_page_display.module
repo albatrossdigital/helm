@@ -153,8 +153,8 @@ function helm_page_display_preprocess_menu_block_wrapper(&$vars) {
 
     // Add resources
     $path = drupal_get_path('module', 'helm_page_display');
-    drupal_add_css($path . '/css/soar-dynamic-menu.css');
-    drupal_add_js($path . '/js/soar-dynamic-menu.js');
+    drupal_add_css($path . '/css/dynamic-menu.css');
+    drupal_add_js($path . '/js/dynamic-menu.js');
 
     // Set variables
     $menus = array();
